@@ -61,7 +61,7 @@ A third component, a code block, can be interleaved within the prose section to 
 
 ##### Front-matter
 
-The front matter of a Quarto document appears, well, at the front of the document (or the top, rather). Referring back to Figure \@ref(fig:image-quarto-preview) we see the front matter at the top.
+The front matter of a Quarto document appears, well, at the front of the document (or the top, rather). Referring back to Figure @fig-image-quarto-preview, we see the front matter at the top.
 
 ```yaml
 ---
@@ -145,7 +145,7 @@ We have only mentioned selecting the coding language and labeling the code block
 
 #### Create and render a Quarto document
 
-The easiest and most efficient way to create a Quarto source file is to use the RStudio point-and-click interface. Just use the toolbar to create a new file and select "Quarto Document...", as seen in Figure \@ref(fig:image-quarto-create-1).
+The easiest and most efficient way to create a Quarto source file is to use the RStudio point-and-click interface. Just use the toolbar to create a new file and select "Quarto Document...", as seen in @fig-image-quarto-create-1.
 
 ```{r}
 #| label: fig-image-quarto-create-1
