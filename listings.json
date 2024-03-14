@@ -1,0 +1,15 @@
+[
+  {
+    "listing": "/recipes/index.html",
+    "items": [
+      "/recipes/recipe-00/index.html",
+      "/recipes/recipe-01/index.html"
+    ]
+  },
+  {
+    "listing": "/guides/index.html",
+    "items": [
+      "/guides/guide-00/index.html"
+    ]
+  }
+]
