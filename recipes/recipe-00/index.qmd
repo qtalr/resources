@@ -1,0 +1,27 @@
+---
+title: "1. Literate Programming"
+subtitle: "A simple subtitle to fill the space."
+description: |
+  In this recipe, we will learn how to create a simple literate programming document using Quarto in RStudio. You will be introduced to the basic syntax of Quarto and learn how generate HTML and PDF output formats.
+categories: [preface]
+---
+
+
+```{r}
+#| label: setup-options
+#| child: "../_common.qmd"
+#| cache: false
+```
+
+## Hello world
+
+This is a simple example of a literate programming document. It is written in R Markdown and uses the `webexercises` package to create interactive exercises.
+
+![](r_logo.png)
+
+### You are cool!
+
+
+## You are cool, too.
+
+1. `r torf(TRUE)` This is a lot of fun.

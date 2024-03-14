@@ -1,0 +1,15 @@
+{
+  "hash": "672391ed2556f1f4a18f77fbcd199bdc",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"1. Literate Programming\"\nsubtitle: \"A simple subtitle to fill the space.\"\ndescription: |\n  In this recipe, we will learn how to create a simple literate programming document using Quarto in RStudio. You will be introduced to the basic syntax of Quarto and learn how generate HTML and PDF output formats.\ncategories: [preface]\n---\n\n\n\n\n\n## Hello world\n\nThis is a simple example of a literate programming document. It is written in R Markdown and uses the `webexercises` package to create interactive exercises.\n\n![](r_logo.png)\n\n### You are cool!\n\n\n## You are cool, too.\n\n1. <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select> This is a lot of fun.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

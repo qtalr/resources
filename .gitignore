@@ -1,0 +1,4 @@
+/_site/
+/.quarto/
+*code-workspace
+webexercises.qmd

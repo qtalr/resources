@@ -1,0 +1,49 @@
+# Project ------------------------------
+project:
+  type: website
+  preview:
+    port: 3210
+
+# Website ------------------------------
+website:
+  title: "Quantitative Text Analysis: Resources"
+  repo-url: https://github.com
+  repo-actions: [edit, issue]
+  repo-link-target: "_blank"
+  navbar:
+    background: secondary
+    foreground: light
+    search: true
+    left:
+      - file: index.qmd
+      - file: recipes/index.qmd
+      - file: guides/index.qmd
+    right:
+      - file: instructors.qmd
+      - icon: github
+        href: https://github.com
+
+  page-footer:
+    left: "Developed by Jerid Francom"
+
+# Formats ------------------------------
+format:
+  html:
+    theme: flatly
+    css:
+    - assets/styles.css
+    - include/webex.css
+    toc: true
+    include-after-body: include/webex.js
+
+# Pandoc ------------------------------
+execute:
+  freeze: auto
+  warning: false
+  message: false
+
+# Engine ------------------------------
+knitr:
+  opts_chunk:
+    comment: ">"
+    out.width: NULL

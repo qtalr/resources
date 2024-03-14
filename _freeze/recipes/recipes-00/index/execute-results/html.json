@@ -1,0 +1,15 @@
+{
+  "hash": "c150875ee3807562c7827b70834148b1",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"1. Literate Programming\"\nsubtitle: \"A simple subtitle to fill the space.\"\ncategories: [preface]\n---\n\n\n\n\n## Hello world\n\n\n### You are cool!\n\n\n## You are cool, too.\n\n1. <select class='webex-select'><option value='blank'></option><option value='answer'>TRUE</option><option value=''>FALSE</option></select> This is a lot of fun.\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

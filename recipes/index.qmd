@@ -1,0 +1,11 @@
+---
+title: "Recipes"
+listing:
+  contents: ./
+  type: default
+  sort: "title"
+  image-align: left
+  image-height: 100px
+  fields: [image, title, subtitle, description, word-count, reading-time]
+---
+
