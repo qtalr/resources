@@ -7,7 +7,7 @@ project:
 # Website ------------------------------
 website:
   title: "Quantitative Text Analysis: Resources"
-  repo-url: https://github.com
+  repo-url: https://github.com/qtalr/resources
   repo-actions: [edit, issue]
   repo-link-target: "_blank"
   navbar:
@@ -21,7 +21,7 @@ website:
     right:
       - file: instructors.qmd
       - icon: github
-        href: https://github.com
+        href: https://github.com/qtalr/resources
 
   page-footer:
     left: "Developed by Jerid Francom"
