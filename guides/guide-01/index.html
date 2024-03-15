@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="In this guide, we will explore options for setting up an R environment. We will discuss local, remote, and virtual environments. Each have their own advantages and shortcomings. The best option for you will depend on your needs and preferences.">
 
-<title>Quantitative Text Analysis: Resources - Recipes</title>
+<title>Quantitative Text Analysis: Resources - 1. Setting up an R environment</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +24,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,68 +67,10 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-subtitle','listing-description','listing-word-count','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../assets/styles.css">
-<link rel="stylesheet" href="../include/webex.css">
+<link rel="stylesheet" href="../../assets/styles.css">
+<link rel="stylesheet" href="../../include/webex.css">
 </head>
 
 <body class="nav-fixed">
@@ -139,7 +80,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Quantitative Text Analysis: Resources</span>
     </a>
   </div>
@@ -150,21 +91,21 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../recipes/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../recipes/index.html"> 
 <span class="menu-text">Recipes</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../guides/index.html"> 
+    <a class="nav-link" href="../../guides/index.html"> 
 <span class="menu-text">Guides</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../instructors.html"> 
+    <a class="nav-link" href="../../instructors.html"> 
 <span class="menu-text">Instructors</span></a>
   </li>  
   <li class="nav-item compact">
@@ -184,16 +125,37 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#environment-setups" id="toc-environment-setups" class="nav-link active" data-scroll-target="#environment-setups">Environment setups</a>
+  <ul class="collapse">
+  <li><a href="#local-environments" id="toc-local-environments" class="nav-link" data-scroll-target="#local-environments">Local environments</a></li>
+  <li><a href="#remote-environments" id="toc-remote-environments" class="nav-link" data-scroll-target="#remote-environments">Remote environments</a></li>
+  <li><a href="#virtual-environments" id="toc-virtual-environments" class="nav-link" data-scroll-target="#virtual-environments">Virtual environments</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/qtalr/resources/edit/main/guides/guide-01/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Recipes</h1>
-</div>
+<h1 class="title">1. Setting up an R environment</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">guides</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    <p>In this guide, we will explore options for setting up an R environment. We will discuss local, remote, and virtual environments. Each have their own advantages and shortcomings. The best option for you will depend on your needs and preferences.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -208,353 +170,127 @@ window.Quarto = {
 </header>
 
 
+<section id="environment-setups" class="level2">
+<h2 class="anchored" data-anchor-id="environment-setups">Environment setups</h2>
+<section id="local-environments" class="level3">
+<h3 class="anchored" data-anchor-id="local-environments">Local environments</h3>
+<p>Choosing to work with R locally means that you will install R and an IDE on your local computer. This approach offers the following advantages:</p>
+<ul>
+<li>Fast and responsive performance</li>
+<li>No reliance on internet connectivity</li>
+<li>Flexibility to customize your environment</li>
+</ul>
+<p>The main disadvantages of working locally are:</p>
+<ul>
+<li>you will need to install R and an IDE on your local computer,</li>
+<li>manage your own software environment, and</li>
+<li>manage your own backups and version control for collaborative projects.</li>
+</ul>
+<p>This can be a challenge for new users, but there are a number of resources available to help you get started and troubleshoot any issues you may encounter.</p>
+<p>To get started, install R from <a href="https://cran.r-project.org/">CRAN</a>. You can download the latest version of R for your operating system <a href="https://cran.r-project.org/mirrors.html">here</a>. Once you have installed R, you will need to install an IDE. For complete beginners, I recommend <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>, a free and open-source IDE for R. RStudio provides a number of features that make it easier to work with R. If you are new to R, but have experience with other programming languages, you may prefer to use a more general-purpose IDE such as <a href="https://code.visualstudio.com/">VS Code</a>.</p>
+</section>
+<section id="remote-environments" class="level3">
+<h3 class="anchored" data-anchor-id="remote-environments">Remote environments</h3>
+<p>You can also choose to work with R in the cloud, a <strong>remote environment</strong>. There are a number of cloud-based options for working with R, including <a href="https://posit.co/products/cloud/cloud/">Posit Cloud</a> and <a href="https://learn.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide">Microsoft Azure</a>. These options provide a pre-configured R environment that you can access from any computer with an internet connection.</p>
+<p>Posit Cloud provides an environment where you can create, edit, and run R projects from anywhere with internet access. It offers several advantages:</p>
+<ul>
+<li>No need to install R or RStudio locally</li>
+<li>Access your projects from any device</li>
+<li>Collaborate with others in real-time</li>
+<li>Easily share your work</li>
+</ul>
+<p>Some of the drawbacks of working in the cloud include:</p>
+<ul>
+<li>Reliance on stable internet connection</li>
+<li>Potential latency and performance issues</li>
+<li>Limited customization options compared to a local setup</li>
+</ul>
+<p>To get started with Posit Cloud, you will need to create an account. You can sign up for a free account <a href="https://posit.co/products/cloud/cloud/">here</a>. Once you have created an account, you will see a list of spaces. By default you will have your personal workspace, but you can also join or be invited to other spaces.</p>
+<p>Visit the <a href="https://posit.cloud/learn/guide">Guide</a> documentation to learn more about the features of Posit Cloud.</p>
+</section>
+<section id="virtual-environments" class="level3">
+<h3 class="anchored" data-anchor-id="virtual-environments">Virtual environments</h3>
+<p>If you are new to R, you may want to consider working in the cloud to get started. If you plan to continue to work with R in the future, you will most likely want to install R and an IDE on your local computer or explore using a <strong>virtual environment</strong>. Virtual environments, such as <a href="https://www.docker.com/">Docker</a>, provide a way to use a pre-configured computing environment or create your own that you can share with others. Virtual environments are a good option if you want to ensure that everyone in your research group is working with the same computing environment. Pre-configured virtual environments exist for R through the <a href="https://rocker-project.org/">Rocker project</a> and can be used locally or in the cloud.</p>
+<p>Using Docker with Rocker offers several benefits:</p>
+<ul>
+<li>Reproducible environments</li>
+<li>Simplified dependency management</li>
+<li>Easy deployment and scaling</li>
+</ul>
+<p>The drawbacks to using Docker with Rocker include:</p>
+<ul>
+<li>Learning curve for setting up and managing Docker containers</li>
+<li>Increased memory and resource requirements</li>
+<li>Potential compatibility issues with certain packages or libraries</li>
+</ul>
+<p>To start using Docker with Rocker, follow these steps:</p>
+<ol type="1">
+<li><p>Install <a href="https://www.docker.com/get-started">Docker</a> on your local machine</p></li>
+<li><p>Pull the desired Rocker image from <a href="https://hub.docker.com/u/rocker/">Docker Hub</a></p>
+<pre><code>docker pull rocker/rstudio</code></pre></li>
+<li><p>Run a container using the pulled image</p>
+<pre><code>docker run -d -p 8787:8787 -e PASSWORD=your_password --name rstudio_container rocker/rstudio</code></pre></li>
+<li><p>Access RStudio in your browser at <code>http://localhost:8787</code> and log in with username <code>rstudio</code> and the password you set</p></li>
+</ol>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this guide, we have discussed strategies for working with R. All three options offer unique advantages. In <a href="#tbl-env-comparison" class="quarto-xref">Table&nbsp;1</a>, we summarize some of the characteristics, benefits, and drawbacks of each option.</p>
+<div id="tbl-env-comparison" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-env-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Comparison of different environments for working with R and RStudio
+</figcaption>
+<div aria-describedby="tbl-env-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 30%">
+<col style="width: 30%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Environment</th>
+<th>Characteristics</th>
+<th>Benefits</th>
+<th>Drawbacks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Local (Computer)</td>
+<td>- R/RStudio installed locally<br>- Project files stored on local machine<br>- Accessible without internet connection<br>- Full control over software version and environment</td>
+<td>- Fast and responsive performance<br>- No reliance on internet connectivity<br>- Ability to work offline<br>- Complete control over software version and environment</td>
+<td>- Limited collaboration options<br>- Difficulty in sharing projects with others<br>- Potential compatibility issues with different operating systems</td>
+</tr>
+<tr class="even">
+<td>Remote (Cloud)</td>
+<td>- R/RStudio accessed via web browser<br>- Project files stored on cloud server<br>- Accessible from any device with internet connection<br>- Easy collaboration with others<br>- Automatic backups and version control</td>
+<td>- No need for local installation or setup<br>- Easy access from anywhere<br>- Seamless collaboration with teammates<br>- Backup and version control provided by the cloud service</td>
+<td>- Reliance on stable internet connection<br>- Potential latency and performance issues<br>- Limited customization options compared to a local setup</td>
+</tr>
+<tr class="odd">
+<td>Virtual (Docker)</td>
+<td>- R/RStudio environment encapsulated in a Docker container<br>- Project files stored locally or on the cloud<br>- Consistent environment across different machines</td>
+<td>- Reproducible and portable environment<br>- Easy setup and sharing of the container<br>- Flexibility to run on different operating systems<br>- Isolation from host system dependencies</td>
+<td>- Learning curve for setting up and managing Docker containers<br>- Increased memory and resource requirements<br>- Potential compatibility issues with certain packages or libraries</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Give them a try and see which one works best for your needs! Remember, you can always switch between different environments as your needs change.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-left" data-index="0" data-categories="preface" data-listing-file-modified-sort="1710380408417" data-listing-reading-time-sort="8" data-listing-word-count-sort="1430">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-00/index.html" class="no-external"></a></p><a href="../recipes/recipe-00/index.html" class="no-external">
-<p class="card-img-top"><img src="recipe-00/images/quarto-preview.png" alt="An image with two document views. On the left is Quarto source code and on the right is Quarto HTML output." style="height: 100px;"  class="thumbnail-image card-img"/></p>
-</a><p><a href="../recipes/recipe-00/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-00/index.html" class="no-external">0. Literate Programming</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-00/index.html" class="no-external">An introduction to Quarto</a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-00/index.html" class="no-external">In this recipe, we will introduce the concept of Literate Programming and describe how to implement this concept through Quarto. I will provide a demonstration of some of the features of Quarto and describe the main structural characteristics of a Quarto document to help you get off and running writing your own documents that combine code and prose. </a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-00/index.html" class="no-external"></a></p><a href="../recipes/recipe-00/index.html" class="no-external">
-<div class="listing-reading-time">
-8 min
-</div>
-<div class="metadata-value listing-word-count">
-1,430 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="1" data-categories="orientation" data-listing-file-modified-sort="1710509627943" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-01/index.html" class="no-external"></a></p><a href="../recipes/recipe-01/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-01/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-01/index.html" class="no-external">1. …</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-01/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-01/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-01/index.html" class="no-external"></a></p><a href="../recipes/recipe-01/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="2" data-categories="recipes" data-listing-file-modified-sort="1710508584974" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-02/index.html" class="no-external"></a></p><a href="../recipes/recipe-02/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-02/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-02/index.html" class="no-external">Recipe 02</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-02/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-02/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-02/index.html" class="no-external"></a></p><a href="../recipes/recipe-02/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="3" data-categories="recipes" data-listing-file-modified-sort="1710508585015" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-03/index.html" class="no-external"></a></p><a href="../recipes/recipe-03/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-03/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-03/index.html" class="no-external">Recipe 03</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-03/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-03/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-03/index.html" class="no-external"></a></p><a href="../recipes/recipe-03/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="4" data-categories="recipes" data-listing-file-modified-sort="1710508585053" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-04/index.html" class="no-external"></a></p><a href="../recipes/recipe-04/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-04/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-04/index.html" class="no-external">Recipe 04</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-04/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-04/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-04/index.html" class="no-external"></a></p><a href="../recipes/recipe-04/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="5" data-categories="recipes" data-listing-file-modified-sort="1710508585093" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-05/index.html" class="no-external"></a></p><a href="../recipes/recipe-05/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-05/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-05/index.html" class="no-external">Recipe 05</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-05/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-05/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-05/index.html" class="no-external"></a></p><a href="../recipes/recipe-05/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="6" data-categories="recipes" data-listing-file-modified-sort="1710508585135" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-06/index.html" class="no-external"></a></p><a href="../recipes/recipe-06/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-06/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-06/index.html" class="no-external">Recipe 06</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-06/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-06/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-06/index.html" class="no-external"></a></p><a href="../recipes/recipe-06/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="7" data-categories="recipes" data-listing-file-modified-sort="1710508585176" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-07/index.html" class="no-external"></a></p><a href="../recipes/recipe-07/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-07/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-07/index.html" class="no-external">Recipe 07</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-07/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-07/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-07/index.html" class="no-external"></a></p><a href="../recipes/recipe-07/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="8" data-categories="recipes" data-listing-file-modified-sort="1710508585215" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-08/index.html" class="no-external"></a></p><a href="../recipes/recipe-08/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-08/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-08/index.html" class="no-external">Recipe 08</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-08/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-08/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-08/index.html" class="no-external"></a></p><a href="../recipes/recipe-08/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="9" data-categories="recipes" data-listing-file-modified-sort="1710508585254" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-09/index.html" class="no-external"></a></p><a href="../recipes/recipe-09/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-09/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-09/index.html" class="no-external">Recipe 09</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-09/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-09/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-09/index.html" class="no-external"></a></p><a href="../recipes/recipe-09/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="10" data-categories="recipes" data-listing-file-modified-sort="1710508585294" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-10/index.html" class="no-external"></a></p><a href="../recipes/recipe-10/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-10/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-10/index.html" class="no-external">Recipe 10</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-10/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-10/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-10/index.html" class="no-external"></a></p><a href="../recipes/recipe-10/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-left" data-index="11" data-categories="recipes" data-listing-file-modified-sort="1710508585335" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<div class="thumbnail">
-<p><a href="../recipes/recipe-11/index.html" class="no-external"></a></p><a href="../recipes/recipe-11/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" style="height: 100px;">&nbsp;</div>
-</a><p><a href="../recipes/recipe-11/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="../recipes/recipe-11/index.html" class="no-external">Recipe 11</a>
-</h3>
-<div class="listing-subtitle">
-<a href="../recipes/recipe-11/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="../recipes/recipe-11/index.html" class="no-external">Hello.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="../recipes/recipe-11/index.html" class="no-external"></a></p><a href="../recipes/recipe-11/index.html" class="no-external">
-<div class="listing-reading-time">
-1 min
-</div>
-<div class="metadata-value listing-word-count">
-1 words
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -1178,7 +914,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/qtalr/resources/edit/main/recipes/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/qtalr/resources/edit/main/guides/guide-01/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

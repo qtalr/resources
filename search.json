@@ -1,24 +1,73 @@
 [
   {
-    "objectID": "instructors.html#materials",
-    "href": "instructors.html#materials",
-    "title": "Instructors",
-    "section": "Materials",
-    "text": "Materials\n\nSlide decks\n\n\nExercises"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "About",
+    "objectID": "guides/guide-01/index.html",
+    "href": "guides/guide-01/index.html",
+    "title": "1. Setting up an R environment",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Choosing to work with R locally means that you will install R and an IDE on your local computer. This approach offers the following advantages:\n\nFast and responsive performance\nNo reliance on internet connectivity\nFlexibility to customize your environment\n\nThe main disadvantages of working locally are:\n\nyou will need to install R and an IDE on your local computer,\nmanage your own software environment, and\nmanage your own backups and version control for collaborative projects.\n\nThis can be a challenge for new users, but there are a number of resources available to help you get started and troubleshoot any issues you may encounter.\nTo get started, install R from CRAN. You can download the latest version of R for your operating system here. Once you have installed R, you will need to install an IDE. For complete beginners, I recommend RStudio, a free and open-source IDE for R. RStudio provides a number of features that make it easier to work with R. If you are new to R, but have experience with other programming languages, you may prefer to use a more general-purpose IDE such as VS Code.\n\n\n\nYou can also choose to work with R in the cloud, a remote environment. There are a number of cloud-based options for working with R, including Posit Cloud and Microsoft Azure. These options provide a pre-configured R environment that you can access from any computer with an internet connection.\nPosit Cloud provides an environment where you can create, edit, and run R projects from anywhere with internet access. It offers several advantages:\n\nNo need to install R or RStudio locally\nAccess your projects from any device\nCollaborate with others in real-time\nEasily share your work\n\nSome of the drawbacks of working in the cloud include:\n\nReliance on stable internet connection\nPotential latency and performance issues\nLimited customization options compared to a local setup\n\nTo get started with Posit Cloud, you will need to create an account. You can sign up for a free account here. Once you have created an account, you will see a list of spaces. By default you will have your personal workspace, but you can also join or be invited to other spaces.\nVisit the Guide documentation to learn more about the features of Posit Cloud.\n\n\n\nIf you are new to R, you may want to consider working in the cloud to get started. If you plan to continue to work with R in the future, you will most likely want to install R and an IDE on your local computer or explore using a virtual environment. Virtual environments, such as Docker, provide a way to use a pre-configured computing environment or create your own that you can share with others. Virtual environments are a good option if you want to ensure that everyone in your research group is working with the same computing environment. Pre-configured virtual environments exist for R through the Rocker project and can be used locally or in the cloud.\nUsing Docker with Rocker offers several benefits:\n\nReproducible environments\nSimplified dependency management\nEasy deployment and scaling\n\nThe drawbacks to using Docker with Rocker include:\n\nLearning curve for setting up and managing Docker containers\nIncreased memory and resource requirements\nPotential compatibility issues with certain packages or libraries\n\nTo start using Docker with Rocker, follow these steps:\n\nInstall Docker on your local machine\nPull the desired Rocker image from Docker Hub\ndocker pull rocker/rstudio\nRun a container using the pulled image\ndocker run -d -p 8787:8787 -e PASSWORD=your_password --name rstudio_container rocker/rstudio\nAccess RStudio in your browser at http://localhost:8787 and log in with username rstudio and the password you set"
   },
   {
-    "objectID": "recipes/recipe-01/index.html",
-    "href": "recipes/recipe-01/index.html",
-    "title": "2. …",
+    "objectID": "guides/guide-01/index.html#environment-setups",
+    "href": "guides/guide-01/index.html#environment-setups",
+    "title": "1. Setting up an R environment",
+    "section": "",
+    "text": "Choosing to work with R locally means that you will install R and an IDE on your local computer. This approach offers the following advantages:\n\nFast and responsive performance\nNo reliance on internet connectivity\nFlexibility to customize your environment\n\nThe main disadvantages of working locally are:\n\nyou will need to install R and an IDE on your local computer,\nmanage your own software environment, and\nmanage your own backups and version control for collaborative projects.\n\nThis can be a challenge for new users, but there are a number of resources available to help you get started and troubleshoot any issues you may encounter.\nTo get started, install R from CRAN. You can download the latest version of R for your operating system here. Once you have installed R, you will need to install an IDE. For complete beginners, I recommend RStudio, a free and open-source IDE for R. RStudio provides a number of features that make it easier to work with R. If you are new to R, but have experience with other programming languages, you may prefer to use a more general-purpose IDE such as VS Code.\n\n\n\nYou can also choose to work with R in the cloud, a remote environment. There are a number of cloud-based options for working with R, including Posit Cloud and Microsoft Azure. These options provide a pre-configured R environment that you can access from any computer with an internet connection.\nPosit Cloud provides an environment where you can create, edit, and run R projects from anywhere with internet access. It offers several advantages:\n\nNo need to install R or RStudio locally\nAccess your projects from any device\nCollaborate with others in real-time\nEasily share your work\n\nSome of the drawbacks of working in the cloud include:\n\nReliance on stable internet connection\nPotential latency and performance issues\nLimited customization options compared to a local setup\n\nTo get started with Posit Cloud, you will need to create an account. You can sign up for a free account here. Once you have created an account, you will see a list of spaces. By default you will have your personal workspace, but you can also join or be invited to other spaces.\nVisit the Guide documentation to learn more about the features of Posit Cloud.\n\n\n\nIf you are new to R, you may want to consider working in the cloud to get started. If you plan to continue to work with R in the future, you will most likely want to install R and an IDE on your local computer or explore using a virtual environment. Virtual environments, such as Docker, provide a way to use a pre-configured computing environment or create your own that you can share with others. Virtual environments are a good option if you want to ensure that everyone in your research group is working with the same computing environment. Pre-configured virtual environments exist for R through the Rocker project and can be used locally or in the cloud.\nUsing Docker with Rocker offers several benefits:\n\nReproducible environments\nSimplified dependency management\nEasy deployment and scaling\n\nThe drawbacks to using Docker with Rocker include:\n\nLearning curve for setting up and managing Docker containers\nIncreased memory and resource requirements\nPotential compatibility issues with certain packages or libraries\n\nTo start using Docker with Rocker, follow these steps:\n\nInstall Docker on your local machine\nPull the desired Rocker image from Docker Hub\ndocker pull rocker/rstudio\nRun a container using the pulled image\ndocker run -d -p 8787:8787 -e PASSWORD=your_password --name rstudio_container rocker/rstudio\nAccess RStudio in your browser at http://localhost:8787 and log in with username rstudio and the password you set"
+  },
+  {
+    "objectID": "guides/guide-01/index.html#summary",
+    "href": "guides/guide-01/index.html#summary",
+    "title": "1. Setting up an R environment",
+    "section": "Summary",
+    "text": "Summary\nIn this guide, we have discussed strategies for working with R. All three options offer unique advantages. In Table 1, we summarize some of the characteristics, benefits, and drawbacks of each option.\n\n\n\nTable 1: Comparison of different environments for working with R and RStudio\n\n\n\n\n\n\n\n\n\n\n\nEnvironment\nCharacteristics\nBenefits\nDrawbacks\n\n\n\n\nLocal (Computer)\n- R/RStudio installed locally- Project files stored on local machine- Accessible without internet connection- Full control over software version and environment\n- Fast and responsive performance- No reliance on internet connectivity- Ability to work offline- Complete control over software version and environment\n- Limited collaboration options- Difficulty in sharing projects with others- Potential compatibility issues with different operating systems\n\n\nRemote (Cloud)\n- R/RStudio accessed via web browser- Project files stored on cloud server- Accessible from any device with internet connection- Easy collaboration with others- Automatic backups and version control\n- No need for local installation or setup- Easy access from anywhere- Seamless collaboration with teammates- Backup and version control provided by the cloud service\n- Reliance on stable internet connection- Potential latency and performance issues- Limited customization options compared to a local setup\n\n\nVirtual (Docker)\n- R/RStudio environment encapsulated in a Docker container- Project files stored locally or on the cloud- Consistent environment across different machines\n- Reproducible and portable environment- Easy setup and sharing of the container- Flexibility to run on different operating systems- Isolation from host system dependencies\n- Learning curve for setting up and managing Docker containers- Increased memory and resource requirements- Potential compatibility issues with certain packages or libraries\n\n\n\n\n\n\nGive them a try and see which one works best for your needs! Remember, you can always switch between different environments as your needs change."
+  },
+  {
+    "objectID": "guides/guide-01/index.html#references",
+    "href": "guides/guide-01/index.html#references",
+    "title": "1. Setting up an R environment",
+    "section": "References",
+    "text": "References"
+  },
+  {
+    "objectID": "guides/guide-04/index.html",
+    "href": "guides/guide-04/index.html",
+    "title": "Guide 04",
     "section": "",
     "text": "Hello."
+  },
+  {
+    "objectID": "guides/guide-02/index.html",
+    "href": "guides/guide-02/index.html",
+    "title": "Guide 02",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-11/index.html",
+    "href": "recipes/recipe-11/index.html",
+    "title": "Recipe 11",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-04/index.html",
+    "href": "recipes/recipe-04/index.html",
+    "title": "Recipe 04",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-02/index.html",
+    "href": "recipes/recipe-02/index.html",
+    "title": "Recipe 02",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/index.html",
+    "href": "recipes/index.html",
+    "title": "Recipes",
+    "section": "",
+    "text": "0. Literate Programming\n\n\nAn introduction to Quarto\n\n\nIn this recipe, we will introduce the concept of Literate Programming and describe how to implement this concept through Quarto. I will provide a demonstration of some of the features of Quarto and describe the main structural characteristics of a Quarto document to help you get off and running writing your own documents that combine code and prose. \n\n\n\n\n\n8 min\n\n\n1,430 words\n\n\n\n\n\n\n\n\n\n\n\n\n1. …\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 02\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 03\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 04\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 05\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 06\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 07\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 08\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 09\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 10\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\n\n\n\n\n\n\nRecipe 11\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "recipes/recipe-00/index.html",
@@ -49,17 +98,94 @@
     "text": "Lab preparation\nThis concludes our introduction to literate programming using Quarto. We have covered the basics there but there is much more to explore.\nIn preparation for Lab 0, ensure that you have completed the following:\n\nSetup your computing environment with R and RStudio\nInstalled the necessary packages:\n\nquarto\ntinytex\n\n\nand that you are prepared to do the following:\n\nOpen RStudio and understand the basic interface\nCreate, edit, and render Quarto documents\nUse some basic Markdown syntax to format text\n\nWith this in mind, you are ready to move on to Lab 00."
   },
   {
-    "objectID": "recipes/index.html",
-    "href": "recipes/index.html",
-    "title": "Recipes",
+    "objectID": "recipes/recipe-06/index.html",
+    "href": "recipes/recipe-06/index.html",
+    "title": "Recipe 06",
     "section": "",
-    "text": "0. Literate Programming\n\n\nAn introduction to Quarto\n\n\nIn this recipe, we will introduce the concept of Literate Programming and describe how to implement this concept through Quarto. I will provide a demonstration of some of the features of Quarto and describe the main structural characteristics of a Quarto document to help you get off and running writing your own documents that combine code and prose. \n\n\n\n\n\n8 min\n\n\n1,430 words\n\n\n\n\n\n\n\n\n\n\n\n\n2. …\n\n\n\n\n\n\n\n\n\n\n\n1 min\n\n\n1 words\n\n\n\n\n\n\nNo matching items"
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-08/index.html",
+    "href": "recipes/recipe-08/index.html",
+    "title": "Recipe 08",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "instructors.html#materials",
+    "href": "instructors.html#materials",
+    "title": "Instructors",
+    "section": "Materials",
+    "text": "Materials\n\nSlide decks\n\n\nExercises"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "About",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "recipes/recipe-01/index.html",
+    "href": "recipes/recipe-01/index.html",
+    "title": "1. …",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-07/index.html",
+    "href": "recipes/recipe-07/index.html",
+    "title": "Recipe 07",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-09/index.html",
+    "href": "recipes/recipe-09/index.html",
+    "title": "Recipe 09",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-05/index.html",
+    "href": "recipes/recipe-05/index.html",
+    "title": "Recipe 05",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-03/index.html",
+    "href": "recipes/recipe-03/index.html",
+    "title": "Recipe 03",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "recipes/recipe-10/index.html",
+    "href": "recipes/recipe-10/index.html",
+    "title": "Recipe 10",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "guides/guide-05/index.html",
+    "href": "guides/guide-05/index.html",
+    "title": "Guide 05",
+    "section": "",
+    "text": "Hello."
+  },
+  {
+    "objectID": "guides/guide-03/index.html",
+    "href": "guides/guide-03/index.html",
+    "title": "Guide 03",
+    "section": "",
+    "text": "Hello."
   },
   {
     "objectID": "guides/index.html",
     "href": "guides/index.html",
     "title": "Guides",
     "section": "",
-    "text": "1. Setting up\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "1. Setting up an R environment\n\n\n\n\n\nIn this guide, we will explore options for setting up an R environment. We will discuss local, remote, and virtual environments. Each have their own advantages and shortcomings. The best option for you will depend on your needs and preferences. \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGuide 02\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGuide 03\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGuide 04\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGuide 05\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]
