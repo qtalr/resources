@@ -249,26 +249,6 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
 <p>For many of the style components that we use in Quarto, there is a part that is addressed in the front-matter section and a part that is addressed in the prose section and/ or code block sections.</p>
 <p>To refresh our memory, the front-matter is fenced by three dashes (<code>---</code>) and is where we set the document attributes. The prose section is where we write the text of the document. The code block section is where we write the code that will be executed and is fenced by three backticks (<code>```</code>) and the name of the code interpreter <code>{r}</code> (R for us).</p>
-<div id="lst-quarto-structure" class="quarto listing quarto-float">
-<figure class="quarto-float quarto-float-lst figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Listing&nbsp;1: Basic Quarto document structure
-</figcaption>
-<div aria-describedby="lst-quarto-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<pre id="lst-quarto-structure" class="quarto"><code>---
-title: "My document title"
-format: pdf
----
-
-This is the prose section.
-
-```{r}
-#| label: example-code-block
-1 + 1
-```</code></pre>
-</div>
-</figure>
-</div>
 <div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document title"</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> pdf</span></span>
