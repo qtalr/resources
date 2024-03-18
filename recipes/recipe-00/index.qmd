@@ -4,8 +4,9 @@ subtitle: "An introduction to Quarto"
 description: |
   In this recipe, we will introduce the concept of Literate Programming and describe how to implement this concept through Quarto. I will provide a demonstration of some of the features of Quarto and describe the main structural characteristics of a Quarto document to help you get off and running writing your own documents that combine code and prose.
 categories: [preface]
+execute:
+  echo: false
 ---
-
 
 ```{r}
 #| label: setup-options
@@ -13,12 +14,14 @@ categories: [preface]
 #| cache: false
 ```
 
-```{r}
-#| label: setup
-#| include: false
+::: {.callout}
+**{{< fa regular list-alt >}} Skills**
 
-knitr::opts_chunk$set(echo = FALSE)
-```
+- Identify the main components of a Quarto document
+- Create and render a Quarto document
+- Modify front-matter and prose sections
+:::
+
 
 ## Concepts and strategies
 
@@ -83,7 +86,7 @@ Anywhere below the front matter and not contained within a code block (see below
 
 What this enables us to do is to add simple text conventions to signal how the output should be formatted. Say we want to make some text **bold**. We just add `**` around the text we want to appear bold.
 
-```
+```markdown
 **bold text**
 ```
 

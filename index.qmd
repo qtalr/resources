@@ -5,3 +5,14 @@ title: "About"
 This is a Quarto website.
 
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+
+```{r}
+#| label: add-bibliography-entries
+#| echo: false
+
+knitr::write_bib(c(
+  .packages(), "dplyr"
+), "packages.bib")
+
+```

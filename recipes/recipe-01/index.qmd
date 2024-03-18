@@ -1,6 +1,352 @@
 ---
-title: "1. ..."
+title: "1. Academic writing with Quarto"
+subtitle: "Key Quarto features for academic writing"
+description: |
+  The implementation of literate programming we are using in this course is Quarto with R. As we have seen in previously, Quarto provides the ability to combine prose and code in a single document. This is a powerful strategy for creating reproducible documents that can be easily updated and shared.
 categories: [orientation]
 ---
 
-Hello.
+```{r}
+#| label: setup-options
+#| child: "../_common.qmd"
+#| cache: false
+```
+
+::: {.callout}
+**{{< fa regular list-alt >}} Skills**
+
+- Numbered sections
+- Table of contents
+- Cross-referencing tables and figures
+- In-line citations and references list
+:::
+
+## Concepts and strategies
+
+For many of the style components that we use in Quarto, there is a part that is addressed in the front-matter section and a part that is addressed in the prose section and/ or code block sections.
+
+To refresh our memory, the front-matter is fenced by three dashes (`---`) and is where we set the document attributes. The prose section is where we write the text of the document. The code block section is where we write the code that will be executed and is fenced by three backticks (`` ``` ``) and the name of the code interpreter `{r}` (R for us).
+
+````yaml
+---
+title: "My document title"      # <1>
+format: pdf                     # <2>
+---
+
+This is the prose section.      # <3>
+
+```{r}`r ''`                    # <4>
+#| label: example-code-block    # <4>
+1 + 1                           # <4>
+```
+````
+1. The title of the document
+2. The format of the document
+3. The prose section
+4. The code block section
+
+With this in mind let's look at each of these elements in turn.
+
+### Numbered sections
+
+To number sections in Quarto, we use the `number_sections` key with the value `yes`. This is set in the front-matter section, nested under the value for the document type to be rendered. For example, to number sections in a PDF document, we would set the `number-sections` key to `true` in the front-matter section as follows:
+
+```yaml
+---
+title: "My document title" # <1>
+format:                    # <2>
+  pdf:                     # <3>
+    number-sections: true  # <4>
+---
+```
+1. The title of the document
+2. The format of the document
+3. The type of document to be rendered, note the identation
+4. The key-value pair to number sections in the PDF document, again note the identation
+
+Headers in the prose section are then numbered automatically. For example, the following markdown:
+
+```markdown
+# Section
+
+## Subsection
+
+### Subsubsection
+
+#### Subsubsubsection
+
+##### Subsubsubsubsection
+```
+
+would render as:
+
+```{r quarto-num-sections, echo = FALSE, out.width="90%"}
+knitr::include_graphics("images/quarto-num-sections.png")
+```
+
+We can also control the depth of the numbering by setting the `number-depth` key in the front-matter section. For example, to number sections and subsections, but not subsubsections, we would set the `number-depth` key to `2` as follows:
+
+```yaml
+---
+title: "My document title"
+format:
+  pdf:
+    number-sections: true
+    number-depth: 2          # <1>
+---
+```
+1. The key-value pair to control the depth of the numbering
+
+Now the first and second headers are numbered and formated but third and subsequent headers are only formatted.
+
+If for some reason you want to turn off numbering for a specific header, you can add `{.unnumbered}` to the end of the header. For example, the following markdown:
+
+```markdown
+# Section {.unnumbered}
+```
+
+This is particularly useful in academic writing when we want to add a reference, materials, or other section that is not numbered at the end of the document.
+
+::: {.callout}
+**{{< fa exclamation-triangle >}} Warning**
+
+Note that if you have a header that is unnumbered, the next header will be numbered as if the unnumbered header did not exist. This can have unexpected results if you have children of an unnumbered header.
+:::
+
+### Table of contents
+
+For longer documents including a table of contents can be a useful way to help readers navigate the document. To include a table of contents in Quarto, we use the `toc` key with the value `true`. Again, in the front-matter section, nested under the format value, as seen below:
+
+```yaml
+---
+title: "My document title"
+format:
+  pdf:
+    toc: true               # <1>
+---
+```
+1. The key-value pair to include a table of contents in the PDF document
+
+::: {.callout}
+**{{< fa regular hand-point-up >}} Tip**
+
+For PDF and Word document outputs, the table of contents will be automatically generated and placed at the beginning of the document. For HTML documents, the table of contents will be placed in the sidebar by default.
+:::
+
+If if our headers are numbered, they will appeared numbered in the table of contents. If we unnnumbered a header, it will not appear with a section number. As with section numbering, we can also control the depth of the table of contents by setting the `toc-depth` key in the front-matter section. For example, to include sections and subsections, but not subsubsections, we would set the `toc-depth` key to `2` as follows:
+
+```yaml
+---
+title: "My document title"
+format:
+  pdf:
+    toc: true
+    toc-depth: 2            # <1>
+---
+```
+1. The key-value pair to control the depth of the table of contents
+
+And as with section numbering we can avoid listing a header in the table of contents by adding `{.unlisted}` to the end of the header.
+
+### Cross-referencing tables and figures
+
+Another key element in academic writing are using cross-references to tables and figures. This allows us to refer to a table or figure by number without having to manually update the number if we add or remove a table or figure.
+
+In this case, we will not need to add anything to the front-matter section. Instead, we will modify keys in the code block section of a code-generated table or figure.
+
+To cross-reference a table or figure, we need to add a prefix to the `label` key's value. The prefix, either `tbl-` or `fig-`, indicates whether the label is for a table or figure. Additionally, table or figure captions can be added with the `tbl-cap` or `fig-cap` keys, respectively.
+
+Let's look at a basic figure that we can cross-reference. The following code block will generate a very simple scatterplot.
+
+````yaml
+```{r}`r ''`
+#| label: fig-scatterplot                     # <1>
+#| fig-cap: "A scatterplot"                   # <2>
+
+plot(x = 1:10, y = 1:10)
+```
+
+In @fig-scatterplot we see a scatterplot. .... # <3>
+
+````
+1. The label for the figure. Includes `fig-` as a prefix.
+2. The caption for the figure.
+3. The in-line reference to the figure. Uses the `@` symbol followed by the label value.
+
+::: {.callout}
+```{r}
+#| label: fig-scatterplot
+#| fig-cap: "A scatterplot"
+
+plot(1:10, 1:10)
+```
+
+In @fig-scatterplot we see a scatterplot. ...
+:::
+
+For tables generated by R, the process is very similar to that of figures. The only difference is that we use the `tbl-`  prefix on the label value and the `tbl-cap` key instead of the `fig-cap` key for the caption.
+
+We can also create tables using markdown syntax. In this case, the format is a little different. Consider Table @tbl-table-1, for example.
+
+```markdown
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| A        | B        | C        |
+| D        | E        | F        |
+
+: A simple table {#tbl-table-1}
+```
+
+::: {.callout}
+
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| A        | B        | C        |
+| D        | E        | F        |
+
+: A simple table {#tbl-table-1}
+
+:::
+
+### In-line citations and references list
+
+The last element we will cover here is adding citations and a references list to a Quarto document. To add citations we need three things:
+
+- A bibliography file
+- A reference to the bibliography file in the front-matter section
+- A citation in the prose section which is contained in the bibliography file
+
+The bibliography file is a plain text file that contains the citations that we want to use in our document. The file requires the extension `.bib` and is formatted using the BibTeX format. BibTeX is a reference syntax that is commonly used in academia.
+
+Let's take a look at a sample file, `bibliography.bib`, that contains a single reference.
+
+```bib
+@Manual{R-dplyr,
+  title = {dplyr: A Grammar of Data Manipulation},
+  author = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller and Davis Vaughan},
+  year = {2023},
+  note = {R package version 1.1.4},
+  url = {https://dplyr.tidyverse.org},
+}
+```
+
+In this file, we can see that the reference is for a manual entry with `@Manual`. The type of entry will change what fields are relevant and/ or required. In this entry, we have the cite key `R-dplyr`, the title, the authors, the year, a note, and a URL. Other entries, and entry types will have different fields.
+
+You can find BibTeX formatted references almost everywhere you can find scholarly work. For example, Google Scholar, Web of Science, and Scopus all provide BibTeX formatted references. Additionally, many journals provide BibTeX formatted references for the articles they publish.
+
+::: {.callout}
+**{{< fa medal >}} Dive deeper**
+
+Managing your references can be a challenge if you begin to amass a large number of them. There are a number of tools that can help you manage your references. For example, [Zotero](https://www.zotero.org/) is a free, open-source reference manager that can help you organize your references and generate BibTeX formatted references.
+
+Zotero also has a [browser extension](https://www.zotero.org/download/) that allows you to easily add references to your Zotero library from your browser.
+
+Furthermore, Zotero can be connected to RStudio to facilitate the incorporation of BibTeX formatted references in a Quarto document. See the [RStudio documentation](https://rstudio.github.io/visual-markdown-editing/citations.html) for more information.
+:::
+
+In the front-matter of our Quarto document, we need to add a reference to the bibliography file. This is done using the `bibliography` key. For example, if our bibliography file is called `bibliography.bib` and is located in the same directory as our Quarto document, we would add the following to the front-matter section:
+
+```yaml
+---
+title: "My document title"
+format: pdf
+bibliography: bibliography.bib  # <1>
+---
+```
+1. The key-value pair to include a path to the file which contains the BibTeX formatted references.
+
+With the bibliography file and the reference to the bibliography file in the front-matter section, we can now add citations to our document. To do this, we use the `@` symbol followed by the citation key in the prose section. For example, to cite the `R-dplyr` reference from the `bibliography.bib` file, we would add `@R-dplyr` to the prose section as follows:
+
+```markdown
+This is a citation to @R-dplyr.
+```
+
+The citation will appear as below in the rendered document.
+
+::: {.callout}
+
+This is a citation to @R-dplyr.
+:::
+
+And automatically, on rendering the document, a references list will be added to the end of the document. For this reason if you have citations in your document, it is a good idea to include a header section `# References` at the end of your document.
+
+::: {.callout}
+**{{< fa regular hand-point-up >}} Tip**
+
+There are a number of ways of having your inline citations appear. For example, in parentheses, with multiple citations, only with the year, adding a page number, *etc.*. For more information on how to format your citations, see the [Quarto documentation](https://quarto.org/docs/authoring/footnotes-and-citations.html#sec-citations).
+:::
+
+## Check your understanding
+
+<!-- here are some questions to check the reader's understanding of this recipe -->
+
+Consider the following front-matter sections, A and B.
+
+::: {.callout}
+**A**
+```
+---
+title: "My document title"
+format:
+  pdf:
+    number-sections: true
+    number-depth: 3
+    toc: false
+---
+```
+:::
+
+::: {.callout}
+**B**
+```
+---
+title: "My document title"
+format:
+  pdf:
+    number-sections: true
+    toc: true
+    toc-depth: 2
+---
+```
+:::
+
+Choose whether the following statements are true or false.
+
+1. `r torf(TRUE)` Section numbering will be included in the PDF output for both A and B.
+2. `r torf(FALSE)` Section numbering will be applied to the first three levels of headers in the PDF output for both A and B.
+3. `r torf(FALSE)` A table of contents will be included in the PDF output for both A and B.
+4. `r torf(TRUE)` A table of contents will be included in the PDF output for B, but will only include the first two levels of headers.
+
+Now respond to the following questions.
+
+5. `r mcq(c("\\@tbl-scatterplot",  answer = "\\@fig-scatterplot", "\\@scatterplot"))` will cross-reference a figure with the label `fig-scatterplot`.
+6. `r fitb(c(answer = "bibliography"), ignore_case = TRUE)` is the front-matter key to include a path to the file which contains the BibTeX formatted references.
+
+## Lab preparation
+
+This rounds out our introduction to academic writing in Quarto. In Lab 1 you will have an opportunity to practice these concepts by doing an article summary which includes some of these features using Quarto.
+
+In preparation for [Lab 1](https://github.com/qtalr/lab-01), ensure that you are prepared to do the following:
+
+- Edit the front-matter section of a Quarto document to render:
+  - a PDF document or a Word document
+  - a document with numbered sections
+  - a document with a table of contents
+  - a document with a path to a bibliography file
+- Add an inline citation to the prose section of a Quarto document
+
+Also, since you will do an article summary, you should be prepared with:
+
+- an article of interest related to text analysis that you have read or at least skimmed for the following:
+  - the research question
+  - the data used
+  - the methods used
+  - the results/ findings of the study
+- a BibTeX formatted reference for the article
+
+::: {.callout}
+If you do not find an article of interest, you can use @Bychkovska2017.
+:::
+
+## References
+

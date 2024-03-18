@@ -6,3 +6,23 @@ categories: [recipes]
 Hello.
 
 
+::: {.callout .halfsize}
+**{{< fa medal >}} Dive deeper**
+
+When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
+
+```r
+pak::pkg_sysreqs(pkg = "knitr", sysreqs = "ubuntu")
+```
+
+```xml
+── Install scripts ── Ubuntu NA
+apt-get -y update
+apt-get -y install pandoc
+
+── Packages/ system dependencies
+knitr – pandoc
+```
+
+These can be added to the computational setup script for the project.
+:::
