@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="This Recipe guides you through the process of reading, inspecting, and writing datasets using R packages and functions in a Quarto environment. You’ll learn how to effectively combine code and narrative to create a reproducible document that can be shared with others.">
 
-<title>Quantitative Text Analysis: Resources - Recipe 02</title>
+<title>Quantitative Text Analysis: Resources - 2. Reading, inspecting, and writing datasets</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -39,6 +94,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -66,6 +123,8 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../../assets/styles.css">
@@ -124,19 +183,43 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
+  <ul class="collapse">
+  <li><a href="#quarto-documents-and-code-blocks" id="toc-quarto-documents-and-code-blocks" class="nav-link" data-scroll-target="#quarto-documents-and-code-blocks">Quarto documents and code blocks</a></li>
+  <li><a href="#setting-up-the-environment" id="toc-setting-up-the-environment" class="nav-link" data-scroll-target="#setting-up-the-environment">Setting up the environment</a></li>
+  <li><a href="#understanding-the-data" id="toc-understanding-the-data" class="nav-link" data-scroll-target="#understanding-the-data">Understanding the data</a></li>
+  <li><a href="#reading-datasets-into-r-with-readr" id="toc-reading-datasets-into-r-with-readr" class="nav-link" data-scroll-target="#reading-datasets-into-r-with-readr">Reading datasets into R with <code>readr</code></a></li>
+  <li><a href="#inspecting-datasets-with-dplyr" id="toc-inspecting-datasets-with-dplyr" class="nav-link" data-scroll-target="#inspecting-datasets-with-dplyr">Inspecting datasets with <code>dplyr</code></a></li>
+  <li><a href="#subsetting-datasets-with-dplyr" id="toc-subsetting-datasets-with-dplyr" class="nav-link" data-scroll-target="#subsetting-datasets-with-dplyr">Subsetting datasets with <code>dplyr</code></a></li>
+  <li><a href="#writing-datasets-to-a-file-with-readr" id="toc-writing-datasets-to-a-file-with-readr" class="nav-link" data-scroll-target="#writing-datasets-to-a-file-with-readr">Writing datasets to a file with <code>readr</code></a></li>
+  </ul></li>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
+  <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/qtalr/resources/edit/main/recipes/recipe-02/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Recipe 02</h1>
+<h1 class="title">2. Reading, inspecting, and writing datasets</h1>
+<p class="subtitle lead">Basics of working with datasets in R</p>
   <div class="quarto-categories">
     <div class="quarto-category">recipes</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <p>This Recipe guides you through the process of reading, inspecting, and writing datasets using R packages and functions in a Quarto environment. You’ll learn how to effectively combine code and narrative to create a reproducible document that can be shared with others.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -151,11 +234,650 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Hello.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Skills</strong></p>
+<ul>
+<li>Loading packages into an R session</li>
+<li>Reading datasets into R with <code>read_*()</code> functions</li>
+<li>Inspecting datasets with <code>dplyr</code> functions</li>
+<li>Writing datasets to a file with <code>write_*()</code> functions</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="concepts-and-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
+<section id="quarto-documents-and-code-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-documents-and-code-blocks">Quarto documents and code blocks</h3>
+<p>Ask you will remember from Recipes 0 and 1, Quarto documents can combine prose and code. The prose is written in Markdown and the code is written in R<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The code is contained in code blocks, which are opened by three backticks (<code>`</code>), the name of the programming language, <code>r</code>, in curly braces <code>{r}</code> and three backticks (<code>`</code>) to close the block. For example, the following minimal Quarto document contains an R code block:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> My Quarto Document</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> pdf</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Goals</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="at">This script ...</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="at">```{r}</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: code-block-name</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># R code goes here</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">```</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="at">As you can see in the code block, the ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Code blocks have various options that can be added by using key-value pairs that are prefixed with <code>#|</code>. Some common key-value pairs we will use in this Recipe are:</p>
+<ul>
+<li><code>label</code>: A unique name for the code block. This is used to reference the code block.</li>
+<li><code>echo</code>: A boolean value (<code>true</code> or <code>false</code>) that determines whether the code is displayed in the output document.</li>
+<li><code>include</code>: A boolean value (<code>true</code> or <code>false</code>) that determines whether the output of the code is displayed in the output document.</li>
+<li><code>message</code>: A boolean value (<code>true</code> or <code>false</code>) that determines whether the messages from the code are displayed in the output document.</li>
+</ul>
+</section>
+<section id="setting-up-the-environment" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-the-environment">Setting up the environment</h3>
+<p>Before we can read, inspect, and write data, we need to load the packages that contain the functions we will use. We will use the <code>readr</code> package to read datasets into R and write datasets to disk and the <code>dplyr</code> package to inspect and transform (subset) the data.</p>
+<p>There are a few ways to load packages into an R session. The most common way is to use the <code>library()</code> function. The <code>library()</code> function loads a package into the R session and stops the script if the package is not available on the current computing environment.</p>
+<p>For example, the following code block loads the <code>readr</code> and <code>dplyr</code> packages into the R session:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="in">#| label: load-packages</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="in"># Load packages</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="in">library(readr) # for reading and writing data</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr) # for inspecting and transforming data</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code block assumes that the <code>readr</code> and <code>dplyr</code> packages are installed on the current computing environment. If the packages are not installed, the code block will stop and display an error message, such as:</p>
+<pre class="plain"><code>Error in library(readr) : there is no package called ‘readr’</code></pre>
+<p>This error can be addressed by installing the missing package with <code>install.packages("readr")</code> and then re-running the code block. This is not ideal for reproducibility, however, because the code block will stop if the package is not installed. We will consider a more reproducible approach later in the course.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>If you interested in learning about safeguarding package loading in a reproducible way, see the <code>renv</code> package. The <code>renv</code> package is a project-oriented workflow to create a reproducible environment for R projects. For more information, see the <a href="https://rstudio.github.io/renv/articles/renv.html">renv documentation</a>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="understanding-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-the-data">Understanding the data</h3>
+<p>Now that we have our environment set up, we can read the dataset into R. But before we do, we should make sure that we understand the data by looking at the data documentation.</p>
+<p>The dataset that we will read into our R session based on the Brown Corpus <span class="citation" data-cites="Francis1961">(<a href="#ref-Francis1961" role="doc-biblioref">Francis and Kuçera 1961</a>)</span>. I’ve created a data origin file that contains the data documentation for the Brown Corpus, as we can see in <a href="#tbl-brown-passives-do" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read and display the data origin file</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"data/original/brown_passives_do.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_spec</span>(<span class="dv">1</span>, <span class="at">width =</span> <span class="st">"15em"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="tbl-brown-passives-do" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-brown-passives-do-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Data origin file for the Brown Corpus.
+</figcaption>
+<div aria-describedby="tbl-brown-passives-do-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">attribute</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: 15em;">Resource name</td>
+<td style="text-align: left;">Brown Corpus</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 15em;">Data source</td>
+<td style="text-align: left;">http://korpus.uib.no/icame/brown/bcm.html</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 15em;">Data sampling frame</td>
+<td style="text-align: left;">Edited American English prose from various genres, published in the United States during the calendar year 1961.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 15em;">Data collection date(s)</td>
+<td style="text-align: left;">Originally published in 1964, revised in 1971 and 1979.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 15em;">Data format</td>
+<td style="text-align: left;">Multiple formats including Form A (original), Form B (stripped version), Form C (tagged version), Bergen Forms I and II, and Brown MARC Form.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 15em;">Data schema</td>
+<td style="text-align: left;">500 samples of approximately 2000 words each, covering a wide range of genres and styles. Includes coding for major and minor headings, special types (italics, bold, etc.), abbreviations, symbols, and other textual features.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 15em;">License</td>
+<td style="text-align: left;">Use restricted for scholarly research in linguistics, stylistics, and other disciplines. Specific copyright restrictions detailed in the manual.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 15em;">Attribution</td>
+<td style="text-align: left;">W. Nelson Francis and Henry Kucera, Brown University, 1964, revised 1971 and 1979.</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>This data origin file provides an overview of the original data source. In this case, the dataset we will read into R is a subset of the Brown Corpus which is an aggregate of the use of passive voice. This dataset was developed by the authors of the <code>corpora</code> package <span class="citation" data-cites="R-corpora">(<a href="#ref-R-corpora" role="doc-biblioref">Evert 2023</a>)</span>. I’ve exported the dataset to a CSV file, which we will read into R.</p>
+<p>The data dictionary which describes the dataset we will read appears in <a href="#tbl-brown-passives-dd" class="quarto-xref">Table&nbsp;2</a>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read and display the data documentation file</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"../data/derived/brown_passives_curated_dd.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div id="tbl-brown-passives-dd" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-brown-passives-dd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Data dictionary file for the Brown Corpus.
+</figcaption>
+<div aria-describedby="tbl-brown-passives-dd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable_type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cat</td>
+<td style="text-align: left;">Category</td>
+<td style="text-align: left;">categorical</td>
+<td style="text-align: left;">Genre categories represented by letters</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">passive</td>
+<td style="text-align: left;">Passive</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Number of passive verb phrases in the genre</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">n_w</td>
+<td style="text-align: left;">Number of words</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Number of words in the genre</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">n_s</td>
+<td style="text-align: left;">Number of sentences</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Number of sentences in the genre</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">name</td>
+<td style="text-align: left;">Genre</td>
+<td style="text-align: left;">categorical</td>
+<td style="text-align: left;">Genre name</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>With this information, we are now in a position to read and inspect the dataset.</p>
+</section>
+<section id="reading-datasets-into-r-with-readr" class="level3">
+<h3 class="anchored" data-anchor-id="reading-datasets-into-r-with-readr">Reading datasets into R with <code>readr</code></h3>
+<p>We’ve now prepared our Quarto document by loading the packages we will use and and we have reviewed the dataset documentation so that we understand the dataset we will read into R. We are now ready to read the dataset into R.</p>
+<p>R provides a number of functions to read data of many types in R. We will explore many types of data and datasets in this course. For now, we will focus on reading rectangular data into R. Rectangular data is data that is organized in rows and columns, such as a spreadsheet.</p>
+<p>One of the most common file formats for rectangular data is the comma-separated values (CSV) file. CSV files are text files in which lines represent rows and commas separate columns of data. For example, the sample CSV file snippet below contains three rows and three columns of data:</p>
+<pre class="csv"><code>"word","frequency","part_of_speech"
+"the",69971,"article"
+"of",36412,"preposition"
+"and",28853,"conjunction"</code></pre>
+<p>A CSV file is a type of delimited file, which means that the data is separated by a delimiter. In the case of a CSV file, the delimiter is a comma. Other types of delimited files use different delimiters, such as tab-separated values (TSV) files which use a tab character as the delimiter, or even a pipe (<code>|</code>) or semicolon (<code>;</code>).</p>
+<p>The <code>readr</code> package provides functions to read rectangular dataset into R. The <code>read_csv()</code> function reads CSV files, the <code>read_tsv()</code> function reads TSV files, and the <code>read_delim()</code> function reads other types of delimited files.</p>
+<p>Let’s use the <code>read_csv()</code> function to read the <code>brown_passives_curated.csv</code> file into R. To do this we will use the <code>file =</code> argument to specify the path to the file. Now, the file “path” is the location of the file on the computer. We can specify this path in two ways:</p>
+<ul>
+<li>Relative path: The relative path is the path to the file relative to the current working directory. The current working directory is the directory in which the R session is running.</li>
+<li>Absolute path: The absolute path is the path to the file from the root directory of the computer.</li>
+</ul>
+<p>For most purpose, the relative path is the better option because it is more portable. For example, if you share your code with someone else, they may have a different absolute path to the file. However, they will likely have the same relative path to the file.</p>
+<p>Let’s say that the directory structure of our project is as follows:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project/</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data/</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── original/</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── brown_passives_do.csv</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── derived/</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── brown_passives_curated.csv</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> code/</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> reading-inspecting-writing.qmd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In this case, the relative path from <code>reading-inspecting-writing.qmd</code> to the <code>brown_passives_curated.csv</code> file is <code>../data/derived/brown_passives_curated.csv</code>. The <code>..</code> means “go up one directory” and the rest of the path is the path to the file from the <code>project/</code> directory.</p>
+<p>With this in mind, we can read the <code>brown_passives_curated.csv</code> file into R with the following code block:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: read-dataset-brown-passives-curated</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the dataset</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="ot">&lt;-</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"../data/derived/brown_passives_curated.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Running the above code chunk in our Quarto document will read the dataset into R and assign it to the <code>brown_passives_df</code> variable. It will also show the code used to read the dataset into R. Furthermore, so functions will display messages in the output. For example, the <code>read_csv()</code> function will display a message that various parsing options were used to read the dataset into R.</p>
+<p>This information can be helpful in an interactive session, as <code>read_csv()</code> tells us the dimensions of the dataset and the data types of each column. But this output is not necessary, and is unnecessarily verbose in a reproducible document.</p>
+<p>We can hide any messages produced by a function by using the <code>message = false</code> key-value pair in the code block. For example, the following code block will read the dataset into R and assign it to the <code>brown_passives_df</code> variable without displaying any messages:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: read-dataset-brown-passives-curated</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the dataset</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="ot">&lt;-</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_csv</span>(<span class="at">file =</span> <span class="st">"../data/derived/brown_passives_curated.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>No messages are displayed in the document output.</p>
+</section>
+<section id="inspecting-datasets-with-dplyr" class="level3">
+<h3 class="anchored" data-anchor-id="inspecting-datasets-with-dplyr">Inspecting datasets with <code>dplyr</code></h3>
+<p>The objective of this section is to demonstrate how to inspect and transform (subset) datasets using the <code>dplyr</code> package. We will use the <code>dplyr</code> package to inspect the dataset we read into R in the previous section.</p>
+<p>Reading a CSV file into R will create a data frame object. Thus, I assigned the result to <code>brown_passives_df</code>. The <code>df</code> suffix is a common naming convention for rectangular data frames. It is good practice to use a consistent naming convention for objects in your code. This makes it easier to understand the code and to avoid errors.</p>
+<p>Let’s do get an overview of the dataset by using the <code>glimpse()</code> function from the <code>dplyr</code> package. The <code>glimpse()</code> function displays the dimensions of the data frame and the data types of each column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(brown_passives_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; Rows: 15
+&gt; Columns: 5
+&gt; $ cat     &lt;chr&gt; "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N…
+&gt; $ passive &lt;dbl&gt; 892, 543, 283, 351, 853, 1034, 1460, 837, 2423, 352, 265, 104,…
+&gt; $ n_w     &lt;dbl&gt; 101196, 61535, 40749, 39029, 82010, 110363, 173017, 69446, 181…
+&gt; $ n_s     &lt;dbl&gt; 3684, 2399, 1459, 1372, 3286, 4387, 6537, 2012, 6311, 3983, 36…
+&gt; $ name    &lt;chr&gt; "press reportage", "press editorial", "press reviews", "religi…</code></pre>
+</div>
+</div>
+<p>If we want a more, tabular-like view of the data, we can simply print the dataset frame to the console. It’s worth mentioning, that all <code>readr</code> functions return tibbles, so we gain the benefits of tibbles when we read dataset into R with <code>readr</code> functions, one of which is that we do not have to worry that printing a data frame to the console, or our document, will print all of the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the data frame</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>brown_passives_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 15 × 5
+&gt;    cat   passive    n_w   n_s name            
+&gt;    &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
+&gt;  1 A         892 101196  3684 press reportage 
+&gt;  2 B         543  61535  2399 press editorial 
+&gt;  3 C         283  40749  1459 press reviews   
+&gt;  4 D         351  39029  1372 religion        
+&gt;  5 E         853  82010  3286 skills / hobbies
+&gt;  6 F        1034 110363  4387 popular lore    
+&gt;  7 G        1460 173017  6537 belles lettres  
+&gt;  8 H         837  69446  2012 miscellaneous   
+&gt;  9 J        2423 181426  6311 learned         
+&gt; 10 K         352  68599  3983 general fiction 
+&gt; 11 L         265  57624  3673 detective       
+&gt; 12 M         104  14433   873 science fiction 
+&gt; 13 N         290  69909  4438 adventure       
+&gt; 14 P         290  70476  4187 romance         
+&gt; 15 R         146  21757   975 humour</code></pre>
+</div>
+</div>
+<p>By default, printing tibbles will return the first 10 rows and all columns, unless the columns are too numerous to display width-wise.</p>
+<p><code>dplyr</code> also provides a set of <code>slice_*()</code> functions which allow us to display the data in a tabular fashion, with some additional options. There are three <code>slice_*()</code> functions we will cover here:</p>
+<ul>
+<li><code>slice_head()</code>: Select the first <code>n</code> rows of the data frame.</li>
+<li><code>slice_tail()</code>: Select the last <code>n</code> rows of the data frame.</li>
+<li><code>slice_sample()</code>: Select a random sample of <code>n</code> rows from the data frame.</li>
+</ul>
+<p>For example, the following code block will select the first 5 rows of the data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the first 5 rows</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(brown_passives_df, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 5 × 5
+&gt;   cat   passive    n_w   n_s name            
+&gt;   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
+&gt; 1 A         892 101196  3684 press reportage 
+&gt; 2 B         543  61535  2399 press editorial 
+&gt; 3 C         283  40749  1459 press reviews   
+&gt; 4 D         351  39029  1372 religion        
+&gt; 5 E         853  82010  3286 skills / hobbies</code></pre>
+</div>
+</div>
+<p>We can also select the last 5 rows of the data frame with the <code>slice_tail()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the last 5 rows</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_tail</span>(brown_passives_df, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 5 × 5
+&gt;   cat   passive   n_w   n_s name           
+&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          
+&gt; 1 L         265 57624  3673 detective      
+&gt; 2 M         104 14433   873 science fiction
+&gt; 3 N         290 69909  4438 adventure      
+&gt; 4 P         290 70476  4187 romance        
+&gt; 5 R         146 21757   975 humour</code></pre>
+</div>
+</div>
+<p>Finally, we can select a random sample of 5 rows from the data frame with the <code>slice_sample()</code> function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select a random sample of 5 rows</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(brown_passives_df, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 5 × 5
+&gt;   cat   passive    n_w   n_s name           
+&gt;   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          
+&gt; 1 J        2423 181426  6311 learned        
+&gt; 2 N         290  69909  4438 adventure      
+&gt; 3 L         265  57624  3673 detective      
+&gt; 4 C         283  40749  1459 press reviews  
+&gt; 5 K         352  68599  3983 general fiction</code></pre>
+</div>
+</div>
+<p>These functions can be helpful to get a sense of the dataset in different ways. In combination with <code>arrange()</code> function, we can also sort the data frame by a column or columns and then select the first or last rows.</p>
+<p>For example, the following code block will sort the data frame by the <code>passive</code> column in ascending order and then select the first 5 rows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by the `passive` column and select the first 5 rows</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="fu">arrange</span>(brown_passives_df, passive), <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 5 × 5
+&gt;   cat   passive   n_w   n_s name           
+&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          
+&gt; 1 M         104 14433   873 science fiction
+&gt; 2 R         146 21757   975 humour         
+&gt; 3 L         265 57624  3673 detective      
+&gt; 4 C         283 40749  1459 press reviews  
+&gt; 5 N         290 69909  4438 adventure</code></pre>
+</div>
+</div>
+<p>If we want to sort be descending order, we can surround the column name with <code>desc()</code>, <code>arrange(desc(passive))</code>.</p>
+<p>Now, the previous code block does what we want, but it is not very readable. Enter the pipe operator. The pipe operator <code>|&gt;</code> is an operator which allows us to chain the output of one function to the input of another function. This allows us to write more readable code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(passive) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 5 × 5
+&gt;   cat   passive   n_w   n_s name           
+&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          
+&gt; 1 M         104 14433   873 science fiction
+&gt; 2 R         146 21757   975 humour         
+&gt; 3 L         265 57624  3673 detective      
+&gt; 4 C         283 40749  1459 press reviews  
+&gt; 5 N         290 69909  4438 adventure</code></pre>
+</div>
+</div>
+<p>The result is the same but the code makes more sense. We can read the code from left to right, top to bottom, which is the order in which the functions are executed.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>The native R pipe <code>|&gt;</code> was introduced in R 4.1.0. If you are using an earlier version of R, you can use the <code>magrittr</code> package to load the pipe operator <code>%&gt;%</code>.</p>
+<p>There are certain advantages to using the <code>magrittr</code> pipe operator, including the ability to use the pipe operator to pass arguments to functions with placeholders. For more information, see the <a href="https://magrittr.tidyverse.org/">magrittr documentation</a>.</p>
+</div>
+</div>
+</div>
+<p>In addition to being more legible, using the pipe with each function on its own line allows us to add comments to each line of code. For example, the following code block is the same as the previous code block, but with comments added.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort by the passive column and select the first 5 rows</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(passive) <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is a good practice to add comments when writing code, as long as it makes the code more readable and easier to understand for others and for your future self! If the comments are too verbose, and only repeat what the code is ‘saying’, then don’t include them.</p>
+</section>
+<section id="subsetting-datasets-with-dplyr" class="level3">
+<h3 class="anchored" data-anchor-id="subsetting-datasets-with-dplyr">Subsetting datasets with <code>dplyr</code></h3>
+<p>Now that we have a sense of the data, we can subset the dataset to create a variations of our original data frame. We can subset the data frame by selecting columns and/ or rows.</p>
+<p>In the <a href="https://github.com/qtalr/lessons">R lesson</a> “Packages and Functions”, we saw that base R provides the bracket (<code>[]</code>) operator to subset data frames. The <code>dplyr</code> package provides functions to subset data frames which can be more readable and easier to use.</p>
+<p>Let’s first look a selecting columns. The <code>select()</code> function allows us to select columns by name. For example, the following code block will select the <code>passive</code> and <code>n_w</code> columns from the data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select the `passive` and `n_w` columns</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(brown_passives_df, passive, n_w)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 15 × 2
+&gt;    passive    n_w
+&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+&gt;  1     892 101196
+&gt;  2     543  61535
+&gt;  3     283  40749
+&gt;  4     351  39029
+&gt;  5     853  82010
+&gt;  6    1034 110363
+&gt;  7    1460 173017
+&gt;  8     837  69446
+&gt;  9    2423 181426
+&gt; 10     352  68599
+&gt; 11     265  57624
+&gt; 12     104  14433
+&gt; 13     290  69909
+&gt; 14     290  70476
+&gt; 15     146  21757</code></pre>
+</div>
+</div>
+<p>Beyond selecting columns, we can also reorder columns and rename columns. For example, the following code block will select the <code>passive</code> and <code>n_w</code> columns, rename the <code>n_w</code> column to <code>num_words</code>, and reorder the columns so that <code>num_words</code> is the first column:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select rename and reorder columns</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">num_words =</span> n_w, passive)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 15 × 2
+&gt;    num_words passive
+&gt;        &lt;dbl&gt;   &lt;dbl&gt;
+&gt;  1    101196     892
+&gt;  2     61535     543
+&gt;  3     40749     283
+&gt;  4     39029     351
+&gt;  5     82010     853
+&gt;  6    110363    1034
+&gt;  7    173017    1460
+&gt;  8     69446     837
+&gt;  9    181426    2423
+&gt; 10     68599     352
+&gt; 11     57624     265
+&gt; 12     14433     104
+&gt; 13     69909     290
+&gt; 14     70476     290
+&gt; 15     21757     146</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p><code>select()</code> also provides a number of helper functions to select columns. For example, we can use the <code>starts_with()</code> function inside the <code>select()</code> call to select columns that start with a certain string. Or we can select columns by their vector type by using <code>where(is.character)</code>.</p>
+<p>For more information, see the <a href="https://dplyr.tidyverse.org/reference/select.html">select() documentation</a> or use the <code>?select</code> command in the R console.</p>
+</div>
+</div>
+</div>
+<p>By selecting some columns and not others, we have effectively dropped the columns we did not select. If it is more effective to drop columns by name, we can use the <code>select()</code> function with the <code>-</code> operator. For example, the following code block will drop the <code>cat</code> column from the data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop the `n_w` column</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>cat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 15 × 4
+&gt;    passive    n_w   n_s name            
+&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
+&gt;  1     892 101196  3684 press reportage 
+&gt;  2     543  61535  2399 press editorial 
+&gt;  3     283  40749  1459 press reviews   
+&gt;  4     351  39029  1372 religion        
+&gt;  5     853  82010  3286 skills / hobbies
+&gt;  6    1034 110363  4387 popular lore    
+&gt;  7    1460 173017  6537 belles lettres  
+&gt;  8     837  69446  2012 miscellaneous   
+&gt;  9    2423 181426  6311 learned         
+&gt; 10     352  68599  3983 general fiction 
+&gt; 11     265  57624  3673 detective       
+&gt; 12     104  14433   873 science fiction 
+&gt; 13     290  69909  4438 adventure       
+&gt; 14     290  70476  4187 romance         
+&gt; 15     146  21757   975 humour</code></pre>
+</div>
+</div>
+<p>Let’s now turn our attention to subsetting rows. The <code>filter()</code> function allows us to select rows by a logical condition. For example, the following code block will select rows where the values of the <code>passive</code> column are less than <code>&lt;</code> 1,000:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select rows where `passive` is less than 1,000</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(passive <span class="sc">&lt;</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 12 × 5
+&gt;    cat   passive    n_w   n_s name            
+&gt;    &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;           
+&gt;  1 A         892 101196  3684 press reportage 
+&gt;  2 B         543  61535  2399 press editorial 
+&gt;  3 C         283  40749  1459 press reviews   
+&gt;  4 D         351  39029  1372 religion        
+&gt;  5 E         853  82010  3286 skills / hobbies
+&gt;  6 H         837  69446  2012 miscellaneous   
+&gt;  7 K         352  68599  3983 general fiction 
+&gt;  8 L         265  57624  3673 detective       
+&gt;  9 M         104  14433   873 science fiction 
+&gt; 10 N         290  69909  4438 adventure       
+&gt; 11 P         290  70476  4187 romance         
+&gt; 12 R         146  21757   975 humour</code></pre>
+</div>
+</div>
+<p>We can also use the <code>filter()</code> function to select rows by a character string. For example, the following code block will select rows where the values of the <code>name</code> column are equal to <code>religion</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select rows where `name` is equal to `religion`</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">==</span> <span class="st">"religion"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 1 × 5
+&gt;   cat   passive   n_w   n_s name    
+&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   
+&gt; 1 D         351 39029  1372 religion</code></pre>
+</div>
+</div>
+<p>The inequality operator <code>!=</code> can be used for character strings as well. To include multiple values, we can use the <code>%in%</code> operator. In this case we can pass a vector of values to the <code>filter()</code> function. For example, the following code block will select rows where the values of the <code>name</code> column are equal to <code>religion</code> or <code>learned</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select multiple values</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>brown_passives_df <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"religion"</span>, <span class="st">"learned"</span>, <span class="st">"detective"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 3 × 5
+&gt;   cat   passive    n_w   n_s name     
+&gt;   &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    
+&gt; 1 D         351  39029  1372 religion 
+&gt; 2 J        2423 181426  6311 learned  
+&gt; 3 L         265  57624  3673 detective</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>For more sophisticated subsetting, we can use the <code>str_detect()</code> function from the <code>stringr</code> package to select rows where the values of the <code>name</code> column contain a certain string. This approach will be enhanced later in the course when we learn about <a href="https://en.wikipedia.org/wiki/Regular_expression">regular expressions</a>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="writing-datasets-to-a-file-with-readr" class="level3">
+<h3 class="anchored" data-anchor-id="writing-datasets-to-a-file-with-readr">Writing datasets to a file with <code>readr</code></h3>
+<p>Finally, we can write data, including data frames, to a file with the <code>write_*()</code> functions from the <code>readr</code> package. The <code>write_*()</code> functions include:</p>
+<ul>
+<li><code>write_csv()</code>: Write a data frame to a CSV file.</li>
+<li><code>write_tsv()</code>: Write a data frame to a TSV file.</li>
+<li><code>write_delim()</code>: Write a data frame to a delimited file with the specified delimiter (<code>|</code>, <code>;</code>, <em>etc</em>).</li>
+</ul>
+<p>To create a distinct data frame from the one we read into R, let’s subset our <code>brown_passives_df</code> data frame by columns and rows to create a new data frame that contains only the <code>passive</code>, <code>n_w</code>, and <code>name</code> columns and only the rows where the values of the <code>passive</code> column are greater than <code>&gt;</code> 1,000 and assign it to the <code>brown_passives_subset_df</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the data frame</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>brown_passives_subset_df <span class="ot">&lt;-</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  brown_passives_df <span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(passive, n_w, name) <span class="sc">|&gt;</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(passive <span class="sc">&gt;</span> <span class="dv">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now the following code block will write the <code>brown_passives_subset_df</code> data frame to a CSV file given the specified file path:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write the data frame to a CSV file</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> brown_passives_subset_df,</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"../data/derived/brown_passives_subset.csv"</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Given the example directory structure we saw earlier, our new file appears in the <code>data/derived/</code> directory.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project/</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data/</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── original/</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   └── brown_passives_do.csv</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── derived/</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── brown_passives_curated.csv</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       ├── brown_passives_curated_dd.csv</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── brown_passives_subset.csv</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> code/</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> reading-inspecting-writing.qmd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>There is much more to learn about reading, inspecting, and writing datasets in R. We will introduce more functions and techniques in the coming lessons. For now, we have learned how to read, inspect, and write datasets using R functions and Quarto code blocks!</p>
+</section>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<ol type="1">
+<li><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select> The <code>readr</code> package provides functions to read rectangular data into R.</li>
+<li>The <select class="webex-select"><option value="blank"></option><option value="answer">echo</option><option value="">message</option><option value="">include</option></select> option in a code block determines whether the code is displayed in the output document.</li>
+<li><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select> The <code>dplyr</code> package provides functions to create data dictionaries.</li>
+<li><select class="webex-select"><option value="blank"></option><option value="">read_csv()</option><option value="answer">read_tsv()</option><option value="">read_delim()</option></select> is used to read tab-separated values (TSV) files.</li>
+<li>Which function is in <code>dplyr</code> is used to select columns by name? <select class="webex-select"><option value="blank"></option><option value="answer">select()</option><option value="">filter()</option><option value="">slice_head()</option></select></li>
+<li><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select> The R pipe operator <code>|&gt;</code> allows us to chain the output of one function to the input of another function.</li>
+</ol>
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
+<p>In Lab 2 you will have the opportunity to apply the skills you learned in this Recipe to create a Quarto document that reads, inspects, and writes data.</p>
+<p>In addition to the knowledge and skills you have developed in Labs 0 and 1, to complete <a href="https://github.com/qtalr/lab-02">Lab 2</a>, you will need to be able to:</p>
+<ul>
+<li>Create code blocks in a Quarto document</li>
+<li>Understand the purpose of the <code>label</code>, <code>echo</code>, <code>message</code>, and <code>include</code> options in a code block</li>
+<li>Load packages into an R session with <code>library()</code></li>
+<li>Understand how to read and create file relative file paths</li>
+<li>Read datasets into R with the <code>read_csv()</code> function</li>
+<li>Inspect data frames with <code>dplyr</code> functions such as <code>glimpse()</code>, <code>slice_head()</code>, <code>slice_tail()</code>, <code>slice_sample()</code>, and <code>arrange()</code>.</li>
+<li>Use the <code>|&gt;</code> pipe operator to chain functions together.</li>
+<li>Subset data frames with <code>dplyr</code> functions such as <code>select()</code> and <code>filter()</code>.</li>
+<li>Write data frames to a file with the <code>write_csv()</code> function.</li>
+</ul>
+</section>
+<section id="references" class="level2">
 
 
 
-</main> <!-- /main -->
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-R-corpora" class="csl-entry" role="listitem">
+Evert, Stephanie. 2023. <em>Corpora: Statistics and Data Sets for Corpus Frequency Data</em>. <a href="http://SIGIL.R-Forge.R-Project.org/">http://SIGIL.R-Forge.R-Project.org/</a>.
+</div>
+<div id="ref-Francis1961" class="csl-entry" role="listitem">
+Francis, W. Nelson, and Henry Kuçera. 1961. <span>“Brown Corpus of Present Day American English.”</span>
+</div>
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p> Code block can be written in other programming languages as well such as Python, Bash, <em>etc.</em><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -820,7 +1542,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/qtalr/resources/edit/main/recipes/recipe-02/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/qtalr/resources/edit/main/recipes/recipe-02/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
