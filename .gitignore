@@ -1,5 +1,11 @@
 /_site/
 /.quarto/
 *code-workspace
+
+# Data
+# recipes/recipe-00/ (no data)
+# recipes/recipe-01/ (no data)
+# recipes/recipe-02/ (fine to keep in repo)
+
 _notes.md
 _webexercises.qmd
