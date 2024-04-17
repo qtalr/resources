@@ -2,12 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="In this recipe, I cover the tools and strategies for sharing research findings with the public and peers. We will begin assuming we are using Quarto websites as the primary tool for sharing research findings in both forums. From there, we will enter into some of the details of articles, presentations, and publishing research code and data.">
 
-<title>Quantitative Text Analysis: Resources - Recipe 11</title>
+<title>Resources Kit - 11. Sharing research</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,6 +103,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
 
 
 <link rel="stylesheet" href="../../assets/styles.css">
@@ -116,7 +123,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Quantitative Text Analysis: Resources</span>
+    <span class="navbar-title">Resources Kit</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -160,19 +167,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
+  <ul class="collapse">
+  <li><a href="#public-facing-communication" id="toc-public-facing-communication" class="nav-link" data-scroll-target="#public-facing-communication">Public facing communication</a></li>
+  <li><a href="#articles" id="toc-articles" class="nav-link" data-scroll-target="#articles">Articles</a></li>
+  <li><a href="#presentations" id="toc-presentations" class="nav-link" data-scroll-target="#presentations">Presentations</a></li>
+  <li><a href="#peer-facing-communication" id="toc-peer-facing-communication" class="nav-link" data-scroll-target="#peer-facing-communication">Peer facing communication</a></li>
+  </ul></li>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
+  <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/qtalr/resources/edit/main/recipes/recipe-11/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Recipe 11</h1>
+<h1 class="title">11. Sharing research</h1>
+<p class="subtitle lead">Communicating research findings</p>
   <div class="quarto-categories">
-    <div class="quarto-category">recipes</div>
+    <div class="quarto-category">contribute</div>
+    <div class="quarto-category">research</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <p>In this recipe, I cover the tools and strategies for sharing research findings with the public and peers. We will begin assuming we are using Quarto websites as the primary tool for sharing research findings in both forums. From there, we will enter into some of the details of articles, presentations, and publishing research code and data.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
@@ -187,7 +215,178 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Hello.</p>
+<section id="concepts-and-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
+<section id="public-facing-communication" class="level3">
+<h3 class="anchored" data-anchor-id="public-facing-communication">Public facing communication</h3>
+<p>R (or Python) research projects that take advantage of Quarto websites have access to a wide range of tools for sharing research. First, the entire research tool chain can be published as a website, which is a great way to share the research process. Second, the website can be used to share the research findings in particular formats including articles and presentations. Let’s focus in on these later formats and discuss strategies for setting up and formatting research articles and presentations.</p>
+<p>We will assume the project directory structure in <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>.</p>
+<div id="lst-quarto-website" class="bash listing quarto-float">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-website-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;1: Quarto website structure for reproducible research
+</figcaption>
+<div aria-describedby="lst-quarto-website-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="lst-quarto-website"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="lst-quarto-website-1"><a href="#lst-quarto-website-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project/</span>                          <span class="co"># &lt;1&gt; project root</span></span>
+<span id="lst-quarto-website-2"><a href="#lst-quarto-website-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> data/                       <span class="co"># &lt;2&gt; data directory</span></span>
+<span id="lst-quarto-website-3"><a href="#lst-quarto-website-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── analysis/</span>
+<span id="lst-quarto-website-4"><a href="#lst-quarto-website-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── derived/</span>
+<span id="lst-quarto-website-5"><a href="#lst-quarto-website-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── original/</span>
+<span id="lst-quarto-website-6"><a href="#lst-quarto-website-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> process/                    <span class="co"># &lt;3&gt; process directory</span></span>
+<span id="lst-quarto-website-7"><a href="#lst-quarto-website-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 1_acquire.qmd</span>
+<span id="lst-quarto-website-8"><a href="#lst-quarto-website-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 2_curate.qmd</span>
+<span id="lst-quarto-website-9"><a href="#lst-quarto-website-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 3_transform.qmd</span>
+<span id="lst-quarto-website-10"><a href="#lst-quarto-website-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── 4_analyze.qmd</span>
+<span id="lst-quarto-website-11"><a href="#lst-quarto-website-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> reports/                    <span class="co"># &lt;4&gt; reports directory</span></span>
+<span id="lst-quarto-website-12"><a href="#lst-quarto-website-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── figures/                <span class="co"># &lt;5&gt; saved figures directory</span></span>
+<span id="lst-quarto-website-13"><a href="#lst-quarto-website-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── slides/                 <span class="co"># &lt;6&gt; presentation slides directory</span></span>
+<span id="lst-quarto-website-14"><a href="#lst-quarto-website-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   ├── workshop/           <span class="co"># &lt;7&gt; "workshop" presentation</span></span>
+<span id="lst-quarto-website-15"><a href="#lst-quarto-website-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   │    └── index.qmd      <span class="co"># &lt;8&gt; "workshop" presentation file</span></span>
+<span id="lst-quarto-website-16"><a href="#lst-quarto-website-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   └── conference/</span>
+<span id="lst-quarto-website-17"><a href="#lst-quarto-website-17" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── tables/                 <span class="co"># &lt;9&gt; saved tables directory</span></span>
+<span id="lst-quarto-website-18"><a href="#lst-quarto-website-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── article.qmd             <span class="co"># &lt;10&gt; article file</span></span>
+<span id="lst-quarto-website-19"><a href="#lst-quarto-website-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── citation-style.csl      <span class="co"># &lt;11&gt; citation style file</span></span>
+<span id="lst-quarto-website-20"><a href="#lst-quarto-website-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── presentations.qmd       <span class="co"># &lt;12&gt; presentations listing file</span></span>
+<span id="lst-quarto-website-21"><a href="#lst-quarto-website-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── references.bib          <span class="co"># &lt;13&gt; references file (bibtex)</span></span>
+<span id="lst-quarto-website-22"><a href="#lst-quarto-website-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> renv/</span>
+<span id="lst-quarto-website-23"><a href="#lst-quarto-website-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── ...</span>
+<span id="lst-quarto-website-24"><a href="#lst-quarto-website-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> _quarto.yml                 <span class="co"># &lt;14&gt; Quarto configuration file</span></span>
+<span id="lst-quarto-website-25"><a href="#lst-quarto-website-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> index.qmd</span>
+<span id="lst-quarto-website-26"><a href="#lst-quarto-website-26" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> README.md</span>
+<span id="lst-quarto-website-27"><a href="#lst-quarto-website-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> renv.lock</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>I will also assume the following Quarto configuration file <em>_quarto.yml</em> in <a href="#lst-quarto-config" class="quarto-xref">Snippet&nbsp;2</a>.</p>
+<div id="lst-quarto-config" class="yaml listing quarto-float">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-config-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;2: Quarto configuration file <em>_quarto.yml</em>
+</figcaption>
+<div aria-describedby="lst-quarto-config-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="lst-quarto-config"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="lst-quarto-config-1"><a href="#lst-quarto-config-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="lst-quarto-config-2"><a href="#lst-quarto-config-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Web project"</span></span>
+<span id="lst-quarto-config-3"><a href="#lst-quarto-config-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<span id="lst-quarto-config-4"><a href="#lst-quarto-config-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">execute-dir</span><span class="kw">:</span><span class="at"> project</span><span class="co">              # &lt;1&gt; root for all execution</span></span>
+<span id="lst-quarto-config-5"><a href="#lst-quarto-config-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span><span class="co">                           # &lt;2&gt; rendering order</span></span>
+<span id="lst-quarto-config-6"><a href="#lst-quarto-config-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="lst-quarto-config-7"><a href="#lst-quarto-config-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/1_acquire.qmd</span></span>
+<span id="lst-quarto-config-8"><a href="#lst-quarto-config-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/2_curate.qmd</span></span>
+<span id="lst-quarto-config-9"><a href="#lst-quarto-config-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/3_transform.qmd</span></span>
+<span id="lst-quarto-config-10"><a href="#lst-quarto-config-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/4_analyze.qmd</span></span>
+<span id="lst-quarto-config-11"><a href="#lst-quarto-config-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> reports/</span></span>
+<span id="lst-quarto-config-12"><a href="#lst-quarto-config-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="lst-quarto-config-13"><a href="#lst-quarto-config-13" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="lst-quarto-config-14"><a href="#lst-quarto-config-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<span id="lst-quarto-config-15"><a href="#lst-quarto-config-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"docked"</span><span class="co">                 # &lt;3&gt; sidebar style</span></span>
+<span id="lst-quarto-config-16"><a href="#lst-quarto-config-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span><span class="co">                       # &lt;4&gt; sidebar contents</span></span>
+<span id="lst-quarto-config-17"><a href="#lst-quarto-config-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="lst-quarto-config-18"><a href="#lst-quarto-config-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Process"</span></span>
+<span id="lst-quarto-config-19"><a href="#lst-quarto-config-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> process/*</span><span class="co">         # &lt;5&gt; all process files</span></span>
+<span id="lst-quarto-config-20"><a href="#lst-quarto-config-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reports"</span></span>
+<span id="lst-quarto-config-21"><a href="#lst-quarto-config-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> reports/*</span><span class="co">         # &lt;6&gt; all reports files</span></span>
+<span id="lst-quarto-config-22"><a href="#lst-quarto-config-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="lst-quarto-config-23"><a href="#lst-quarto-config-23" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="lst-quarto-config-24"><a href="#lst-quarto-config-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="lst-quarto-config-25"><a href="#lst-quarto-config-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
+<span id="lst-quarto-config-26"><a href="#lst-quarto-config-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="lst-quarto-config-27"><a href="#lst-quarto-config-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="lst-quarto-config-28"><a href="#lst-quarto-config-28" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<span id="lst-quarto-config-29"><a href="#lst-quarto-config-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">freeze</span><span class="kw">:</span><span class="at"> auto</span><span class="co">                      # &lt;7&gt; only render changed files</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>Looking more closely at the directory structure in <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>, let’s focus on the aspects that are shared between articles and presentations. You will notice that the <em>reports/</em> directory contains a <em>figures/</em> directory for saving figures, a <em>tables/</em> directory for saving tables, and a <em>references.bib</em> file for saving references. These are shared resources that can be used in both articles and presentations. In the process directory, you can save tables, figures, and other resources that are generated during the research process that you believe will be useful in commmunicating the research findings. Then, when you create your presentations, you can include the same materials in either format with the same files. If changes are made to the figures or tables, they will be updated in both the article and the presentation(s).</p>
+<p>Next, it is worth pointing out some important features that appear in the <a href="#lst-quarto-config" class="quarto-xref">Snippet&nbsp;2</a> configuration file. The <code>execute-dir</code> specifies the root directory for all execution. That is the path to directories and files will be the same no matter from what file the code is executed. The <code>render</code> option specifies the order in which the files are rendered. This is important for ensuring that the research process is executed in the correct order. The files that are executed and rendered for display appear in the website and the <code>style</code> and <code>contents</code> options specify the style and contents of the sidebar, respectively. Another key option is the <code>freeze</code> option under <code>execute</code>. This option specifies that only changed files will be rendered. This helps avoid re-rendering files that have not changed, which can be time-consuming and computationally expensive.</p>
+</section>
+<section id="articles" class="level3">
+<h3 class="anchored" data-anchor-id="articles">Articles</h3>
+<p>In the <em>reports/</em> directory a file named <em>article.qmd</em> appears. This file, which can be named anything, will be the document in which we will draft the research article. This file is a standard Quarto document. However, we can take advantage of some options that we have not seen so far that adds functionality to the document.</p>
+<p>In <a href="#lst-quarto-article" class="quarto-xref">Snippet&nbsp;3</a>, we see an example of the YAML frontmatter for a Quarto article.</p>
+<div id="lst-quarto-article" class="yaml listing quarto-float">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-article-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;3: Quarto article YAML frontmatter
+</figcaption>
+<div aria-describedby="lst-quarto-article-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="lst-quarto-article"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="lst-quarto-article-1"><a href="#lst-quarto-article-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Article"</span></span>
+<span id="lst-quarto-article-2"><a href="#lst-quarto-article-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2024-02-20</span></span>
+<span id="lst-quarto-article-3"><a href="#lst-quarto-article-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="co">                               # &lt;1&gt; author information</span></span>
+<span id="lst-quarto-article-4"><a href="#lst-quarto-article-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your name"</span></span>
+<span id="lst-quarto-article-5"><a href="#lst-quarto-article-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> youremail@school.edu</span></span>
+<span id="lst-quarto-article-6"><a href="#lst-quarto-article-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your affiliation"</span></span>
+<span id="lst-quarto-article-7"><a href="#lst-quarto-article-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abstract</span><span class="kw">: </span><span class="ch">|</span><span class="co">                           # &lt;2&gt; abstract</span></span>
+<span id="lst-quarto-article-8"><a href="#lst-quarto-article-8" aria-hidden="true" tabindex="-1"></a>  This is a sample article. It is a work in progress and will be updated as the research progresses.</span>
+<span id="lst-quarto-article-9"><a href="#lst-quarto-article-9" aria-hidden="true" tabindex="-1"></a><span class="fu">keywords</span><span class="kw">:</span><span class="co">                             # &lt;3&gt; keywords</span></span>
+<span id="lst-quarto-article-10"><a href="#lst-quarto-article-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> article</span></span>
+<span id="lst-quarto-article-11"><a href="#lst-quarto-article-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> example</span></span>
+<span id="lst-quarto-article-12"><a href="#lst-quarto-article-12" aria-hidden="true" tabindex="-1"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> citation-style.csl</span><span class="co">               # &lt;4&gt; citation style</span></span>
+<span id="lst-quarto-article-13"><a href="#lst-quarto-article-13" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> ../bibliography.bib</span><span class="co">     # &lt;5&gt; bib file</span></span>
+<span id="lst-quarto-article-14"><a href="#lst-quarto-article-14" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                        # &lt;6&gt; create citation in document</span></span>
+<span id="lst-quarto-article-15"><a href="#lst-quarto-article-15" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="co">                               # &lt;7&gt; format options</span></span>
+<span id="lst-quarto-article-16"><a href="#lst-quarto-article-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span><span class="co">                       # &lt;8&gt; maintain html format</span></span>
+<span id="lst-quarto-article-17"><a href="#lst-quarto-article-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="co">                                # &lt;9&gt; add pdf output, with options</span></span>
+<span id="lst-quarto-article-18"><a href="#lst-quarto-article-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>In addition to typical YAML frontmatter, we see a number of new times. Looking at the first three, we see that we can add author information, an abstract, and keywords. These are standard for articles and are used to provide information about the article to readers.</p>
+<p>When rendered, the article header information will now contain this new information, as seen in <a href="#fig-header-format" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<div id="fig-header-format" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-header-format-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><span data-alt-text="Header format for Quarto article"><img src="images/header-format.png" class="img-fluid figure-img"></span></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-header-format-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Appearance of the header format for a Quarto article.
+</figcaption>
+</figure>
+</div>
+<p>The next two items are the citation style and bibliography. These are used to create and format citations in the article. The citation style is a CSL file that specifies the citation style. You can find a database of various citation styles at the <a href="https://www.zotero.org/styles">Zotero Style Repository</a>. You can search for a style or by field. Once you find a style you like, you can download the CSL file and add it to your project. The bibliography is a BibTeX file that contains the references for the article. You can create this file (as mentioned before) in a reference manager like Zotero or Mendeley.</p>
+<p>Now the <code>citation</code> option is not for references that we have gathered. Rather, it is for generating a citation for the current article. This is useful if someone else would like to cite your article. When the article is rendered, the citation will appear at the bottom of the article, as seen in <a href="#fig-citation-attribution" class="quarto-xref">Figure&nbsp;2</a>.</p>
+<div id="fig-citation-attribution" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-citation-attribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<p><span data-alt-text="Citation attribution in Quarto article"><img src="images/citation-attribution.png" class="img-fluid figure-img"></span></p>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-citation-attribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Appearance of the citation attribution in a Quarto article.
+</figcaption>
+</figure>
+</div>
+<p>There are two other features to mention. One is the <code>format</code> option. Since the article is a Quarto document, it can be rendered in multiple formats. The <code>html</code> option ensures that our article is rendered in HTML format as part of the website. However, in addition, we can add a <code>pdf</code> option that will render the article in PDF format. Note that in <a href="#fig-header-format" class="quarto-xref">Figure&nbsp;1</a>, the <code>pdf</code> option has created an “Other formats” listing on the right side below the table of contents. Clicking this will open the PDF version of the article.</p>
+<p>Although not employed in this example, it is also possible to use more extensive format changes with <a href="https://quarto.org/docs/extensions/listing-journals.html">Quarto extensions</a>. Currently, there are various extensions for different journals and publishing houses. For more information and examples, consult the documentation above.</p>
+</section>
+<section id="presentations" class="level3">
+<h3 class="anchored" data-anchor-id="presentations">Presentations</h3>
+<ul>
+<li>{revealjs}</li>
+</ul>
+</section>
+<section id="peer-facing-communication" class="level3">
+<h3 class="anchored" data-anchor-id="peer-facing-communication">Peer facing communication</h3>
+<p>Demonstration of running a collaborative research project on GitHub following reproducible research principles</p>
+<p>We will also discuss some of the strategies for sharing research code and data, including:</p>
+<ul>
+<li>Version control (GitHub)</li>
+<li>Reproducible research (Quarto, <code>renv</code>, Docker)</li>
+</ul>
+<p>Walkthrough of a complete reproducible research project setup, including documentation, modular scripts, and containerization with GitHub Actions.</p>
+<!--
+Lab: Future-proofing research
+
+- Add `renv` to a research project
+- Create a Dockerfile for a research project
+- Build Docker image for a research project using GitHub Actions
+ -->
+</section>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<!-- Questions with Webexercises -->
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
 <div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -196,19 +395,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="callout-body-container">
 <p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
 <p>When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The <code>pak</code> package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_sysreqs</span>(<span class="at">pkg =</span> <span class="st">"knitr"</span>, <span class="at">sysreqs =</span> <span class="st">"ubuntu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>── Install scripts ── Ubuntu NA</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>apt-get -y update</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>apt-get -y install pandoc</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>── Packages/ system dependencies</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>knitr – pandoc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>pak<span class="sc">::</span><span class="fu">pkg_sysreqs</span>(<span class="at">pkg =</span> <span class="st">"knitr"</span>, <span class="at">sysreqs =</span> <span class="st">"ubuntu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource xml number-lines code-with-copy"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1"></a>── Install scripts ── Ubuntu NA</span>
+<span id="cb2-2"><a href="#cb2-2"></a>apt-get -y update</span>
+<span id="cb2-3"><a href="#cb2-3"></a>apt-get -y install pandoc</span>
+<span id="cb2-4"><a href="#cb2-4"></a></span>
+<span id="cb2-5"><a href="#cb2-5"></a>── Packages/ system dependencies</span>
+<span id="cb2-6"><a href="#cb2-6"></a>knitr – pandoc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>These can be added to the computational setup script for the project.</p>
 </div>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -875,7 +1075,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/qtalr/resources/edit/main/recipes/recipe-11/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/qtalr/resources/edit/main/recipes/recipe-11/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
