@@ -1,9 +1,9 @@
 ---
-title: "2. Reading, inspecting, and writing datasets"
+title: "02. Reading, inspecting, and writing datasets"
 subtitle: "Basics of working with datasets in R"
 description: |
   This Recipe guides you through the process of reading, inspecting, and writing datasets using R packages and functions in a Quarto environment. You'll learn how to effectively combine code and narrative to create a reproducible document that can be shared with others.
-categories: [recipes]
+categories: [foundations]
 execute:
   echo: true
 ---

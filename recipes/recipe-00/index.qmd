@@ -1,5 +1,5 @@
 ---
-title: "0. Literate Programming"
+title: "00. Literate Programming"
 subtitle: "An introduction to Quarto"
 description: |
   In this recipe, we will introduce the concept of Literate Programming and describe how to implement this concept through Quarto. I will provide a demonstration of some of the features of Quarto and describe the main structural characteristics of a Quarto document to help you get off and running writing your own documents that combine code and prose.

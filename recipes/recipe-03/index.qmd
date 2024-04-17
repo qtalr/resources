@@ -1,9 +1,9 @@
 ---
-title: "3. Descriptive assessment of datasets"
+title: "03. Descriptive assessment of datasets"
 subtitle: ""
 description: |
   In this Recipe we will explore appropriate methods for summarizing variables in datasets given the number and informational values of the variable(s). We will build on our understanding of how to summarize data using statistics, tables, and plots.
-categories: [recipes]
+categories: [foundations]
 ---
 
 ```{r}

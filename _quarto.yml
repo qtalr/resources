@@ -6,7 +6,7 @@ project:
 
 # Website ------------------------------
 website:
-  title: "Quantitative Text Analysis: Resources"
+  title: "Resources Kit"
   repo-url: https://github.com/qtalr/resources
   repo-actions: [edit, issue]
   repo-link-target: "_blank"
@@ -30,16 +30,31 @@ website:
 format:
   html:
     theme: flatly
+    code-overflow: wrap
     css:
       - assets/styles.css
       - include/webex.css
     toc: true
     include-after-body: include/webex.js
+    comments:
+      hypothesis: true
+
+# Reference and numbering ---------------
+
+crossref:
+  lst-title: "Snippet"
+  lst-prefix: "Snippet"
+  appendix-title: "App"
+  appendix-delim: ":"
 
 bibliography: [bibliography.bib, packages.bib]
 biblio-style: apalike
 link-citations: true
+
 code-annotations: select
+code-line-numbers: true
+
+number-depth: 2
 
 # Pandoc ------------------------------
 execute:

@@ -1,9 +1,177 @@
 ---
-title: "Recipe 11"
-categories: [recipes]
+title: "11. Sharing research"
+subtitle: "Communicating research findings"
+description: |
+  In this recipe, I cover the tools and strategies for sharing research findings with the public and peers. We will begin assuming we are using Quarto websites as the primary tool for sharing research findings in both forums. From there, we will enter into some of the details of articles, presentations, and publishing research code and data.
+categories: [contribute, research]
 ---
 
-Hello.
+## Concepts and strategies
+
+### Public facing communication
+
+R (or Python) research projects that take advantage of Quarto websites have access to a wide range of tools for sharing research. First, the entire research tool chain can be published as a website, which is a great way to share the research process. Second, the website can be used to share the research findings in particular formats including articles and presentations. Let's focus in on these later formats and discuss strategies for setting up and formatting research articles and presentations.
+
+We will assume the project directory structure in @lst-quarto-website.
+
+```{#lst-quarto-website .bash lst-cap="Quarto website structure for reproducible research"}
+project/                          # <1> project root
+  ├── data/                       # <2> data directory
+  │   ├── analysis/
+  │   ├── derived/
+  │   └── original/
+  ├── process/                    # <3> process directory
+  │   ├── 1_acquire.qmd
+  │   ├── 2_curate.qmd
+  │   ├── 3_transform.qmd
+  │   └── 4_analyze.qmd
+  ├── reports/                    # <4> reports directory
+  │   ├── figures/                # <5> saved figures directory
+  │   ├── slides/                 # <6> presentation slides directory
+  │   │   ├── workshop/           # <7> "workshop" presentation
+  │   │   │    └── index.qmd      # <8> "workshop" presentation file
+  │   │   └── conference/
+  │   ├── tables/                 # <9> saved tables directory
+  │   ├── article.qmd             # <10> article file
+  │   ├── citation-style.csl      # <11> citation style file
+  │   ├── presentations.qmd       # <12> presentations listing file
+  │   └── references.bib          # <13> references file (bibtex)
+  ├── renv/
+  │   └── ...
+  ├── _quarto.yml                 # <14> Quarto configuration file
+  ├── index.qmd
+  ├── README.md
+  └── renv.lock
+```
+
+I will also assume the following Quarto configuration file *\_quarto.yml* in @lst-quarto-config.
+
+```{#lst-quarto-config .yaml lst-cap="Quarto configuration file *\\_quarto.yml*"}
+project:
+  title: "Web project"
+  type: website
+  execute-dir: project              # <1> root for all execution
+  render:                           # <2> rendering order
+    - index.qmd
+    - process/1_acquire.qmd
+    - process/2_curate.qmd
+    - process/3_transform.qmd
+    - process/4_analyze.qmd
+    - reports/
+
+website:
+  sidebar:
+    style: "docked"                 # <3> sidebar style
+    contents:                       # <4> sidebar contents
+      - index.qmd
+      - section: "Process"
+        contents: process/*         # <5> all process files
+      - section: "Reports"
+        contents: reports/*         # <6> all reports files
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+
+execute:
+  freeze: auto                      # <7> only render changed files
+```
+
+Looking more closely at the directory structure in @lst-quarto-website, let's focus on the aspects that are shared between articles and presentations. You will notice that the *reports/* directory contains a *figures/* directory for saving figures, a *tables/* directory for saving tables, and a *references.bib* file for saving references. These are shared resources that can be used in both articles and presentations. In the process directory, you can save tables, figures, and other resources that are generated during the research process that you believe will be useful in commmunicating the research findings. Then, when you create your presentations, you can include the same materials in either format with the same files. If changes are made to the figures or tables, they will be updated in both the article and the presentation(s).
+
+Next, it is worth pointing out some important features that appear in the @lst-quarto-config configuration file. The `execute-dir` specifies the root directory for all execution. That is the path to directories and files will be the same no matter from what file the code is executed. The `render` option specifies the order in which the files are rendered. This is important for ensuring that the research process is executed in the correct order. The files that are executed and rendered for display appear in the website and the `style` and `contents` options specify the style and contents of the sidebar, respectively. Another key option is the `freeze` option under `execute`. This option specifies that only changed files will be rendered. This helps avoid re-rendering files that have not changed, which can be time-consuming and computationally expensive.
+
+### Articles
+
+In the *reports/* directory a file named *article.qmd* appears. This file, which can be named anything, will be the document in which we will draft the research article. This file is a standard Quarto document. However, we can take advantage of some options that we have not seen so far that adds functionality to the document.
+
+In @lst-quarto-article, we see an example of the YAML frontmatter for a Quarto article.
+
+```{#lst-quarto-article .yaml lst-cap="Quarto article YAML frontmatter"}
+title: "Article"
+date: 2024-02-20
+author:                               # <1> author information
+  - name: "Your name"
+    email: youremail@school.edu
+    affiliation: "Your affiliation"
+abstract: |                           # <2> abstract
+  This is a sample article. It is a work in progress and will be updated as the research progresses.
+keywords:                             # <3> keywords
+  - article
+  - example
+csl: citation-style.csl               # <4> citation style
+bibliography: ../bibliography.bib     # <5> bib file
+citation: true                        # <6> create citation in document
+format:                               # <7> format options
+  html: default                       # <8> maintain html format
+  pdf:                                # <9> add pdf output, with options
+    number-sections: true
+```
+
+In addition to typical YAML frontmatter, we see a number of new times. Looking at the first three, we see that we can add author information, an abstract, and keywords. These are standard for articles and are used to provide information about the article to readers.
+
+When rendered, the article header information will now contain this new information, as seen in @fig-header-format.
+
+::: {#fig-header-format}
+
+[![](images/header-format.png)]{alt-text="Header format for Quarto article"}
+
+Appearance of the header format for a Quarto article.
+:::
+
+The next two items are the citation style and bibliography. These are used to create and format citations in the article. The citation style is a CSL file that specifies the citation style. You can find a database of various citation styles at the [Zotero Style Repository](https://www.zotero.org/styles). You can search for a style or by field. Once you find a style you like, you can download the CSL file and add it to your project. The bibliography is a BibTeX file that contains the references for the article. You can create this file (as mentioned before) in a reference manager like Zotero or Mendeley.
+
+Now the `citation` option is not for references that we have gathered. Rather, it is for generating a citation for the current article. This is useful if someone else would like to cite your article. When the article is rendered, the citation will appear at the bottom of the article, as seen in @fig-citation-attribution.
+
+::: {#fig-citation-attribution}
+
+[![](images/citation-attribution.png)]{alt-text="Citation attribution in Quarto article"}
+
+Appearance of the citation attribution in a Quarto article.
+:::
+
+There are two other features to mention. One is the `format` option. Since the article is a Quarto document, it can be rendered in multiple formats. The `html` option ensures that our article is rendered in HTML format as part of the website. However, in addition, we can add a `pdf` option that will render the article in PDF format. Note that in @fig-header-format, the `pdf` option has created an "Other formats" listing on the right side below the table of contents. Clicking this will open the PDF version of the article.
+
+Although not employed in this example, it is also possible to use more extensive format changes with [Quarto extensions](https://quarto.org/docs/extensions/listing-journals.html). Currently, there are various extensions for different journals and publishing houses. For more information and examples, consult the documentation above.
+
+### Presentations
+
+- {revealjs}
+
+
+### Peer facing communication
+
+Demonstration of running a collaborative research project on GitHub following reproducible research principles
+
+We will also discuss some of the strategies for sharing research code and data, including:
+
+- Version control (GitHub)
+- Reproducible research (Quarto, `renv`, Docker)
+
+Walkthrough of a complete reproducible research project setup, including documentation, modular scripts, and containerization with GitHub Actions.
+
+<!--
+Lab: Future-proofing research
+
+- Add `renv` to a research project
+- Create a Dockerfile for a research project
+- Build Docker image for a research project using GitHub Actions
+ -->
+
+## Check your understanding
+
+<!-- Questions with Webexercises -->
+
+## Lab preparation
+
+
+
+
+
+
+
+
 
 
 ::: {.callout .halfsize}
