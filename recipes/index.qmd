@@ -1,7 +1,9 @@
 ---
 title: "Recipes"
 listing:
-  contents: ./
+  contents:
+    - ./
+    - "!presentation/index.qmd"
   type: default
   sort: "title"
   image-align: left
