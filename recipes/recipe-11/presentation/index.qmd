@@ -41,7 +41,7 @@ author:                                                 # <2>
   - name: "Jerid Francom"
     email: "francojc@wfu.edu"
     affiliation: "Wake Forest University"
-  - name: "Joe Biggs-Schüt"
+  - name: "Joe Biggs-Schaut"
     email: "biggssj@uni.edu"
     affiliation: "State University"
 bibliography: ../../bibliography.bib
