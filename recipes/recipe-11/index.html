@@ -193,6 +193,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-categories">
     <div class="quarto-category">contribute</div>
     <div class="quarto-category">research</div>
+    <div class="quarto-category">revealjs</div>
+    <div class="quarto-category">quarto</div>
+    <div class="quarto-category">reproducible-research</div>
+    <div class="quarto-category">github</div>
+    <div class="quarto-category">docker</div>
+    <div class="quarto-category">renv</div>
   </div>
   </div>
 
@@ -221,78 +227,166 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="public-facing-communication">Public facing communication</h3>
 <p>R (or Python) research projects that take advantage of Quarto websites have access to a wide range of tools for sharing research. First, the entire research tool chain can be published as a website, which is a great way to share the research process. Second, the website can be used to share the research findings in particular formats including articles and presentations. Let’s focus in on these later formats and discuss strategies for setting up and formatting research articles and presentations.</p>
 <p>We will assume the project directory structure in <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>.</p>
-<div id="lst-quarto-website" class="bash listing quarto-float">
+<div id="lst-quarto-website" class="listing quarto-float">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-website-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Snippet&nbsp;1: Quarto website structure for reproducible research
 </figcaption>
 <div aria-describedby="lst-quarto-website-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="lst-quarto-website"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="lst-quarto-website-1"><a href="#lst-quarto-website-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project/</span>                          <span class="co"># &lt;1&gt; project root</span></span>
-<span id="lst-quarto-website-2"><a href="#lst-quarto-website-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> data/                       <span class="co"># &lt;2&gt; data directory</span></span>
-<span id="lst-quarto-website-3"><a href="#lst-quarto-website-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── analysis/</span>
-<span id="lst-quarto-website-4"><a href="#lst-quarto-website-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── derived/</span>
-<span id="lst-quarto-website-5"><a href="#lst-quarto-website-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── original/</span>
-<span id="lst-quarto-website-6"><a href="#lst-quarto-website-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> process/                    <span class="co"># &lt;3&gt; process directory</span></span>
-<span id="lst-quarto-website-7"><a href="#lst-quarto-website-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 1_acquire.qmd</span>
-<span id="lst-quarto-website-8"><a href="#lst-quarto-website-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 2_curate.qmd</span>
-<span id="lst-quarto-website-9"><a href="#lst-quarto-website-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 3_transform.qmd</span>
-<span id="lst-quarto-website-10"><a href="#lst-quarto-website-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── 4_analyze.qmd</span>
-<span id="lst-quarto-website-11"><a href="#lst-quarto-website-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> reports/                    <span class="co"># &lt;4&gt; reports directory</span></span>
-<span id="lst-quarto-website-12"><a href="#lst-quarto-website-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── figures/                <span class="co"># &lt;5&gt; saved figures directory</span></span>
-<span id="lst-quarto-website-13"><a href="#lst-quarto-website-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── slides/                 <span class="co"># &lt;6&gt; presentation slides directory</span></span>
-<span id="lst-quarto-website-14"><a href="#lst-quarto-website-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   ├── workshop/           <span class="co"># &lt;7&gt; "workshop" presentation</span></span>
-<span id="lst-quarto-website-15"><a href="#lst-quarto-website-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   │    └── index.qmd      <span class="co"># &lt;8&gt; "workshop" presentation file</span></span>
-<span id="lst-quarto-website-16"><a href="#lst-quarto-website-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   └── conference/</span>
-<span id="lst-quarto-website-17"><a href="#lst-quarto-website-17" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── tables/                 <span class="co"># &lt;9&gt; saved tables directory</span></span>
-<span id="lst-quarto-website-18"><a href="#lst-quarto-website-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── article.qmd             <span class="co"># &lt;10&gt; article file</span></span>
-<span id="lst-quarto-website-19"><a href="#lst-quarto-website-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── citation-style.csl      <span class="co"># &lt;11&gt; citation style file</span></span>
-<span id="lst-quarto-website-20"><a href="#lst-quarto-website-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── presentations.qmd       <span class="co"># &lt;12&gt; presentations listing file</span></span>
-<span id="lst-quarto-website-21"><a href="#lst-quarto-website-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── references.bib          <span class="co"># &lt;13&gt; references file (bibtex)</span></span>
-<span id="lst-quarto-website-22"><a href="#lst-quarto-website-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> renv/</span>
-<span id="lst-quarto-website-23"><a href="#lst-quarto-website-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── ...</span>
-<span id="lst-quarto-website-24"><a href="#lst-quarto-website-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> _quarto.yml                 <span class="co"># &lt;14&gt; Quarto configuration file</span></span>
-<span id="lst-quarto-website-25"><a href="#lst-quarto-website-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> index.qmd</span>
-<span id="lst-quarto-website-26"><a href="#lst-quarto-website-26" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> README.md</span>
-<span id="lst-quarto-website-27"><a href="#lst-quarto-website-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> renv.lock</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode numberSource bash code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1"></a><span class="ex">project/</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2"></a>  <span class="ex">├──</span> data/</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a>  <span class="ex">│</span>   ├── analysis/</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4"></a>  <span class="ex">│</span>   ├── derived/</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5"></a>  <span class="ex">│</span>   └── original/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6"></a>  <span class="ex">├──</span> process/</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7"></a>  <span class="ex">│</span>   ├── 1_acquire.qmd</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8"></a>  <span class="ex">│</span>   ├── 2_curate.qmd</span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9"></a>  <span class="ex">│</span>   ├── 3_transform.qmd</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10"></a>  <span class="ex">│</span>   └── 4_analyze.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-11" class="code-annotation-target"><a href="#annotated-cell-1-11"></a>  <span class="ex">├──</span> reports/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-12" class="code-annotation-target"><a href="#annotated-cell-1-12"></a>  <span class="ex">│</span>   ├── figures/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6">6</button><span id="annotated-cell-1-13" class="code-annotation-target"><a href="#annotated-cell-1-13"></a>  <span class="ex">│</span>   ├── slides/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="7">7</button><span id="annotated-cell-1-14" class="code-annotation-target"><a href="#annotated-cell-1-14"></a>  <span class="ex">│</span>   │   ├── workshop/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="8">8</button><span id="annotated-cell-1-15" class="code-annotation-target"><a href="#annotated-cell-1-15"></a>  <span class="ex">│</span>   │   │    └── index.qmd</span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16"></a>  <span class="ex">│</span>   │   └── conference/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="9">9</button><span id="annotated-cell-1-17" class="code-annotation-target"><a href="#annotated-cell-1-17"></a>  <span class="ex">│</span>   ├── tables/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="10">10</button><span id="annotated-cell-1-18" class="code-annotation-target"><a href="#annotated-cell-1-18"></a>  <span class="ex">│</span>   ├── article.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="11">11</button><span id="annotated-cell-1-19" class="code-annotation-target"><a href="#annotated-cell-1-19"></a>  <span class="ex">│</span>   ├── citation-style.csl</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="12">12</button><span id="annotated-cell-1-20" class="code-annotation-target"><a href="#annotated-cell-1-20"></a>  <span class="ex">│</span>   ├── presentations.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="13">13</button><span id="annotated-cell-1-21" class="code-annotation-target"><a href="#annotated-cell-1-21"></a>  <span class="ex">│</span>   └── bibliography.bib</span>
+<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22"></a>  <span class="ex">├──</span> renv/</span>
+<span id="annotated-cell-1-23"><a href="#annotated-cell-1-23"></a>  <span class="ex">│</span>   └── ...</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="14">14</button><span id="annotated-cell-1-24" class="code-annotation-target"><a href="#annotated-cell-1-24"></a>  <span class="ex">├──</span> _quarto.yml</span>
+<span id="annotated-cell-1-25"><a href="#annotated-cell-1-25"></a>  <span class="ex">├──</span> index.qmd</span>
+<span id="annotated-cell-1-26"><a href="#annotated-cell-1-26"></a>  <span class="ex">├──</span> README.md</span>
+<span id="annotated-cell-1-27"><a href="#annotated-cell-1-27"></a>  <span class="ex">└──</span> renv.lock</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1"><strong>Project root</strong>: The root directory for the project.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2"><strong>Data directory</strong>: The directory for storing data files.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="3"><strong>Process directory</strong>: The directory for storing process files.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="11" data-code-annotation="4"><strong>Reports directory</strong>: The directory for storing reports.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="12" data-code-annotation="5"><strong>Figures directory</strong>: The directory for storing figures.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="13" data-code-annotation="6"><strong>Slides directory</strong>: The directory for storing presentations.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="14" data-code-annotation="7"><strong>Workshop directory</strong>: The directory for storing a “workshop” presentation.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="15" data-code-annotation="8"><strong>Workshop presentation file</strong>: The file for the “workshop” presentation.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="17" data-code-annotation="9"><strong>Tables directory</strong>: The directory for storing tables.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="10">10</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="18" data-code-annotation="10"><strong>Article file</strong>: The file for the article.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="11">11</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="19" data-code-annotation="11"><strong>Citation style file</strong>: The file for the citation style.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="12">12</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="20" data-code-annotation="12"><strong>Presentations listing file</strong>: The file for the presentations listing.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="13">13</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="21" data-code-annotation="13"><strong>References file</strong>: The file for the references.</span>
+</dd>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="14">14</dt>
+<dd>
+<span data-code-cell="annotated-cell-1" data-code-lines="24" data-code-annotation="14"><strong>Quarto configuration file</strong>: The file for the Quarto configuration.</span>
+</dd>
+</dl>
 </div>
 </figure>
 </div>
 <p>I will also assume the following Quarto configuration file <em>_quarto.yml</em> in <a href="#lst-quarto-config" class="quarto-xref">Snippet&nbsp;2</a>.</p>
-<div id="lst-quarto-config" class="yaml listing quarto-float">
+<div id="lst-quarto-config" class="listing quarto-float">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-config-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Snippet&nbsp;2: Quarto configuration file <em>_quarto.yml</em>
+Snippet&nbsp;2: Quarto configuration file for reproducible research
 </figcaption>
 <div aria-describedby="lst-quarto-config-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="lst-quarto-config"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="lst-quarto-config-1"><a href="#lst-quarto-config-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
-<span id="lst-quarto-config-2"><a href="#lst-quarto-config-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Web project"</span></span>
-<span id="lst-quarto-config-3"><a href="#lst-quarto-config-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
-<span id="lst-quarto-config-4"><a href="#lst-quarto-config-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">execute-dir</span><span class="kw">:</span><span class="at"> project</span><span class="co">              # &lt;1&gt; root for all execution</span></span>
-<span id="lst-quarto-config-5"><a href="#lst-quarto-config-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span><span class="co">                           # &lt;2&gt; rendering order</span></span>
-<span id="lst-quarto-config-6"><a href="#lst-quarto-config-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
-<span id="lst-quarto-config-7"><a href="#lst-quarto-config-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/1_acquire.qmd</span></span>
-<span id="lst-quarto-config-8"><a href="#lst-quarto-config-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/2_curate.qmd</span></span>
-<span id="lst-quarto-config-9"><a href="#lst-quarto-config-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/3_transform.qmd</span></span>
-<span id="lst-quarto-config-10"><a href="#lst-quarto-config-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/4_analyze.qmd</span></span>
-<span id="lst-quarto-config-11"><a href="#lst-quarto-config-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> reports/</span></span>
-<span id="lst-quarto-config-12"><a href="#lst-quarto-config-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="lst-quarto-config-13"><a href="#lst-quarto-config-13" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
-<span id="lst-quarto-config-14"><a href="#lst-quarto-config-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<span id="lst-quarto-config-15"><a href="#lst-quarto-config-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"docked"</span><span class="co">                 # &lt;3&gt; sidebar style</span></span>
-<span id="lst-quarto-config-16"><a href="#lst-quarto-config-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span><span class="co">                       # &lt;4&gt; sidebar contents</span></span>
-<span id="lst-quarto-config-17"><a href="#lst-quarto-config-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
-<span id="lst-quarto-config-18"><a href="#lst-quarto-config-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Process"</span></span>
-<span id="lst-quarto-config-19"><a href="#lst-quarto-config-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> process/*</span><span class="co">         # &lt;5&gt; all process files</span></span>
-<span id="lst-quarto-config-20"><a href="#lst-quarto-config-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reports"</span></span>
-<span id="lst-quarto-config-21"><a href="#lst-quarto-config-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> reports/*</span><span class="co">         # &lt;6&gt; all reports files</span></span>
-<span id="lst-quarto-config-22"><a href="#lst-quarto-config-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="lst-quarto-config-23"><a href="#lst-quarto-config-23" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="lst-quarto-config-24"><a href="#lst-quarto-config-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="lst-quarto-config-25"><a href="#lst-quarto-config-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
-<span id="lst-quarto-config-26"><a href="#lst-quarto-config-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="lst-quarto-config-27"><a href="#lst-quarto-config-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="lst-quarto-config-28"><a href="#lst-quarto-config-28" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
-<span id="lst-quarto-config-29"><a href="#lst-quarto-config-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">freeze</span><span class="kw">:</span><span class="at"> auto</span><span class="co">                      # &lt;7&gt; only render changed files</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode numberSource yaml code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Web project"</span></span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4"></a><span class="at">  </span><span class="fu">execute-dir</span><span class="kw">:</span><span class="at"> project</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-5" class="code-annotation-target"><a href="#annotated-cell-2-5"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/1_acquire.qmd</span></span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/2_curate.qmd</span></span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/3_transform.qmd</span></span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/4_analyze.qmd</span></span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11"></a><span class="at">    </span><span class="kw">-</span><span class="at"> reports/</span></span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12"></a></span>
+<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13"></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3">3</button><span id="annotated-cell-2-15" class="code-annotation-target"><a href="#annotated-cell-2-15"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"docked"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4">4</button><span id="annotated-cell-2-16" class="code-annotation-target"><a href="#annotated-cell-2-16"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17"></a><span class="at">      </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="annotated-cell-2-18"><a href="#annotated-cell-2-18"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Process"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="5">5</button><span id="annotated-cell-2-19" class="code-annotation-target"><a href="#annotated-cell-2-19"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> process/*</span></span>
+<span id="annotated-cell-2-20"><a href="#annotated-cell-2-20"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reports"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="6">6</button><span id="annotated-cell-2-21" class="code-annotation-target"><a href="#annotated-cell-2-21"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> reports/*</span></span>
+<span id="annotated-cell-2-22"><a href="#annotated-cell-2-22"></a></span>
+<span id="annotated-cell-2-23"><a href="#annotated-cell-2-23"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-24"><a href="#annotated-cell-2-24"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-25"><a href="#annotated-cell-2-25"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
+<span id="annotated-cell-2-26"><a href="#annotated-cell-2-26"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="annotated-cell-2-27"><a href="#annotated-cell-2-27"></a></span>
+<span id="annotated-cell-2-28"><a href="#annotated-cell-2-28"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="7">7</button><span id="annotated-cell-2-29" class="code-annotation-target"><a href="#annotated-cell-2-29"></a><span class="at">  </span><span class="fu">freeze</span><span class="kw">:</span><span class="at"> auto</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="4" data-code-annotation="1"><strong>Execution directory</strong>: The root directory for all execution.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="5" data-code-annotation="2"><strong>Render order</strong>: The order in which files are rendered.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="15" data-code-annotation="3"><strong>Sidebar style</strong>: The style of the sidebar.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="16" data-code-annotation="4"><strong>Sidebar contents</strong>: The contents of the sidebar.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="19" data-code-annotation="5"><strong>Process contents</strong>: The contents of the process section.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="21" data-code-annotation="6"><strong>Reports contents</strong>: The contents of the reports section.</span>
+</dd>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-2" data-code-lines="29" data-code-annotation="7"><strong>Freeze option</strong>: The option for rendering only changed files.</span>
+</dd>
+</dl>
 </div>
 </figure>
 </div>
@@ -303,30 +397,68 @@ Snippet&nbsp;2: Quarto configuration file <em>_quarto.yml</em>
 <h3 class="anchored" data-anchor-id="articles">Articles</h3>
 <p>In the <em>reports/</em> directory a file named <em>article.qmd</em> appears. This file, which can be named anything, will be the document in which we will draft the research article. This file is a standard Quarto document. However, we can take advantage of some options that we have not seen so far that adds functionality to the document.</p>
 <p>In <a href="#lst-quarto-article" class="quarto-xref">Snippet&nbsp;3</a>, we see an example of the YAML frontmatter for a Quarto article.</p>
-<div id="lst-quarto-article" class="yaml listing quarto-float">
+<div id="lst-quarto-article" class="listing quarto-float">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-article-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Snippet&nbsp;3: Quarto article YAML frontmatter
 </figcaption>
 <div aria-describedby="lst-quarto-article-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="lst-quarto-article"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="lst-quarto-article-1"><a href="#lst-quarto-article-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Article"</span></span>
-<span id="lst-quarto-article-2"><a href="#lst-quarto-article-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2024-02-20</span></span>
-<span id="lst-quarto-article-3"><a href="#lst-quarto-article-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="co">                               # &lt;1&gt; author information</span></span>
-<span id="lst-quarto-article-4"><a href="#lst-quarto-article-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your name"</span></span>
-<span id="lst-quarto-article-5"><a href="#lst-quarto-article-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> youremail@school.edu</span></span>
-<span id="lst-quarto-article-6"><a href="#lst-quarto-article-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your affiliation"</span></span>
-<span id="lst-quarto-article-7"><a href="#lst-quarto-article-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abstract</span><span class="kw">: </span><span class="ch">|</span><span class="co">                           # &lt;2&gt; abstract</span></span>
-<span id="lst-quarto-article-8"><a href="#lst-quarto-article-8" aria-hidden="true" tabindex="-1"></a>  This is a sample article. It is a work in progress and will be updated as the research progresses.</span>
-<span id="lst-quarto-article-9"><a href="#lst-quarto-article-9" aria-hidden="true" tabindex="-1"></a><span class="fu">keywords</span><span class="kw">:</span><span class="co">                             # &lt;3&gt; keywords</span></span>
-<span id="lst-quarto-article-10"><a href="#lst-quarto-article-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> article</span></span>
-<span id="lst-quarto-article-11"><a href="#lst-quarto-article-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> example</span></span>
-<span id="lst-quarto-article-12"><a href="#lst-quarto-article-12" aria-hidden="true" tabindex="-1"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> citation-style.csl</span><span class="co">               # &lt;4&gt; citation style</span></span>
-<span id="lst-quarto-article-13"><a href="#lst-quarto-article-13" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> ../bibliography.bib</span><span class="co">     # &lt;5&gt; bib file</span></span>
-<span id="lst-quarto-article-14"><a href="#lst-quarto-article-14" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                        # &lt;6&gt; create citation in document</span></span>
-<span id="lst-quarto-article-15"><a href="#lst-quarto-article-15" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="co">                               # &lt;7&gt; format options</span></span>
-<span id="lst-quarto-article-16"><a href="#lst-quarto-article-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span><span class="co">                       # &lt;8&gt; maintain html format</span></span>
-<span id="lst-quarto-article-17"><a href="#lst-quarto-article-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="co">                                # &lt;9&gt; add pdf output, with options</span></span>
-<span id="lst-quarto-article-18"><a href="#lst-quarto-article-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode numberSource yaml code-annotation-code number-lines code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Article"</span></span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2024-02-20</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-3" class="code-annotation-target"><a href="#annotated-cell-3-3"></a><span class="fu">author</span><span class="kw">:</span></span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your name"</span></span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> youremail@school.edu</span></span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your affiliation"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2">2</button><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7"></a><span class="fu">abstract</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8"></a>  This is a sample article. It is a work in progress and will be updated as the research progresses.</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3">3</button><span id="annotated-cell-3-9" class="code-annotation-target"><a href="#annotated-cell-3-9"></a><span class="fu">keywords</span><span class="kw">:</span></span>
+<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10"></a><span class="at">  </span><span class="kw">-</span><span class="at"> article</span></span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11"></a><span class="at">  </span><span class="kw">-</span><span class="at"> example</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4">4</button><span id="annotated-cell-3-12" class="code-annotation-target"><a href="#annotated-cell-3-12"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> citation-style.csl</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="5">5</button><span id="annotated-cell-3-13" class="code-annotation-target"><a href="#annotated-cell-3-13"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> ../bibliography.bib</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="6">6</button><span id="annotated-cell-3-14" class="code-annotation-target"><a href="#annotated-cell-3-14"></a><span class="fu">citation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="7">7</button><span id="annotated-cell-3-15" class="code-annotation-target"><a href="#annotated-cell-3-15"></a><span class="fu">format</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="8">8</button><span id="annotated-cell-3-16" class="code-annotation-target"><a href="#annotated-cell-3-16"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="9">9</button><span id="annotated-cell-3-17" class="code-annotation-target"><a href="#annotated-cell-3-17"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="1"><strong>Author information</strong>: The author information for the article.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="2"><strong>Abstract</strong>: The abstract for the article.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="9" data-code-annotation="3"><strong>Keywords</strong>: The keywords for the article.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="12" data-code-annotation="4"><strong>Citation style</strong>: The citation style for the article.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="13" data-code-annotation="5"><strong>Bibliography</strong>: The bibliography for the article.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="14" data-code-annotation="6"><strong>Citation</strong>: The citation for the article itself.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="15" data-code-annotation="7"><strong>Format</strong>: The format for the article.</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="16" data-code-annotation="8"><strong>HTML format</strong>: The HTML format for the article (for web presentation)</span>
+</dd>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="17" data-code-annotation="9"><strong>PDF format</strong>: The PDF format for the article (for printing)</span>
+</dd>
+</dl>
 </div>
 </figure>
 </div>
@@ -359,53 +491,101 @@ Figure&nbsp;2: Appearance of the citation attribution in a Quarto article.
 </section>
 <section id="presentations" class="level3">
 <h3 class="anchored" data-anchor-id="presentations">Presentations</h3>
-<ul>
-<li>{revealjs}</li>
-</ul>
+<p>In the <em>reports/</em> directory we can also include presentations and associated slide decks. A popular web-based presentation framework is <a href="https://revealjs.com/">reveal.js</a>. This framework is used in Quarto to create presentations. In <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>, the <em>slides/</em> directory contains a directory for each presentation and an <em>index.qmd</em> file within. The <em>index.qmd</em> file contains the presentation content, which we will see soon. To provide a listings page each presentation, the <em>presentations.qmd</em> file contains special YAML instructions to be a listings page.</p>
+<p>Let’s first dive into the <em>index.qmd</em> file for a presentation and discuss some of the key features. In <a href="#lst-quarto-presentation" class="quarto-xref">Snippet&nbsp;4</a>, we see a basic example of a Quarto presentation.</p>
+<div id="lst-quarto-presentation" class="listing quarto-float">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-presentation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;4: Quarto presentation YAML frontmatter <em>index.qmd</em>
+</figcaption>
+<div aria-describedby="lst-quarto-presentation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="lst-quarto-presentation"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="lst-quarto-presentation-1"><a href="#lst-quarto-presentation-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Examle presentation"</span></span>
+<span id="lst-quarto-presentation-2"><a href="#lst-quarto-presentation-2"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2024-02-20</span></span>
+<span id="lst-quarto-presentation-3"><a href="#lst-quarto-presentation-3"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Jerid Francom"</span></span>
+<span id="lst-quarto-presentation-4"><a href="#lst-quarto-presentation-4"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> revealjs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>The YAML frontmatter for a Quarto presentation is similar to that of most Quarto documents. The title, date, and author are all included. The <code>format</code> option specifies that the presentation will be rendered in <code>reveal.js</code> format. When rendered, the presentation the slide deck will be interactive and can be navigated by the user. The slide deck will also be responsive and can be viewed on any device.</p>
+<p>In <a href="#fig-revealjs-example" class="quarto-xref">Figure&nbsp;3</a>, we see an example of a Quarto presentation rendered in <code>reveal.js</code> format. I will discuss some of the key features of the presentation, in the presentation itself.</p>
+<div id="fig-revealjs-example" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-revealjs-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<style>
+.slide-deck {
+  width: 90%;
+  height: 400px;
+  border: 1px solid #ccc;
+}
+</style>
+<iframe class="slide-deck" src="presentation/"></iframe>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-revealjs-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3
+</figcaption>
+</figure>
+</div>
 </section>
 <section id="peer-facing-communication" class="level3">
 <h3 class="anchored" data-anchor-id="peer-facing-communication">Peer facing communication</h3>
-<p>Demonstration of running a collaborative research project on GitHub following reproducible research principles</p>
-<p>We will also discuss some of the strategies for sharing research code and data, including:</p>
-<ul>
-<li>Version control (GitHub)</li>
-<li>Reproducible research (Quarto, <code>renv</code>, Docker)</li>
-</ul>
-<p>Walkthrough of a complete reproducible research project setup, including documentation, modular scripts, and containerization with GitHub Actions.</p>
+<p>TBD</p>
+<!--
+
+Demonstration of running a collaborative research project on GitHub following reproducible research principles
+
+We will also discuss some of the strategies for sharing research code and data, including:
+
+- Version control (GitHub)
+- Reproducible research (Quarto, `renv`, Docker)
+
+Walkthrough of a complete reproducible research project setup, including documentation, modular scripts, and containerization with GitHub Actions.
+
+-->
+<!-- ::: {.callout .halfsize}
+** Dive deeper**
+
+When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
+
+```r
+pak::pkg_sysreqs(pkg = "knitr", sysreqs = "ubuntu")
+```
+
+```xml
+── Install scripts ── Ubuntu NA
+apt-get -y update
+apt-get -y install pandoc
+
+── Packages/ system dependencies
+knitr – pandoc
+```
+
+These can be added to the computational setup script for the project.
+::: -->
+</section>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<!-- Questions with Webexercises -->
+<ol type="1">
+<li><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select> Using Quarto websites for sharing research findings is the only way to meet the requirements of a reproducible research project.</li>
+<li>Using <a href="#lst-quarto-config" class="quarto-xref">Snippet&nbsp;2</a>, what option specifies the order in which files are rendered? <select class="webex-select"><option value="blank"></option><option value="">execute-dir</option><option value="answer">render</option><option value="">sidebar</option><option value="">contents</option><option value="">freeze</option></select></li>
+<li>What is the name of the framework that Quarto uses to create presentations? <input class="webex-solveme nospaces ignorecase" size="9" data-answer="[&quot;reveal.js&quot;,&quot;Reveal.js&quot;,&quot;revealjs&quot;]"></li>
+<li>TBD</li>
+<li>TBD</li>
+<li>TBD</li>
+</ol>
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
+<p>TBD</p>
 <!--
 Lab: Future-proofing research
 
 - Add `renv` to a research project
 - Create a Dockerfile for a research project
 - Build Docker image for a research project using GitHub Actions
- -->
-</section>
-</section>
-<section id="check-your-understanding" class="level2">
-<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
-<!-- Questions with Webexercises -->
-</section>
-<section id="lab-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
-<p>When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The <code>pak</code> package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>pak<span class="sc">::</span><span class="fu">pkg_sysreqs</span>(<span class="at">pkg =</span> <span class="st">"knitr"</span>, <span class="at">sysreqs =</span> <span class="st">"ubuntu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource xml number-lines code-with-copy"><code class="sourceCode xml"><span id="cb2-1"><a href="#cb2-1"></a>── Install scripts ── Ubuntu NA</span>
-<span id="cb2-2"><a href="#cb2-2"></a>apt-get -y update</span>
-<span id="cb2-3"><a href="#cb2-3"></a>apt-get -y install pandoc</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a>── Packages/ system dependencies</span>
-<span id="cb2-6"><a href="#cb2-6"></a>knitr – pandoc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>These can be added to the computational setup script for the project.</p>
-</div>
-</div>
-</div>
+
+-->
 
 
 </section>
