@@ -1,1 +1,3 @@
-freeze: true
+engine: knitr
+filters:
+  - webr

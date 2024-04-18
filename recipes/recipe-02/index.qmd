@@ -4,6 +4,11 @@ subtitle: "Basics of working with datasets in R"
 description: |
   This Recipe guides you through the process of reading, inspecting, and writing datasets using R packages and functions in a Quarto environment. You'll learn how to effectively combine code and narrative to create a reproducible document that can be shared with others.
 categories: [foundations]
+webr:
+  show-startup-message: false
+  packages: ['readr', 'dplyr']
+  message: false
+  autoload-packages: false
 execute:
   echo: true
 ---
@@ -74,6 +79,12 @@ library(readr) # for reading and writing data
 library(dplyr) # for inspecting and transforming data
 ```
 
+```{webr-r}
+# Load packages
+library(readr)
+library(___)
+```
+
 This code block assumes that the `readr` and `dplyr` packages are installed on the current computing environment. If the packages are not installed, the code block will stop and display an error message, such as:
 
 ```plain
@@ -85,7 +96,7 @@ This error can be addressed by installing the missing package with `install.pack
 ::: {.callout}
 **{{< fa medal >}} Dive deeper**
 
-If you interested in learning about safeguarding package loading in a reproducible way, see the `renv` package. The `renv` package is a project-oriented workflow to create a reproducible environment for R projects. For more information, see the [renv documentation](https://rstudio.github.io/renv/articles/renv.html).
+If you interested in learning about safeguarding package loading in a reproducible way, see the `renv` package. The `renv` package is a project-oriented workflow to create a reproducible environment for R projects. For more information, see the [renv documentation](https://rstudio.github.io/renv/articles/renv.html) and/ or [Recipe 11](#recipes/recipe-11/index.html)
 :::
 
 ### Understanding the data
