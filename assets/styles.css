@@ -83,3 +83,9 @@ pre.sourceCode {
 .cell-output {
   font-size: .85em;
 }
+
+/* Webr */
+
+#qwebr-insertion-location-1 {
+  font-size: .8em;
+}
