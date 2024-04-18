@@ -1,0 +1,228 @@
+---
+title: "Example presentation"
+subtitle: "An example of using {revealjs} with Quarto"
+author:
+  - name: "Jerid Francom"
+    email: "francojc@wfu.edu"
+    affiliation: "Wake Forest University"
+  - name: "Joe Biggs-Schüt"
+    email: "biggssj@uni.edu"
+    affiliation: "State University"
+date: "2024-04-18"
+date-format: medium
+format:
+  revealjs:
+    theme: simple
+    slide-number: c/t
+    hash-type: number
+    logo: "logo.jpg"
+    footer: "Recipe 11: Sharing research"
+code-annotations: true
+---
+
+## Overview
+
+- Global features
+- Slide-level features
+- Slide elements
+
+# Global features
+
+*Leveraging the YAML frontmatter*
+
+## Metadata
+
+We can add more options to include metadata in the presentation.
+
+```yaml
+title: "Example presentation"
+subtitle: "An example of using {revealjs} with Quarto"  # <1>
+author:                                                 # <2>
+  - name: "Jerid Francom"
+    email: "francojc@wfu.edu"
+    affiliation: "Wake Forest University"
+  - name: "Joe Biggs-Schüt"
+    email: "biggssj@uni.edu"
+    affiliation: "State University"
+bibliography: ../../bibliography.bib
+date: "2024-04-18"
+date-format: medium                                      # <3>
+```
+1. Add a subtitle
+2. Extended (multiple) authorship information
+3. Modified date format
+
+## Reveal.js options
+
+As with other output formats, we can specify options for the reveal.js presentation.
+
+```yaml
+format:
+  revealjs:
+    theme: simple                                       # <1>
+    slide-number: c/t                                   # <2>
+    hash-type: number                                   # <3>
+    logo: "logo.jpg"                                    # <4>
+    footer: "Recipe 11: Sharing research"               # <5>
+    incremental: false                                  # <6>
+```
+1. Change the theme ([built-in themes](https://quarto.org/docs/presentations/revealjs/themes.html))
+2. Slide numbering (`c/t` for current/total)
+3. Hash type for slide URLs (`number` for slide number URL)
+
+## Reveal.js options
+
+As with other output formats, we can specify options for the reveal.js presentation.
+
+```yaml
+format:
+  revealjs:
+    theme: simple                                       # <1>
+    slide-number: c/t                                   # <2>
+    hash-type: number                                   # <3>
+    logo: "logo.jpg"                                    # <4>
+    footer: "Recipe 11: Sharing research"               # <5>
+    incremental: false                                  # <6>
+```
+4. Add a logo to the presentation
+5. Add a footer to the presentation
+6. Specify if slide elements (bullets) should be revealed incrementally
+
+# Slide-level features
+*Using `#` and `##` for creating/ adjusting slides*
+
+## Slide types
+
+There are two primary slide types.
+
+Section slides
+
+```yaml
+# Section slide
+
+Subtitle (optional)
+```
+
+Subsection slides
+
+```yaml
+## Subsection slide
+
+Markdown content goes here.
+
+- Bullet 1
+- Bullet 2
+```
+
+## Slide features
+
+Slides can be customized with additional options:
+
+- Add incremental bullets
+
+```yaml
+## Slide Title {.incremental}
+```
+
+- Make elements appear smaller
+
+```yaml
+## Slide Title {.smaller}
+```
+
+- Make the slide scrollable for long content
+
+```yaml
+## Slide Title {.scrollable}
+```
+
+These options can be combined as needed.
+
+# Slide elements
+
+*Using Markdown/ Quarto to create slide content*
+
+## Markdown content
+
+You can use standard Markdown syntax to create slide content. This includes images, tables, links, and more.
+
+Images
+
+```markdown
+![Caption for the image](image.jpg)
+```
+
+Tables
+
+```markdown
+| Header 1 | Header 2 |
+|----------|----------|
+| Cell 1   | Cell 2   |
+
+: Caption for the table
+```
+
+## Quarto features
+
+You can also use Quarto to create elements.
+
+Code blocks
+
+```{{r}}
+#| label: hello
+print("Hello, world!")
+```
+
+Figures
+
+```{{r}}
+#| label: fig-plot
+plot(1:10)
+```
+
+Citations
+
+```markdown
+[@Francom2014]
+```
+
+## Columns
+
+If you want to add columns to a slide, you can use the following syntax:
+
+```markdown
+:::: {.columns}
+::: {.column width="50%"}
+Content for the first column
+:::
+
+::: {.column width="50%"}
+Content for the second column
+:::
+::::
+```
+
+You can adjust the width as needed and/ or add more columns.
+
+## Speaker notes
+
+You can add speaker notes to a slide using the following syntax:
+
+```markdown
+::: {.notes}
+Speaker notes go here.
+:::
+```
+
+# Wrap up
+
+## Final thoughts
+
+- Presentations can be customized at the global and slide level
+- Use Markdown and Quarto to create slide content
+- Add speaker notes and other elements as needed
+
+::: {.aside}
+For more information, see the [Quarto documentation](https://quarto.org/docs/presentations/revealjs.html).
+:::
+

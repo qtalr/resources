@@ -3,8 +3,14 @@ title: "11. Sharing research"
 subtitle: "Communicating research findings"
 description: |
   In this recipe, I cover the tools and strategies for sharing research findings with the public and peers. We will begin assuming we are using Quarto websites as the primary tool for sharing research findings in both forums. From there, we will enter into some of the details of articles, presentations, and publishing research code and data.
-categories: [contribute, research]
+categories: [contribute, research, revealjs, quarto, reproducible-research, github, docker, renv]
 ---
+
+```{r}
+#| label: setup-options
+#| child: "../_common.qmd"
+#| cache: false
+```
 
 ## Concepts and strategies
 
@@ -14,44 +20,63 @@ R (or Python) research projects that take advantage of Quarto websites have acce
 
 We will assume the project directory structure in @lst-quarto-website.
 
-```{#lst-quarto-website .bash lst-cap="Quarto website structure for reproducible research"}
-project/                          # <1> project root
-  ├── data/                       # <2> data directory
+::: {#lst-quarto-website}
+```bash
+project/                          # <1>
+  ├── data/                       # <2>
   │   ├── analysis/
   │   ├── derived/
   │   └── original/
-  ├── process/                    # <3> process directory
+  ├── process/                    # <3>
   │   ├── 1_acquire.qmd
   │   ├── 2_curate.qmd
   │   ├── 3_transform.qmd
   │   └── 4_analyze.qmd
-  ├── reports/                    # <4> reports directory
-  │   ├── figures/                # <5> saved figures directory
-  │   ├── slides/                 # <6> presentation slides directory
-  │   │   ├── workshop/           # <7> "workshop" presentation
-  │   │   │    └── index.qmd      # <8> "workshop" presentation file
+  ├── reports/                    # <4>
+  │   ├── figures/                # <5>
+  │   ├── slides/                 # <6>
+  │   │   ├── workshop/           # <7>
+  │   │   │    └── index.qmd      # <8>
   │   │   └── conference/
-  │   ├── tables/                 # <9> saved tables directory
-  │   ├── article.qmd             # <10> article file
-  │   ├── citation-style.csl      # <11> citation style file
-  │   ├── presentations.qmd       # <12> presentations listing file
-  │   └── references.bib          # <13> references file (bibtex)
+  │   ├── tables/                 # <9>
+  │   ├── article.qmd             # <10>
+  │   ├── citation-style.csl      # <11>
+  │   ├── presentations.qmd       # <12>
+  │   └── bibliography.bib        # <13>
   ├── renv/
   │   └── ...
-  ├── _quarto.yml                 # <14> Quarto configuration file
+  ├── _quarto.yml                 # <14>
   ├── index.qmd
   ├── README.md
   └── renv.lock
 ```
+1. **Project root**: The root directory for the project.
+2. **Data directory**: The directory for storing data files.
+3. **Process directory**: The directory for storing process files.
+4. **Reports directory**: The directory for storing reports.
+5. **Figures directory**: The directory for storing figures.
+6. **Slides directory**: The directory for storing presentations.
+7. **Workshop directory**: The directory for storing a "workshop" presentation.
+8. **Workshop presentation file**: The file for the "workshop" presentation.
+9. **Tables directory**: The directory for storing tables.
+10. **Article file**: The file for the article.
+11. **Citation style file**: The file for the citation style.
+12. **Presentations listing file**: The file for the presentations listing.
+13. **References file**: The file for the references.
+14. **Quarto configuration file**: The file for the Quarto configuration.
+
+Quarto website structure for reproducible research
+:::
 
 I will also assume the following Quarto configuration file *\_quarto.yml* in @lst-quarto-config.
 
-```{#lst-quarto-config .yaml lst-cap="Quarto configuration file *\\_quarto.yml*"}
+::: {#lst-quarto-config}
+```yaml
 project:
   title: "Web project"
   type: website
-  execute-dir: project              # <1> root for all execution
-  render:                           # <2> rendering order
+  execute-dir: project              # <1>
+  render:                           # <2>
     - index.qmd
     - process/1_acquire.qmd
     - process/2_curate.qmd
@@ -61,13 +86,13 @@ project:
 
 website:
   sidebar:
-    style: "docked"                 # <3> sidebar style
-    contents:                       # <4> sidebar contents
+    style: "docked"                 # <3>
+    contents:                       # <4>
       - index.qmd
       - section: "Process"
-        contents: process/*         # <5> all process files
+        contents: process/*         # <5>
       - section: "Reports"
-        contents: reports/*         # <6> all reports files
+        contents: reports/*         # <6>
 
 format:
   html:
@@ -75,8 +100,18 @@ format:
     toc: true
 
 execute:
-  freeze: auto                      # <7> only render changed files
+  freeze: auto                      # <7>
 ```
+1. **Execution directory**: The root directory for all execution.
+2. **Render order**: The order in which files are rendered.
+3. **Sidebar style**: The style of the sidebar.
+4. **Sidebar contents**: The contents of the sidebar.
+5. **Process contents**: The contents of the process section.
+6. **Reports contents**: The contents of the reports section.
+7. **Freeze option**: The option for rendering only changed files.
+
+Quarto configuration file for reproducible research
+:::
 
 Looking more closely at the directory structure in @lst-quarto-website, let's focus on the aspects that are shared between articles and presentations. You will notice that the *reports/* directory contains a *figures/* directory for saving figures, a *tables/* directory for saving tables, and a *references.bib* file for saving references. These are shared resources that can be used in both articles and presentations. In the process directory, you can save tables, figures, and other resources that are generated during the research process that you believe will be useful in commmunicating the research findings. Then, when you create your presentations, you can include the same materials in either format with the same files. If changes are made to the figures or tables, they will be updated in both the article and the presentation(s).
 
@@ -88,26 +123,39 @@ In the *reports/* directory a file named *article.qmd* appears. This file, which
 
 In @lst-quarto-article, we see an example of the YAML frontmatter for a Quarto article.
 
-```{#lst-quarto-article .yaml lst-cap="Quarto article YAML frontmatter"}
+::: {#lst-quarto-article}
+```yaml
 title: "Article"
 date: 2024-02-20
-author:                               # <1> author information
+author:                               # <1>
   - name: "Your name"
     email: youremail@school.edu
     affiliation: "Your affiliation"
-abstract: |                           # <2> abstract
+abstract: |                           # <2>
   This is a sample article. It is a work in progress and will be updated as the research progresses.
-keywords:                             # <3> keywords
+keywords:                             # <3>
   - article
   - example
-csl: citation-style.csl               # <4> citation style
-bibliography: ../bibliography.bib     # <5> bib file
-citation: true                        # <6> create citation in document
-format:                               # <7> format options
-  html: default                       # <8> maintain html format
-  pdf:                                # <9> add pdf output, with options
+csl: citation-style.csl               # <4>
+bibliography: ../bibliography.bib     # <5>
+citation: true                        # <6>
+format:                               # <7>
+  html: default                       # <8>
+  pdf:                                # <9>
     number-sections: true
 ```
+1. **Author information**: The author information for the article.
+2. **Abstract**: The abstract for the article.
+3. **Keywords**: The keywords for the article.
+4. **Citation style**: The citation style for the article.
+5. **Bibliography**: The bibliography for the article.
+6. **Citation**: The citation for the article itself.
+7. **Format**: The format for the article.
+8. **HTML format**: The HTML format for the article (for web presentation)
+9. **PDF format**: The PDF format for the article (for printing)
+
+Quarto article YAML frontmatter
+:::
 
 In addition to typical YAML frontmatter, we see a number of new times. Looking at the first three, we see that we can add author information, an abstract, and keywords. These are standard for articles and are used to provide information about the article to readers.
 
@@ -137,10 +185,43 @@ Although not employed in this example, it is also possible to use more extensive
 
 ### Presentations
 
-- {revealjs}
+In the *reports/* directory we can also include presentations and associated slide decks. A popular web-based presentation framework is [reveal.js](https://revealjs.com/). This framework is used in Quarto to create presentations. In @lst-quarto-website, the *slides/* directory contains a directory for each presentation and an *index.qmd* file within. The *index.qmd* file contains the presentation content, which we will see soon. To provide a listings page each presentation, the *presentations.qmd* file contains special YAML instructions to be a listings page.
 
+Let's first dive into the *index.qmd* file for a presentation and discuss some of the key features. In @lst-quarto-presentation, we see a basic example of a Quarto presentation.
+
+::: {#lst-quarto-presentation}
+```yaml
+title: "Examle presentation"
+date: 2024-02-20
+author: "Jerid Francom"
+format: revealjs
+```
+
+Quarto presentation YAML frontmatter *index.qmd*
+:::
+
+The YAML frontmatter for a Quarto presentation is similar to that of most Quarto documents. The title, date, and author are all included. The `format` option specifies that the presentation will be rendered in `reveal.js` format. When rendered, the presentation the slide deck will be interactive and can be navigated by the user. The slide deck will also be responsive and can be viewed on any device.
+
+In @fig-revealjs-example, we see an example of a Quarto presentation rendered in `reveal.js` format. I will discuss some of the key features of the presentation, in the presentation itself.
+
+::: {#fig-revealjs-example}
+```{=html}
+<style>
+.slide-deck {
+  width: 90%;
+  height: 400px;
+  border: 1px solid #ccc;
+}
+</style>
+<iframe class="slide-deck" src="presentation/"></iframe>
+```
+:::
 
 ### Peer facing communication
+
+TBD
+
+<!--
 
 Demonstration of running a collaborative research project on GitHub following reproducible research principles
 
@@ -151,30 +232,9 @@ We will also discuss some of the strategies for sharing research code and data, 
 
 Walkthrough of a complete reproducible research project setup, including documentation, modular scripts, and containerization with GitHub Actions.
 
-<!--
-Lab: Future-proofing research
+-->
 
-- Add `renv` to a research project
-- Create a Dockerfile for a research project
-- Build Docker image for a research project using GitHub Actions
- -->
-
-## Check your understanding
-
-<!-- Questions with Webexercises -->
-
-## Lab preparation
-
-
-
-
-
-
-
-
-
-
-::: {.callout .halfsize}
+<!-- ::: {.callout .halfsize}
 **{{< fa medal >}} Dive deeper**
 
 When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
@@ -193,4 +253,30 @@ knitr – pandoc
 ```
 
 These can be added to the computational setup script for the project.
-:::
+::: -->
+
+
+## Check your understanding
+
+<!-- Questions with Webexercises -->
+
+1. `r torf(FALSE)` Using Quarto websites for sharing research findings is the only way to meet the requirements of a reproducible research project.
+2. Using @lst-quarto-config, what option specifies the order in which files are rendered? `r mcq(c("execute-dir", answer = "render", "sidebar", "contents", "freeze"))`
+3. What is the name of the framework that Quarto uses to create presentations? `r fitb(c(answer = c("reveal.js", "Reveal.js", "revealjs")), ignore_case = TRUE)`
+4. TBD
+5. TBD
+6. TBD
+
+## Lab preparation
+
+TBD
+
+<!--
+Lab: Future-proofing research
+
+- Add `renv` to a research project
+- Create a Dockerfile for a research project
+- Build Docker image for a research project using GitHub Actions
+
+-->
+

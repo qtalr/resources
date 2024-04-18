@@ -1,5 +1,5 @@
 ---
-title: "Recipe 09"
+title: "09. Recipe"
 categories: [recipes]
 ---
 
