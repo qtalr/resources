@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jerid Francom">
+<meta name="description" content="At this point, we now have a strong undertanding of the foundations of programming in R and the data science workflow. Previous lessons, recipes, and labs focused on developing these skills while the chapters aimed to provide a conceptual framework for understanding the steps in the data science workflow. We now turn to applying our conceptual knowledge and our technical skills to accomplish the tasks of the data science workflow, starting with data acquisition.">
 
-<title>Resources Kit - 05. Recipe</title>
+<title>Resources Kit - 05. Collecting and documenting data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +22,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -39,6 +95,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -130,23 +188,51 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
+  <ul class="collapse">
+  <li><a href="#finding-data-sources" id="toc-finding-data-sources" class="nav-link" data-scroll-target="#finding-data-sources">Finding data sources</a></li>
+  <li><a href="#data-collection-strategy" id="toc-data-collection-strategy" class="nav-link" data-scroll-target="#data-collection-strategy">Data collection strategy</a></li>
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">Data collection</a></li>
+  <li><a href="#data-documentation" id="toc-data-documentation" class="nav-link" data-scroll-target="#data-documentation">Data documentation</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
+  <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-05/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">05. Recipe</h1>
+<h1 class="title">05. Collecting and documenting data</h1>
+<p class="subtitle lead">Summarizing data with statistics, tables, and plots</p>
   <div class="quarto-categories">
-    <div class="quarto-category">recipes</div>
+    <div class="quarto-category">preparation</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <p>At this point, we now have a strong undertanding of the foundations of programming in R and the data science workflow. Previous lessons, recipes, and labs focused on developing these skills while the chapters aimed to provide a conceptual framework for understanding the steps in the data science workflow. We now turn to applying our conceptual knowledge and our technical skills to accomplish the tasks of the data science workflow, starting with data acquisition.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jerid Francom </p>
+          </div>
+  </div>
     
   
     
@@ -157,11 +243,733 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Hello.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Skills</strong></p>
+<ul>
+<li>Finding data sources</li>
+<li>Data collection strategies</li>
+<li>Data documentation</li>
+</ul>
+</div>
+</div>
+</div>
+<section id="concepts-and-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
+<section id="finding-data-sources" class="level3">
+<h3 class="anchored" data-anchor-id="finding-data-sources">Finding data sources</h3>
+<p>To find data sources, it is best to have a research question in mind. This will help to narrow the search for data sources. However, finding data sources can also be a good way to generate research questions. In either case, it takes some sleuthing to find data sources that will work for your research question. In addition, to the data source itself, you will also need to consider the permissions and licensing of the data source. It is best to consider these early in the process to avoid surprises later. Finally, you will also need to consider the data format and how it will be used in the analysis. It can be the case that a data source seems ideal, but the data format is not conducive to the analysis you would like to do.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>Consult the <a href="../../guides/guide-04/">Identifying data and data sources</a> guide for some ideas on where to find data sources.</p>
+</div>
+</div>
+</div>
+<p>In this recipe, we will consider some hypothetical reseach aimed at exploring potential similarities and differences in the lexical, syntactic, and/ or stylistic features between American and English literature during the mid 19th century.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>If you are interested in understanding a literary analysis perspective to text analysis, I highly recommend <a href="https://link.springer.com/book/10.1007/978-3-319-03164-4">Matthew Jockers’ book <em>Text Analysis with R for Students of Literature</em></a> <span class="citation" data-cites="Jockers2014">(<a href="#ref-Jockers2014" role="doc-biblioref">Jockers 2014</a>)</span>. This book is a great resource for understanding how to apply text analysis to literary analysis.</p>
+</div>
+</div>
+</div>
+<p>Project Gutenberg is a great source of data for this research question. Project Gutenberg is a volunteer effort to digitize and archive cultural works. The great majority of the works in the Project Gutenberg database are in the public domain in the United States. This means that the works can be freely used and shared.</p>
+<p>Furthermore, {gutenbergr} provides an API for accessing the Project Gutenberg database. This means that we can use R to access the Project Gutenberg database and download the text and metadata for the works we are interested in. {gutenbergr} also provides a number of data frames that can help us to identify the works we are interested in.</p>
+</section>
+<section id="data-collection-strategy" class="level3">
+<h3 class="anchored" data-anchor-id="data-collection-strategy">Data collection strategy</h3>
+<p>Let’s now turn to the data collection strategy. There are a number of data collection strategies that can be used to acquire data for a text analysis project. In the chapter, we covered manual and programmatic downloads and APIs. Here we will use an R package which will provide an API for accessing the data source.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><svg aria-hidden="true" role="img" viewbox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M4.1 38.2C1.4 34.2 0 29.4 0 24.6C0 11 11 0 24.6 0H133.9c11.2 0 21.7 5.9 27.4 15.5l68.5 114.1c-48.2 6.1-91.3 28.6-123.4 61.9L4.1 38.2zm503.7 0L405.6 191.5c-32.1-33.3-75.2-55.8-123.4-61.9L350.7 15.5C356.5 5.9 366.9 0 378.1 0H487.4C501 0 512 11 512 24.6c0 4.8-1.4 9.6-4.1 13.6zM80 336a176 176 0 1 1 352 0A176 176 0 1 1 80 336zm184.4-94.9c-3.4-7-13.3-7-16.8 0l-22.4 45.4c-1.4 2.8-4 4.7-7 5.1L168 298.9c-7.7 1.1-10.7 10.5-5.2 16l36.3 35.4c2.2 2.2 3.2 5.2 2.7 8.3l-8.6 49.9c-1.3 7.6 6.7 13.5 13.6 9.9l44.8-23.6c2.7-1.4 6-1.4 8.7 0l44.8 23.6c6.9 3.6 14.9-2.2 13.6-9.9l-8.6-49.9c-.5-3 .5-6.1 2.7-8.3l36.3-35.4c5.6-5.4 2.5-14.8-5.2-16l-50.1-7.3c-3-.4-5.7-2.4-7-5.1l-22.4-45.4z"></path></svg> Dive deeper</strong></p>
+<p>If you are interested in learning about another data collection strategy, web scraping, I suggest you look at the <a href="guide-5.html">Web scraping with R</a> guide.</p>
+</div>
+</div>
+</div>
+<p>We will load {dplyr}, {readr}, and {gutenbergr} to prepare for the data collection process.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gutenbergr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The main workhorse of {gutenbergr} is the <code>gutenberg_download()</code>. It’s only required argument is the id(s) used by Project Gutenberg to index all of the works in their database. This function will then download the text of the work(s) and return a data frame with the gutenberg id and the text of the work(s).</p>
+<p>So how do we find the gutenberg ids? The manual method is to go to the Project Gutenberg website and search for the work you are interested in. For example, let’s say we are interested in the work “A Tale of Two Cities” by Charles Dickens. We can search for this work on the Project Gutenberg website and then click on the link to the work. The url for this work is: <a href="https://www.gutenberg.org/ebooks/98" class="uri">https://www.gutenberg.org/ebooks/98</a>. The gutenberg id is the number at the end of the url, in this case 98.</p>
+<p>This will work for individual works, but why wouldn’t we just download the text from the Project Gutenberg website? For the works on Project Gutenberg this would be perfectly fine. We can share the text with others as the license for the works on Project Gutenberg are in the public domain.</p>
+<p>However, what if are interested in downloading multiple works? As the number of works increases, the time it takes to manually download each work increases. Furthermore, {gutenbergr} provides a number of additional attributes that can be downloaded and organized along side the text. Finally, the results of the <code>gutenberg_download()</code> function are returned as a data frame which can be easily manipulated and analyzed in R.</p>
+<p>In our data acquisition plan, we want to collect works from a number of authors. So it will be best to leverge {gutenbergr} to download the works we are interested in. To do this we need to know the gutenberg ids for the works we are interested in.</p>
+<p>Convienently, {gutenbergr} also includes a number of data frames that contain meta data for the works in the Project Gutenberg database. These data frames include meta data for works in the Project Gutenberg database (<code>gutenberg_metadata</code>), authors (<code>gutenberg_authors</code>), and subjects (<code>gutenberg_subjects</code>).</p>
+<p>Let’s take a look at the structure of these data frames.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gutenberg_metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; Rows: 72,569
+&gt; Columns: 8
+&gt; $ gutenberg_id        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,…
+&gt; $ title               &lt;chr&gt; "The Declaration of Independence of the United Sta…
+&gt; $ author              &lt;chr&gt; "Jefferson, Thomas", "United States", "Kennedy, Jo…
+&gt; $ gutenberg_author_id &lt;int&gt; 1638, 1, 1666, 3, 1, 4, NA, 3, 3, NA, 7, 7, 7, 8, …
+&gt; $ language            &lt;chr&gt; "en", "en", "en", "en", "en", "en", "en", "en", "e…
+&gt; $ gutenberg_bookshelf &lt;chr&gt; "Politics/American Revolutionary War/United States…
+&gt; $ rights              &lt;chr&gt; "Public domain in the USA.", "Public domain in the…
+&gt; $ has_text            &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TR…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gutenberg_authors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; Rows: 23,980
+&gt; Columns: 7
+&gt; $ gutenberg_author_id &lt;int&gt; 1, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1…
+&gt; $ author              &lt;chr&gt; "United States", "Lincoln, Abraham", "Henry, Patri…
+&gt; $ alias               &lt;chr&gt; "U.S.A.", NA, NA, NA, "Dodgson, Charles Lutwidge",…
+&gt; $ birthdate           &lt;int&gt; NA, 1809, 1736, 1849, 1832, NA, 1819, 1860, NA, 18…
+&gt; $ deathdate           &lt;int&gt; NA, 1865, 1799, 1931, 1898, NA, 1891, 1937, NA, 18…
+&gt; $ wikipedia           &lt;chr&gt; "https://en.wikipedia.org/wiki/United_States", "ht…
+&gt; $ aliases             &lt;chr&gt; "U.S.A.", "United States President (1861-1865)/Lin…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gutenberg_subjects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; Rows: 231,741
+&gt; Columns: 3
+&gt; $ gutenberg_id &lt;int&gt; 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, …
+&gt; $ subject_type &lt;chr&gt; "lcsh", "lcsh", "lcc", "lcc", "lcsh", "lcsh", "lcc", "lcc…
+&gt; $ subject      &lt;chr&gt; "United States -- History -- Revolution, 1775-1783 -- Sou…</code></pre>
+</div>
+</div>
+<p>From this overvew, we can see that there are 72,569 works in the Project Gutenberg database. We can also see that there are 23,980 authors and 231,741 subjects.</p>
+<p>As we dicussed, each work in the Project Gutenberg database has a gutenberg id. The <code>gutenberg_id</code> appears in the <code>gutenberg_metadata</code> and also in the <code>gutenberg_subjects</code> data frame. This common attribute means that a work with a particular gutenberg id can be linked to the subject(s) associated with that work. Another important attribute is is the <code>gutenberg_author_id</code> which links the work to the author(s) of that work. Yes, the author name is in the <code>gutenberg_metadata</code> data frame, but the <code>gutenberg_author_id</code> can be used to link the work to the <code>gutenberg_authors</code> data frame which contains additional information about authors.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>{gutenbergr} is periodically updated. To check to see when each data frame was last updated run:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attr</span>(gutenberg_metadata, <span class="st">"date_updated"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Let’s now describe a few more attributes that will be useful for our data acquisition plan. In the <code>gutenberg_subjects</code> data frame, we have <code>subject_type</code> and <code>subject</code>. The <code>subject_type</code> is the type of subject classification system used to classify the work. If you tabulate this column, you will see that there are two types of subject classification systems used: Library of Congress Classification (<code>lcc</code>) and Library of Congress Subject Headings (<code>lcsh</code>). The <code>subject</code> column contains the subject code for the work. For <code>lsch</code> the subject code is a descriptive character string and for <code>lcc</code> the subject code is an id as a character string that is a combination of letters (and numbers) that the <a href="https://www.loc.gov/catdir/cpso/lcco/">Library of Congress uses to classify works</a>.</p>
+<p>For our data acquistion plan, we will use the <code>lcc</code> subject classification system to select works from the Library of Congress Classification for English Literature (PR) and American Literature (PS).</p>
+<p>In the <code>gutenberg_authors</code> data frame, we have the <code>birthdate</code> and <code>deathdate</code> attributes. These attributes will be useful for filtering the authors that lived during the mid 19th century.</p>
+<p>With this overview of {gutenbergr} and the data frames that it contains, we can now begin to develop our data acquisition plan.</p>
+<ol type="1">
+<li>Select the authors that lived during the mid 19th century from the <code>gutenberg_authors</code> data frame.</li>
+<li>Select the works from the Library of Congress Classification for English Literature (PR) and American Literature (PS) from the <code>gutenberg_subjects</code> data frame.</li>
+<li>Select works from <code>gutenberg_metadata</code> that are associated with the authors and subjects selected in steps 1 and 2.</li>
+<li>Download the text and metadata for the works selected in step 3 using the <code>gutenberg_download()</code> function.</li>
+<li>Write the data to disk in an appropriate format.</li>
+</ol>
+</section>
+<section id="data-collection" class="level3">
+<h3 class="anchored" data-anchor-id="data-collection">Data collection</h3>
+<p>Let’s take each of these steps in turn. First, we need to select the authors that lived during the mid 19th century from the <code>gutenberg_authors</code> data frame. To do this we will use the <code>filter()</code> function. We will pass the <code>gutenberg_authors</code> data frame to the <code>filter()</code> function and then use the <code>birthdate</code> column to select the authors that were born after 1800 and died before 1880 –this year is chosen as the mid 19th century is generally considered to be the period from 1830 to 1870. We will then assign the result to the variable name <code>authors</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  gutenberg_authors <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    birthdate <span class="sc">&gt;</span> <span class="dv">1800</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    deathdate <span class="sc">&lt;</span> <span class="dv">1880</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>That’s it! We now have a data frame with the authors that lived during the mid 19th century, some 787 authors in total. This will span all subjects and languages, so this isn’t the final number of authors we will be working with.</p>
+<p>The next step is to select the works from the Library of Congress Classification for English Literature (PR) and American Literature (PS) from the <code>gutenberg_subjects</code> data frame. To do this we will use the <code>filter()</code> function again. We will pass the <code>gutenberg_subjects</code> data frame to the <code>filter()</code> function and then use the <code>subject_type</code> and <code>subject</code> columns to select the works that are associated with the Library of Congress Classification for English Literature (PR) and American Literature (PS). We will then assign the result to the variable name <code>subjects</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="ot">&lt;-</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  gutenberg_subjects <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    subject_type <span class="sc">==</span> <span class="st">"lcc"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    subject <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"PR"</span>, <span class="st">"PS"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we have a data frame with the subjects that we are interested in. Let’s inspect this data frame to see how many works we have for each subject.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(subject)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 2 × 2
+&gt;   subject     n
+&gt;   &lt;chr&gt;   &lt;int&gt;
+&gt; 1 PR       9926
+&gt; 2 PS      10953</code></pre>
+</div>
+</div>
+<p>The next step is to subset the <code>gutenberg_metadata</code> data frame to select works from the authors and subjects selected in the previous steps. Again, we will use <code>filter()</code> to do this. We will pass the <code>gutenberg_metadata</code> data frame to the <code>filter()</code> function and then use the <code>gutenberg_author_id</code> and <code>gutenberg_id</code> columns to select the works that are associated with the authors and subjects selected in the previous steps. We will then assign the result to the variable name <code>works</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  gutenberg_metadata <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    gutenberg_author_id <span class="sc">%in%</span> authors<span class="sc">$</span>gutenberg_author_id,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    gutenberg_id <span class="sc">%in%</span> subjects<span class="sc">$</span>gutenberg_id</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>works</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 1,014 × 8
+&gt;    gutenberg_id title    author gutenberg_author_id language gutenberg_bookshelf
+&gt;           &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;              
+&gt;  1           33 The Sca… Hawth…                  28 en       "Harvard Classics/…
+&gt;  2           46 A Chris… Dicke…                  37 en       "Children's Litera…
+&gt;  3           71 On the … Thore…                  54 en       ""                 
+&gt;  4           77 The Hou… Hawth…                  28 en       "Best Books Ever L…
+&gt;  5           98 A Tale … Dicke…                  37 en       "Historical Fictio…
+&gt;  6          205 Walden,… Thore…                  54 en       ""                 
+&gt;  7          258 Poems b… Gordo…                 145 en       ""                 
+&gt;  8          271 Black B… Sewel…                 154 en       "Best Books Ever L…
+&gt;  9          292 Beauty … Taylo…                 167 en       ""                 
+&gt; 10          394 Cranford Gaske…                 220 en       ""                 
+&gt; # ℹ 1,004 more rows
+&gt; # ℹ 2 more variables: rights &lt;chr&gt;, has_text &lt;lgl&gt;</code></pre>
+</div>
+</div>
+<p>Filtering the <code>gutenberg_metadata</code> data frame by the authors and subjects selected in the previous steps, we now have a data frame with 1,014 works. This is the final number of works we will be working with so we can now download the text and metadata for these works using the <code>gutenberg_download()</code> function.</p>
+<p>A few things to note about the <code>gutenberg_download()</code> function. First, it is vectorized, that is, it can take a single value or multiple values for the argument <code>gutenberg_id</code>. This is good as we will be passing a vector of gutenberg ids to the function. A small fraction of the works on Project Gutenberg are not in the public domain and therefore cannot be downloaded, this is documented in the <code>rights</code> column. Furthermore, not all of the works have text available, as seen in the <code>has_text</code> column. Finally, the <code>gutenberg_download()</code> function returns a data frame with the gutenberg id and the text of the work(s) –but we can also select additional attributes to be returned by passing a character vector of the attribute names to the argument <code>meta_fields</code>. The column names of the <code>gutenberg_metadata</code> data frame contains the available attributes.</p>
+<p>With this in mind, let’s do a quick test before we download all of the works. Let’s select the first 5 works from the <code>works</code> data frame that fit our criteria and then download the text and metadata for these works using the <code>gutenberg_download()</code> function. We will then assign the result to the variable name <code>works_sample</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>works_sample <span class="ot">&lt;-</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  works <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    rights <span class="sc">==</span> <span class="st">"Public domain in the USA."</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    has_text <span class="sc">==</span> <span class="cn">TRUE</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gutenberg_download</span>(</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">meta_fields =</span> <span class="fu">c</span>(<span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"gutenberg_author_id"</span>, <span class="st">"gutenberg_bookshelf"</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>works_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 34,385 × 6
+&gt;    gutenberg_id text        title author gutenberg_author_id gutenberg_bookshelf
+&gt;           &lt;int&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;              
+&gt;  1           33 "The Scarl… The … Hawth…                  28 Harvard Classics/M…
+&gt;  2           33 ""          The … Hawth…                  28 Harvard Classics/M…
+&gt;  3           33 "by Nathan… The … Hawth…                  28 Harvard Classics/M…
+&gt;  4           33 ""          The … Hawth…                  28 Harvard Classics/M…
+&gt;  5           33 ""          The … Hawth…                  28 Harvard Classics/M…
+&gt;  6           33 "Contents"  The … Hawth…                  28 Harvard Classics/M…
+&gt;  7           33 ""          The … Hawth…                  28 Harvard Classics/M…
+&gt;  8           33 " THE CUST… The … Hawth…                  28 Harvard Classics/M…
+&gt;  9           33 " THE SCAR… The … Hawth…                  28 Harvard Classics/M…
+&gt; 10           33 " I. THE P… The … Hawth…                  28 Harvard Classics/M…
+&gt; # ℹ 34,375 more rows</code></pre>
+</div>
+</div>
+<p>Let’s inspect the <code>works_sample</code> data frame. First, from the output we can see that all of our meta data attributes were returned. Second, we can see that the <code>text</code> column contains values for each line of text (delimited by a carriage return) for each of the 5 works we downloaded, even blank lines. To make sure that we have the correct number of works, we can use the <code>count()</code> function to count the number of works by <code>gutenberg_id</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>works_sample <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(gutenberg_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt; # A tibble: 4 × 2
+&gt;   gutenberg_id     n
+&gt;          &lt;int&gt; &lt;int&gt;
+&gt; 1           33  8212
+&gt; 2          258 11050
+&gt; 3          271  5997
+&gt; 4          292  9126</code></pre>
+</div>
+</div>
+<p>Yes, we have 5 works and we can see how many lines are in each of these works.</p>
+<p>We could now run this code on the entire <code>works</code> data frame and then write the data to disk like so:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>works <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    rights <span class="sc">==</span> <span class="st">"Public domain in the USA."</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    has_text <span class="sc">==</span> <span class="cn">TRUE</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gutenberg_download</span>(</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">meta_fields =</span> <span class="fu">c</span>(<span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"gutenberg_author_id"</span>, <span class="st">"gutenberg_bookshelf"</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="at">file =</span> <span class="st">"data/original/gutenberg/works.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This would accomplish the primary goal of our data acquisition plan.</p>
+<p>However, there is some key functionality that we are missing if we would like to make this code more reproducible-friendly. First, we are not checking to see if the data already exists on disk. If we already have run this code in our script, we likely do not want to run it again. Second, we may want to use this code again with different parameters, for example, we may want to retrieve different subject codes, or different time periods, or other languages.</p>
+<p>All three of these additional features can be accomplished with writing a custom function. Let’s take a look at the code we have written so far and see how we can turn this into a custom function.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get authors within years</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>authors <span class="ot">&lt;-</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  gutenberg_authors <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    birthdate <span class="sc">&gt;</span> <span class="dv">1800</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    deathdate <span class="sc">&lt;</span> <span class="dv">1880</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Get LCC subjects</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>subjects <span class="ot">&lt;-</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  gutenberg_subjects <span class="sc">|&gt;</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    subject_type <span class="sc">==</span> <span class="st">"lcc"</span>,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    subject <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"PR"</span>, <span class="st">"PS"</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  gutenberg_metadata <span class="sc">|&gt;</span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    gutenberg_author_id <span class="sc">%in%</span> authors<span class="sc">$</span>gutenberg_author_id,</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    gutenberg_id <span class="sc">%in%</span> subjects<span class="sc">$</span>gutenberg_id</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Download works</span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>works <span class="sc">|&gt;</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    rights <span class="sc">==</span> <span class="st">"Public domain in the USA."</span>,</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    has_text <span class="sc">==</span> <span class="cn">TRUE</span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gutenberg_download</span>(</span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">meta_fields =</span> <span class="fu">c</span>(<span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"gutenberg_author_id"</span>, <span class="st">"gutenberg_bookshelf"</span>)</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="at">file =</span> <span class="st">"data/original/gutenberg/works.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="build-the-custom-function" class="level4">
+<h4 class="anchored" data-anchor-id="build-the-custom-function">Build the custom function</h4>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Name</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Arguments</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Code: comments</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Code: packages</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Code: data check</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false">Code: authors</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false">Code: subject</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-8-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-8" role="tab" aria-controls="tabset-1-8" aria-selected="false">Code: works</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-9-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-9" role="tab" aria-controls="tabset-1-9" aria-selected="false">Code: download</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-10-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-10" role="tab" aria-controls="tabset-1-10" aria-selected="false">Code: write</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Let’s start to create our function by creating a name and calling the <code>function()</code> function. We will name our function <code>get_gutenberg_works()</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p>Now, we need to think of the arguments that we would like to pass to our function so they can be used to customize the data acquisition process. First, we want to check to see if the data already exists on disk. To do this we will need to pass the path to the data file to our function. We will name this argument <code>target_file</code>.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file) {</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Next, we want to pass the subject code that the works should be associated with. We will name this argument <code>lcc_subject</code>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject) {</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Finally, we want to pass the birth year and death year that the authors should be associated with. We will name these arguments <code>birth_year</code> and <code>death_year</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p>We now turn to the code. I like to start by creating comments to describe the steps inside the function before adding code.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check to see if the data already exists</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get authors within years</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get LCC subjects</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download works</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write works to disk</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p>We have some packages we want to make sure are installed and loaded. We will use the {pacman} package to do this. We will use the <code>p_load()</code> function to install and load the packages. We will pass the character vector of package names to the <code>p_load()</code> function.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gutenbergr)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(readr)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check to see if the data already exists</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get authors within years</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get LCC subjects</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download works</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write works to disk</span></span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p>We need to create the code to check if the data exists. We will use an <code>if</code> statement to do this. If the data does exist, we will print a message to the console that the data already exists and stop the function. If the data does not exist, we will create the directory structure and continue with the data acquisition process. I will use the <code>fs</code> package <span class="citation" data-cites="R-fs">(<a href="#ref-R-fs" role="doc-biblioref">Hester, Wickham, and Csárdi 2023</a>)</span> in this code so I will load the library at the top of the function.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gutenbergr)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(readr)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(fs)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check to see if the data already exists</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file_exists</span>(target_file)) {</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"Data already exists </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    target_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(target_file)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir_create</span>(<span class="at">path =</span> target_dir, <span class="at">recurse =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get authors within years</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get LCC subjects</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download works</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write works to disk</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
+<p>Let’s now add the code to get the authors within the years. We will now use the <code>birth_year</code> and <code>death_year</code> arguments to filter the <code>gutenberg_authors</code> data frame.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gutenbergr)</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(readr)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(fs)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check to see if the data already exists</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file_exists</span>(target_file)) {</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"Data already exists </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    target_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(target_file)</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir_create</span>(<span class="at">path =</span> target_dir, <span class="at">recurse =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get authors within years</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>  authors <span class="ot">&lt;-</span></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>    gutenberg_authors <span class="sc">|&gt;</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>      birthdate <span class="sc">&gt;</span> birth_year,</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>      deathdate <span class="sc">&lt;</span> death_year</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get LCC subjects</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download works</span></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write works to disk</span></span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
+<p>Using the <code>lcc_subject</code> argument, we will now filter the <code>gutenberg_subjects</code> data frame.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gutenbergr)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(readr)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(fs)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check to see if the data already exists</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file_exists</span>(target_file)) {</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"Data already exists </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    target_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(target_file)</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir_create</span>(<span class="at">path =</span> target_dir, <span class="at">recurse =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get authors within years</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  authors <span class="ot">&lt;-</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    gutenberg_authors <span class="sc">|&gt;</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>      birthdate <span class="sc">&gt;</span> birth_year,</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>      deathdate <span class="sc">&lt;</span> death_year</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get LCC subjects</span></span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>  subjects <span class="ot">&lt;-</span></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    gutenberg_subjects <span class="sc">|&gt;</span></span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>      subject_type <span class="sc">==</span> <span class="st">"lcc"</span>,</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>      subject <span class="sc">%in%</span> lcc_subject</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download works</span></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write works to disk</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-8" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-8-tab">
+<p>We will use the <code>authors</code> and <code>subjects</code> data frames to filter the <code>gutenberg_metadata</code> data frame as before.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gutenbergr)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(readr)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(fs)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check to see if the data already exists</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file_exists</span>(target_file)) {</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"Data already exists </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    target_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(target_file)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir_create</span>(<span class="at">path =</span> target_dir, <span class="at">recurse =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get authors within years</span></span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>  authors <span class="ot">&lt;-</span></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    gutenberg_authors <span class="sc">|&gt;</span></span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>      birthdate <span class="sc">&gt;</span> birth_year,</span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>      deathdate <span class="sc">&lt;</span> death_year</span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get LCC subjects</span></span>
+<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>  subjects <span class="ot">&lt;-</span></span>
+<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    gutenberg_subjects <span class="sc">|&gt;</span></span>
+<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>      subject_type <span class="sc">==</span> <span class="st">"lcc"</span>,</span>
+<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>      subject <span class="sc">%in%</span> lcc_subject</span>
+<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>  works <span class="ot">&lt;-</span></span>
+<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>    gutenberg_metadata <span class="sc">|&gt;</span></span>
+<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>      gutenberg_author_id <span class="sc">%in%</span> authors<span class="sc">$</span>gutenberg_author_id,</span>
+<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>      gutenberg_id <span class="sc">%in%</span> subjects<span class="sc">$</span>gutenberg_id</span>
+<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download works</span></span>
+<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write works to disk</span></span>
+<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-9" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-9-tab">
+<p>We will now use the <code>works</code> data frame to download the text and metadata for the works using the <code>gutenberg_download()</code> function and assign it to <code>results</code>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gutenbergr)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(readr)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(fs)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check to see if the data already exists</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file_exists</span>(target_file)) {</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"Data already exists </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    target_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(target_file)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir_create</span>(<span class="at">path =</span> target_dir, <span class="at">recurse =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get authors within years</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  authors <span class="ot">&lt;-</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    gutenberg_authors <span class="sc">|&gt;</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>      birthdate <span class="sc">&gt;</span> birth_year,</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>      deathdate <span class="sc">&lt;</span> death_year</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get LCC subjects</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  subjects <span class="ot">&lt;-</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>    gutenberg_subjects <span class="sc">|&gt;</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>      subject_type <span class="sc">==</span> <span class="st">"lcc"</span>,</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>      subject <span class="sc">%in%</span> lcc_subject</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>  works <span class="ot">&lt;-</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>    gutenberg_metadata <span class="sc">|&gt;</span></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>      gutenberg_author_id <span class="sc">%in%</span> authors<span class="sc">$</span>gutenberg_author_id,</span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>      gutenberg_id <span class="sc">%in%</span> subjects<span class="sc">$</span>gutenberg_id</span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download works</span></span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span></span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>    works <span class="sc">|&gt;</span></span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a>      rights <span class="sc">==</span> <span class="st">"Public domain in the USA."</span>,</span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>      has_text <span class="sc">==</span> <span class="cn">TRUE</span></span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gutenberg_download</span>(</span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">meta_fields =</span> <span class="fu">c</span>(<span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"gutenberg_author_id"</span>, <span class="st">"gutenberg_bookshelf"</span>)</span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write works to disk</span></span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-10" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-10-tab">
+<p>Finally, we will write the <code>results</code> data frame to disk using the <code>write_csv()</code> function and the <code>target_file</code> argument.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(gutenbergr)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(readr)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(fs)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Check to see if the data already exists</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">file_exists</span>(target_file)) {</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"Data already exists </span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>()</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    target_dir <span class="ot">&lt;-</span> <span class="fu">dirname</span>(target_file)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dir_create</span>(<span class="at">path =</span> target_dir, <span class="at">recurse =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get authors within years</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>  authors <span class="ot">&lt;-</span></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>    gutenberg_authors <span class="sc">|&gt;</span></span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>      birthdate <span class="sc">&gt;</span> birth_year,</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>      deathdate <span class="sc">&lt;</span> death_year</span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get LCC subjects</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>  subjects <span class="ot">&lt;-</span></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>    gutenberg_subjects <span class="sc">|&gt;</span></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>      subject_type <span class="sc">==</span> <span class="st">"lcc"</span>,</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>      subject <span class="sc">%in%</span> lcc_subject</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get works based on authors and subjects</span></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>  works <span class="ot">&lt;-</span></span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>    gutenberg_metadata <span class="sc">|&gt;</span></span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>      gutenberg_author_id <span class="sc">%in%</span> authors<span class="sc">$</span>gutenberg_author_id,</span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>      gutenberg_id <span class="sc">%in%</span> subjects<span class="sc">$</span>gutenberg_id</span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Download works</span></span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span></span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a>    works <span class="sc">|&gt;</span></span>
+<span id="cb32-44"><a href="#cb32-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb32-45"><a href="#cb32-45" aria-hidden="true" tabindex="-1"></a>      rights <span class="sc">==</span> <span class="st">"Public domain in the USA."</span>,</span>
+<span id="cb32-46"><a href="#cb32-46" aria-hidden="true" tabindex="-1"></a>      has_text <span class="sc">==</span> <span class="cn">TRUE</span></span>
+<span id="cb32-47"><a href="#cb32-47" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb32-48"><a href="#cb32-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gutenberg_download</span>(</span>
+<span id="cb32-49"><a href="#cb32-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">meta_fields =</span> <span class="fu">c</span>(<span class="st">"title"</span>, <span class="st">"author"</span>, <span class="st">"gutenberg_author_id"</span>, <span class="st">"gutenberg_bookshelf"</span>)</span>
+<span id="cb32-50"><a href="#cb32-50" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb32-51"><a href="#cb32-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-52"><a href="#cb32-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Write works to disk</span></span>
+<span id="cb32-53"><a href="#cb32-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(results, <span class="at">file =</span> target_file)</span>
+<span id="cb32-54"><a href="#cb32-54" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="using-the-custom-function" class="level4">
+<h4 class="anchored" data-anchor-id="using-the-custom-function">Using the custom function</h4>
+<p>We now have a function, <code>get_gutenberg_works()</code>, that we can use to acquire works from Project Gutenberg for a given LCC code for authors that lived during a given time period. We now have a flexible function that we can use to acquire data.</p>
+<p>We can add this function to the script in which we use it, or we can add it to a separate script and source it into any script in which we want to use it.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source function</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"get_gutenberg_works.R"</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get works for PR and PS for authors born between 1800 and 1880</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gutenberg_works</span>(</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">target_file =</span> <span class="st">"data/original/gutenberg/works.csv"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lcc_subject =</span> <span class="fu">c</span>(<span class="st">"PR"</span>, <span class="st">"PS"</span>),</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">birth_year =</span> <span class="dv">1800</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">death_year =</span> <span class="dv">1880</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Another option is to add this function to your own package. This is a great option if you plan to use this function in multiple projects or share it with others. Since I have already created a package for this book, {qtkit}, I’ve added this function, with some additional functionality, to the package.</p>
+<!-- [ ] change to {qtkit} -->
+<div class="sourceCode" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load package</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qtalrkit)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get works for fiction for authors born between 1870 and 1920</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">get_gutenberg_works</span>(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">target_dir =</span> <span class="st">"data/original/gutenberg/"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lcc_subject =</span> <span class="st">"PZ"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">birth_year =</span> <span class="dv">1870</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">death_year =</span> <span class="dv">1920</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This modified function will create a directory structure for the data file if it does not already exist. It will also create a file name for the data file based on the arguments passed to the function.</p>
+</section>
+</section>
+<section id="data-documentation" class="level3">
+<h3 class="anchored" data-anchor-id="data-documentation">Data documentation</h3>
+<p>Finding data sources and collecting data are important steps in the acquisition process. However, it is also important to document the data collection process. This is important so that you, and others, can reproduce the data collection process.</p>
+<p>In data acquisition, the documentation is includes the code, code comments, and prose in the process file used to acquire the data and also a data origin file. The data origin file is a text file that describes the data source and the data collection process.</p>
+<p>The {qtkit} package includes a function, <code>create_data_origin()</code>, that can be used to scaffold a data origin file. This simply takes a file path and creates a data origin file in CSV format.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>attribute,description</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>Resource name,The name of the resource.</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>Data source,"URL, DOI, etc."</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>Data sampling frame,"Language, language variety, modality, genre, etc."</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>Data collection date(s),The dates the data was collected.</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>Data format,".txt, .csv, .xml, .html, etc."</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>Data schema,"Relationships between data elements: files, folders, etc."</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>License,"CC BY, CC BY-SA, etc."</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>Attribution,Citation information.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The you edit this file and ensure that it contains all of the information needed to document the data. Make sure that this file is near the data file so that it is easy to find.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="ex">data</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> analysis/</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> derived/</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> original/</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>      <span class="ex">├──</span> works_do.csv</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>      <span class="ex">└──</span> gutenberg/</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>          <span class="ex">├──</span> works_pr.csv</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>          <span class="ex">└──</span> works_ps.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this recipe, we have covered acquiring data for a text analysis project. We used the {gutenbergr} <span class="citation" data-cites="R-gutenbergr">(<a href="#ref-R-gutenbergr" role="doc-biblioref">Johnston and Robinson 2023</a>)</span> to acquire works from Project Gutenberg. After exploring the resources available, we established an acquisition plan. We then used R to implement our plan. To make our code more reproducible-friendly, we wrote a custom function to acquire the data. Finally, we discussed the importance of documenting the data collection process and introduced the data origin file.</p>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<ol type="1">
+<li>In the chapter and in this recipe, strategies for acquiring data were discussed. Which of the following was not discussed as a strategy for acquiring data? <select class="webex-select"><option value="blank"></option><option value="">Direct download</option><option value="">Programmatic download</option><option value="">APIs</option><option value="answer">Web scraping</option></select></li>
+<li>In this recipe, we used {gutenbergr} to acquire works from Project Gutenberg. What is the name of the function that we used to acquire the actual text? <select class="webex-select"><option value="blank"></option><option value="">gutenberg_metata</option><option value="">gutenberg_get()</option><option value="">gutenberg_search()</option><option value="answer">gutenberg_download()</option></select></li>
+<li><select class="webex-select"><option value="blank"></option><option value="">True</option><option value="answer">False</option></select> A custom function is only really necessary if you are writting an R package.</li>
+<li>When writing a custom function, what is the first step? <select class="webex-select"><option value="blank"></option><option value="">Write the code</option><option value="">Write the comments</option><option value="">Load the packages</option><option value="answer">Create the function arguments</option></select></li>
+<li>What does it mean when we say that a function is ‘vectorized’ in R? <select class="webex-select"><option value="blank"></option><option value="">The function returns a vector</option><option value="">The function can take a vector as an argument</option><option value="answer">The function can take a vector and operates on each element of the vector</option></select></li>
+<li>Which Tidyverse package allows us to apply non-vectorized functions to vectors? <select class="webex-select"><option value="blank"></option><option value="">dplyr</option><option value="">stringr</option><option value="">readr</option><option value="answer">purrr</option></select></li>
+</ol>
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
+<p>Before beginning <a href="https://github.com/qtalr/lab-05">Lab 5</a>, make sure you are comfortable with the following:</p>
+<ul>
+<li>Reading and subsetting data in R</li>
+<li>Writing data in R</li>
+<li>The project structure of reproducible projects</li>
+</ul>
+<p>The additional skills covered in this lab are:</p>
+<ul>
+<li>Identifying data sources</li>
+<li>Acquiring data through manual and programmatic downloads and APIs</li>
+<li>Creating a data acquisition plan</li>
+<li>Documenting the data collection process</li>
+<li>Writing a custom function</li>
+<li>Documenting the data source with a data origin file</li>
+</ul>
+<p>You will have a choice of data source to acquire data from. Before you start the lab, you should consider which data source you would like to use, what strategy you will use to acquire the data, and what data you will acquire. You should also consider the information you need to document the data collection process.</p>
+<p>Consult the <a href="guide-4.html">Identifying data and data sources</a> guide for some ideas on where to find data sources.</p>
+</section>
+<section id="references" class="level2">
 
 
 
-</main> <!-- /main -->
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-R-fs" class="csl-entry" role="listitem">
+Hester, Jim, Hadley Wickham, and Gábor Csárdi. 2023. <em>Fs: Cross-Platform File System Operations Based on ’Libuv’</em>. <a href="https://CRAN.R-project.org/package=fs">https://CRAN.R-project.org/package=fs</a>.
+</div>
+<div id="ref-Jockers2014" class="csl-entry" role="listitem">
+Jockers, Matthew Lee ML. 2014. <em>Text Analysis with r for Students of Literature</em>. New York: Springer.
+</div>
+<div id="ref-R-gutenbergr" class="csl-entry" role="listitem">
+Johnston, Myfanwy, and David Robinson. 2023. <em>Gutenbergr: Download and Process Public Domain Works from Project Gutenberg</em>. <a href="https://CRAN.R-project.org/package=gutenbergr">https://CRAN.R-project.org/package=gutenbergr</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -826,7 +1634,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://github.com/qtalr/resources/edit/main/recipes/recipe-05/index.qmd" target="_blank" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/qtalr/resources/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-05/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
