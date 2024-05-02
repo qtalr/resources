@@ -6,8 +6,8 @@ project:
 
 # Website ------------------------------
 website:
-  title: "Resources Kit"
-  repo-url: https://github.com/qtalr/resources
+  title: "{{< var site.title >}}"
+  repo-url: "{{< var site.repo-url >}}"
   repo-actions: [edit, issue]
   repo-link-target: "_blank"
   navbar:
@@ -21,7 +21,7 @@ website:
     right:
       - file: instructors.qmd
       - icon: github
-        href: https://github.com/qtalr/resources
+        href: "{{< var site.repo-url >}}"
 
   page-footer:
     left: "Developed by Jerid Francom"
@@ -31,6 +31,8 @@ format:
   html:
     theme: flatly
     code-overflow: wrap
+    code-line-numbers: false
+    author: "{{< var author.name >}}"
     css:
       - assets/styles.css
       - include/webex.css

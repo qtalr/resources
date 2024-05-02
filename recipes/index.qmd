@@ -3,7 +3,7 @@ title: "Recipes"
 listing:
   contents:
     - ./
-    - "!wpresentation/index.qmd"
+    - "!presentation/index.qmd"
   type: default
   sort: "title"
   image-align: left
