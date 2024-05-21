@@ -1,0 +1,4 @@
+variable,name,variable_type,description
+doc_id,Document ID,numeric,Unique identifier for each document (also Imdb ID)
+variety,Variety,categorical,Country of origin of the document
+text,Text,categorical,Text content of the document

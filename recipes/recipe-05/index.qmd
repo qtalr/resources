@@ -1,6 +1,6 @@
 ---
 title: "05. Collecting and documenting data"
-subtitle: "Summarizing data with statistics, tables, and plots"
+subtitle: "Acquiring datasets with the Project Gutenberg API"
 description: |
   At this point, we now have a strong undertanding of the foundations of programming in R and the data science workflow. Previous lessons, recipes, and labs focused on developing these skills while the chapters aimed to provide a conceptual framework for understanding the steps in the data science workflow. We now turn to applying our conceptual knowledge and our technical skills to accomplish the tasks of the data science workflow, starting with data acquisition.
 categories: [preparation]
