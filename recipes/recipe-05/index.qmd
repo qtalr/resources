@@ -26,7 +26,7 @@ categories: [preparation]
 
 To find data sources, it is best to have a research question in mind. This will help to narrow the search for data sources. However, finding data sources can also be a good way to generate research questions. In either case, it takes some sleuthing to find data sources that will work for your research question. In addition, to the data source itself, you will also need to consider the permissions and licensing of the data source. It is best to consider these early in the process to avoid surprises later. Finally, you will also need to consider the data format and how it will be used in the analysis. It can be the case that a data source seems ideal, but the data format is not conducive to the analysis you would like to do.
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa regular hand-point-up >}} Tip**
 
 Consult the [Identifying data and data sources](/guides/guide-04/) guide for some ideas on where to find data sources.
@@ -34,7 +34,7 @@ Consult the [Identifying data and data sources](/guides/guide-04/) guide for som
 
 In this recipe, we will consider some hypothetical reseach aimed at exploring potential similarities and differences in the lexical, syntactic, and/ or stylistic features between American and English literature during the mid 19th century.
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa medal >}} Dive deeper**
 
 If you are interested in understanding a literary analysis perspective to text analysis, I highly recommend [Matthew Jockers' book *Text Analysis with R for Students of Literature*](https://link.springer.com/book/10.1007/978-3-319-03164-4) [@Jockers2014]. This book is a great resource for understanding how to apply text analysis to literary analysis.
@@ -48,7 +48,7 @@ Furthermore, {gutenbergr} provides an API for accessing the Project Gutenberg da
 
 Let's now turn to the data collection strategy. There are a number of data collection strategies that can be used to acquire data for a text analysis project. In the chapter, we covered manual and programmatic downloads and APIs. Here we will use an R package which will provide an API for accessing the data source.
 
-::: {.callout}
+::: {.callout .halfsize}
 **`r fontawesome::fa('medal')` Dive deeper**
 
 If you are interested in learning about another data collection strategy, web scraping, I suggest you look at the [Web scraping with R](guide-5.html) guide.
@@ -90,7 +90,7 @@ From this overvew, we can see that there are `r format(nrow(gutenberg_metadata),
 
 As we dicussed, each work in the Project Gutenberg database has a gutenberg id. The `gutenberg_id` appears in the `gutenberg_metadata` and also in the `gutenberg_subjects` data frame. This common attribute means that a work with a particular gutenberg id can be linked to the subject(s) associated with that work. Another important attribute is is the `gutenberg_author_id` which links the work to the author(s) of that work. Yes, the author name is in the `gutenberg_metadata` data frame, but the `gutenberg_author_id` can be used to link the work to the `gutenberg_authors` data frame which contains additional information about authors.
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa regular hand-point-up >}} Tip**
 
 {gutenbergr} is periodically updated. To check to see when each data frame was last updated run:
@@ -339,7 +339,7 @@ get_gutenberg_works <- function(target_file, lcc_subject, birth_year, death_year
 
 ##### Code: data check
 
-We need to create the code to check if the data exists. We will use an `if` statement to do this. If the data does exist, we will print a message to the console that the data already exists and stop the function. If the data does not exist, we will create the directory structure and continue with the data acquisition process. I will use the `fs` package [@R-fs] in this code so I will load the library at the top of the function.
+We need to create the code to check if the data exists. We will use an `if` statement to do this. If the data does exist, we will print a message to the console that the data already exists and stop the function. If the data does not exist, we will create the directory structure and continue with the data acquisition process. I will use {fs} [@R-fs] in this code so I will load the library at the top of the function.
 
 ```{.r}
 get_gutenberg_works <- function(target_file, lcc_subject, birth_year, death_year) {

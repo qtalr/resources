@@ -32,7 +32,6 @@ format:
     theme: flatly
     code-overflow: wrap
     code-line-numbers: false
-    author: "{{< var author.name >}}"
     css:
       - assets/styles.css
       - include/webex.css
@@ -63,9 +62,10 @@ execute:
   freeze: auto
   warning: false
   message: false
+  cache: true
 
 # Engine ------------------------------
 knitr:
   opts_chunk:
-    comment: ">"
+    comment: ""
     out.width: NULL

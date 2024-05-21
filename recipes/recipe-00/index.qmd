@@ -43,7 +43,7 @@ include_graphics("images/quarto-preview.png")
 
 Quarto documents generate various types of output: web documents (HTML), PDFs, Word documents, and many other types of output formats all based on the same source code. While the interleaving of code and prose to create a variety of output documents is one of the most attractive aspects of literate programming and Quarto, it is also possible to create documents with no code at all. It is a very versatile technology as you will come to appreciate.
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa medal >}} Dive deeper**
 
 To see Quarto in action, please check out the [Quarto Gallery](https://quarto.org/docs/gallery/) for a variety of examples of Quarto documents and their output.
@@ -188,7 +188,7 @@ Once you have done that the `.qmd` file will render in the format you have speci
 include_graphics("images/quarto-create-4.png")
 ```
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa medal >}} Dive deeper**
 
 Watch [Getting Started with Quarto](https://www.youtube.com/watch?v=_f3latmOhew) for a guided tour of Quarto [@Cetinkaya-Rundel2023].

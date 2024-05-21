@@ -107,7 +107,7 @@ If for some reason you want to turn off numbering for a specific header, you can
 
 This is particularly useful in academic writing when we want to add a reference, materials, or other section that is not numbered at the end of the document.
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa exclamation-triangle >}} Warning**
 
 Note that if you have a header that is unnumbered, the next header will be numbered as if the unnumbered header did not exist. This can have unexpected results if you have children of an unnumbered header.
@@ -127,7 +127,7 @@ format:
 ```
 1. The key-value pair to include a table of contents in the PDF document
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa regular hand-point-up >}} Tip**
 
 For PDF and Word document outputs, the table of contents will be automatically generated and placed at the beginning of the document. For HTML documents, the table of contents will be placed in the sidebar by default.
@@ -173,7 +173,7 @@ In @fig-scatterplot we see a scatterplot. .... # <3>
 2. The caption for the figure.
 3. The in-line reference to the figure. Uses the `@` symbol followed by the label value.
 
-::: {.callout}
+::: {.callout .halfsize}
 ```{r}
 #| label: fig-scatterplot
 #| fig-cap: "A scatterplot"
@@ -197,7 +197,7 @@ We can also create tables using markdown syntax. In this case, the format is a l
 : A simple table {#tbl-table-1}
 ```
 
-::: {.callout}
+::: {.callout .halfsize}
 
 | Column 1 | Column 2 | Column 3 |
 |----------|----------|----------|
@@ -234,7 +234,7 @@ In this file, we can see that the reference is for a manual entry with `@Manual`
 
 You can find BibTeX formatted references almost everywhere you can find scholarly work. For example, Google Scholar, Web of Science, and Scopus all provide BibTeX formatted references. Additionally, many journals provide BibTeX formatted references for the articles they publish.
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa medal >}} Dive deeper**
 
 Managing your references can be a challenge if you begin to amass a large number of them. There are a number of tools that can help you manage your references. For example, [Zotero](https://www.zotero.org/) is a free, open-source reference manager that can help you organize your references and generate BibTeX formatted references.
@@ -253,6 +253,7 @@ format: pdf
 bibliography: bibliography.bib  # <1>
 ---
 ```
+
 1. The key-value pair to include a path to the file which contains the BibTeX formatted references.
 
 With the bibliography file and the reference to the bibliography file in the front-matter section, we can now add citations to our document. To do this, we use the `@` symbol followed by the citation key in the prose section. For example, to cite the `R-dplyr` reference from the `bibliography.bib` file, we would add `@R-dplyr` to the prose section as follows:
@@ -263,14 +264,14 @@ This is a citation to @R-dplyr.
 
 The citation will appear as below in the rendered document.
 
-::: {.callout}
+::: {.callout .halfsize}
 
 This is a citation to @R-dplyr.
 :::
 
 And automatically, on rendering the document, a references list will be added to the end of the document. For this reason if you have citations in your document, it is a good idea to include a header section `# References` at the end of your document.
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa regular hand-point-up >}} Tip**
 
 There are a number of ways of having your inline citations appear. For example, in parentheses, with multiple citations, only with the year, adding a page number, *etc.*. For more information on how to format your citations, see the [Quarto documentation](https://quarto.org/docs/authoring/footnotes-and-citations.html#sec-citations).
@@ -282,7 +283,7 @@ There are a number of ways of having your inline citations appear. For example, 
 
 Consider the following front-matter sections, A and B.
 
-::: {.callout}
+::: {.callout .halfsize}
 **A**
 ```
 ---
@@ -296,7 +297,7 @@ format:
 ```
 :::
 
-::: {.callout}
+::: {.callout .halfsize}
 **B**
 ```
 ---
@@ -344,7 +345,7 @@ Also, since you will do an article summary, you should be prepared with:
   - the results/ findings of the study
 - a BibTeX formatted reference for the article
 
-::: {.callout}
+::: {.callout .halfsize}
 If you do not find an article of interest, you can use @Bychkovska2017.
 :::
 

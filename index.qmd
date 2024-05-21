@@ -12,7 +12,7 @@ To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 #| echo: false
 
 knitr::write_bib(c(
-  .packages(), "dplyr", "corpora", "knitr", "kableExtra", "janitor", "skimr", "ggplot2"
+  .packages(), "dplyr", "corpora", "knitr", "kableExtra", "janitor", "skimr", "ggplot2", "regexplain", "fs", "gutenbergr", "PsychWordVec", "purrr"
 ), "packages.bib")
 
 ```

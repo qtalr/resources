@@ -85,7 +85,7 @@ This later approach is the one that we will use in subsequent lessons, recipes, 
 
 At this point, you are somewhat familiar with Git and Github. You have likely used Git to copy and download a repository from GitHub, say for example the labs for this course. However, what is going on behind the scenes is likely still a bit of a mystery. In this section, we will demystify Git and GitHub, a bit, and learn how to use them together to manage a project in different scenarios.
 
-::: {.callout}
+::: {.callout .halfsize}
 **{{< fa regular hand-point-up >}} Tip**
 
 Verify that you have a working version of Git on your computing environment and make sure that you have a GitHub account. You can refer to [Guide 2](/guides/guide-02/) for more information on how to do this.

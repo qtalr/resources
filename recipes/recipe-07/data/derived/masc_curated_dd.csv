@@ -1,0 +1,11 @@
+variable,name,description,variable_type
+file,File,ID number of the source file,character
+ref,Reference,Reference number within the source file,integer
+base,Base,Base form of the word (lemma),character
+msd,MSD,Part-of-speech tag (PENN tagset),character
+string,String,Text content of the word,character
+title,Title,Title of the source file,character
+source,Source,Name of the source,character
+date,Date,Date of the source file (if available),character
+class,Class,Classification of the source. Modality and genre,character
+domain,Domain,Domain or topic of the source,character
