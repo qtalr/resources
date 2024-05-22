@@ -1,8 +1,8 @@
 {
-  "hash": "653a7d58ed763f588345b462438a2c4c",
+  "hash": "6a3eb0e721716ac34e2b442830a41319",
   "result": {
     "engine": "knitr",
-    "markdown": "---\ntitle: \"About\"\n---\n\n\nThis is a Quarto website.\n\nTo learn more about Quarto websites visit <https://quarto.org/docs/websites>.\n\n\n\n::: {.cell}\n\n:::\n",
+    "markdown": "---\ntitle: \"Getting started\"\n---\n\n\n\n\n\n<!-- For instructions on how to install the {qtkit} package from CRAN or GitHub and download and use the interactive R programming lessons for this textbook, see the Resources Kit “Getting started” guide. -->\n\n\n\n::: {.cell}\n\n:::\n",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

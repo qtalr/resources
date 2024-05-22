@@ -1,5 +1,5 @@
 ---
-title: "1. Setting up an R environment"
+title: "01. Setting up an R environment"
 subtitle: ""
 description: |
   In this guide, we will explore options for setting up an R environment. We will discuss local, remote, and virtual environments. Each have their own advantages and shortcomings. The best option for you will depend on your needs and preferences.
@@ -63,7 +63,7 @@ The drawbacks to using Docker with Rocker include:
 * Increased memory and resource requirements
 * Potential compatibility issues with certain packages or libraries
 
-To start using Docker with Rocker, follow these steps:
+To start using Docker with a Rocker image, follow these steps:
 
 1. Install [Docker](https://www.docker.com/get-started) on your local machine
 2. Pull the desired Rocker image from [Docker Hub](https://hub.docker.com/u/rocker/)

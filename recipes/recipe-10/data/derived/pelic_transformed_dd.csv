@@ -1,0 +1,7 @@
+variable,name,variable_type,description
+id,ID,categorical,Unique identifier for each learner
+placement,Placement,numeric,Numerical value indicating score on the placement test for each learner (0-100)
+chars,Characters,numeric,Mean number of characters per word in the text sample
+sylls,Syllables,numeric,Mean number of syllables per word in the text sample
+morphs,Morphemes,numeric,Mean number of morphemes per word in the text sample
+freq,Frequency,numeric,Mean frequency of occurrence per word in the text sample

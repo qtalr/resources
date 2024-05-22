@@ -1,10 +1,11 @@
 ---
-title: "About"
+title: "Getting started"
 ---
 
-This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+
+<!-- For instructions on how to install the {qtkit} package from CRAN or GitHub and download and use the interactive R programming lessons for this textbook, see the Resources Kit “Getting started” guide. -->
 
 
 ```{r}
@@ -12,7 +13,7 @@ To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 #| echo: false
 
 knitr::write_bib(c(
-  .packages(), "dplyr", "corpora", "knitr", "kableExtra", "janitor", "skimr", "ggplot2", "regexplain", "fs", "gutenbergr", "PsychWordVec", "purrr"
+  .packages(), "dplyr", "corpora", "knitr", "kableExtra", "janitor", "skimr", "ggplot2", "regexplain", "fs", "gutenbergr", "PsychWordVec", "purrr", "reprex"
 ), "packages.bib")
 
 ```
