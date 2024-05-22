@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
+<meta name="description" content="The curated dataset reflects a tidy version of the original data. This data is relatively project-neutral. A such, project-specific changes are often made to bring the data more in line with the research goals. This may include modifying the unit of observation and/ or adding additional attributes to the data. This process may generate one or more new datasets that are used for analysis. In this recipe, we will explore a practical example of transforming data.">
 
-<title>Resources Kit - 07. Recipe</title>
+<title>Resources Kit - 07. Transforming and documenting data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -40,6 +94,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,6 +129,8 @@ ul.task-list li input[type="checkbox"] {
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../../assets/styles.css">
@@ -98,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -131,29 +189,44 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
+  <ul class="collapse">
+  <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation">Orientation</a></li>
+  <li><a href="#transforming-data" id="toc-transforming-data" class="nav-link" data-scroll-target="#transforming-data">Transforming data</a></li>
+  <li><a href="#documenting-data" id="toc-documenting-data" class="nav-link" data-scroll-target="#documenting-data">Documenting data</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
+  <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-07/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">07. Recipe</h1>
+<h1 class="title">07. Transforming and documenting data</h1>
+<p class="subtitle lead">Prepare and enrich datasets for analysis</p>
   <div class="quarto-categories">
-    <div class="quarto-category">recipes</div>
+    <div class="quarto-category">preparation</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <p>The curated dataset reflects a tidy version of the original data. This data is relatively project-neutral. A such, project-specific changes are often made to bring the data more in line with the research goals. This may include modifying the unit of observation and/ or adding additional attributes to the data. This process may generate one or more new datasets that are used for analysis. In this recipe, we will explore a practical example of transforming data.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -164,11 +237,938 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Hello.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Skills</strong></p>
+<ul>
+<li>Text normalization and tokenization</li>
+<li>Creating new variables by splitting, merging, and recoding existing variables</li>
+<li>Augmenting data with additional variables from other sources or resources</li>
+</ul>
+</div>
+</div>
+</div>
+<p>In this recipe, we will employ a variety of tools and techniques to accomplish these tasks. Let’s load the packages we will need for this recipe. Let’s load the packages we will need for this recipe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qtalrkit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In Lab 7, we will apply what we have learned in this recipe to a new dataset.</p>
+<section id="concepts-and-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
+<section id="orientation" class="level3">
+<h3 class="anchored" data-anchor-id="orientation">Orientation</h3>
+<!-- about curated data and goal of transformation -->
+<p>Curated datasets are often project-neutral. That is, they are not necessarily designed to answer a specific research question. Rather, they are designed to be flexible enough to be used in a variety of projects. This is a good thing, but it also means that we will likely need to transform the data to bring it more in line with our research goals. This can include normalizing text, modifying the unit of observation and/ or adding additional attributes to the data.</p>
+<!-- about the MASC dataset -->
+<p>In this recipe, we will explore a practical example of transforming data. We will start with a curated dataset and transform it to reflect a specific research goal. The dataset we will use is the MASC dataset <span class="citation" data-cites="Ide2008">(<a href="#ref-Ide2008" role="doc-biblioref">Ide et al. 2008</a>)</span>. This dataset contains a collection of words from a variety of genres and modalities of American English.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>The MASC dataset is a curated version of the original data. This data is relatively project-neutral.</p>
+<p>If you would like to acquire the original data and curate it for use in this recipe, you can do so by running the following code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Acquire the original data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>qtalrkit<span class="sc">::</span><span class="fu">get_compressed_data</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">".."</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">target_dir =</span> <span class="st">"data/original/masc/"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Curate the data</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># ... write a function and add it to the package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>As a starting point, I will assume that the curated dataset is available in the <em>data/derived/masc/</em> directory, as seen below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">data/</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> analysis/</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> derived/</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── masc_curated_dd.csv</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── masc/</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── masc_curated.csv</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> original/</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── masc_do.csv</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── masc/</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── ...</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The first step is to inspect the data dictionary file. This file contains information about the variables in the dataset. It is also a good idea to review the data origin file, which contains information about the original data source.</p>
+<p>Looking at the data dictionary, in <a href="#tbl-masc-data-dictionary" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div class="cell">
+<div id="tbl-masc-data-dictionary" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-masc-data-dictionary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Data dictionary for the MASC dataset
+</figcaption>
+<div aria-describedby="tbl-masc-data-dictionary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">description</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable_type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">file</td>
+<td style="text-align: left;">File</td>
+<td style="text-align: left;">ID number of the source file</td>
+<td style="text-align: left;">character</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ref</td>
+<td style="text-align: left;">Reference</td>
+<td style="text-align: left;">Reference number within the source file</td>
+<td style="text-align: left;">integer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">base</td>
+<td style="text-align: left;">Base</td>
+<td style="text-align: left;">Base form of the word (lemma)</td>
+<td style="text-align: left;">character</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">msd</td>
+<td style="text-align: left;">MSD</td>
+<td style="text-align: left;">Part-of-speech tag (PENN tagset)</td>
+<td style="text-align: left;">character</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">String</td>
+<td style="text-align: left;">Text content of the word</td>
+<td style="text-align: left;">character</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">title</td>
+<td style="text-align: left;">Title</td>
+<td style="text-align: left;">Title of the source file</td>
+<td style="text-align: left;">character</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">source</td>
+<td style="text-align: left;">Source</td>
+<td style="text-align: left;">Name of the source</td>
+<td style="text-align: left;">character</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">date</td>
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">Date of the source file (if available)</td>
+<td style="text-align: left;">character</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">class</td>
+<td style="text-align: left;">Class</td>
+<td style="text-align: left;">Classification of the source. Modality and genre</td>
+<td style="text-align: left;">character</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">domain</td>
+<td style="text-align: left;">Domain</td>
+<td style="text-align: left;">Domain or topic of the source</td>
+<td style="text-align: left;">character</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Let’s read in the data and take a glimpse at it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the data</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>masc_curated <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/derived/masc/masc_curated.csv"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(masc_curated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 591,097
+Columns: 10
+$ file   &lt;chr&gt; "110CYL067", "110CYL067", "110CYL067", "110CYL067", "110CYL067"…
+$ ref    &lt;dbl&gt; 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 1…
+$ base   &lt;chr&gt; "december", "1998", "your", "contribution", "to", "goodwill", "…
+$ msd    &lt;chr&gt; "NNP", "CD", "PRP$", "NN", "TO", "NNP", "MD", "VB", "JJR", "IN"…
+$ string &lt;chr&gt; "December", "1998", "Your", "contribution", "to", "Goodwill", "…
+$ title  &lt;chr&gt; "110CYL067", "110CYL067", "110CYL067", "110CYL067", "110CYL067"…
+$ source &lt;chr&gt; "ICIC Corpus of Philanthropic Fundraising Discourse", "ICIC Cor…
+$ date   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ class  &lt;chr&gt; "WR LT", "WR LT", "WR LT", "WR LT", "WR LT", "WR LT", "WR LT", …
+$ domain &lt;chr&gt; "philanthropic fundraising discourse", "philanthropic fundraisi…</code></pre>
+</div>
+</div>
+<p>We may also want to do a summary overview of the dataset with {skimr}. This will give us a sense of the data types and the number of missing values.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>── Data Summary ───────────────────────</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                           Values</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>Name                       masc_curated</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Number of rows             591097</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Number of columns          10</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>_______________________</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Column type frequency:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  character                9</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  numeric                  1</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>________________________</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>Group variables            None</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>── Variable type: character ───────────</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  skim_variable n_missing complete_rate min max empty n_unique whitespace</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>1 file                  0         1       3  40     0      392          0</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>2 base                  4         1.00    1  99     0    28010          0</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>3 msd                   0         1       1   8     0       60          0</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>4 string               25         1.00    1  99     0    39474          0</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>5 title                 0         1       3 203     0      373          0</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>6 source             5732         0.990   3 139     0      348          0</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>7 date              94002         0.841   4  17     0       62          0</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>8 class                 0         1       5   5     0       18          0</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>9 domain            18165         0.969   4  35     0       21          0</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>── Variable type: numeric ─────────────</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  skim_variable n_missing complete_rate  mean    sd p0 p25  p50  p75  p100 hist</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>1 ref                   0             1 3854. 4633.  0 549 2033 5455 24519 ▇▂▁▁▁</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In summary, the dataset contains 591,097 observations and 10 variables. The unit of observation is the word. The variable names are somewhat opaque, but the data dictionary provides some context that will help us understand the data.</p>
+<p>Now we want to consider how we plan to use this data in our analysis. Let’s assume that we want to use this data to explore lexical variation in the MASC dataset across modalities and genres. We will want to transform the data to reflect this goal.</p>
+<p>In <a href="#tbl-masc-transformed-idealized" class="quarto-xref">Table&nbsp;2</a>, we see an idealized version of the dataset we would like to have.</p>
+<div class="cell">
+<div id="tbl-masc-transformed-idealized" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-masc-transformed-idealized-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Idealized version of the MASC dataset
+</figcaption>
+<div aria-describedby="tbl-masc-transformed-idealized-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">doc_id</td>
+<td style="text-align: left;">Document ID</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">A unique identifier for each document</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">modality</td>
+<td style="text-align: left;">Modality</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The modality of the document (e.g., spoken, written)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">genre</td>
+<td style="text-align: left;">Genre</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The genre of the document (e.g., blog, newspaper)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">term_num</td>
+<td style="text-align: left;">Term number</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">The position of the term in the document</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">term</td>
+<td style="text-align: left;">Term</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The word</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">lemma</td>
+<td style="text-align: left;">Lemma</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The lemma of the word</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pos</td>
+<td style="text-align: left;">Part-of-speech</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The part-of-speech tag of the word</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Of note, in this recipe we will derive a single transformed dataset. In other projects, you may want to generate various datasets with different units of observations. It all depends on your research question and the research aim that you are adopting.</p>
+</section>
+<section id="transforming-data" class="level3">
+<h3 class="anchored" data-anchor-id="transforming-data">Transforming data</h3>
+<p>To get from the curated dataset to the idealized dataset, we will need to perform a number of transformations. Some of these transformations will be relatively straightforward, while others will require more work. Let’s start with the easy ones.</p>
+<ol type="1">
+<li>Let’s drop the variables that we will not use and at the same time rename the variables to make them more intuitive.</li>
+</ol>
+<p>We will use the <code>select()</code> function to drop or rename variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop and rename variables</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="ot">&lt;-</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  masc_curated <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">doc_id =</span> file,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">term_num =</span> ref,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">term =</span> string,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">lemma =</span> base,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">pos =</span> msd,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">mod_gen =</span> class</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>masc_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 591,097 × 6
+   doc_id    term_num term         lemma        pos   mod_gen
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;  
+ 1 110CYL067        0 December     december     NNP   WR LT  
+ 2 110CYL067        1 1998         1998         CD    WR LT  
+ 3 110CYL067        2 Your         your         PRP$  WR LT  
+ 4 110CYL067        3 contribution contribution NN    WR LT  
+ 5 110CYL067        4 to           to           TO    WR LT  
+ 6 110CYL067        5 Goodwill     goodwill     NNP   WR LT  
+ 7 110CYL067        6 will         will         MD    WR LT  
+ 8 110CYL067        7 mean         mean         VB    WR LT  
+ 9 110CYL067        8 more         more         JJR   WR LT  
+10 110CYL067        9 than         than         IN    WR LT  
+# ℹ 591,087 more rows</code></pre>
+</div>
+</div>
+<p>That’s a good start on the structure.</p>
+<ol start="2" type="1">
+<li>Next, we will split the <code>mod_gen</code> variable into two variables: <code>modality</code> and <code>genre</code>.</li>
+</ol>
+<p>We have a variable <code>mod_gen</code> that contains two pieces of information: modality and genre (e.g., <code>WR LT</code>). The information appears to separated by a space. We can make sure this is the case by tabulating the values. The <code>count()</code> function will count the number of occurrences of each value in a variable, and as a side effect it will summarize the values of the variable so we can see if there are any unexpected values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabulate mod_gen</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(mod_gen) <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 2
+   mod_gen     n
+   &lt;chr&gt;   &lt;int&gt;
+ 1 SP TR   71630
+ 2 WR EM   62036
+ 3 WR FC   38608
+ 4 WR ES   34938
+ 5 WR FT   34373
+ 6 WR BL   33278
+ 7 WR JO   33042
+ 8 WR JK   32420
+ 9 WR NP   31225
+10 SP MS   29879
+11 WR NF   29531
+12 WR TW   28128
+13 WR GV   27848
+14 WR TG   27624
+15 WR LT   26468
+16 SP FF   23871
+17 WR TC   19419
+18 SP TP    6779</code></pre>
+</div>
+</div>
+<p>Looks good, our values are separated by a space. We can use the <code>separate_wider_delim()</code> function from {tidyr} to split the variable into two variables. We will use the <code>delim</code> argument to specify the delimiter and the <code>names</code> argument to specify the names of the new variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split mod_gen into modality and genre</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="ot">&lt;-</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  masc_df <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> mod_gen,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">" "</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"modality"</span>, <span class="st">"genre"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>masc_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 591,097 × 7
+   doc_id    term_num term         lemma        pos   modality genre
+   &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;
+ 1 110CYL067        0 December     december     NNP   WR       LT   
+ 2 110CYL067        1 1998         1998         CD    WR       LT   
+ 3 110CYL067        2 Your         your         PRP$  WR       LT   
+ 4 110CYL067        3 contribution contribution NN    WR       LT   
+ 5 110CYL067        4 to           to           TO    WR       LT   
+ 6 110CYL067        5 Goodwill     goodwill     NNP   WR       LT   
+ 7 110CYL067        6 will         will         MD    WR       LT   
+ 8 110CYL067        7 mean         mean         VB    WR       LT   
+ 9 110CYL067        8 more         more         JJR   WR       LT   
+10 110CYL067        9 than         than         IN    WR       LT   
+# ℹ 591,087 more rows</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Create a document id variable.</li>
+</ol>
+<p>Now that we have the variables we want, we can turn our attention to the values of the variables. Let’s start with the <code>doc_id</code> variable. This may a good variable to use as the document id. If we take a look at the values, however, we can see that the values are not very informative.</p>
+<p>Let’s use the <code>distinct()</code> function to only show the unique values of the variable. We will also chain a <code>slice_sample()</code> function to randomly select a sample of the values. This will give us a sense of the values in the variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview doc_id</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 1
+   doc_id             
+   &lt;chr&gt;              
+ 1 JurassicParkIV-INT 
+ 2 111367             
+ 3 NYTnewswire6       
+ 4 sw2014-ms98-a-trans
+ 5 52713              
+ 6 new_clients        
+ 7 cable_spool_fort   
+ 8 jokes10            
+ 9 wsj_2465           
+10 wsj_0158           </code></pre>
+</div>
+</div>
+<p>You can run this code various times to get a different sample of values.</p>
+<p>Since the <code>doc_id</code> variable is not informative, let’s replace the variable’s values with numeric values. In the end, we want a digit for each unique document and we want the words in each document to be grouped together.</p>
+<p>To do this we will need to group the data by <code>doc_id</code> and then generate a new number for each group. We can achieve this by passing the data grouped by <code>doc_id</code> (<code>group_by()</code>) to the <code>mutate()</code> function and then using the <code>cur_group_id()</code> function to generate a number for each group.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode doc_id</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="ot">&lt;-</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  masc_df <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">doc_id =</span> <span class="fu">cur_group_id</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>masc_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 591,097 × 7
+   doc_id term_num term         lemma        pos   modality genre
+    &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;
+ 1      1        0 December     december     NNP   WR       LT   
+ 2      1        1 1998         1998         CD    WR       LT   
+ 3      1        2 Your         your         PRP$  WR       LT   
+ 4      1        3 contribution contribution NN    WR       LT   
+ 5      1        4 to           to           TO    WR       LT   
+ 6      1        5 Goodwill     goodwill     NNP   WR       LT   
+ 7      1        6 will         will         MD    WR       LT   
+ 8      1        7 mean         mean         VB    WR       LT   
+ 9      1        8 more         more         JJR   WR       LT   
+10      1        9 than         than         IN    WR       LT   
+# ℹ 591,087 more rows</code></pre>
+</div>
+</div>
+<p>To check, we can again apply the <code>count()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 392 × 2
+   doc_id     n
+    &lt;int&gt; &lt;int&gt;
+ 1    158 24520
+ 2    300 22261
+ 3    112 18459
+ 4    113 17986
+ 5    215 17302
+ 6    312 14752
+ 7    311 13376
+ 8    200 13138
+ 9    217 11753
+10    186 10665
+# ℹ 382 more rows</code></pre>
+</div>
+</div>
+<p>We have 392 unique documents in the dataset. We also can see that the word lengths vary quite a bit. That’s something we will need to keep in mind as we move forward into the analysis.</p>
+<ol start="4" type="1">
+<li>Check the values of the <code>pos</code> variable.</li>
+</ol>
+<p>The <code>pos</code> variable contains the part-of-speech tags for each word. The PENN Treebank tagset is used. Let’s take a look at the values to get familiar with them, and also to see if there are any unexpected values.</p>
+<p>Let’s use the <code>slice_sample()</code> function to randomly select a sample of the values. This will give us a sense of the values in the variable.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview pos</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 7
+   doc_id term_num term          lemma         pos   modality genre
+    &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;
+ 1    303     2511 proliferation proliferation NN    WR       TC   
+ 2     76     5245 And           and           CC    WR       FT   
+ 3    300    17170 DAVY          davy          NNP   SP       MS   
+ 4     80     5341 ”             ”             NN    WR       FT   
+ 5    171      900 .             .             .     WR       TG   
+ 6    166     2588 out           out           RP    WR       BL   
+ 7     67       58 organization  organization  NN    WR       LT   
+ 8    216     2944 include       include       VB    WR       TG   
+ 9    234     1304 donation      donation      NN    WR       LT   
+10    231     3539 say           say           VB    WR       NF   </code></pre>
+</div>
+</div>
+<p>After running this code a few times, we can see that the many of the values are as expected. There are, however, some unexpected values. In particular, some punctuation and symbols are tagged as nouns.</p>
+<p>We can get a better appreciation for the unexpected values by filtering the data to only show non alpha-numeric values (<code>^\\W+$</code>) in the <code>term</code> column and then tabulating the values by <code>term</code> and <code>pos</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter and tabulate</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"^</span><span class="sc">\\</span><span class="st">W+$"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(term, pos) <span class="sc">|&gt;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 152 × 3
+   term  pos       n
+   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+ 1 ","   ,     27112
+ 2 "."   .     26256
+ 3 "\""  ''     5495
+ 4 ":"   :      4938
+ 5 "?"   .      3002
+ 6 ")"   )      2447
+ 7 "("   (      2363
+ 8 "-"   :      1778
+ 9 "!"   .      1747
+10 "/"   NN     1494
+11 "’"   NN     1319
+12 "-"   -      1213
+13 "”"   NN     1076
+14 "“"   NN     1061
+15 "]"   NN     1003
+16 "["   NN     1001
+17 ";"   :       991
+18 "--"  :       772
+19 "&gt;"   NN      752
+20 "..." ...     716
+# ℹ 132 more rows</code></pre>
+</div>
+</div>
+<p>As we can see from the sample above and from the PENN tagset documentation, most punctuation is tagged as the punctuation itself. For example, the period is tagged as <code>.</code> and the comma is tagged as <code>,</code>. Let’s edit the data to reflect this.</p>
+<p>Let’s look at the code, and then we will discuss it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="ot">&lt;-</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  masc_df <span class="sc">|&gt;</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> <span class="fu">case_when</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(term, <span class="st">"^</span><span class="sc">\\</span><span class="st">W+$"</span>) <span class="sc">~</span> <span class="fu">str_sub</span>(term, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">1</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> pos</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"^</span><span class="sc">\\</span><span class="st">W+$"</span>)) <span class="sc">|&gt;</span> <span class="co"># preview</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(term, pos) <span class="sc">|&gt;</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 127 × 3
+   term  pos       n
+   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+ 1 ","   ","   27113
+ 2 "."   "."   26257
+ 3 "\""  "\""   5502
+ 4 ":"   ":"    4939
+ 5 "?"   "?"    3002
+ 6 "-"   "-"    2994
+ 7 ")"   ")"    2447
+ 8 "("   "("    2363
+ 9 "!"   "!"    1747
+10 "/"   "/"    1495
+11 "’"   "’"    1325
+12 "”"   "”"    1092
+13 "“"   "“"    1078
+14 "]"   "]"    1003
+15 "["   "["    1001
+16 ";"   ";"     993
+17 "--"  "-"     772
+18 "&gt;"   "&gt;"     753
+19 "..." "."     747
+20 "'"   "'"     741
+# ℹ 107 more rows</code></pre>
+</div>
+</div>
+<p>The <code>case_when()</code> function allows us to specify a series of conditions and values. The first condition is that the <code>term</code> variable contains only non alpha-numeric characters. If it does, then we want to replace the value of the <code>pos</code> variable with the first character of the <code>term</code> variable, <code>str_sub(term, start = 1, end = 1)</code>. If the condition is not met, then we want to keep the original value of the <code>pos</code> variable, <code>TRUE ~ pos</code>.</p>
+<p>We can see that our code worked by filtering the data to only show non alpha-numeric values (<code>^\\W+$</code>) in the <code>term</code> column and then tabulating the values by <code>term</code> and <code>pos</code>.</p>
+<p>For completeness, I will also recode the <code>lemma</code> values for these values as well as the lemma can some times be multiple punctuation marks (<em>e.g.</em> <code>!!!!!</code>, <code>---</code>, <em>etc.</em>) for these terms.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="ot">&lt;-</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  masc_df <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lemma =</span> <span class="fu">case_when</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(term, <span class="st">"^</span><span class="sc">\\</span><span class="st">W+$"</span>) <span class="sc">~</span> <span class="fu">str_sub</span>(term, <span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">1</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> lemma</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">"^</span><span class="sc">\\</span><span class="st">W+$"</span>)) <span class="sc">|&gt;</span> <span class="co"># preview</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(term, lemma) <span class="sc">|&gt;</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">|&gt;</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 127 × 3
+   term  lemma     n
+   &lt;chr&gt; &lt;chr&gt; &lt;int&gt;
+ 1 ","   ","   27113
+ 2 "."   "."   26257
+ 3 "\""  "\""   5502
+ 4 ":"   ":"    4939
+ 5 "?"   "?"    3002
+ 6 "-"   "-"    2994
+ 7 ")"   ")"    2447
+ 8 "("   "("    2363
+ 9 "!"   "!"    1747
+10 "/"   "/"    1495
+11 "’"   "’"    1325
+12 "”"   "”"    1092
+13 "“"   "“"    1078
+14 "]"   "]"    1003
+15 "["   "["    1001
+16 ";"   ";"     993
+17 "--"  "-"     772
+18 "&gt;"   "&gt;"     753
+19 "..." "."     747
+20 "'"   "'"     741
+# ℹ 107 more rows</code></pre>
+</div>
+</div>
+<ol start="5" type="1">
+<li>Check the values of the <code>modality</code> variable.</li>
+</ol>
+<p>The <code>modality</code> variable contains the modality tags for each document. Let’s take a look at the values.</p>
+<p>Let’s tabulate the values with <code>count()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabulate modality</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(modality)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  modality      n
+  &lt;chr&gt;     &lt;int&gt;
+1 SP       132159
+2 WR       458938</code></pre>
+</div>
+</div>
+<p>We see that the values are <code>SP</code> and <code>WR</code>, which stand for spoken and written, respectively. To make this a bit more transparent, we can recode these values to <code>Spoken</code> and <code>Written</code>. We will use the <code>case_when()</code> function to do this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode modality</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="ot">&lt;-</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  masc_df <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">modality =</span> <span class="fu">case_when</span>(</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>      modality <span class="sc">==</span> <span class="st">"SP"</span> <span class="sc">~</span> <span class="st">"Spoken"</span>,</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>      modality <span class="sc">==</span> <span class="st">"WR"</span> <span class="sc">~</span> <span class="st">"Written"</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>masc_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 591,097 × 7
+   doc_id term_num term         lemma        pos   modality genre
+    &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;
+ 1      1        0 December     december     NNP   Written  LT   
+ 2      1        1 1998         1998         CD    Written  LT   
+ 3      1        2 Your         your         PRP$  Written  LT   
+ 4      1        3 contribution contribution NN    Written  LT   
+ 5      1        4 to           to           TO    Written  LT   
+ 6      1        5 Goodwill     goodwill     NNP   Written  LT   
+ 7      1        6 will         will         MD    Written  LT   
+ 8      1        7 mean         mean         VB    Written  LT   
+ 9      1        8 more         more         JJR   Written  LT   
+10      1        9 than         than         IN    Written  LT   
+# ℹ 591,087 more rows</code></pre>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Check the values of the <code>genre</code> variable.</li>
+</ol>
+<p>Let’s look at the values of the <code>genre</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabulate genre</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(genre) <span class="sc">|&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="at">n =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 2
+   genre     n
+   &lt;chr&gt; &lt;int&gt;
+ 1 BL    33278
+ 2 EM    62036
+ 3 ES    34938
+ 4 FC    38608
+ 5 FF    23871
+ 6 FT    34373
+ 7 GV    27848
+ 8 JK    32420
+ 9 JO    33042
+10 LT    26468
+11 MS    29879
+12 NF    29531
+13 NP    31225
+14 TC    19419
+15 TG    27624
+16 TP     6779
+17 TR    71630
+18 TW    28128</code></pre>
+</div>
+</div>
+<p>These genre labels are definitely cryptic. The data dictionary does not list these labels and their more verbose descriptions. However, looking at the original data’s README, we can find the file (<code>resource-headers.xml</code>) that lists these genre labels.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>1. 'BL' for blog</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>2. 'NP' is newspaper</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>3. 'EM' is email</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>4. 'ES' is essay</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>5. 'FT' is fictlets</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>6. 'FC' is fiction</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>7. 'GV' is government</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>8. 'JK' is jokes</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>9. 'JO' is journal</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>10. 'LT' is letters</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>11. 'MS' is movie script</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>12. 'NF' is non-fiction</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>13. 'FF' is face-to-face</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>14. 'TC' is technical</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>15. 'TG' is travel guide</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>16. 'TP' is telephone</span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a>17. 'TR' is transcript</span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>18. 'TW' is twitter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now we can again use the <code>case_when()</code> function. This time we will see if <code>genre</code> is equal to one of the genre labels and if it is, then we will replace the value with the more verbose description.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Recode genre</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="ot">&lt;-</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  masc_df <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">genre =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"BL"</span> <span class="sc">~</span> <span class="st">"Blog"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"NP"</span> <span class="sc">~</span> <span class="st">"Newspaper"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"EM"</span> <span class="sc">~</span> <span class="st">"Email"</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"ES"</span> <span class="sc">~</span> <span class="st">"Essay"</span>,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"FT"</span> <span class="sc">~</span> <span class="st">"Fictlets"</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"FC"</span> <span class="sc">~</span> <span class="st">"Fiction"</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"GV"</span> <span class="sc">~</span> <span class="st">"Government"</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"JK"</span> <span class="sc">~</span> <span class="st">"Jokes"</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"JO"</span> <span class="sc">~</span> <span class="st">"Journal"</span>,</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"LT"</span> <span class="sc">~</span> <span class="st">"Letters"</span>,</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"MS"</span> <span class="sc">~</span> <span class="st">"Movie script"</span>,</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"NF"</span> <span class="sc">~</span> <span class="st">"Non-fiction"</span>,</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"FF"</span> <span class="sc">~</span> <span class="st">"Face-to-face"</span>,</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"TC"</span> <span class="sc">~</span> <span class="st">"Technical"</span>,</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"TG"</span> <span class="sc">~</span> <span class="st">"Travel guide"</span>,</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"TP"</span> <span class="sc">~</span> <span class="st">"Telephone"</span>,</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"TR"</span> <span class="sc">~</span> <span class="st">"Transcript"</span>,</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>      genre <span class="sc">==</span> <span class="st">"TW"</span> <span class="sc">~</span> <span class="st">"Twitter"</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>masc_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 591,097 × 7
+   doc_id term_num term         lemma        pos   modality genre  
+    &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;  
+ 1      1        0 December     december     NNP   Written  Letters
+ 2      1        1 1998         1998         CD    Written  Letters
+ 3      1        2 Your         your         PRP$  Written  Letters
+ 4      1        3 contribution contribution NN    Written  Letters
+ 5      1        4 to           to           TO    Written  Letters
+ 6      1        5 Goodwill     goodwill     NNP   Written  Letters
+ 7      1        6 will         will         MD    Written  Letters
+ 8      1        7 mean         mean         VB    Written  Letters
+ 9      1        8 more         more         JJR   Written  Letters
+10      1        9 than         than         IN    Written  Letters
+# ℹ 591,087 more rows</code></pre>
+</div>
+</div>
+<p>During the process of transformation and afterwards, it is a good idea to tabulate and/ or visualize the dataset. This provides us an opportunity to get to know the dataset better and also may help us identify inconsistencies that we would like to address in the transformation, or at least be aware of as we move towards analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many documents are in each modality?</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(doc_id, modality) <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(modality) <span class="sc">|&gt;</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  modality     n
+  &lt;chr&gt;    &lt;int&gt;
+1 Written    371
+2 Spoken      21</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many documents are in each genre?</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(doc_id, genre) <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(genre) <span class="sc">|&gt;</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 2
+   genre            n
+   &lt;chr&gt;        &lt;int&gt;
+ 1 Email          174
+ 2 Newspaper       54
+ 3 Letters         49
+ 4 Blog            21
+ 5 Jokes           16
+ 6 Journal         12
+ 7 Essay            8
+ 8 Fiction          7
+ 9 Travel guide     7
+10 Face-to-face     6
+11 Movie script     6
+12 Technical        6
+13 Fictlets         5
+14 Government       5
+15 Non-fiction      5
+16 Telephone        5
+17 Transcript       4
+18 Twitter          2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the averge length of documents (in words)?</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(n),</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">median</span>(n),</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">min =</span> <span class="fu">min</span>(n),</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">max =</span> <span class="fu">max</span>(n)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+   mean median   min   max
+  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
+1 1508.   418.    45 24520</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n)) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/masc-transformed-evaluation-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the distribution of the length of documents by modality?</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id, modality) <span class="sc">|&gt;</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> n, <span class="at">fill =</span> modality)) <span class="sc">+</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/masc-transformed-evaluation-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the distribution of the length of documents by genre?</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>masc_df <span class="sc">|&gt;</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id, modality, genre) <span class="sc">|&gt;</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> genre, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> modality, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/masc-transformed-evaluation-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Once we are satisfied with the structure and values of the dataset, we can save it to a file. We will use the <code>write_csv()</code> function from {readr} to do this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Save the data</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(masc_df, <span class="st">"data/derived/masc/masc_transformed.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The structure of the <em>data/</em> directory in our project should now look like this:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="ex">data/</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> analysis/</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> derived/</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── masc_curated_dd.csv</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── masc/</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── masc_curated.csv</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   │   ├── masc_transformed.csv</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> original/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="documenting-data" class="level3">
+<h3 class="anchored" data-anchor-id="documenting-data">Documenting data</h3>
+<p>The last step is to document the process and the resulting dataset(s). In this particular case we only derived one transformed dataset. The documentation steps are the same as in the curation step. We will organize and document the process file (often a <code>.qmd</code> file) and then create a data dictionary for each of the transformed datasets. The <code>create_data_dictionary()</code> function can come in handy for scaffolding the data dictionary file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data dictionary</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_data_dictionary</span>(</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> masc_df,</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">file_path =</span> <span class="st">"data/derived/masc/masc_transformed_dd.csv"</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this recipe, we have looked at an example of transforming a curated dataset. This recipe included operations such as:</p>
+<ul>
+<li>Text normalization</li>
+<li>Variable recoding</li>
+<li>Splitting variables</li>
+</ul>
+<p>In other projects, the transformation steps will inevitably differ, but these strategies are commonly necessary in almost any project.</p>
+<p>Just as with other steps in the data preparation process, it is important to document the transformation steps. This will help you and others understand the process and the resulting dataset(s).</p>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<ol type="1">
+<li>Which function would you use to remove duplicate rows in a dataset? <select class="webex-select"><option value="blank"></option><option value="">group_by()</option><option value="">mutate()</option><option value="answer">distinct()</option><option value="">filter()</option></select></li>
+<li><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select> The <code>str_c()</code> function from {stringr} is used to separate strings rather than combine them.</li>
+<li><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select> The <code>count()</code> function from {dplyr} is used to tabulate the values of a variable.</li>
+<li>If you want to recode the age of learners into categories such as “child”, “teen”, and “adult” based on their age, which function should you use? <select class="webex-select"><option value="blank"></option><option value="">mutate()</option><option value="answer">case_when()</option><option value="">unite()</option><option value="">separate_wider_delim()</option></select></li>
+<li>To normalize text by removing leading and trailing whitespace, you use the <input class="webex-solveme nospaces" size="8" data-answer="[&quot;str_trim&quot;]"><code>()</code> function from {stringr}.</li>
+<li>To normalize text by converting all characters to lowercase, you use the <input class="webex-solveme nospaces" size="12" data-answer="[&quot;str_to_lower&quot;]"><code>()</code> function from {stringr}.</li>
+</ol>
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
+<!-- Lab 07 description and checklist -->
+<p>In preparation for <a href="https://github.com/qtalr/lab-07">Lab 7</a>, review and ensure you are comfortable with the following:</p>
+<ul>
+<li>Vector, data frame, and list data structures</li>
+<li>Subsetting and filtering data structures with and without regular expressions</li>
+<li>Reshaping datasets by rows and columns</li>
+</ul>
+<p>In this lab, we will practice these skills and expand our knowledge of data preparation by transforming and documenting data with Tidyverse packages such as {dplyr}, {tidyr}, and {stringr}.</p>
+<p>You will have a choice of a dataset to transform. Before you start the lab, you should consider which dataset you would like to use, what the idealized structure the transformed dataset will take, and what strategies you will likely employ to transform the dataset. You should also consider the information you need to document the data transformation process.</p>
+</section>
+<section id="references" class="level2">
 
 
 
-</main> <!-- /main -->
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Ide2008" class="csl-entry" role="listitem">
+Ide, Nancy, Collin Baker, Christiane Fellbaum, Charles Fillmore, and Rebecca Passonneau. 2008. <span>“MASC: The Manually Annotated Sub-Corpus of American English.”</span> In <em>6th International Conference on Language Resources and Evaluation, LREC 2008</em>, 2455–60. European Language Resources Association (ELRA).
+</div>
+</div></section></div></main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -833,7 +1833,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-07/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-07/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

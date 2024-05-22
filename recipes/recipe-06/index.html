@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
+<meta name="description" content="After acquiring data, the next step in process is to organize data that is not tabular into a curated dataset. A curated dataset is a tidy dataset that reflects the data without major modifications. This dataset serves as a more general starting point for further data transformation. In this recipe, we will focus on curating data from a semi-structured format.">
 
-<title>Resources Kit - 06. Recipe</title>
+<title>Resources Kit - 06. Organizing and documenting data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -40,6 +94,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,6 +129,8 @@ ul.task-list li input[type="checkbox"] {
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../../assets/styles.css">
@@ -98,7 +156,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -131,29 +189,44 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
+  <ul class="collapse">
+  <li><a href="#assessing-the-data" id="toc-assessing-the-data" class="nav-link" data-scroll-target="#assessing-the-data">Assessing the data</a></li>
+  <li><a href="#tidy-the-data" id="toc-tidy-the-data" class="nav-link" data-scroll-target="#tidy-the-data">Tidy the data</a></li>
+  <li><a href="#documentation" id="toc-documentation" class="nav-link" data-scroll-target="#documentation">Documentation</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
+  <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-06/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">06. Recipe</h1>
+<h1 class="title">06. Organizing and documenting data</h1>
+<p class="subtitle lead">Curating semi-structured data</p>
   <div class="quarto-categories">
-    <div class="quarto-category">recipes</div>
+    <div class="quarto-category">preparation</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <p>After acquiring data, the next step in process is to organize data that is not tabular into a curated dataset. A curated dataset is a tidy dataset that reflects the data without major modifications. This dataset serves as a more general starting point for further data transformation. In this recipe, we will focus on curating data from a semi-structured format.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -164,11 +237,764 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Hello.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Skills</strong></p>
+<ul>
+<li>Reading and parsing semi-structured data</li>
+<li>Creating a custom function and iterating over a collection of files</li>
+<li>Combining the results into a single dataset</li>
+<li>Documenting the data curation process and resulting dataset</li>
+</ul>
+</div>
+</div>
+</div>
+<p>In this recipe, we will make use of {readr}, {dplyr}, {stringr}, and {purrr}, employ regular expressions to parse the semi-structured data, and use {qtalrkit} to document the dataset. Let’s load those packages now.</p>
+<!-- [ ] replace with {qtkit} -->
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qtalrkit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In Lab 6, we will apply what we learn in this recipe to curate and document acquired data.</p>
+<section id="concepts-and-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
+<section id="assessing-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="assessing-the-data">Assessing the data</h3>
+<p>Acquired data can be in a variety of formats. This will range from unstructured data such as running text to structured data such as tabular data. Semi-structured data is somewhere in between. It has some structure, but it is not as well defined as structured data and requires some work to organize it into a tidy dataset.</p>
+<p>As a semi-structured example we will work with the The Switchboard Dialog Act Corpus (SWDA) <span class="citation" data-cites="SWDA2008">(<a href="#ref-SWDA2008" role="doc-biblioref">University of Colorado Boulder 2008</a>)</span> which extends the <a href="https://catalog.ldc.upenn.edu/LDC97S62">Switchboard Corpus</a> with speech act annotation.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>If you would like to download and decompress the data yourself, you can do so by running the following code:</p>
+<!-- [ ] get_archive_data() {qtkit} -->
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qtalrkit<span class="sc">::</span><span class="fu">get_compressed_data</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://catalog.ldc.upenn.edu/docs/LDC97S62/swb1_dialogact_annot.tar.gz"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">target_dir =</span> <span class="st">"data/original/swda/"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>As a starting point, let’s assume you have acquired the SWDA corpus and decompressed it into your project’s <em>data/original/swda/</em> directory, as seen below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">data/</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> analysis/</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> derived/</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> original/</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> swda/</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> README</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> doc/</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw00utt/</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw01utt/</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw02utt/</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw03utt/</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw04utt/</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw05utt/</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw06utt/</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw07utt/</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw08utt/</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw09utt/</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw10utt/</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw11utt/</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw12utt/</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> sw13utt/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The first step is to inspect the data directory and file structure (and of course any documentation files).</p>
+<p>The <em>README</em> file contains basic information about the resource, the <em>doc/</em> directory contains more detailed information about the dialog annotations, and each of the following directories prefixed with <em>sw…</em> contain individual conversation files.</p>
+<p>Taking a closer look at the first conversation file directory, <em>sw00utt/</em> we can see that it contains files with the <em>.utt</em> extension.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> sw00utt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── sw_0001_4325.utt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── sw_0002_4330.utt</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── sw_0003_4103.utt</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── sw_0004_4327.utt</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── sw_0005_4646.utt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s take a look inside a conversation file (<em>sw_0001_4325.utt</em>) to see how it is structured internally. You can do this by opening the file in a text editor or by using the <code>read_lines()</code> function from the {readr} package.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*
+
+
+FILENAME:   4325_1632_1519
+TOPIC#:     323
+DATE:       920323
+TRANSCRIBER:    glp
+UTT_CODER:  tc
+DIFFICULTY: 1
+TOPICALITY: 3
+NATURALNESS:    2
+ECHO_FROM_B:    1
+ECHO_FROM_A:    4
+STATIC_ON_A:    1
+STATIC_ON_B:    1
+BACKGROUND_A:   1
+BACKGROUND_B:   2
+REMARKS:        None.
+
+=========================================================================
+  
+
+o          A.1 utt1: Okay.  /
+qw          A.1 utt2: {D So, }   
+
+qy^d          B.2 utt1: [ [ I guess, +   
+
++          A.3 utt1: What kind of experience [ do you, + do you ] have, then with child care? /  
+
++          B.4 utt1: I think, ] + {F uh, } I wonder ] if that worked. /  
+
+qy          A.5 utt1: Does it say something? /  
+
+sd          B.6 utt1: I think it usually does.  /</code></pre>
+</div>
+</div>
+<p>There are few things to take note of here. First we see that the conversation files have a meta-data header offset from the conversation text by a line of <code>=</code> characters. Second, the header contains meta-information of various types. Third, the conversation text is interleaved with an annotation scheme.</p>
+<p>Some of the information may be readily understandable, such as the various pieces of meta-data in the header, but to get a better understanding of what information is encoded here let’s take a look at the <em>README</em> file.</p>
+<p>In this file we get a birds eye view of what is going on. In short, the data includes 1155 telephone conversations between two people annotated with 42 ‘DAMSL’ dialog act labels. The <em>README</em> file refers us to the <em>doc/manual.august1.html</em> file for more information on this scheme.</p>
+<p>At this point we open the the <em>doc/manual.august1.html</em> file in a browser and do some investigation. We find out that ‘DAMSL’ stands for ‘Discourse Annotation and Markup System of Labeling’ and that the first characters of each line of the conversation text correspond to one or a combination of labels for each utterance. So for our first utterances we have:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>o = "Other"</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>qw = "Wh-Question"</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>qy^d = "Declarative Yes-No-Question"</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>+ = "Segment (multi-utterance)"</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each utterance is also labeled for speaker (‘A’ or ‘B’), speaker turn (‘1’, ‘2’, ‘3’, etc.), and each utterance within that turn (‘utt1’, ‘utt2’, etc.). There is other annotation provided withing each utterance, but this should be enough to get us started on the conversations.</p>
+<p>Now let’s turn to the meta-data in the header. We see here that there is information about the creation of the file: ‘FILENAME’, ‘TOPIC’, ‘DATE’, etc. The <em>doc/manual.august1.html</em> file doesn’t have much to say about this information so I returned to the <a href="https://catalog.ldc.upenn.edu/docs/LDC97S62/">LDC Documentation</a> and found more information in the <a href="https://catalog.ldc.upenn.edu/docs/LDC97S62/">Online Documentation</a> section. After some poking around in this documentation I discovered that that meta-data for each speaker in the corpus is found in the <em>caller_tab.csv</em> file. This tabular file does not contain column names, but the <em>caller_doc.txt</em> does. After inspecting these files manually and comparing them with the information in the conversation file I noticed that the ‘FILENAME’ information contained three pieces of useful information delimited by underscores <code>_</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*x*</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>FILENAME:   4325_1632_1519</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>TOPIC#:     323</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>DATE:       920323</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>TRANSCRIBER:    glp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The first information is the document id (<code>4325</code>), the second and third correspond to the speaker number: the first being speaker A (<code>1632</code>) and the second speaker B (<code>1519</code>).</p>
+<p>In sum, we have 1155 conversation files. Each file has two parts, a header and text section, separated by a line of <code>=</code> characters. The header section contains a ‘FILENAME’ line which has the document id, and ids for speaker A and speaker B. The text section is annotated with DAMSL tags beginning each line, followed by speaker, turn number, utterance number, and the utterance text. With this knowledge in hand, let’s set out to create a tidy dataset with the column structure as in <a href="#tbl-swda-idealized-dataset" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div class="cell">
+<div id="tbl-swda-idealized-dataset" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-swda-idealized-dataset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Idealized curated dataset
+</figcaption>
+<div aria-describedby="tbl-swda-idealized-dataset-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">doc_id</td>
+<td style="text-align: left;">Document ID</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The unique identifier for the conversation</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">damsl_tag</td>
+<td style="text-align: left;">DAMSL Tag</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The DAMSL tag for the utterance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">speaker</td>
+<td style="text-align: left;">Speaker</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The speaker of the utterance</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">turn_num</td>
+<td style="text-align: left;">Turn Number</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The turn number of the utterance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">utterance_num</td>
+<td style="text-align: left;">Utterance Number</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">The utterance number of the utterance</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">utterance_text</td>
+<td style="text-align: left;">Utterance Text</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The text of the utterance</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">speaker_id</td>
+<td style="text-align: left;">Speaker ID</td>
+<td style="text-align: left;">character</td>
+<td style="text-align: left;">The unique identifier for the speaker</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</section>
+<section id="tidy-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-the-data">Tidy the data</h3>
+<p>There are many ways to approach the task of tidying the data in general, and this semi-structured data in particular. In this recipe, we will take a step-by-step approach to parsing the semi-structured data in one file and then apply this process to all of the files in the corpus using a custom function.</p>
+<p>Let’s begin by reading one of the conversation files into R as a character vector using the <code>read_lines()</code> function from {readr}.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read a single file as character vector</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>doc_chr <span class="ot">&lt;-</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_lines</span>(<span class="at">file =</span> <span class="st">"data/original/swda/sw00utt/sw_0001_4325.utt"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To isolate the vector element that contains the document and speaker ids, we use <code>str_subset()</code> from {stringr}. This function takes two arguments, a string and a pattern, and returns any vector element that matches the pattern.</p>
+<p>In this case we are looking for a pattern that matches three groups of digits separated by underscores. To test out a pattern, we can use the <code>str_view()</code> function. We will use the regular expression character class <code>\\d</code> for digits and the <code>+</code> operator to match 1 or more contiguous digits. We then separate three groups of <code>\\d+</code> with underscores <code>_</code>. The result is <code>\\d+_\\d+_\\d+</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test out a pattern</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>doc_chr <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_view</span>(<span class="at">pattern =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[15] │ FILENAME:{\t}&lt;4325_1632_1519&gt;</code></pre>
+</div>
+</div>
+<p>We can see that this pattern matches the line we are looking for. Now we can use this pattern with <code>str_subset()</code> to return the vector element that contains this pattern.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Isolate the vector element that contains the document and speaker ids</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(doc_chr, <span class="st">"</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "FILENAME:\t4325_1632_1519"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>Regular Expressions are a powerful pattern matching syntax. They are used extensively in text manipulation and we will see them again and again.</p>
+<p>To develop regular expressions, it is helpful to have a tool that allows you to interactively test your pattern matching. {stringr} has a handy function <code>str_view()</code> which allows for interactive pattern matching. A good website to practice Regular Expressions is <a href="https://regex101.com/">RegEx101</a>. You can also install {regexplain} <span class="citation" data-cites="R-regexplain">(<a href="#ref-R-regexplain" role="doc-biblioref">Aden-Buie 2021</a>)</span> in R to get access to a useful <a href="https://rstudio.github.io/rstudioaddins/">RStudio Addin</a>.</p>
+</div>
+</div>
+</div>
+<p>The next step is to extract the three digit sequences that correspond to the <code>doc_id</code>, <code>speaker_a_id</code>, and <code>speaker_b_id</code>. First we extract the pattern that we have identified with <code>str_extract()</code> and then we can break up the single character vector into multiple parts based on the underscore <code>_</code>. The <code>str_split()</code> function takes a string and then a pattern to use to split a character vector. It will return a list of character vectors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_subset</span>(doc_chr, <span class="st">"</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+"</span>) <span class="sc">|&gt;</span> <span class="co"># isolate vector element</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_extract</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+"</span>) <span class="sc">|&gt;</span> <span class="co"># extract the pattern</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">"_"</span>) <span class="co"># split the character vector by underscore</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "4325" "1632" "1519"</code></pre>
+</div>
+</div>
+<p>A list is a special object type in R. It is an unordered collection of objects whose lengths can differ (contrast this with a data frame which is a collection of objects whose lengths are the same –hence the tabular format).</p>
+<p>In this case we have a list of length 1, whose sole element is a character vector of length 3 –one element per segment returned from our split. This is a desired result in most cases as if we were to pass multiple character vectors to our <code>str_split()</code> function we don’t want the results to be conflated as a single character vector blurring the distinction between the individual character vectors.</p>
+<p>In this case, however, we want to extract the three elements of the character vector and assign them to meaningful variable names. To do this we will use the <code>unlist()</code> function which will convert the list into a single character vector. We will assign this result to <code>speaker_info_chr</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>speaker_info_chr <span class="ot">&lt;-</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_subset</span>(doc_chr, <span class="st">"</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_extract</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_split</span>(<span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>() <span class="co"># convert the list to a character vector</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>speaker_info_chr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "4325" "1632" "1519"</code></pre>
+</div>
+</div>
+<p><code>speaker_info_chr</code> is now a character vector of length three. Let’s subset each of the elements and assign them to meaningful variable names so we can conveniently use them later on in the tidying process.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>doc_id <span class="ot">&lt;-</span> speaker_info_chr[<span class="dv">1</span>] <span class="co"># extract by index</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>speaker_a_id <span class="ot">&lt;-</span> speaker_info_chr[<span class="dv">2</span>] <span class="co"># extract by index</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>speaker_b_id <span class="ot">&lt;-</span> speaker_info_chr[<span class="dv">3</span>] <span class="co"># extract by index</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The next step is to isolate the text section extracting it from rest of the document. As noted previously, a sequence of <code>=</code> separates the header section from the text section. What we need to do is to index the point in our character vector <code>doc_chr</code> where that line occurs and then subset the <code>doc_chr</code> from that point until the end of the character vector.</p>
+<p>Let’s first find the point where the <code>=</code> sequence occurs. We will again use the <code>str_view()</code> to test out a pattern that matches a contiguous sequence of <code>=</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(doc_chr, <span class="st">"=+"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[31] │ &lt;=========================================================================&gt;</code></pre>
+</div>
+</div>
+<p>So for this file we see there is one element that matches and that element’s index is <code>31</code>.</p>
+<p>Now it is important to keep in mind that we are working with a single file from the <code>swda/</code> data. Since our plan is to use this code to apply to other files, we need to be cautious to not create a pattern that may be matched multiple times in another document in the corpus. As the <code>=+</code> pattern will match <code>=</code>, or <code>==</code>, or <code>===</code>, etc. it is not implausible to believe that there might be a <code>=</code> character on some other line in one of the other files.</p>
+<p>Let’s update our regular expression to avoid this potential scenario by only matching sequences of three or more <code>=</code>. In this case we will make use of the curly bracket operators <code>{}</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(doc_chr, <span class="st">"={3,}"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[31] │ &lt;=========================================================================&gt;</code></pre>
+</div>
+</div>
+<p>We will get the same result for this file, but will safeguard ourselves a bit as it is unlikely we will find multiple matches for <code>===</code>, <code>====</code>, etc.</p>
+<p>To extract just the index of the match, we can use the <code>str_which()</code> function with the same pattern. This will return the index of the vector element that matches the pattern. However, consider what we are doing. We actually are using this index to subset the vector, so we need to increment the index by 1 to get the next vector element. Let’s do this and then assign the result to <code>text_start_index</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find where text starts</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>text_start_index <span class="ot">&lt;-</span> <span class="fu">str_which</span>(doc_chr, <span class="st">"={3,}"</span>) <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The index for the end of the text is simply the length of the <code>doc_chr</code> vector. We can use the <code>length()</code> function to get this index.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find where text ends</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>text_end_index <span class="ot">&lt;-</span> <span class="fu">length</span>(doc_chr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now have the bookends, so to speak, for our text section. To extract the text we subset the <code>doc_chr</code> vector by these indices.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract text between indices</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> doc_chr[text_start_index<span class="sc">:</span>text_end_index]</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "  "                                       
+[2] ""                                         
+[3] "o          A.1 utt1: Okay.  /"            
+[4] "qw          A.1 utt2: {D So, }   "        
+[5] ""                                         
+[6] "qy^d          B.2 utt1: [ [ I guess, +   "</code></pre>
+</div>
+</div>
+<p>The text has some extra whitespace on some lines and there are blank lines as well. We should do some cleaning up before moving forward to organize the data. To get rid of the whitespace we use the <code>str_trim()</code> function which by default will remove leading and trailing whitespace from each line.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove leading and trailing whitespace</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">str_trim</span>(text)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] ""                                      
+[2] ""                                      
+[3] "o          A.1 utt1: Okay.  /"         
+[4] "qw          A.1 utt2: {D So, }"        
+[5] ""                                      
+[6] "qy^d          B.2 utt1: [ [ I guess, +"</code></pre>
+</div>
+</div>
+<p>To remove blank lines we will use <code>str_subset()</code> to subset the <code>text</code> vector. The <code>.+</code> pattern will match elements that are not blank. We will assign the result to <code>text</code> overwriting the original <code>text</code> vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove blank lines</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">str_subset</span>(text, <span class="st">".+"</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "o          A.1 utt1: Okay.  /"                                                                  
+[2] "qw          A.1 utt2: {D So, }"                                                                 
+[3] "qy^d          B.2 utt1: [ [ I guess, +"                                                         
+[4] "+          A.3 utt1: What kind of experience [ do you, + do you ] have, then with child care? /"
+[5] "+          B.4 utt1: I think, ] + {F uh, } I wonder ] if that worked. /"                        
+[6] "qy          A.5 utt1: Does it say something? /"                                                 </code></pre>
+</div>
+</div>
+<p>Our first step towards a tidy dataset is to now combine the <code>doc_id</code> and each element of <code>text</code> in a data frame, leaving aside our speaker ids. We will use the <code>tibble()</code> function and pass the variables as named arguments.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine info and text into a data frame</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>swda_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(doc_id, text)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(swda_df, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  doc_id text                                                                   
+  &lt;chr&gt;  &lt;chr&gt;                                                                  
+1 4325   o          A.1 utt1: Okay.  /                                          
+2 4325   qw          A.1 utt2: {D So, }                                         
+3 4325   qy^d          B.2 utt1: [ [ I guess, +                                 
+4 4325   +          A.3 utt1: What kind of experience [ do you, + do you ] have…
+5 4325   +          B.4 utt1: I think, ] + {F uh, } I wonder ] if that worked. /</code></pre>
+</div>
+</div>
+<p>With our data now in a data frame, it’s time to parse the <code>text</code> column and extract the damsl tags, speaker, speaker turn, utterance number, and the utterance text itself into separate columns.</p>
+<p>To do this we will make extensive use of regular expressions. Our aim is to find a consistent pattern that distinguishes each piece of information from other other text in a given row.</p>
+<p>The best way to learn regular expressions is to use them. To this end I’ve included a link to the interactive regular expression practice website <a href="https://regex101.com">regex101</a>.</p>
+<p>Open this site and copy the text below into the ‘TEST STRING’ field.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>o          A.1 utt1: Okay.  /</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>qw          A.1 utt2: {D So, }</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>qy^d          B.2 utt1: [ [ I guess, +</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>+          A.3 utt1: What kind of experience [ do you, + do you ] have, then with child care? /</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>+          B.4 utt1: I think, ] + {F uh, } I wonder ] if that worked. /</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>qy          A.5 utt1: Does it say something? /</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>sd          B.6 utt1: I think it usually does.  /</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>ad          B.6 utt2: You might try, {F uh, }  /</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>h          B.6 utt3: I don't know,  /</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>ad          B.6 utt4: hold it down a little longer,  /</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/regex-101.png" class="img-fluid figure-img" width="959"></p>
+<figcaption>RegEx101</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Now manually type the following regular expressions into the ‘REGULAR EXPRESSION’ field one-by-one (each is on a separate line). Notice what is matched as you type and when you’ve finished typing. You can find out exactly what the component parts of each expression are doing by toggling the top right icon in the window or hovering your mouse over the relevant parts of the expression.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>^.+?\s</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>[AB]\.\d+</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>utt\d+</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>:.+$</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>As you can now see, we have regular expressions that will match the damsl tags, speaker and speaker turn, utterance number, and the utterance text.</p>
+<p>To apply these expressions to our data and extract this information into separate columns we will make use of the <code>mutate()</code> and <code>str_extract()</code> functions. <code>mutate()</code> will take our data frame and create new columns with values we match and extract from each row in the data frame with <code>str_extract()</code>.</p>
+<div class="halfsize callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>Notice that <code>str_extract()</code> is different than <code>str_extract_all()</code>. When we work with <code>mutate()</code> each row will be evaluated in turn, therefore we only need to make one match per row.</p>
+</div>
+</div>
+</div>
+<p>I’ve chained each of these steps in the code below, dropping the original <code>text</code> column with <code>select(-text)</code>, and overwriting <code>swda_df</code> with the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract column information from `text`</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>swda_df <span class="ot">&lt;-</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="sc">|&gt;</span> <span class="co"># current dataset</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">damsl_tag =</span> <span class="fu">str_extract</span>(text, <span class="st">"^.+?</span><span class="sc">\\</span><span class="st">s"</span>)) <span class="sc">|&gt;</span> <span class="co"># damsl tags</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">speaker_turn =</span> <span class="fu">str_extract</span>(text, <span class="st">"[AB]</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">d+"</span>)) <span class="sc">|&gt;</span> <span class="co"># speaker_turn pairs</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">utterance_num =</span> <span class="fu">str_extract</span>(text, <span class="st">"utt</span><span class="sc">\\</span><span class="st">d+"</span>)) <span class="sc">|&gt;</span> <span class="co"># utterance number</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">utterance_text =</span> <span class="fu">str_extract</span>(text, <span class="st">":.+$"</span>)) <span class="sc">|&gt;</span> <span class="co"># utterance text</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>text) <span class="co"># drop the `text` column</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(swda_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 159
+Columns: 5
+$ doc_id         &lt;chr&gt; "4325", "4325", "4325", "4325", "4325", "4325", "4325",…
+$ damsl_tag      &lt;chr&gt; "o ", "qw ", "qy^d ", "+ ", "+ ", "qy ", "sd ", "ad ", …
+$ speaker_turn   &lt;chr&gt; "A.1", "A.1", "B.2", "A.3", "B.4", "A.5", "B.6", "B.6",…
+$ utterance_num  &lt;chr&gt; "utt1", "utt2", "utt1", "utt1", "utt1", "utt1", "utt1",…
+$ utterance_text &lt;chr&gt; ": Okay.  /", ": {D So, }", ": [ [ I guess, +", ": What…</code></pre>
+</div>
+</div>
+<div class="halfsize callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-exclamation-triangle" aria-label="exclamation-triangle"></i> Warning</strong></p>
+<p>One twist you will notice is that regular expressions in R require double backslashes (<code>\\</code>) where other programming environments use a single backslash (<code>\</code>).</p>
+</div>
+</div>
+</div>
+<p>There are a couple things left to do to the columns we extracted from the text before we move on to finishing up our tidy dataset. First, we need to separate the <code>speaker_turn</code> column into <code>speaker</code> and <code>turn_num</code> columns and second we need to remove unwanted characters from the <code>damsl_tag</code>, <code>utterance_num</code>, and <code>utterance_text</code> columns.</p>
+<p>To separate the values of a column into two columns we use the <code>separate_wider_delim()</code> function. It takes a column to separate, a delimiter to use to separate the values, and a character vector of the names of the new columns to create.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Separate speaker_turn into distinct columns</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>swda_df <span class="ot">&lt;-</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate_wider_delim</span>(</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> speaker_turn,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">delim =</span> <span class="st">"."</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"speaker"</span>, <span class="st">"turn_num"</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(swda_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 159
+Columns: 6
+$ doc_id         &lt;chr&gt; "4325", "4325", "4325", "4325", "4325", "4325", "4325",…
+$ damsl_tag      &lt;chr&gt; "o ", "qw ", "qy^d ", "+ ", "+ ", "qy ", "sd ", "ad ", …
+$ speaker        &lt;chr&gt; "A", "A", "B", "A", "B", "A", "B", "B", "B", "B", "B", …
+$ turn_num       &lt;chr&gt; "1", "1", "2", "3", "4", "5", "6", "6", "6", "6", "6", …
+$ utterance_num  &lt;chr&gt; "utt1", "utt2", "utt1", "utt1", "utt1", "utt1", "utt1",…
+$ utterance_text &lt;chr&gt; ": Okay.  /", ": {D So, }", ": [ [ I guess, +", ": What…</code></pre>
+</div>
+</div>
+<p>To remove unwanted leading or trailing whitespace we apply the <code>str_trim()</code> function. For removing other characters we matching the character(s) and replace them with an empty string (<code>""</code>) with the <code>str_replace()</code> function. Again, I’ve chained these functions together and overwritten <code>data</code> with the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clean up column information</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>swda_df <span class="ot">&lt;-</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="sc">|&gt;</span> <span class="co"># current dataset</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">damsl_tag =</span> <span class="fu">str_trim</span>(damsl_tag)) <span class="sc">|&gt;</span> <span class="co"># remove leading/ trailing whitespace</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">utterance_num =</span> <span class="fu">str_replace</span>(utterance_num, <span class="st">"utt"</span>, <span class="st">""</span>)) <span class="sc">|&gt;</span> <span class="co"># remove 'utt'</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">utterance_text =</span> <span class="fu">str_replace</span>(utterance_text, <span class="st">":</span><span class="sc">\\</span><span class="st">s"</span>, <span class="st">""</span>)) <span class="sc">|&gt;</span> <span class="co"># remove ': '</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">utterance_text =</span> <span class="fu">str_trim</span>(utterance_text)) <span class="co"># trim leading/ trailing whitespace</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(swda_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 159
+Columns: 6
+$ doc_id         &lt;chr&gt; "4325", "4325", "4325", "4325", "4325", "4325", "4325",…
+$ damsl_tag      &lt;chr&gt; "o", "qw", "qy^d", "+", "+", "qy", "sd", "ad", "h", "ad…
+$ speaker        &lt;chr&gt; "A", "A", "B", "A", "B", "A", "B", "B", "B", "B", "B", …
+$ turn_num       &lt;chr&gt; "1", "1", "2", "3", "4", "5", "6", "6", "6", "6", "6", …
+$ utterance_num  &lt;chr&gt; "1", "2", "1", "1", "1", "1", "1", "2", "3", "4", "5", …
+$ utterance_text &lt;chr&gt; "Okay.  /", "{D So, }", "[ [ I guess, +", "What kind of…</code></pre>
+</div>
+</div>
+<p>To round out our tidy dataset for this single conversation file we will connect the <code>speaker_a_id</code> and <code>speaker_b_id</code> with speaker A and B in our current dataset adding a new column <code>speaker_id</code>. The <code>case_when()</code> function does exactly this: allows us to map rows of <code>speaker</code> with the value “A” to <code>speaker_a_id</code> and rows with value “B” to <code>speaker_b_id</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Link speaker with speaker_id</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>swda_df <span class="ot">&lt;-</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="sc">|&gt;</span> <span class="co"># current dataset</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">speaker_id =</span> <span class="fu">case_when</span>( <span class="co"># create speaker_id</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    speaker <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">~</span> speaker_a_id, <span class="co"># speaker_a_id value when A</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    speaker <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">~</span> speaker_b_id, <span class="co"># speaker_b_id value when B</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span> <span class="co"># NA otherwise</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(swda_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 159
+Columns: 7
+$ doc_id         &lt;chr&gt; "4325", "4325", "4325", "4325", "4325", "4325", "4325",…
+$ damsl_tag      &lt;chr&gt; "o", "qw", "qy^d", "+", "+", "qy", "sd", "ad", "h", "ad…
+$ speaker        &lt;chr&gt; "A", "A", "B", "A", "B", "A", "B", "B", "B", "B", "B", …
+$ turn_num       &lt;chr&gt; "1", "1", "2", "3", "4", "5", "6", "6", "6", "6", "6", …
+$ utterance_num  &lt;chr&gt; "1", "2", "1", "1", "1", "1", "1", "2", "3", "4", "5", …
+$ utterance_text &lt;chr&gt; "Okay.  /", "{D So, }", "[ [ I guess, +", "What kind of…
+$ speaker_id     &lt;chr&gt; "1632", "1632", "1519", "1632", "1519", "1632", "1519",…</code></pre>
+</div>
+</div>
+<p>We now have the tidy dataset we set out to create. But this dataset only includes one conversation file! We want to apply this code to all 1,155 conversation files in the <code>swda/</code> corpus.</p>
+<p>The approach will be to create a custom function which groups the code we’ve done for this single file and then iteratively send each file from the corpus through this function and combine the results into one data frame.</p>
+<p>Here’s the custom function with some extra code to print a progress message for each file when it runs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [ ] add to {qtalrkit}, note the convention of `extract_` prefix for curation functions. In combination with `get_compressed_data()` this corpus can be curated with few steps.</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>extract_swda_data <span class="ot">&lt;-</span> <span class="cf">function</span>(file) {</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Progress message</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  file_basename <span class="ot">&lt;-</span> <span class="fu">basename</span>(file) <span class="co"># file name</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Processing "</span>, file_basename, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Read `file` by lines</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  doc_chr <span class="ot">&lt;-</span> <span class="fu">read_lines</span>(file)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract `doc_id`, `speaker_a_id`, and `speaker_b_id`</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  speaker_info_chr <span class="ot">&lt;-</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_subset</span>(doc_chr, <span class="st">"</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_extract</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+_</span><span class="sc">\\</span><span class="st">d+"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_split</span>(<span class="st">"_"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unlist</span>()</span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>  doc_id <span class="ot">&lt;-</span> speaker_info_chr[<span class="dv">1</span>]</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>  speaker_a_id <span class="ot">&lt;-</span> speaker_info_chr[<span class="dv">2</span>]</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>  speaker_b_id <span class="ot">&lt;-</span> speaker_info_chr[<span class="dv">3</span>]</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract `text`</span></span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>  text_start_index <span class="ot">&lt;-</span> <span class="fu">str_which</span>(doc_chr, <span class="st">"={3,}"</span>) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>  text_end_index <span class="ot">&lt;-</span> <span class="fu">length</span>(doc_chr)</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a>  text <span class="ot">&lt;-</span></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a>    doc_chr[text_start_index<span class="sc">:</span>text_end_index] <span class="sc">|&gt;</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_trim</span>() <span class="sc">|&gt;</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_subset</span>(<span class="st">".+"</span>)</span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(doc_id, text) <span class="co"># tidy format `doc_id` and `text`</span></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract column information from `text`</span></span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="ot">&lt;-</span></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a>    swda_df <span class="sc">|&gt;</span> <span class="co"># current dataset</span></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">damsl_tag =</span> <span class="fu">str_extract</span>(text, <span class="st">"^.+?</span><span class="sc">\\</span><span class="st">s"</span>)) <span class="sc">|&gt;</span> <span class="co"># damsl tags</span></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">speaker_turn =</span> <span class="fu">str_extract</span>(text, <span class="st">"[AB]</span><span class="sc">\\</span><span class="st">.</span><span class="sc">\\</span><span class="st">d+"</span>)) <span class="sc">|&gt;</span> <span class="co"># speaker_turn pairs</span></span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">utterance_num =</span> <span class="fu">str_extract</span>(text, <span class="st">"utt</span><span class="sc">\\</span><span class="st">d+"</span>)) <span class="sc">|&gt;</span> <span class="co"># utterance number</span></span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">utterance_text =</span> <span class="fu">str_extract</span>(text, <span class="st">":.+$"</span>)) <span class="sc">|&gt;</span> <span class="co"># utterance text</span></span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(<span class="sc">-</span>text) <span class="co"># drop the `text` column</span></span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Separate speaker_turn into distinct columns</span></span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="ot">&lt;-</span></span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a>    swda_df <span class="sc">|&gt;</span> <span class="co"># current dataset</span></span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a>    <span class="fu">separate_wider_delim</span>(</span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a>      <span class="at">cols =</span> speaker_turn,</span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">delim =</span> <span class="st">"."</span>,</span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"speaker"</span>, <span class="st">"turn_num"</span>)</span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Clean up column information</span></span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="ot">&lt;-</span></span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a>    swda_df <span class="sc">|&gt;</span> <span class="co"># current dataset</span></span>
+<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">damsl_tag =</span> <span class="fu">str_trim</span>(damsl_tag)) <span class="sc">|&gt;</span> <span class="co"># remove leading/ trailing whitespace</span></span>
+<span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">utterance_num =</span> <span class="fu">str_replace</span>(utterance_num, <span class="st">"utt"</span>, <span class="st">""</span>)) <span class="sc">|&gt;</span> <span class="co"># remove 'utt'</span></span>
+<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">utterance_text =</span> <span class="fu">str_replace</span>(utterance_text, <span class="st">":</span><span class="sc">\\</span><span class="st">s"</span>, <span class="st">""</span>)) <span class="sc">|&gt;</span> <span class="co"># remove ': '</span></span>
+<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">utterance_text =</span> <span class="fu">str_trim</span>(utterance_text)) <span class="co"># trim leading/ trailing whitespace</span></span>
+<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-59"><a href="#cb42-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Link speaker with speaker_id</span></span>
+<span id="cb42-60"><a href="#cb42-60" aria-hidden="true" tabindex="-1"></a>  swda_df <span class="ot">&lt;-</span></span>
+<span id="cb42-61"><a href="#cb42-61" aria-hidden="true" tabindex="-1"></a>    swda_df <span class="sc">|&gt;</span> <span class="co"># current dataset</span></span>
+<span id="cb42-62"><a href="#cb42-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">speaker_id =</span> <span class="fu">case_when</span>( <span class="co"># create speaker_id</span></span>
+<span id="cb42-63"><a href="#cb42-63" aria-hidden="true" tabindex="-1"></a>      speaker <span class="sc">==</span> <span class="st">"A"</span> <span class="sc">~</span> speaker_a_id, <span class="co"># speaker_a_id value when A</span></span>
+<span id="cb42-64"><a href="#cb42-64" aria-hidden="true" tabindex="-1"></a>      speaker <span class="sc">==</span> <span class="st">"B"</span> <span class="sc">~</span> speaker_b_id <span class="co"># speaker_b_id value when B</span></span>
+<span id="cb42-65"><a href="#cb42-65" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb42-66"><a href="#cb42-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-67"><a href="#cb42-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Processed "</span>, file_basename, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb42-68"><a href="#cb42-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(swda_df)</span>
+<span id="cb42-69"><a href="#cb42-69" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As a sanity check we will run the <code>extract_swda_data()</code> function on a the conversation file we were just working on to make sure it works as expected.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process a single file (test)</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_swda_data</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"../data/original/swda/sw00utt/sw_0001_4325.utt"</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 159
+Columns: 7
+$ doc_id         &lt;chr&gt; "4325", "4325", "4325", "4325", "4325", "4325", "4325",…
+$ damsl_tag      &lt;chr&gt; "o", "qw", "qy^d", "+", "+", "qy", "sd", "ad", "h", "ad…
+$ speaker        &lt;chr&gt; "A", "A", "B", "A", "B", "A", "B", "B", "B", "B", "B", …
+$ turn_num       &lt;chr&gt; "1", "1", "2", "3", "4", "5", "6", "6", "6", "6", "6", …
+$ utterance_num  &lt;chr&gt; "1", "2", "1", "1", "1", "1", "1", "2", "3", "4", "5", …
+$ utterance_text &lt;chr&gt; "Okay.  /", "{D So, }", "[ [ I guess, +", "What kind of…
+$ speaker_id     &lt;chr&gt; "1632", "1632", "1519", "1632", "1519", "1632", "1519",…</code></pre>
+</div>
+</div>
+<p>Looks good!</p>
+<p>So now it’s time to create a vector with the paths to all of the conversation files. The <code>ls_dif()</code> function from {fs} interfaces with our OS file system and will return the paths to the files in the specified directory. We also add a pattern to match conversation files (<code>regexp = \\.utt$</code>) so we don’t accidentally include other files in the corpus. <code>recurse</code> set to <code>TRUE</code> means we will get the full path to each file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List all conversation files</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>swda_files_chr <span class="ot">&lt;-</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir_ls</span>(</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">path =</span> <span class="st">"../data/original/swda/"</span>, <span class="co"># source directory</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">recurse =</span> <span class="cn">TRUE</span>, <span class="co"># traverse all sub-directories</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"file"</span>, <span class="co"># only return files</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">regexp =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.utt$"</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="co"># only return files ending in .utt</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(swda_files_chr) <span class="co"># preview file paths</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>data/original/swda/sw00utt/sw_0001_4325.utt
+data/original/swda/sw00utt/sw_0002_4330.utt
+data/original/swda/sw00utt/sw_0003_4103.utt
+data/original/swda/sw00utt/sw_0004_4327.utt
+data/original/swda/sw00utt/sw_0005_4646.utt
+data/original/swda/sw00utt/sw_0006_4108.utt</code></pre>
+</div>
+</div>
+<p>To pass each conversation file in the vector of paths to our conversation files iteratively to the <code>extract_swda_data()</code> function we use <code>map_dfr()</code>. This will apply the function to each conversation file and return a data frame for each and then combine the results into a single data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process all conversation files</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>swda_df <span class="ot">&lt;-</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  swda_files_chr <span class="sc">|&gt;</span> <span class="co"># pass file names</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(extract_swda_data) <span class="co"># read and tidy iteratively</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(swda_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 223,606
+Columns: 7
+$ doc_id         &lt;chr&gt; "4325", "4325", "4325", "4325", "4325", "4325", "4325",…
+$ damsl_tag      &lt;chr&gt; "o", "qw", "qy^d", "+", "+", "qy", "sd", "ad", "h", "ad…
+$ speaker        &lt;chr&gt; "A", "A", "B", "A", "B", "A", "B", "B", "B", "B", "B", …
+$ turn_num       &lt;chr&gt; "1", "1", "2", "3", "4", "5", "6", "6", "6", "6", "6", …
+$ utterance_num  &lt;chr&gt; "1", "2", "1", "1", "1", "1", "1", "2", "3", "4", "5", …
+$ utterance_text &lt;chr&gt; "Okay.  /", "{D So, }", "[ [ I guess, +", "What kind of…
+$ speaker_id     &lt;chr&gt; "1632", "1632", "1519", "1632", "1519", "1632", "1519",…</code></pre>
+</div>
+</div>
+<p>We now see that we have 223, 606 observations (individual utterances in this dataset). The structure of the data frame matches our idealized dataset in Table @ref(tab:swda-idealized-dataset).</p>
+<p>It also is a good idea to inspect the data frame to ensure that the data is as expected. One is to check for missing values. We can use the <code>skim()</code> function from {skimr} to get a quick summary of the data frame. Another is to spot check the data frame to see if the values are as expected. As we are working with a fairly large dataset, we can use the <code>slice_sample()</code> function from {dplyr} to randomly sample a subset of rows from the data frame.</p>
+</section>
+<section id="documentation" class="level3">
+<h3 class="anchored" data-anchor-id="documentation">Documentation</h3>
+<p>We now have a tidy dataset, but we need to document the data curation process and the resulting dataset. The script used to curate the data should be cleaned up and well documented in prose and code comments.</p>
+<p>We then need to write the dataset to disk and create a data dictionary. We will make sure to add the curated dataset to the <code>derived/</code> directory and the data dictionary close to the dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Write to disk</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dir_create</span>(<span class="at">path =</span> <span class="st">"data/derived/swda/"</span>) <span class="co"># create swda subdirectory</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(swda_df,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"data/derived/swda/swda_curated.csv"</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The directory structure now looks like this:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="ex">data/</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> analysis/</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> derived/</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   └── swda/</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>       └── swda_curated.csv</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> original/</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> swda/</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> README</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> doc/</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw00utt/</span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw01utt/</span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw02utt/</span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw03utt/</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw04utt/</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw05utt/</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw06utt/</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw07utt/</span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw08utt/</span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw09utt/</span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw10utt/</span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw11utt/</span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw12utt/</span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> sw13utt/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The data dictionary file will contain information about the dataset variables and their values. This file can be created manually and edited with a text editor or spreadsheet software. Or alternatively, the scaffolding for a CSV file can be generated with the <code>create_data_dictionary()</code> function from {qtalrkit}.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data dictionary</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_data_dictionary</span>(</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> swda,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">file_path =</span> <span class="st">"data/derived/swda/swda_dd.csv"</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this recipe, we learned how to read and parse semi-structured data, create a custom function and iterate over a collection of files, combine the results into a single dataset, and document the data curation process and resulting dataset.</p>
+<p>The skills we used in this recipe include regular expressions, the {readr}, {dplyr}, {stringr}, and {purrr}, and {qtalrkit} for documenting the dataset.</p>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<ol type="1">
+<li>The first thing that should be done in the data curation process is to <select class="webex-select"><option value="blank"></option><option value="">know what packages you are going to use</option><option value="answer">explore the data documentation and understand the resource</option><option value="">read the data into R</option><option value="">parse the data into a tidy dataset</option></select>.</li>
+<li>The <code>read_lines()</code> function from {readr} will read a file into R as a <select class="webex-select"><option value="blank"></option><option value="answer">character vector</option><option value="">data frame</option><option value="">list</option><option value="">matrix</option></select>.</li>
+<li><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select> The <code>separate_wider_delim()</code> function from {tidyr} will separate a column into two or more columns based on a delimiter (<em>e.g.</em> <code>-</code>, <code>.</code>, <em>etc.</em>).</li>
+<li>Which of the following functions from {stringr} will return vector elements which contain a match for a pattern? <select class="webex-select"><option value="blank"></option><option value="answer">str_subset()</option><option value="">str_extract()</option><option value="">str_replace()</option><option value="">str_trim()</option></select></li>
+<li>The <code>map_dfr()</code> function from {purrr} will apply a function to each element of a vector and return a <select class="webex-select"><option value="blank"></option><option value="">list</option><option value="">nested data frame</option><option value="answer">data frame with rows combined</option><option value="">data frame with columns combined</option></select>.</li>
+<li>A data dictionary is a document that describes the <select class="webex-select"><option value="blank"></option><option value="">data curation process</option><option value="">data analysis process</option><option value="answer">dataset variables and their values</option><option value="">data visualization process</option></select>.</li>
+</ol>
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
+<p>Before beginning <a href="https://github.com/qtalr/lab-06">Lab 6</a>, review and ensure that you are familiar with the following:</p>
+<ul>
+<li>Vector, data frame, and list data structures</li>
+<li>Subsetting and indexing vectors, data frames, and lists</li>
+<li>Basic regular expressions such as character classes, quantifiers, and anchors</li>
+<li>Reading, writing, and manipulating files</li>
+<li>Creating and employing custom functions</li>
+</ul>
+<p>In this lab, we will practice these skills and expand our use of the {readr}, {dplyr}, {stringr}, and {purrr} to curate and document a dataset.</p>
+<p>You will have a choice of data to curate. Before you start the lab, you should consider which data source you would like to use, what the idealized structure the curated dataset will take, and what strategies you will likely employ to curate the dataset. You should also consider the information you need to document the data curation process.</p>
+</section>
+<section id="references" class="level2">
 
 
 
-</main> <!-- /main -->
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-R-regexplain" class="csl-entry" role="listitem">
+Aden-Buie, Garrick. 2021. <em>Regexplain: Rstudio Addin to Explain, Test and Build Regular Expressions</em>. <a href="https://github.com/gadenbuie/regexplain">https://github.com/gadenbuie/regexplain</a>.
+</div>
+<div id="ref-SWDA2008" class="csl-entry" role="listitem">
+University of Colorado Boulder. 2008. <span>“Switchboard Dialog Act Corpus. Web Download.”</span> Linguistic Data Consortium.
+</div>
+</div></section></div></main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -833,7 +1659,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-06/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-06/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

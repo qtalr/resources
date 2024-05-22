@@ -2,11 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
 <meta name="description" content="The implementation of literate programming we are using in this course is Quarto with R. As we have seen in previously, Quarto provides the ability to combine prose and code in a single document. This is a powerful strategy for creating reproducible documents that can be easily updated and shared.">
 
 <title>Resources Kit - 01. Academic writing with Quarto</title>
@@ -155,7 +154,7 @@ div.csl-indent {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -226,12 +225,6 @@ div.csl-indent {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -357,7 +350,7 @@ div.csl-indent {
 <p>If for some reason you want to turn off numbering for a specific header, you can add <code>{.unnumbered}</code> to the end of the header. For example, the following markdown:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Section {.unnumbered}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>This is particularly useful in academic writing when we want to add a reference, materials, or other section that is not numbered at the end of the document.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -384,7 +377,7 @@ div.csl-indent {
 <span data-code-cell="annotated-cell-6" data-code-lines="5" data-code-annotation="1">The key-value pair to include a table of contents in the PDF document</span>
 </dd>
 </dl>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -439,7 +432,7 @@ div.csl-indent {
 <span data-code-cell="annotated-cell-8" data-code-lines="8" data-code-annotation="3">The in-line reference to the figure. Uses the <code>@</code> symbol followed by the label value.</span>
 </dd>
 </dl>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -472,7 +465,7 @@ Figure&nbsp;1: A scatterplot
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>| D        | E        | F        |</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>: A simple table {#tbl-table-1}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -531,7 +524,7 @@ Table&nbsp;1: A simple table
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In this file, we can see that the reference is for a manual entry with <code>@Manual</code>. The type of entry will change what fields are relevant and/ or required. In this entry, we have the cite key <code>R-dplyr</code>, the title, the authors, the year, a note, and a URL. Other entries, and entry types will have different fields.</p>
 <p>You can find BibTeX formatted references almost everywhere you can find scholarly work. For example, Google Scholar, Web of Science, and Scopus all provide BibTeX formatted references. Additionally, many journals provide BibTeX formatted references for the articles they publish.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -559,7 +552,7 @@ Table&nbsp;1: A simple table
 <p>With the bibliography file and the reference to the bibliography file in the front-matter section, we can now add citations to our document. To do this, we use the <code>@</code> symbol followed by the citation key in the prose section. For example, to cite the <code>R-dplyr</code> reference from the <code>bibliography.bib</code> file, we would add <code>@R-dplyr</code> to the prose section as follows:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>This is a citation to @R-dplyr.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The citation will appear as below in the rendered document.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -570,7 +563,7 @@ Table&nbsp;1: A simple table
 </div>
 </div>
 <p>And automatically, on rendering the document, a references list will be added to the end of the document. For this reason if you have citations in your document, it is a good idea to include a header section <code># References</code> at the end of your document.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -587,7 +580,7 @@ Table&nbsp;1: A simple table
 <h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
 <!-- here are some questions to check the reader's understanding of this recipe -->
 <p>Consider the following front-matter sections, A and B.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -605,7 +598,7 @@ format:
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -661,7 +654,7 @@ format:
 </ul></li>
 <li>a BibTeX formatted reference for the article</li>
 </ul>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>

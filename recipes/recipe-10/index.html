@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
+<meta name="description" content="In this recipe, we will explore statistical modeling and data analysis with using a practical research hypothesis in the area of Second Language Acquisition and Teaching. We’ll use {infer} to understand inference-based models. You’ll learn how to work with key variables, examine data distributions, and employ statistical methods to test hypotheses about their relationships. Our discussion will also involve improving our computing skills through practical exercises in data manipulation, visualization, and statistical analysis. This will provide you with the necessary tools to prepare, conduct, and interpret complex datasets and analyses.">
 
-<title>Resources Kit - 10. Recipe</title>
+<title>Resources Kit - 10. Building inference models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -40,6 +94,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,7 +129,38 @@ ul.task-list li input[type="checkbox"] {
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../assets/styles.css">
 <link rel="stylesheet" href="../../include/webex.css">
@@ -98,7 +185,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -131,29 +218,43 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
+  <ul class="collapse">
+  <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation">Orientation</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
+  <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-10/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">10. Recipe</h1>
+<h1 class="title">10. Building inference models</h1>
+<p class="subtitle lead">Simulation-based Null Hypothesis Testing</p>
   <div class="quarto-categories">
-    <div class="quarto-category">recipes</div>
+    <div class="quarto-category">analysis</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <p>In this recipe, we will explore statistical modeling and data analysis with using a practical research hypothesis in the area of Second Language Acquisition and Teaching. We’ll use {infer} to understand inference-based models. You’ll learn how to work with key variables, examine data distributions, and employ statistical methods to test hypotheses about their relationships. Our discussion will also involve improving our computing skills through practical exercises in data manipulation, visualization, and statistical analysis. This will provide you with the necessary tools to prepare, conduct, and interpret complex datasets and analyses.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -164,11 +265,508 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Hello.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Skills</strong></p>
+<ul>
+<li>identify and map the hypothesis statement to the appropriate response and explanatory variables</li>
+<li>employ simulation-based methods for statistical inference</li>
+<li>interpret and evaluate the results of inferential models</li>
+</ul>
+</div>
+</div>
+</div>
+<p>Statistical inference is the most structured approach to data analysis. It is the process of using data to draw conclusions about a population, therefore the underlying data and the process to conduct the analysis must be rigorous and exploration is limited and iteration is avoided. The workflow for building inference-based models can be seen in <a href="#tbl-ida-workflow" class="quarto-xref">Table&nbsp;1</a>.</p>
+<div id="tbl-ida-workflow" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ida-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The inference-based modeling workflow
+</figcaption>
+<div aria-describedby="tbl-ida-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Step</th>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Identify</td>
+<td style="text-align: left;">Identify and map the hypothesis statement to the appropriate response and explanatory variables</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Inspect</td>
+<td style="text-align: left;">Assess the distribution of the variable(s) with the appropriate descriptive statistics and visualizations.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Interrogate</td>
+<td style="text-align: left;">Apply the appropriate statistical procedure to the dataset.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Interpret</td>
+<td style="text-align: left;">Review the statistical results and interpret them in the context of the hypothesis.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Before we begin, let’s load the packages we will use in this recipe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr) <span class="co"># for reading data</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra) <span class="co"># for table formatting</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># for data wrangling</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) <span class="co"># for data summaries</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for data cleaning/ tablulations</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># for data visualizations</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer) <span class="co"># for statistical inference</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="concepts-and-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
+<section id="orientation" class="level3">
+<h3 class="anchored" data-anchor-id="orientation">Orientation</h3>
+<p>In the area of Second Language Acquisition and Teaching, the relationship between learner proficiency and particular linguistic variables has been a topic of interest for decades. In this section, we will explore the relationship between placement scores and lexical features of learner sample writing. The goal is to determine the extent to which a simplified set of lexical features can be employed as a diagnostic tool for assessing overall learner proficiency.</p>
+<p>The background here comes from a study by <span class="citation" data-cites="Crossley2010">Crossley et al. (<a href="#ref-Crossley2010" role="doc-biblioref">2010</a>)</span>, who investigated the relationship between lexical features and learner proficiency. The authors used a corpus of learner writing samples which were assessed and scored by human raters. Then a set of lexical features were extracted from the writing samples and subjected to a series of statistical analyses. The results suggested three key variables which were highly correlated with the human ratings of learner proficiency: lexical diversity, word hypernymy values, and content word frequency.</p>
+<p>In this sample study, I will suggest that the variables lexical diversity and content word frequency actually represent a single underlying construct, which I will call “lexical sophistication”. Lexical diversity aims to gauge the range of vocabulary used by the learner. In the context of L2 writing, it is less likely that demonstrated range of unique vocabulary is what constitutes proficiency –as a lexically diverse text in which the writer uses primarily spoken register vocabulary is unlikely to be considered in academic writing contexts. Instead, rather it is more likely that the ability to use more sophisticated vocabulary is what is being measured. On the other hand, content word frequency purports to gauge the degree to which more infrequent words are used in L2 writing. However, I would argue that this is also a measure of lexical sophistication. In other words, the ability to use more sophisticated vocabulary inherently taps into the use of more infrequent words.</p>
+<p>The goal of this study is to determine the extent to which this construct can be used as a proxy for lexical diversity and content word frequency, and thus as a diagnostic tool for assessing learner proficiency. The research statement is as follows:</p>
+<blockquote class="blockquote">
+<p>The lexical sophistication of learner writing is positively correlated with learner proficiency.</p>
+</blockquote>
+<p>Operationalizing this statement requires a few steps. First, we need to identify the variables which will be used to represent the construct of lexical sophistication.</p>
+<p>In addition, ideally the variables used to represent lexical sophistication should be easy to extract from learner writing samples, if this is to be used as a diagnostic tool. Plausible linguistic variables to consider in this study are the following:</p>
+<ul>
+<li>Number of syllables per word</li>
+<li>Number of morphemes per word</li>
+</ul>
+<p>In addtion, to these variables, we will also consider word frequency estimates to maintain consistency with the original study. I will also consider the number of characters per word, although not strictly linguistic in nature, this is a variable which is easy to extract from learner writing samples and is likely to be correlated with the number of syllables and/ or morphemes per word.</p>
+<p>Second, we need to identify the variables which will be used to represent learner proficiency. In this study, we will use the placement scores of the learners as a proxy for proficiency. The placement scores are based on the results of a placement test which was administered to the learners prior to the writing samples being collected.</p>
+<p>The hypothesis statement is as follows:</p>
+<blockquote class="blockquote">
+<p>Learner proficiency as measured by placement scores is positively correlated with lexical sophistication as measured by the number of syllables per word, number of morphemes per word, and word frequency estimates.</p>
+</blockquote>
+</section>
+<section id="analysis" class="level3">
+<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
+<p>The dataset used in this study is is transformed version of the Pittsburgh English Language Institute Corpus (PELIC). Writing samples and placement scores were extracted from the corpus for learners in the English for Academic Purposes (EAP) program. The tokenized writing samples were filtered for content words (i.e.&nbsp;nouns, verbs, adjectives). Subsequently, lexical features were joined from the English Lexicon Project (ELP) database by word form.</p>
+<p>The data dictionary for the dataset is as follows:</p>
+<div class="cell">
+<div id="tbl-data-dictionary" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-dictionary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Data dictionary for the transformed PELIC/ ELP dataset
+</figcaption>
+<div aria-describedby="tbl-data-dictionary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div>
+<table class="table table-striped do-not-create-environment cell table-sm small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Variable</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Type</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">id</td>
+<td style="text-align: left;">ID</td>
+<td style="text-align: left;">categorical</td>
+<td style="text-align: left;">Unique identifier for each learner</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">placement</td>
+<td style="text-align: left;">Placement</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Numerical value indicating score on the placement test for each learner (0-100)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">chars</td>
+<td style="text-align: left;">Characters</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Mean number of characters per word in the text sample</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sylls</td>
+<td style="text-align: left;">Syllables</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Mean number of syllables per word in the text sample</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">morphs</td>
+<td style="text-align: left;">Morphemes</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Mean number of morphemes per word in the text sample</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">freq</td>
+<td style="text-align: left;">Frequency</td>
+<td style="text-align: left;">numeric</td>
+<td style="text-align: left;">Mean frequency of occurrence per word in the text sample</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<section id="identify" class="level4">
+<h4 class="anchored" data-anchor-id="identify">Identify</h4>
+<p>In <a href="#tbl-data-dictionary" class="quarto-xref">Table&nbsp;2</a>, we can see the variables which will be used to represent lexical sophistication and learner proficiency. The explanatory variables which will be used to represent lexical sophistication are <code>chars</code>, <code>sylls</code>, <code>morphs</code>, and <code>freq</code>. The response variable which will be used to represent learner proficiency is <code>placement</code>.</p>
+<p>Let’s read in the dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>pelic <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/derived/pelic/pelic_transformed.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pelic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 276 × 6
+   id    placement chars sylls morphs     freq
+   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+ 1 aa0          80  6.01  1.90   1.66  498076.
+ 2 aa1          66  5.96  1.85   1.53  657678.
+ 3 ab8          40  5.81  1.81   1.52  375383.
+ 4 ac3          65  5.98  1.81   1.52  419318.
+ 5 ad4          72  6.26  1.93   1.69  345658.
+ 6 ad9          56  5.82  1.72   1.57  375747.
+ 7 ae0          61  4.99  1.53   1.35 1087512.
+ 8 ae2          81  6.32  1.98   1.69  403618.
+ 9 ae4          69  5.23  1.68   1.45  788536.
+10 ae9          71  5.64  1.75   1.47  586251.
+# ℹ 266 more rows</code></pre>
+</div>
+</div>
+<p>The dataset contains 276 observations for our variables of interest. Let’s now map the hypothesis statement to the appropriate response and explanatory variables.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>placement <span class="sc">~</span> chars <span class="sc">+</span> sylls <span class="sc">+</span> morphs <span class="sc">+</span> freq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We will specify the relationship between the response and explanatory variables using the formula notation in the interrogation phase. The explanatory variables will be used in an additive model using multiple linear regression.</p>
+</section>
+<section id="inspect" class="level4">
+<h4 class="anchored" data-anchor-id="inspect">Inspect</h4>
+<p>First step is to get a statistical overview of the dataset. We can use the <code>skim()</code> function from {skimr} to get a statistical summary of the dataset.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pelic <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>── Data Summary ────────────────────────
+                           Values
+Name                       pelic 
+Number of rows             276   
+Number of columns          6     
+_______________________          
+Column type frequency:           
+  character                1     
+  numeric                  5     
+________________________         
+Group variables            None  
+
+── Variable type: character ────────────────────────────────────────────────────
+  skim_variable n_missing complete_rate min max empty n_unique whitespace
+1 id                    0             1   3   3     0      276          0
+
+── Variable type: numeric ──────────────────────────────────────────────────────
+  skim_variable n_missing complete_rate      mean         sd        p0       p25
+1 placement             0             1     59.2      12.7       32        48   
+2 chars                 0             1      5.79      0.473      3.75      5.50
+3 sylls                 0             1      1.79      0.169      1.25      1.68
+4 morphs                0             1      1.53      0.127      1.12      1.44
+5 freq                  0             1 556751.   160046.    165138.   453424.  
+        p50       p75       p100 hist 
+1     59        69         88    ▃▆▇▆▃
+2      5.79      6.08       8.07 ▁▂▇▁▁
+3      1.78      1.88       2.66 ▁▇▆▁▁
+4      1.53      1.62       1.97 ▁▅▇▃▁
+5 544026.   631784.   1379696.   ▂▇▂▁▁</code></pre>
+</div>
+</div>
+<p>We are looking for any missing values or other anomalies in the dataset. We can see that there are no missing values in the dataset.</p>
+<p>Let’s now inspect the variables of interest to get a sense of the distributions of the variables. There are really three things we are looking to find out:</p>
+<ul>
+<li>What is the distribution of the variables individually?</li>
+<li>What is the relationship between the explanatory variables and the response variable?</li>
+<li>What is the relationship (if any) between the variables?</li>
+</ul>
+<p>Since we are working with numeric variables, we would create a histogram or density plot for each individual variable. Then a scatterplot for the relationship between the explanatory variables and the response variable. Finally, a correlation matrix for the relationship between the variables.</p>
+<p>I would like to introduce a shortcut to create all three types of visualizations in one plot. The <code>ggpairs()</code> function from {GGally} creates a matrix of plots for all combinations of variables in the dataset. We can specify the type of plot to create for each combination of variables. Let’s create a matrix of plots for the variables of interest.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the GGally package</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the matrix of plots</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>pelic <span class="sc">|&gt;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(placement, chars, sylls, morphs, freq) <span class="sc">|&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggpairs</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-ggpairs" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ggpairs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-ggpairs-1.png" class="img-fluid figure-img" width="576">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ggpairs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Matrix of plots for the variables of interest
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The plot in <a href="#fig-ggpairs" class="quarto-xref">Figure&nbsp;1</a> shows a lot of information. Let’s break it down.</p>
+<p>The diagonal plots show the distribution of each variable. In these plots we are looking for any outliers or skewness in the distributions. We can see that on the whole the distributions are fairly normal. Our simulation-based inference methods do not require the data to be normally distributed, but highly skewed distributions can compress the range of the data and thus affect the results.</p>
+<p>The lower triangle plots show the scatterplots for the relationship between the explanatory variables and the response variable and in the upper triangle we see the correlation coefficients for the relationship between the variables.</p>
+<p>Let’s focus on the upper triangle, specifically the first row of statistics reported. The first row shows the correlation between the response variable and the explanatory variables. All variables show a positive correlation with the response variable, except for frequency, which is negative. This is what we predicted in the hypothesis statement. The strengths of these correlations are fairly weak, especially for frequency. We will let our model determine the strength of the relationship and whether it is statistically significant, but it’s worth noting.</p>
+<p>Now let’s focus on the upper triangle for the second, third, and fourth row of correlation measures. These show the correlation between the explanatory variables themselves. The variables <code>chars</code>, <code>sylls</code>, and <code>morphs</code> are highly intercorrelated. This is not surprising since the number of characters in a word is related to the number of syllables and morphemes. Yet if we consider all three in our model we run the risk of multicollinearity. So we need to decide which of these variables to include in our model.</p>
+<p>One way to do this is assess the theoretical importance of each variable. In this case, we might consider the number of syllables and morphemes to be more important than the number of characters. Another perspective is to see which of the remaining two variables is least correlated with <code>freq</code> with the hopes of capturing non-overlapping variance in the response variable. In this case, <code>sylls</code> is less correlated with <code>freq</code> than <code>morphs</code>. So we will include <code>sylls</code> and <code>freq</code> in our model.</p>
+<p>If we were to use the response variable <code>placement</code> as our reason for selecting the explanatory variables, we would be committing the logical fallacy of circular reasoning –in essence, tailoring the model to the data.</p>
+<p>So lets select <code>sylls</code> and <code>freq</code> as our explanatory variables for our final model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pelic <span class="ot">&lt;-</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  pelic <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(placement, sylls, freq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A last thing to consider before we enter into the model building phase, is to address the fact that the <code>sylls</code> and <code>freq</code> variables are on very distinct scales. In regression modeling, this can cause problems both for fitting the model and for interpreting the model.</p>
+<p>We can address this by normalizing the variables. This will transform the variables to have a mean of zero and a standard deviation of one. This is known as a z-score. Z-score normalization does not change the distribution nor the relationship between the variables, but it does make the variables more comparable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to get z-score</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>get_z_score <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  (x <span class="sc">-</span> <span class="fu">mean</span>(x)) <span class="sc">/</span> <span class="fu">sd</span>(x)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Normalize the variables</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>pelic <span class="ot">&lt;-</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  pelic <span class="sc">|&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">sylls_z =</span> <span class="fu">get_z_score</span>(sylls),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq_z =</span> <span class="fu">get_z_score</span>(freq)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="interrogate" class="level4">
+<h4 class="anchored" data-anchor-id="interrogate">Interrogate</h4>
+<p>Now we will analyze the data using {infer}. {infer} is a framework for conducting statistical inference using simulation-based methods. The steps for using {infer} are as follows:</p>
+<ol type="1">
+<li>Specify the model relationships</li>
+<li>Calculate the model statistics (fit)</li>
+<li>Simulate the null distribution</li>
+<li>Calculate the <span class="math inline">\(p\)</span>-value</li>
+<li>Simulate model statistics (fit)</li>
+<li>Calculate the confidence interval</li>
+<li>Calculate the effect size</li>
+</ol>
+<p>Step 1. We will use the <code>specify()</code> function to add the formula notation to specify the relationship between the response and explanatory variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the model</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>pelic_spec <span class="ot">&lt;-</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  pelic <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">specify</span>(placement <span class="sc">~</span> sylls_z <span class="sc">+</span> freq_z)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>pelic_spec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Response: placement (numeric)
+Explanatory: sylls_z (numeric), freq_z (numeric)
+# A tibble: 276 × 3
+   placement sylls_z freq_z
+       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+ 1        80   0.691 -0.367
+ 2        66   0.381  0.631
+ 3        40   0.157 -1.13 
+ 4        65   0.123 -0.859
+ 5        72   0.822 -1.32 
+ 6        56  -0.378 -1.13 
+ 7        61  -1.49   3.32 
+ 8        81   1.15  -0.957
+ 9        69  -0.624  1.45 
+10        71  -0.189  0.184
+# ℹ 266 more rows</code></pre>
+</div>
+</div>
+<p>Step 2. We will use the <code>fit()</code> function to calculate the model statistics.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the model statistics</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>pelic_obs_fit <span class="ot">&lt;-</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  pelic_spec <span class="sc">|&gt;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>pelic_obs_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  term      estimate
+  &lt;chr&gt;        &lt;dbl&gt;
+1 intercept   59.2  
+2 sylls_z      2.91 
+3 freq_z       0.617</code></pre>
+</div>
+</div>
+<p>We now have the calculated model statistics. The model statistics in a linear regression model are the intercept and the slopes for the explanatory variables. The intercept is the predicted value of the response variable when all explanatory variables are zero. The slopes are the predicted change in the response variable for a one unit change in the explanatory variable.</p>
+<p>Step 3. At this point we need to use <code>hypothesize()</code> and to use ‘independence’ as our null hypothesis. The <code>hypothesize()</code> function takes the model object <code>pelic_spec</code> and the type of null hypothesis we are assuming, in this case ‘independence’. Then we will pass this to <code>generate()</code> to create a null distribution. The <code>generate()</code> function takes the model object, the number of simulations, and the type of simulation as arguments. The type of simulation for models with multiple independent variables is <code>permute</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the null distribution</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>pelic_null_fit <span class="ot">&lt;-</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  pelic_spec <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hypothesize</span>(<span class="at">null =</span> <span class="st">"independence"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">10000</span>, <span class="at">type =</span> <span class="st">"permute"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>The larger the number of <code>reps</code> the more reliable the results will be. Note, that the <code>generate()</code> function will take a while to run for large reps and depending on your computer’s memory, it may crash. If this happens, try reducing the number of reps.</p>
+</div>
+</div>
+</div>
+<p>Step 4. The <code>get_p_value()</code> function takes the model object and the null distribution object as arguments. We choose a “two-sided” test because we are interested in whether the explanatory variables are positively or negatively correlated with the response variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the p-value</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pelic_p_value <span class="ot">&lt;-</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_pvalue</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> pelic_null_fit,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">obs_stat =</span> pelic_obs_fit,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">direction =</span> <span class="st">"two-sided"</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>pelic_p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  term      p_value
+  &lt;chr&gt;       &lt;dbl&gt;
+1 freq_z     0.445 
+2 intercept  1     
+3 sylls_z    0.0012</code></pre>
+</div>
+</div>
+<p>OK. So results suggest that syllables is a significant predictor of placement scores, but frequency is not. Let’s now move to the interpretation phase.</p>
+</section>
+<section id="interpret" class="level4">
+<h4 class="anchored" data-anchor-id="interpret">Interpret</h4>
+<p>Our signficant <span class="math inline">\(p\)</span>-value suggests that the explanatory variable <code>sylls_z</code> is a significant predictor of the response variable <code>placement</code>. However, a <span class="math inline">\(p\)</span>-value is an arbitrary threshold. We need to consider the likelihood of the observed test statistic is different from zero. We can do this by calculating the confidence interval.</p>
+<p>Step 5. We will need to simulate the model statistics again, but this time we will use the <code>generate()</code> function with the type “bootstrap” to simulate the model statistics with replacement giving us a distribution of model statistics.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the bootstrap distribution</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>pelic_bootstrap_fit <span class="ot">&lt;-</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  pelic_spec <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">generate</span>(<span class="at">reps =</span> <span class="dv">10000</span>, <span class="at">type =</span> <span class="st">"bootstrap"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Step 6. Calculate the confidence interval.</p>
+<p>We get the confidence interval by using the <code>get_ci()</code> function. The <code>get_ci()</code> function takes the bootstrapped model object and the observed statistics as the estimates to calculate the confidence interval. We will use the default confidence level of 95%.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the confidence interval</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>pelic_obs_ci <span class="ot">&lt;-</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  pelic_bootstrap_fit <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_ci</span>(<span class="at">point_estimate =</span> pelic_obs_fit)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>pelic_obs_ci</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+  term      lower_ci upper_ci
+  &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+1 freq_z      -0.906     2.21
+2 intercept   57.7      60.7 
+3 sylls_z      1.26      4.81</code></pre>
+</div>
+</div>
+<p>The confidence interval underscores the results of the <span class="math inline">\(p\)</span>-value. The confidence interval does not include zero for syllables, but does for frequency. Comparing the confidence interval to the actual observed statistics, we can see how close the observed statistics are to the confidence interval margins.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pelic_obs_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  term      estimate
+  &lt;chr&gt;        &lt;dbl&gt;
+1 intercept   59.2  
+2 sylls_z      2.91 
+3 freq_z       0.617</code></pre>
+</div>
+</div>
+<p>The observed statistic for <code>sylls_z</code> is nicely within the confidence interval.</p>
+<p>Step 7. Calculate effect size</p>
+<p>Whether a explanatory variable is significant or not is one thing, but gauging the magnitude of the relationship is another. Looking at the observed fit of the model, we can see that the coefficient for syllables is 2.91. But what does this mean? It means the the model predicts that for an increase of our syllable measure by one unit, the placement score will increase by 2.91 units.</p>
+<p>Now the placement score is still in the original scale, so this means that we are dealing with 2.91 score points. For the syllables, however, we have standardized the variable, so we are dealing with standard deviations –less straightforward to interpret. The good news is we can back-transform the standardized variable to the original scale by multiplying by the standard deviation and adding the mean from the original variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Back-transform the standardized variable</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>(<span class="fl">2.91</span> <span class="sc">*</span> <span class="fu">sd</span>(pelic<span class="sc">$</span>sylls)) <span class="sc">+</span> <span class="fu">mean</span>(pelic<span class="sc">$</span>sylls)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.28</code></pre>
+</div>
+</div>
+<p>Therefore a mean increase of 1 syllable is associated with a 2.28 point increase in placement score.</p>
+<p>Another helpful way to interpret the results is to consider how much of the variance in the dependent variable is explained by the independent variable. <span class="math inline">\(R^2\)</span> is a typical measure of effect size. To calculate <span class="math inline">\(R^2\)</span> we need the correlation coefficient (<span class="math inline">\(r\)</span>), which can be calculated by dividing the coefficient by the standard deviation of the response variable. Then we square the correlation coefficient to get <span class="math inline">\(R^2\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation coefficient and R^2</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>pelic_obs_fit <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">r =</span> estimate <span class="sc">/</span> <span class="fu">sd</span>(pelic_spec<span class="sc">$</span>placement),</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">r2 =</span> r<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  term      estimate      r       r2
+  &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1 intercept   59.2   4.64   21.6    
+2 sylls_z      2.91  0.229   0.0524 
+3 freq_z       0.617 0.0485  0.00235</code></pre>
+</div>
+</div>
+<p>We can see her that the <span class="math inline">\(R^2\)</span> is 0.052, which means that the number of syllables explains 5.2% of the variance in placement scores. This means that syllables don’t explain all that much in the variation in placement scores. But it is a significant relationship.</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In summary, this programming tutorial has provided a comprehensive guide to building inference-based models using the infer package in R. We have explored the concept of lexical sophistication as a diagnostic tool for assessing learner proficiency in Second Language Acquisition and Teaching. Through a detailed workflow involving identifying variables, inspecting data distributions, interrogating the dataset with statistical procedures, and interpreting results, we have demonstrated the importance of careful variable selection and normalization in regression modeling. Our analysis revealed that while syllables per word significantly predict learner placement scores, content word frequency does not. The effect size, indicated by an <span class="math inline">\(R^2\)</span> of 0.052, suggests that lexical sophistication, as measured by syllable count, accounts for a small but significant portion of the variance in learner proficiency. This study underscores the nuanced relationship between linguistic features and language learning outcomes, and highlights the potential of statistical modeling in educational research.</p>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<!-- [ ] return to edit these comprehension questions -->
+<ol type="1">
+<li><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select> Simulation-based inference is a method that can be used to approximate traditional inferential statistics without the need for theoretical assumptions about the data.</li>
+<li>What is the primary goal of using {infer} for simulation-based inference? <select class="webex-select"><option value="blank"></option><option value="">To visualize data distributions</option><option value="">To perform regression analysis</option><option value="answer">To create resampling simulations for hypothesis testing and constructing confidence intervals</option><option value="">To fit predictive models</option></select></li>
+<li>How does simulation-based inference contribute to understanding population parameters? <select class="webex-select"><option value="blank"></option><option value="answer">It allows us to make probabilistic statements about population parameters based on simulated sampling distributions</option><option value="">It provides exact calculations of population parameters</option><option value="">It eliminates the need for sample data</option><option value="">It guarantees more accurate results than traditional methods</option></select></li>
+<li>Which of the following is not a typical step in simulation-based inference? <select class="webex-select"><option value="blank"></option><option value="">Defining a model of interest</option><option value="">Generating resamples or permutations</option><option value="">Calculating summary statistics</option><option value="answer">Training a machine learning classifier</option></select></li>
+<li>In the context of Second Language Acquisition research, why might simulation-based inference be particularly useful? <select class="webex-select"><option value="blank"></option><option value="">Because it can handle very large datasets</option><option value="answer">Because it allows for the exploration of hypotheses under different assumptions and conditions</option><option value="">Because it simplifies the data collection process</option><option value="">Because it directly measures the language ability of individuals</option></select></li>
+<li><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select> The results from simulation-based inference are always deterministic and do not vary between simulations.</li>
+</ol>
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
+<p>In preparation for <a href="https://github.com/qtalr/lab-09">Lab 10</a>, ensure that you are comfortable with the following key concepts related to simulation-based inference:</p>
+<ul>
+<li><p>Understanding the principles of statistical inference and how simulations can be used to approximate traditional inferential statistics.</p></li>
+<li><p>Utilizing {infer} in R to create resampling simulations for hypothesis testing and constructing confidence intervals.</p></li>
+<li><p>Interpreting the results of simulation-based inference focusing on what the simulated distributions imply about the population parameters.</p></li>
+</ul>
+<p>In this lab, you will be challenged to apply these core ideas to a new dataset of your choosing. Reflect on the nature of the data and the hypotheses you might test using simulation-based methods. Consider how you would design your simulation study to address a particular hypothesis. You will be expected to submit your code along with a concise reflection on your methodology and the insights gained from your analysis.</p>
+</section>
+<section id="references" class="level2">
 
 
 
-</main> <!-- /main -->
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Crossley2010" class="csl-entry" role="listitem">
+Crossley, Scott A., Tom Salsbury, Danielle S. McNamara, and Scott Jarvis. 2010. <span>“Predicting Lexical Proficiency in Language Learner Texts Using Computational Indices.”</span> <em>Language Testing</em> 28 (1): 561–80. <a href="https://doi.org/10.1177/0265532210378031">https://doi.org/10.1177/0265532210378031</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -833,7 +1431,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-10/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-10/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -2,11 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
 <meta name="description" content="At this point, we now have a strong undertanding of the foundations of programming in R and the data science workflow. Previous lessons, recipes, and labs focused on developing these skills while the chapters aimed to provide a conceptual framework for understanding the steps in the data science workflow. We now turn to applying our conceptual knowledge and our technical skills to accomplish the tasks of the data science workflow, starting with data acquisition.">
 
 <title>Resources Kit - 05. Collecting and documenting data</title>
@@ -155,7 +154,7 @@ div.csl-indent {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -212,7 +211,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">05. Collecting and documenting data</h1>
-<p class="subtitle lead">Summarizing data with statistics, tables, and plots</p>
+<p class="subtitle lead">Acquiring datasets with the Project Gutenberg API</p>
   <div class="quarto-categories">
     <div class="quarto-category">preparation</div>
   </div>
@@ -227,12 +226,6 @@ div.csl-indent {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -263,7 +256,7 @@ div.csl-indent {
 <section id="finding-data-sources" class="level3">
 <h3 class="anchored" data-anchor-id="finding-data-sources">Finding data sources</h3>
 <p>To find data sources, it is best to have a research question in mind. This will help to narrow the search for data sources. However, finding data sources can also be a good way to generate research questions. In either case, it takes some sleuthing to find data sources that will work for your research question. In addition, to the data source itself, you will also need to consider the permissions and licensing of the data source. It is best to consider these early in the process to avoid surprises later. Finally, you will also need to consider the data format and how it will be used in the analysis. It can be the case that a data source seems ideal, but the data format is not conducive to the analysis you would like to do.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -275,7 +268,7 @@ div.csl-indent {
 </div>
 </div>
 <p>In this recipe, we will consider some hypothetical reseach aimed at exploring potential similarities and differences in the lexical, syntactic, and/ or stylistic features between American and English literature during the mid 19th century.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -292,7 +285,7 @@ div.csl-indent {
 <section id="data-collection-strategy" class="level3">
 <h3 class="anchored" data-anchor-id="data-collection-strategy">Data collection strategy</h3>
 <p>Let’s now turn to the data collection strategy. There are a number of data collection strategies that can be used to acquire data for a text analysis project. In the chapter, we covered manual and programmatic downloads and APIs. Here we will use an R package which will provide an API for accessing the data source.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -320,41 +313,41 @@ div.csl-indent {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gutenberg_metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; Rows: 72,569
-&gt; Columns: 8
-&gt; $ gutenberg_id        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,…
-&gt; $ title               &lt;chr&gt; "The Declaration of Independence of the United Sta…
-&gt; $ author              &lt;chr&gt; "Jefferson, Thomas", "United States", "Kennedy, Jo…
-&gt; $ gutenberg_author_id &lt;int&gt; 1638, 1, 1666, 3, 1, 4, NA, 3, 3, NA, 7, 7, 7, 8, …
-&gt; $ language            &lt;chr&gt; "en", "en", "en", "en", "en", "en", "en", "en", "e…
-&gt; $ gutenberg_bookshelf &lt;chr&gt; "Politics/American Revolutionary War/United States…
-&gt; $ rights              &lt;chr&gt; "Public domain in the USA.", "Public domain in the…
-&gt; $ has_text            &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TR…</code></pre>
+<pre><code>Rows: 72,569
+Columns: 8
+$ gutenberg_id        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,…
+$ title               &lt;chr&gt; "The Declaration of Independence of the United Sta…
+$ author              &lt;chr&gt; "Jefferson, Thomas", "United States", "Kennedy, Jo…
+$ gutenberg_author_id &lt;int&gt; 1638, 1, 1666, 3, 1, 4, NA, 3, 3, NA, 7, 7, 7, 8, …
+$ language            &lt;chr&gt; "en", "en", "en", "en", "en", "en", "en", "en", "e…
+$ gutenberg_bookshelf &lt;chr&gt; "Politics/American Revolutionary War/United States…
+$ rights              &lt;chr&gt; "Public domain in the USA.", "Public domain in the…
+$ has_text            &lt;lgl&gt; TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TR…</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gutenberg_authors)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; Rows: 23,980
-&gt; Columns: 7
-&gt; $ gutenberg_author_id &lt;int&gt; 1, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1…
-&gt; $ author              &lt;chr&gt; "United States", "Lincoln, Abraham", "Henry, Patri…
-&gt; $ alias               &lt;chr&gt; "U.S.A.", NA, NA, NA, "Dodgson, Charles Lutwidge",…
-&gt; $ birthdate           &lt;int&gt; NA, 1809, 1736, 1849, 1832, NA, 1819, 1860, NA, 18…
-&gt; $ deathdate           &lt;int&gt; NA, 1865, 1799, 1931, 1898, NA, 1891, 1937, NA, 18…
-&gt; $ wikipedia           &lt;chr&gt; "https://en.wikipedia.org/wiki/United_States", "ht…
-&gt; $ aliases             &lt;chr&gt; "U.S.A.", "United States President (1861-1865)/Lin…</code></pre>
+<pre><code>Rows: 23,980
+Columns: 7
+$ gutenberg_author_id &lt;int&gt; 1, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 1…
+$ author              &lt;chr&gt; "United States", "Lincoln, Abraham", "Henry, Patri…
+$ alias               &lt;chr&gt; "U.S.A.", NA, NA, NA, "Dodgson, Charles Lutwidge",…
+$ birthdate           &lt;int&gt; NA, 1809, 1736, 1849, 1832, NA, 1819, 1860, NA, 18…
+$ deathdate           &lt;int&gt; NA, 1865, 1799, 1931, 1898, NA, 1891, 1937, NA, 18…
+$ wikipedia           &lt;chr&gt; "https://en.wikipedia.org/wiki/United_States", "ht…
+$ aliases             &lt;chr&gt; "U.S.A.", "United States President (1861-1865)/Lin…</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gutenberg_subjects)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; Rows: 231,741
-&gt; Columns: 3
-&gt; $ gutenberg_id &lt;int&gt; 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, …
-&gt; $ subject_type &lt;chr&gt; "lcsh", "lcsh", "lcc", "lcc", "lcsh", "lcsh", "lcc", "lcc…
-&gt; $ subject      &lt;chr&gt; "United States -- History -- Revolution, 1775-1783 -- Sou…</code></pre>
+<pre><code>Rows: 231,741
+Columns: 3
+$ gutenberg_id &lt;int&gt; 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, …
+$ subject_type &lt;chr&gt; "lcsh", "lcsh", "lcc", "lcc", "lcsh", "lcsh", "lcc", "lcc…
+$ subject      &lt;chr&gt; "United States -- History -- Revolution, 1775-1783 -- Sou…</code></pre>
 </div>
 </div>
 <p>From this overvew, we can see that there are 72,569 works in the Project Gutenberg database. We can also see that there are 23,980 authors and 231,741 subjects.</p>
 <p>As we dicussed, each work in the Project Gutenberg database has a gutenberg id. The <code>gutenberg_id</code> appears in the <code>gutenberg_metadata</code> and also in the <code>gutenberg_subjects</code> data frame. This common attribute means that a work with a particular gutenberg id can be linked to the subject(s) associated with that work. Another important attribute is is the <code>gutenberg_author_id</code> which links the work to the author(s) of that work. Yes, the author name is in the <code>gutenberg_metadata</code> data frame, but the <code>gutenberg_author_id</code> can be used to link the work to the <code>gutenberg_authors</code> data frame which contains additional information about authors.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -404,11 +397,11 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>subjects <span class="sc">|&gt;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(subject)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 2 × 2
-&gt;   subject     n
-&gt;   &lt;chr&gt;   &lt;int&gt;
-&gt; 1 PR       9926
-&gt; 2 PS      10953</code></pre>
+<pre><code># A tibble: 2 × 2
+  subject     n
+  &lt;chr&gt;   &lt;int&gt;
+1 PR       9926
+2 PS      10953</code></pre>
 </div>
 </div>
 <p>The next step is to subset the <code>gutenberg_metadata</code> data frame to select works from the authors and subjects selected in the previous steps. Again, we will use <code>filter()</code> to do this. We will pass the <code>gutenberg_metadata</code> data frame to the <code>filter()</code> function and then use the <code>gutenberg_author_id</code> and <code>gutenberg_id</code> columns to select the works that are associated with the authors and subjects selected in the previous steps. We will then assign the result to the variable name <code>works</code>.</p>
@@ -422,21 +415,21 @@ div.csl-indent {
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>works</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 1,014 × 8
-&gt;    gutenberg_id title    author gutenberg_author_id language gutenberg_bookshelf
-&gt;           &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;              
-&gt;  1           33 The Sca… Hawth…                  28 en       "Harvard Classics/…
-&gt;  2           46 A Chris… Dicke…                  37 en       "Children's Litera…
-&gt;  3           71 On the … Thore…                  54 en       ""                 
-&gt;  4           77 The Hou… Hawth…                  28 en       "Best Books Ever L…
-&gt;  5           98 A Tale … Dicke…                  37 en       "Historical Fictio…
-&gt;  6          205 Walden,… Thore…                  54 en       ""                 
-&gt;  7          258 Poems b… Gordo…                 145 en       ""                 
-&gt;  8          271 Black B… Sewel…                 154 en       "Best Books Ever L…
-&gt;  9          292 Beauty … Taylo…                 167 en       ""                 
-&gt; 10          394 Cranford Gaske…                 220 en       ""                 
-&gt; # ℹ 1,004 more rows
-&gt; # ℹ 2 more variables: rights &lt;chr&gt;, has_text &lt;lgl&gt;</code></pre>
+<pre><code># A tibble: 1,014 × 8
+   gutenberg_id title    author gutenberg_author_id language gutenberg_bookshelf
+          &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;    &lt;chr&gt;              
+ 1           33 The Sca… Hawth…                  28 en       "Harvard Classics/…
+ 2           46 A Chris… Dicke…                  37 en       "Children's Litera…
+ 3           71 On the … Thore…                  54 en       ""                 
+ 4           77 The Hou… Hawth…                  28 en       "Best Books Ever L…
+ 5           98 A Tale … Dicke…                  37 en       "Historical Fictio…
+ 6          205 Walden,… Thore…                  54 en       ""                 
+ 7          258 Poems b… Gordo…                 145 en       ""                 
+ 8          271 Black B… Sewel…                 154 en       "Best Books Ever L…
+ 9          292 Beauty … Taylo…                 167 en       ""                 
+10          394 Cranford Gaske…                 220 en       ""                 
+# ℹ 1,004 more rows
+# ℹ 2 more variables: rights &lt;chr&gt;, has_text &lt;lgl&gt;</code></pre>
 </div>
 </div>
 <p>Filtering the <code>gutenberg_metadata</code> data frame by the authors and subjects selected in the previous steps, we now have a data frame with 1,014 works. This is the final number of works we will be working with so we can now download the text and metadata for these works using the <code>gutenberg_download()</code> function.</p>
@@ -456,20 +449,20 @@ div.csl-indent {
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>works_sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 34,385 × 6
-&gt;    gutenberg_id text        title author gutenberg_author_id gutenberg_bookshelf
-&gt;           &lt;int&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;              
-&gt;  1           33 "The Scarl… The … Hawth…                  28 Harvard Classics/M…
-&gt;  2           33 ""          The … Hawth…                  28 Harvard Classics/M…
-&gt;  3           33 "by Nathan… The … Hawth…                  28 Harvard Classics/M…
-&gt;  4           33 ""          The … Hawth…                  28 Harvard Classics/M…
-&gt;  5           33 ""          The … Hawth…                  28 Harvard Classics/M…
-&gt;  6           33 "Contents"  The … Hawth…                  28 Harvard Classics/M…
-&gt;  7           33 ""          The … Hawth…                  28 Harvard Classics/M…
-&gt;  8           33 " THE CUST… The … Hawth…                  28 Harvard Classics/M…
-&gt;  9           33 " THE SCAR… The … Hawth…                  28 Harvard Classics/M…
-&gt; 10           33 " I. THE P… The … Hawth…                  28 Harvard Classics/M…
-&gt; # ℹ 34,375 more rows</code></pre>
+<pre><code># A tibble: 34,385 × 6
+   gutenberg_id text        title author gutenberg_author_id gutenberg_bookshelf
+          &lt;int&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;                &lt;int&gt; &lt;chr&gt;              
+ 1           33 "The Scarl… The … Hawth…                  28 Harvard Classics/M…
+ 2           33 ""          The … Hawth…                  28 Harvard Classics/M…
+ 3           33 "by Nathan… The … Hawth…                  28 Harvard Classics/M…
+ 4           33 ""          The … Hawth…                  28 Harvard Classics/M…
+ 5           33 ""          The … Hawth…                  28 Harvard Classics/M…
+ 6           33 "Contents"  The … Hawth…                  28 Harvard Classics/M…
+ 7           33 ""          The … Hawth…                  28 Harvard Classics/M…
+ 8           33 " THE CUST… The … Hawth…                  28 Harvard Classics/M…
+ 9           33 " THE SCAR… The … Hawth…                  28 Harvard Classics/M…
+10           33 " I. THE P… The … Hawth…                  28 Harvard Classics/M…
+# ℹ 34,375 more rows</code></pre>
 </div>
 </div>
 <p>Let’s inspect the <code>works_sample</code> data frame. First, from the output we can see that all of our meta data attributes were returned. Second, we can see that the <code>text</code> column contains values for each line of text (delimited by a carriage return) for each of the 5 works we downloaded, even blank lines. To make sure that we have the correct number of works, we can use the <code>count()</code> function to count the number of works by <code>gutenberg_id</code>.</p>
@@ -477,13 +470,13 @@ div.csl-indent {
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>works_sample <span class="sc">|&gt;</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(gutenberg_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 4 × 2
-&gt;   gutenberg_id     n
-&gt;          &lt;int&gt; &lt;int&gt;
-&gt; 1           33  8212
-&gt; 2          258 11050
-&gt; 3          271  5997
-&gt; 4          292  9126</code></pre>
+<pre><code># A tibble: 4 × 2
+  gutenberg_id     n
+         &lt;int&gt; &lt;int&gt;
+1           33  8212
+2          258 11050
+3          271  5997
+4          292  9126</code></pre>
 </div>
 </div>
 <p>Yes, we have 5 works and we can see how many lines are in each of these works.</p>
@@ -596,7 +589,7 @@ div.csl-indent {
 <span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
-<p>We need to create the code to check if the data exists. We will use an <code>if</code> statement to do this. If the data does exist, we will print a message to the console that the data already exists and stop the function. If the data does not exist, we will create the directory structure and continue with the data acquisition process. I will use the <code>fs</code> package <span class="citation" data-cites="R-fs">(<a href="#ref-R-fs" role="doc-biblioref">Hester, Wickham, and Csárdi 2023</a>)</span> in this code so I will load the library at the top of the function.</p>
+<p>We need to create the code to check if the data exists. We will use an <code>if</code> statement to do this. If the data does exist, we will print a message to the console that the data already exists and stop the function. If the data does not exist, we will create the directory structure and continue with the data acquisition process. I will use {fs} <span class="citation" data-cites="R-fs">(<a href="#ref-R-fs" role="doc-biblioref">Hester, Wickham, and Csárdi 2024</a>)</span> in this code so I will load the library at the top of the function.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>get_gutenberg_works <span class="ot">&lt;-</span> <span class="cf">function</span>(target_file, lcc_subject, birth_year, death_year) {</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Load packages</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(dplyr)</span>
@@ -961,13 +954,13 @@ div.csl-indent {
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-R-fs" class="csl-entry" role="listitem">
-Hester, Jim, Hadley Wickham, and Gábor Csárdi. 2023. <em>Fs: Cross-Platform File System Operations Based on ’Libuv’</em>. <a href="https://CRAN.R-project.org/package=fs">https://CRAN.R-project.org/package=fs</a>.
+Hester, Jim, Hadley Wickham, and Gábor Csárdi. 2024. <em>Fs: Cross-Platform File System Operations Based on Libuv</em>. <a href="https://fs.r-lib.org">https://fs.r-lib.org</a>.
 </div>
 <div id="ref-Jockers2014" class="csl-entry" role="listitem">
 Jockers, Matthew Lee ML. 2014. <em>Text Analysis with r for Students of Literature</em>. New York: Springer.
 </div>
 <div id="ref-R-gutenbergr" class="csl-entry" role="listitem">
-Johnston, Myfanwy, and David Robinson. 2023. <em>Gutenbergr: Download and Process Public Domain Works from Project Gutenberg</em>. <a href="https://CRAN.R-project.org/package=gutenbergr">https://CRAN.R-project.org/package=gutenbergr</a>.
+Johnston, Myfanwy, and David Robinson. 2023. <em>Gutenbergr: Download and Process Public Domain Works from Project Gutenberg</em>. <a href="https://docs.ropensci.org/gutenbergr/">https://docs.ropensci.org/gutenbergr/</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script>

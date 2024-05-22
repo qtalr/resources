@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
+<meta name="description" content="This recipe will cover the process of building a predictive model to classify text into one of three Spanish dialects: Argentinian, Mexican, or Spanish. We will take a step-by-step approach that includes data preparation, model training and evaluation, and result interpretation. We will see practical examples of how to apply the {tidymodels} framework to build and evaluate a predictive model.">
 
-<title>Resources Kit - 09. Recipe</title>
+<title>Resources Kit - 09. Building predictive models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -40,6 +74,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,6 +110,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../assets/styles.css">
 <link rel="stylesheet" href="../../include/webex.css">
@@ -98,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -131,29 +196,43 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
+  <ul class="collapse">
+  <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation">Orientation</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
+  <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-09/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">09. Recipe</h1>
+<h1 class="title">09. Building predictive models</h1>
+<p class="subtitle lead">Supervised machine learning</p>
   <div class="quarto-categories">
-    <div class="quarto-category">recipes</div>
+    <div class="quarto-category">analysis</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <p>This recipe will cover the process of building a predictive model to classify text into one of three Spanish dialects: Argentinian, Mexican, or Spanish. We will take a step-by-step approach that includes data preparation, model training and evaluation, and result interpretation. We will see practical examples of how to apply the {tidymodels} framework to build and evaluate a predictive model.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -164,9 +243,896 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Hello.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Skills</strong></p>
+<ul>
+<li>How to identify variables of interest</li>
+<li>How to inspect datasets</li>
+<li>How to interrogate datasets and iteratively develop a model to improve performance</li>
+<li>How to interpret results of predictive models</li>
+</ul>
+</div>
+</div>
+</div>
+<p>The workflow for building a predictive model is shown in <a href="#tbl-pda-workflow" class="quarto-xref">Table&nbsp;1</a>. Note that Step 6 includes an optional step to iterate on the model to improve performance. This is optional because it is not always necessary to iterate on the model. However, it is often the case that the first model you build is not the best model. So it is good to be prepared to iterate on the model.</p>
+<!-- Workflow: steps -->
+<div id="tbl-pda-workflow" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-pda-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The predictive modeling workflow
+</figcaption>
+<div aria-describedby="tbl-pda-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Identify</td>
+<td>Consider the research question and aim and identify relevant variables</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td></td>
+<td>Split the data into representative training and testing sets</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td></td>
+<td>Apply variable selection and engineering procedures</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Inspect</td>
+<td>Inspect the data to ensure that it is in the correct format and that the training and testing sets are representative of the data</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Interrogate</td>
+<td>Train and evaluate the model on the training set, adjusting models or hyperparameters as needed, to produce a final model</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>(Optional) Iterate</td>
+<td>Repeat steps 3-5 to selecting new variables, models, hyperparameters</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Interpret</td>
+<td>Interpret the results of the final model in light of the research question or hypothesis</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<!-- Approach -->
+<p>Let’s get started by loading some of the key packages we will use in this recipe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels) <span class="co"># for modeling</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textrecipes) <span class="co"># for text preprocessing</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr) <span class="co"># for data manipulation</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr) <span class="co"># for data manipulation</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr) <span class="co"># for string manipulation</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext) <span class="co"># for text manipulation</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># for visualization</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor) <span class="co"># for tabyl()</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tidymodels_prefer</span>() <span class="co"># avoid function name conflicts</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>Note that loading {tidymodels} will load 22 other packages commonly used in modeling workflows. You can see the list of packages by running <code>tidymodels::tidyverse_packages()</code>.</p>
+</div>
+</div>
+</div>
+<section id="concepts-and-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
+<section id="orientation" class="level3">
+<h3 class="anchored" data-anchor-id="orientation">Orientation</h3>
+<!-- About the dataset and the aim of the analysis -->
+<p>We will use the ACTIV-ES corpus to build a predictive model that can classify text as one of three dialects of Spanish: Argentinian, Mexican, or Spanish. We will frame this as a supervised learning problem, where we have a set of texts that have been labeled with the dialect of Spanish that they are written in. In contrast to the classification task in the chapter, which was binary, this is a multiclass classification task, where we are trying to classify each document as one of three classes.</p>
+<!-- Prep the dataset -->
+<p>Let’s preview the structure of the ACTIVES dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>aes_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># # A tibble: 430 × 3
+#    doc_id variety   text                                                        
+#     &lt;dbl&gt; &lt;fct&gt;     &lt;chr&gt;                                                       
+#  1 199500 Argentina No está , señora . Aquí tampoco . No aparece , señora . ¿ D…
+#  2 184782 Argentina ALGUIEN AL TELÉFONO . LA ANGUSTIA . Ah , no , no , no mi hi…
+#  3  47823 Argentina Habrá que cumplir su última voluntad , ¿ el medallón ? Lo v…
+#  4 282622 Argentina Sucedió en Hualfin Esta es la historia de tres generaciones…
+#  5  62433 Argentina 10 secuestros en 10 días ! Y no hay el menor índice . Bueno…
+#  6  70250 Argentina Y preguntada que fue sí reconocen el cadáver exhumado ... y…
+#  7  71897 Argentina ¡ Jeremías ! ¡ Jeremías ! ¡ No dejés parir a tu mujer ! Sei…
+#  8 333883 Argentina Usted . Usted que frecuenta el éxito como una costumbre más…
+#  9 333954 Argentina Miles de campanas nos traen , a través de los siglos , el t…
+# 10 175243 Argentina Y ? Enseguida viene , fue al baño . Bueno , pero la mesa la…
+# # ℹ 420 more rows</code></pre>
+</div>
+</div>
+<p>This dataset contains 430 documents, each of which is labeled with the variety of Spanish that it is written in and the text of the document. A document ID is also included, which we will be able to use to index the documents. The <code>variety</code> vector is a factor. As this will be the outcome variable in our predictive model, this is good as most predictive models require classification variables to be factors.</p>
+<p>Let’s get a sense of the distribution of the <code>variety</code> variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>aes_df <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(variety) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">adorn_pct_formatting</span>(<span class="at">digits =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   variety   n percent
+ Argentina 128   29.8%
+    Mexico 119   27.7%
+     Spain 183   42.6%</code></pre>
+</div>
+</div>
+<p>We can see that the dataset is somewhat balanced, with Peninsular Spanish comprising the larger portion of the texts.</p>
+</section>
+<section id="analysis" class="level3">
+<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
+<p>At this point we can start to approach building a predictive model that can distinguish between the Spanish varieties using the text. We will first start by applying steps 1 and 2 of the workflow. We will then apply steps 3-5 iteratively to build, evaluate, and improve the model, as necessary, before applying it to the test data to assess and interpret the results.</p>
+<p>Let’s go ahead and perform steps 1 and 2. To split the data into training and testing sets, we will use {rsample}. The <code>initial_split()</code> function, sets up the splits and we use <code>variety</code> as the stratification variable to ensure that the training and testing sets are representative of the distribution of the outcome variable. As this process is random, we will set the seed for reproducibility. Finally, we call the <code>training()</code> and <code>testing()</code> functions to extract the training and testing sets.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the seed for reproducibility</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into training and testing sets</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>aes_split <span class="ot">&lt;-</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">initial_split</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> aes_df,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop =</span> <span class="fl">0.8</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> variety</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>aes_train <span class="ot">&lt;-</span> <span class="fu">training</span>(aes_split) <span class="co"># extract the training set</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>aes_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(aes_split) <span class="co"># extract the testing set</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We will then set the base recipe which formally identifies the relationship between the predictor and outcome variables. The <code>recipe()</code> function from {recipes} is used to create a recipe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the base recipe</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>aes_base_rec <span class="ot">&lt;-</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">recipe</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> variety <span class="sc">~</span> text,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> aes_train</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We now have steps 1 and 2 of the workflow completed. We have identified the variables of interest and split the data into training and testing sets.</p>
+<p>One more thing we will do here is to set up the cross-validation folds. Every time we fit a model to the training data, we will want to evaluate the model’s performance on the training data. However, we don’t want to do this in a way that is biased –testing the model on the same data that it was trained on! For this reason, we will use cross-validation to split the training data into multiple training and validation sets which represent different splits of the training data.</p>
+<p>We will use the <code>vfold_cv()</code> function from {rsample} to set up the cross-validation folds. We will use 10 folds, which is a common number of folds to use. We will also use the <code>strata</code> argument to ensure that the folds are representative of the distribution of the outcome variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up the cross-validation folds</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>cv_folds <span class="ot">&lt;-</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vfold_cv</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> aes_train,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">v =</span> <span class="dv">10</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> variety</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>With these common steps completed, we can now apply and reapply steps 3-5 of the workflow to build, evaluate, and improve the model.</p>
+<section id="approach-1" class="level4">
+<h4 class="anchored" data-anchor-id="approach-1">Approach 1</h4>
+<p>In our first approach, let’s start simple by using words as features and apply a logistic regression model. We won’t be completely naive, however, as we are familiar with the undo influence of the most frequent words. To address this, we will apply a term frequency-inverse document frequency (TF-IDF) transformation to the text in order to downweight the influence of the most frequent words and promote words that are more indicative of each class. Furthermore, we know that we will want to use a regularized regression model to avoid overfitting to particular words.</p>
+<p>To get started, we will use {textrecipes} to add steps to our <code>aes_base_rec</code> recipe to preprocess the text. We will use the <code>step_tokenize()</code> function to tokenize the text. This tokenization process will likely result in a very large number of terms, most of which will not be informative and will add computational overhead. We will want to restrict the number of terms with the <code>step_tokenfilter()</code> function. However, it is not clear how many terms we should restrict the tokens to. For now, we will start with 1,000 tokens, but we will likely want to revisit this later. We will also use the <code>step_tfidf()</code> function to apply a TF-IDF transformation to the text setting <code>smooth_idf</code> to <code>FALSE</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add preprocessing steps to the recipe</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>aes_rec <span class="ot">&lt;-</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  aes_base_rec <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenfilter</span>(text, <span class="at">max_tokens =</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tfidf</span>(text, <span class="at">smooth_idf =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview the recipe</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>aes_rec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To implement the recipe and to preview the text preprocessing steps we apply the <code>prep()</code> and <code>bake()</code> functions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>aes_bake <span class="ot">&lt;-</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  aes_rec <span class="sc">|&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(aes_bake)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  343 1001</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>aes_bake[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+  variety   tfidf_text_1 tfidf_text_10 tfidf_text_15 tfidf_text_2
+  &lt;fct&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+1 Argentina     0.000206     0.000599       0.000402      0      
+2 Argentina     0            0              0             0      
+3 Argentina     0            0.0000887      0             0      
+4 Argentina     0.00437      0              0.00142       0.00381
+5 Argentina     0            0.00155        0             0.00124</code></pre>
+</div>
+</div>
+<p>We now have a recipe that will tokenize the text, restrict the tokens to the most common 1,000 tokens, and create a TF-IDF matrix.</p>
+<p>It is not a bad idea to inspect the features at this point to make sure that the preprocessing steps have been applied correctly and to gauge what this feature selection looks like so that when it comes time to interpret the model, we have a sense of what the model is doing.</p>
+<p>As TF-IDF is going to be the main feature in our model, let’s visualize the top 20 terms by class. To do this, we will use {dplyr} to get the median TF-IDF score for each word by class, convert the data from wide to long format using the <code>pivot_longer()</code> function, and then use {ggplot2} to visualize the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum the term frequencies by class</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>class_freq_wide <span class="ot">&lt;-</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  aes_bake <span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variety) <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">starts_with</span>(<span class="st">"tfidf_"</span>),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>      median</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert the data from wide to long format</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>class_freq_long <span class="ot">&lt;-</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  class_freq_wide <span class="sc">|&gt;</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"tfidf_"</span>),</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"term"</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"tfidf"</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">str_remove</span>(term, <span class="st">"tfidf_text_"</span>))</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the top 20 terms by class</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>class_freq_long <span class="sc">|&gt;</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">20</span>, <span class="at">order_by =</span> tfidf, <span class="at">by =</span> variety) <span class="sc">|&gt;</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">reorder_within</span>(term, tfidf, variety)) <span class="sc">|&gt;</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> tfidf)) <span class="sc">+</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>variety, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-tfidf-viz" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tfidf-viz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-tfidf-viz-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tfidf-viz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Top 20 terms by class
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In <a href="#fig-tfidf-viz" class="quarto-xref">Figure&nbsp;1</a>, we see the words that are most indicative of each language variety. If you are familiar with Spanish, you can probably detect some variety-specific terms. For example, “vos” is a pronoun used in Argentinian Spanish and “os” is a pronoun used in Peninsular Spanish. There is also some overlap between the varieties, such as “tienes” and “te”.</p>
+<p>Another point to note is the difference in magnitude of the TF-IDF scores between the Argentinian and other varieties. This suggests that the Argentinian variety is more distinct from the other varieties than the other varieties are from each other. Among the most distinctive terms are verbal forms that are specific to Argentinian Spanish, such as “tenés” and “sos”.</p>
+<p>Now let’s create a model specification. We will use the <code>multinom_reg()</code> function from {parsnip} to create a multinomial logistic regression model, as we have multiple classes in our prediction task. We will use the “glmnet” engine, which will allow us to apply regularization to the model, arbitrarily set to 0.01. We will use the <code>set_engine()</code> function to set the engine and the <code>set_mode()</code> function to set the mode to “classification”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a model specification</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>aes_spec <span class="ot">&lt;-</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multinom_reg</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">penalty =</span> <span class="fl">0.01</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mixture =</span> <span class="dv">1</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"glmnet"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To combine the recipe and the model specification, we will use {workflows}. We will use the <code>workflow()</code> function and pass <code>add_recipe(aes_rec)</code> and <code>add_model(aes_spec)</code> as arguments to add the recipe and the model specification to the workflow.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a workflow</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>aes_wf <span class="ot">&lt;-</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(aes_rec) <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(aes_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now use the cross-validation folds that we set up earlier. We will use the <code>fit_resamples()</code> function to fit the model to the training data using the cross-validation folds.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the training data</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>aes_train_fit <span class="ot">&lt;-</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  aes_wf <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> cv_folds,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now evaluate the model’s performance on the training data. We will use the <code>collect_metrics()</code> function to collect the metrics from the cross-validation folds.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model's performance on the training data</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>aes_train_fit <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+  .metric     .estimator  mean     n std_err .config             
+  &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy    multiclass 0.804    10  0.0210 Preprocessor1_Model1
+2 brier_class multiclass 0.147    10  0.0130 Preprocessor1_Model1
+3 roc_auc     hand_till  0.923    10  0.0109 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>We can see that the model has a mean accuracy of 80.4% and ROC-AUC of 14.7%. That pretty good for a first pass. To get a sense of how good (or bad) it is, let’s compare it to a baseline model.</p>
+<p>A baseline model is the simplest model that we can use to compare the performance of our model to. A common baseline model is a model that always predicts the most frequent class. In our case, this is Peninsular Spanish, which accounts for 42.6% of the data. So it is clear that our model is doing much better than a baseline model which will have an accuracy score of 42.6%.</p>
+<p>We can visualize the correct and incorrect predictions using a confusion matrix. We will use the <code>conf_mat_resampled()</code> function from {yardstick} to create the confusion matrix and the <code>autoplot()</code> function from {ggfortify} to visualize it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>aes_train_fit <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat_resampled</span>(<span class="at">tidy =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-aes-a1-conf-mat" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-aes-a1-conf-mat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-aes-a1-conf-mat-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aes-a1-conf-mat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Confusion matrix for the model in Approach 1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The left-downward diagonal of the confusion matrix represents the average number of documents correctly predicted for the aggregated model across the cross-validation folds. Other cells represent the average number of documents incorrectly predicted for each class-class combination. You can read these by using the row label to identify the predicted class and the column label to identify the actual class. So, for example, the model predicted Mexico <span class="math inline">\(n\)</span> times when the actual class was Argentina. And so on.</p>
+</section>
+<section id="approach-2" class="level4">
+<h4 class="anchored" data-anchor-id="approach-2">Approach 2</h4>
+<p>In our first approach we applied a TF-IDF transformation to the text and used a regularized multinomial logistic regression model. We also restricted the tokens to the 1,000 most frequent tokens and arbitrarily set the regularization parameter to 0.01. This resulted in an aggregate accuracy score of 80.4% on the training data. This is a good start, but see if we can do better.</p>
+<p>In this second approach, let’s try to improve the model by applying a more principled approach to feature and hyperparameter selection.</p>
+<p>To do this we will ‘tune’ the <code>max_tokens</code> and <code>penalty</code> hyperparameters in our recipe and model specifications, respectively. We need to update our recipe and model specification to include placeholders for these parameters replacing the previous values with <code>tune()</code>. We will also need to update our workflow to include the updated recipe and model specification.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the recipe</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>aes_rec <span class="ot">&lt;-</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  aes_base_rec <span class="sc">|&gt;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenfilter</span>(text, <span class="at">max_tokens =</span> <span class="fu">tune</span>()) <span class="sc">|&gt;</span> <span class="co"># adds placeholder</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tfidf</span>(text, <span class="at">smooth_idf =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the model specification</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>aes_spec <span class="ot">&lt;-</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multinom_reg</span>(</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">penalty =</span> <span class="fu">tune</span>(), <span class="co"># adds placeholder</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">mixture =</span> <span class="dv">1</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"glmnet"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now create a workflow that includes the recipe and the model specification.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a workflow</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>aes_wf <span class="ot">&lt;-</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(aes_rec) <span class="sc">|&gt;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(aes_spec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we set up the range of values for both the <code>max_tokens</code> and <code>penalty</code> hyperparameters. The <code>grid_regular()</code> function from {dials} will allow us to specify a grid of values for each hyperparameter.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the hyperparameter grid</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>aes_grid <span class="ot">&lt;-</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grid_regular</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">max_tokens</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">250</span>, <span class="dv">2000</span>)),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">penalty</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="sc">-</span><span class="dv">1</span>)),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="at">max_tokens =</span> <span class="dv">5</span>, <span class="at">penalty =</span> <span class="dv">10</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>aes_grid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 50 × 2
+   max_tokens penalty
+        &lt;int&gt;   &lt;dbl&gt;
+ 1        250 0.001  
+ 2        687 0.001  
+ 3       1125 0.001  
+ 4       1562 0.001  
+ 5       2000 0.001  
+ 6        250 0.00167
+ 7        687 0.00167
+ 8       1125 0.00167
+ 9       1562 0.00167
+10       2000 0.00167
+# ℹ 40 more rows</code></pre>
+</div>
+</div>
+<p>The <code>range =</code> argument specifies the range of values to include in the grid. For <code>max_tokens</code>, this is straightforward. For <code>penalty</code>, we are specifying the range of values on the log scale. So the range of values is 0.001 to 0.1. The <code>levels</code> argument specifies the number of values to include in the grid. In this case, we will include 5 values for <code>max_tokens</code> and 10 values for <code>penalty</code>. This will result in 50 combinations of hyperparameter values.</p>
+<p>We will then pass our <code>aes_wf</code> workflow to the <code>tune_grid()</code> function with the grid values we specified to tune the hyperparameters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tune the hyperparameters</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>aes_tune <span class="ot">&lt;-</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  aes_wf <span class="sc">|&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tune_grid</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> cv_folds,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">grid =</span> aes_grid,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>aes_grid</code> object is a tibble which contains the grid all the combinations of hyperparameter values. In this case, there are 50 combinations. That means we are going to fit 50 models to the training data! This is a lot of models, but it is worth it to get a more robust estimate of the model’s performance.</p>
+<p>We can use the <code>collect_metrics()</code> function to collect the metrics from the cross-validation folds for each of our tuning parameters, but this will result in a lot of output. Instead, we can use the <code>autoplot()</code> function to visualize the metrics.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the collected metrics</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>aes_tune <span class="sc">|&gt;</span> <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-aes-tune-metrics" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-aes-tune-metrics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-aes-tune-metrics-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aes-tune-metrics-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Metrics for model tuning in Approach 2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We see some variation across the folds in the accuracy and ROC-AUC scores. This will help us make a more informed decision about which hyperparameters to use.</p>
+<p>The metric to use to select the best model is something to consider.Accuracy is an important measure, but does not tell the whole story. In particular, accuracy does not tell us how well the model is doing for each class –only the overall correct and incorrect predictions. To get a better sense of how the model is doing across the classes, we can pay attention to the ROC-AUC score. The ROC-AUC score is a measure of the area under the receiver operating characteristic (ROC) curve. The ROC curve plots the true positive rate (TPR) against the false positive rate (FPR) for each class at different probability thresholds. This measure is useful because it is not affected by class imbalance.</p>
+<p>Let’s select the best model based on the ROC-AUC score.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the best model</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>aes_tune_best <span class="ot">&lt;-</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  aes_tune <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_best</span>(<span class="at">metric =</span> <span class="st">"roc_auc"</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>aes_tune_best</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  penalty max_tokens .config              
+    &lt;dbl&gt;      &lt;int&gt; &lt;chr&gt;                
+1  0.0215       1562 Preprocessor4_Model07</code></pre>
+</div>
+</div>
+<p>We can now update our workflow with the best hyperparameters.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the workflow</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>aes_wf <span class="ot">&lt;-</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  aes_wf <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(aes_tune_best)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>aes_wf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: multinom_reg()
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+3 Recipe Steps
+
+• step_tokenize()
+• step_tokenfilter()
+• step_tfidf()
+
+── Model ───────────────────────────────────────────────────────────────────────
+Multinomial Regression Model Specification (classification)
+
+Main Arguments:
+  penalty = 0.0215443469003188
+  mixture = 1
+
+Computational engine: glmnet </code></pre>
+</div>
+</div>
+<p>We can now see that the updated workflow will replace the <code>tune()</code> placeholders with the best hyperparameters we selected.</p>
+<p>Let’s again perform a resampled fit on the training data using our new tuned model and then compare our results with the previous, abritrarily tuned model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model to the training data</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>aes_train_fit <span class="ot">&lt;-</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  aes_wf <span class="sc">|&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> cv_folds,</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">control =</span> <span class="fu">control_resamples</span>(<span class="at">save_pred =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Evaluate the model's performance on the training data</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>aes_train_fit <span class="sc">|&gt;</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+  .metric     .estimator  mean     n std_err .config             
+  &lt;chr&gt;       &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy    multiclass 0.819    10  0.0135 Preprocessor1_Model1
+2 brier_class multiclass 0.130    10  0.0101 Preprocessor1_Model1
+3 roc_auc     hand_till  0.938    10  0.0104 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>The accuracy score has improved just a bit, from an aggregate score of 80.4% to 81.9%.</p>
+<p>In all likelihood, we would want to continue to iterate on this model, applying different feature selection and engineering procedures, different models, and different hyperparameters –I will consider some suggestions in the next section. However, for the sake of time, we will stop here and train our final model on the training data and then apply the model to the test data to assess and interpret the results.</p>
+<section id="interpreting-the-model" class="level5">
+<h5 class="anchored" data-anchor-id="interpreting-the-model">Interpreting the model</h5>
+<p>At this stage we are ready to interpret the model. We first fit the model to the training data, then apply the model to the test data, and evaluate the model’s performance on the test data. Finally, we will dig into the model to interpret the importance of the features to help us understand what the model is doing and what it can tell us about words that are indicative, or not, of each variety.</p>
+<p>Let’s fit our final model to the training data and evaluate it on the testing data using the <code>last_fit()</code> function which takes our updated workflow and the original split we created earlier which is stored in <code>aes_split</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the final model</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>aes_final_fit <span class="ot">&lt;-</span> <span class="fu">last_fit</span>(aes_wf, aes_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now collect the performance metrics from the testing data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the performance metrics</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>aes_final_fit <span class="sc">|&gt;</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  .metric     .estimator .estimate .config             
+  &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+1 accuracy    multiclass     0.736 Preprocessor1_Model1
+2 roc_auc     hand_till      0.872 Preprocessor1_Model1
+3 brier_class multiclass     0.180 Preprocessor1_Model1</code></pre>
+</div>
+</div>
+<p>The accuracy of this model on the test data is 73.6%. This is lower than the accuracy on the training data. Should we be surprised? Not really. The model was trained on the training data, so it is not surprising that it would perform better on the training data than the test data, despite the fact that we used cross-validation to evaluate the model on the training data. This is a good reminder that the model is not perfect and that we should not expect it to be.</p>
+<p>What does the ‘kap’ metric mean? The Kappa statistic is a measure of agreement between the predicted and actual classes. It is a measure of agreement that is corrected for the possibility that some correct prediction may have occurred by chance. The kappa statistic ranges from 0 to 1, with 0 indicating no agreement above chance and 1 indicating perfect agreement. In this case, the kappa statistic is 87.2%, which indicates that there is a moderate amount of agreement between the predicted and actual classes.</p>
+<p>Let’s explore if there is a difference in performance across the classes. To do this, we will use the <code>conf_mat()</code> function from {yardstick} to create the confusion matrix and the <code>autoplot()</code> function from {ggfortify} to visualize it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>aes_final_fit <span class="sc">|&gt;</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">|&gt;</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">conf_mat</span>(<span class="at">truth =</span> variety, <span class="at">estimate =</span> .pred_class) <span class="sc">|&gt;</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>(<span class="at">type =</span> <span class="st">"heatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-aes-a2-conf-mat" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-aes-a2-conf-mat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-aes-a2-conf-mat-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aes-a2-conf-mat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Confusion matrix for the model in Approach 2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see that the model is doing a good job of predicting Peninsular Spanish, but is not doing as well with the other varieties. This is not surprising given that Peninsular Spanish is the most frequent class in the data. This is a good reminder that accuracy is not the only metric to consider when evaluating a model. We can get a better sense of how the model is doing across the classes by looking at the ROC-AUC score.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the ROC-AUC score</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>aes_final_fit <span class="sc">|&gt;</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">|&gt;</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(<span class="at">truth =</span> variety, .pred_Argentina<span class="sc">:</span>.pred_Spain) <span class="sc">|&gt;</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">autoplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-final-fit-roc-curve" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-final-fit-roc-curve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-final-fit-roc-curve-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-final-fit-roc-curve-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: ROC plot for the final fitted model
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Taken together, we have a decent model that can predict the variety of Spanish that a text is written in. We can also see that although prediction accuracy appears higher for Peninsular Spanish, the ROC-AUC curves suggest that the model is doing a better job of predicting the other varieties based on the features.</p>
+<p>There is still room for improvement –as we recognized earlier. However, it is important that we do not start to use the testing data to improve the model. The testing data should only be used to evaluate the model. If we start to use the testing data to improve the model, we will no longer have an unbiased estimate of the model’s performance.</p>
+<p>Let’s now dig into our model’s features to explore what words are driving the model’s predictions. The approach to do this will depend on the model. In this case, we used a multinomial logistic regression model, which is a linear model. This means that we can interpret the model’s coefficients to understand the importance of the features. Coefficients that are positive indicate that the feature is associated with the reference class and coefficients that are negative indicate that the feature is associated with the non-reference class. For classification tasks with two classes, this is straightforward to interpret.</p>
+<p>The issue here, however, is that we have more than two classes (i.e., Argentina, Mexico, and Spain). In these cases, the coefficients estimates for each class need to be extracted and standardized to be compared across classes.</p>
+<p>We can do this using the <code>extract_fit_parsnip()</code> function from {parsnip}. This will extract the model object from the workflow object. The <code>tidy()</code> function from {broom} will then organize the coefficients (log-odds) for each predictor terms for each outcome class. We can then use the <code>filter()</code> function from {dplyr} to remove the intercept term and the <code>mutate()</code> function from {dplyr} to remove the “tfidf_text_” prefix from the term names so that they are more legible.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the coefficients</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>aes_coefs <span class="ot">&lt;-</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  aes_final_fit <span class="sc">|&gt;</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_fit_parsnip</span>() <span class="sc">|&gt;</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tidy</span>() <span class="sc">|&gt;</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(term <span class="sc">!=</span> <span class="st">"(Intercept)"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">str_remove</span>(term, <span class="st">"tfidf_text_"</span>))</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(aes_coefs, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   class     term      estimate penalty
+   &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Mexico    vengó            0  0.0215
+ 2 Mexico    tú               0  0.0215
+ 3 Mexico    tin              0  0.0215
+ 4 Mexico    papel            0  0.0215
+ 5 Spain     están            0  0.0215
+ 6 Argentina perdido          0  0.0215
+ 7 Argentina caballero        0  0.0215
+ 8 Spain     señora           0  0.0215
+ 9 Argentina casar            0  0.0215
+10 Spain     serás            0  0.0215</code></pre>
+</div>
+</div>
+<p>Now to standardize the log-odds coefficients so that they are comparable across the classes, we will use the <code>scale()</code> function from base R to transform the coeffients such that each class has a mean of 0 and a standard deviation of 1. <code>scale()</code> returns a matrix, so we will use the <code>as.vector()</code> function to convert the matrix to a vector.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>aes_coefs_z <span class="ot">&lt;-</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  aes_coefs <span class="sc">|&gt;</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(class) <span class="sc">|&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">z_score =</span> <span class="fu">as.vector</span>(<span class="fu">scale</span>(estimate))) <span class="sc">|&gt;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(aes_coefs_z, <span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   class     term     estimate penalty z_score
+   &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Argentina iba             0  0.0215 -0.0857
+ 2 Spain     pudo            0  0.0215 -0.0320
+ 3 Spain     pará            0  0.0215 -0.0320
+ 4 Argentina dicho           0  0.0215 -0.0857
+ 5 Argentina sirve           0  0.0215 -0.0857
+ 6 Mexico    cuesta          0  0.0215 -0.0787
+ 7 Spain     demonios        0  0.0215 -0.0320
+ 8 Argentina punto           0  0.0215 -0.0857
+ 9 Mexico    también         0  0.0215 -0.0787
+10 Spain     cabeza          0  0.0215 -0.0320</code></pre>
+</div>
+</div>
+<p>Finally, let’s visualize the top 25 terms by class. Note that we are using the <code>reorder_within()</code> and <code>scale_x_reordered()</code> functions from {tidytext} to reorder the terms in such a way that our facets allow for distinct terms on the x-axis for each class. Then the <code>coord_flip()</code> function from {ggplot2} is used to flip the axes for easier reading.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>aes_coefs_z <span class="sc">|&gt;</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">term =</span> <span class="fu">reorder_within</span>(term, z_score, class)) <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">25</span>, <span class="at">order_by =</span> z_score, <span class="at">by =</span> class) <span class="sc">|&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> term, <span class="at">y =</span> z_score)) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>class, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-aes-a2-coefs-viz" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-aes-a2-coefs-viz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-aes-a2-coefs-viz-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aes-a2-coefs-viz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Top 25 terms by class
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can assess the distinct features for each class and also gauge the magnitude of the estimates. We should be cautious, however, as these terms are derived from our model that only performs moderately well.</p>
+</section>
+</section>
+<section id="other-approaches" class="level4">
+<h4 class="anchored" data-anchor-id="other-approaches">Other approaches</h4>
+<p>As we have seen, there are many decisions to make when building a predictive model. We have only scratched the surface of the options available. In this section, I will briefly consider some other approaches that may be of interest.</p>
+<p>Features:</p>
+<p>We used words in this recipe and in the chapter classification task. This is merely in order to keep the focus on the process of building a predictive model. There are many other features that could be used. For example, we could use n-grams, character n-grams, or word embeddings. {textrecipes} provides many options for text preprocessing and feature engineering.</p>
+<p>Let’s look at how we can derive other linguistic units using {textrecipes}. First, let’s set up a simple dataset and base recipe.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"b"</span>)),</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">date =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">"2020-01-01"</span>, <span class="st">"2021-06-14"</span>, <span class="st">"2020-11-05"</span>, <span class="st">"2023-12-25"</span>)),</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> <span class="fu">c</span>(</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This is a fantastic sentence."</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This is another great sentence."</span>,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This is a third, boring sentence."</span>,</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This is a fourth and final sentence."</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>base_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(outcome <span class="sc">~</span> text, <span class="at">data =</span> df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, say instead of words, we were interested in deriving word <span class="math inline">\(n\)</span>-grams as our terms. We again use the <code>step_tokenize()</code> function in our recipe. This time, however, we add a value to the <code>token =</code> argument. In this case, we will use “ngrams”. {textrecipes} uses the tokenization engine from {tokenizers}, so the types of tokenization available are the same as those available (see <code>help(tokenizers)</code> for more information).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>base_rec <span class="sc">|&gt;</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    text,</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> <span class="st">"ngrams"</span>, <span class="co"># word n-grams</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">show_tokens</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "this is a"            "is a fantastic"       "a fantastic sentence"
+
+[[2]]
+[1] "this is another"        "is another great"       "another great sentence"
+
+[[3]]
+[1] "this is a"             "is a third"            "a third boring"       
+[4] "third boring sentence"
+
+[[4]]
+[1] "this is a"          "is a fourth"        "a fourth and"      
+[4] "fourth and final"   "and final sentence"</code></pre>
+</div>
+</div>
+<p>By default <code>tokens = "ngrams"</code> produces trigrams.</p>
+<p>Another option is to use character n-grams. This is useful when we want to capture information about the morphology of the words. For character n-grams, we can use “character_shingle”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>base_rec <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    text,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> <span class="st">"character_shingle"</span> <span class="co"># character n-grams</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">show_tokens</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+ [1] "thi" "his" "isi" "sis" "isa" "saf" "afa" "fan" "ant" "nta" "tas" "ast"
+[13] "sti" "tic" "ics" "cse" "sen" "ent" "nte" "ten" "enc" "nce"
+
+[[2]]
+ [1] "thi" "his" "isi" "sis" "isa" "san" "ano" "not" "oth" "the" "her" "erg"
+[13] "rgr" "gre" "rea" "eat" "ats" "tse" "sen" "ent" "nte" "ten" "enc" "nce"
+
+[[3]]
+ [1] "thi" "his" "isi" "sis" "isa" "sat" "ath" "thi" "hir" "ird" "rdb" "dbo"
+[13] "bor" "ori" "rin" "ing" "ngs" "gse" "sen" "ent" "nte" "ten" "enc" "nce"
+
+[[4]]
+ [1] "thi" "his" "isi" "sis" "isa" "saf" "afo" "fou" "our" "urt" "rth" "tha"
+[13] "han" "and" "ndf" "dfi" "fin" "ina" "nal" "als" "lse" "sen" "ent" "nte"
+[25] "ten" "enc" "nce"</code></pre>
+</div>
+</div>
+<p>By default <code>tokens = "character_shingle"</code> also produces trigrams.</p>
+<p>Now, say we want to change the number of words in each n-gram or character n-gram. We can do this using the <code>options =</code> argument. This is where we pass tokenizer-specific options. For example, to change the number of words in each n-gram, we can use the <code>n =</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>base_rec <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    text,</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> <span class="st">"ngrams"</span>,</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">n =</span> <span class="dv">2</span>) <span class="co"># word bigrams</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">show_tokens</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "this is"            "is a"               "a fantastic"       
+[4] "fantastic sentence"
+
+[[2]]
+[1] "this is"        "is another"     "another great"  "great sentence"
+
+[[3]]
+[1] "this is"         "is a"            "a third"         "third boring"   
+[5] "boring sentence"
+
+[[4]]
+[1] "this is"        "is a"           "a fourth"       "fourth and"    
+[5] "and final"      "final sentence"</code></pre>
+</div>
+</div>
+<p>If you would like to calculate multiple <span class="math inline">\(n\)</span>-gram windows, you can pass the <code>n_min =</code> argument.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>base_rec <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    text,</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> <span class="st">"ngrams"</span>,</span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">n =</span> <span class="dv">2</span>, <span class="at">n_min =</span> <span class="dv">1</span>) <span class="co"># word unigrams and bigrams</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">show_tokens</span>(text)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "this"               "this is"            "is"                
+[4] "is a"               "a"                  "a fantastic"       
+[7] "fantastic"          "fantastic sentence" "sentence"          
+
+[[2]]
+[1] "this"           "this is"        "is"             "is another"    
+[5] "another"        "another great"  "great"          "great sentence"
+[9] "sentence"      
+
+[[3]]
+ [1] "this"            "this is"         "is"              "is a"           
+ [5] "a"               "a third"         "third"           "third boring"   
+ [9] "boring"          "boring sentence" "sentence"       
+
+[[4]]
+ [1] "this"           "this is"        "is"             "is a"          
+ [5] "a"              "a fourth"       "fourth"         "fourth and"    
+ [9] "and"            "and final"      "final"          "final sentence"
+[13] "sentence"      </code></pre>
+</div>
+</div>
+<p>Names and values of the arguments that <code>options =</code> will take will depend on the type of tokenization specified.</p>
+<p>We could also use metadata, such as the year the text was written, the author, the genre, <em>etc</em>. In these cases, will will update our base recipe to include the metadata as predictors and then we can use the necessary preprocessing steps to prepare the metadata for modeling using functions from the <code>recipes()</code> package (<em>i.e.</em>, `step_normalize(), step_dummy(), <em>etc.</em>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>base_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(outcome <span class="sc">~</span> date <span class="sc">+</span> text, <span class="at">data =</span> df) <span class="co"># add date</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>base_rec <span class="sc">|&gt;</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_date</span>(date, <span class="at">features =</span> <span class="fu">c</span>(<span class="st">"year"</span>)) <span class="sc">|&gt;</span> <span class="co"># extract the year</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">juice</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  date             text outcome date_year
+  &lt;date&gt;      &lt;tknlist&gt; &lt;fct&gt;       &lt;int&gt;
+1 2020-01-01 [5 tokens] a            2020
+2 2021-06-14 [5 tokens] a            2021
+3 2020-11-05 [6 tokens] b            2020
+4 2023-12-25 [7 tokens] b            2023</code></pre>
+</div>
+</div>
+<p>We could also use other features derived from the text, such as word length, syntactic complexity, sentiment, readability, etc. A number of stylistic features are available using the <code>step_textfeature()</code> function, some 26 (see <code>?count_functions</code>). However, it is also possible to derive your own features working with the original dataset and then adding the features</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  df <span class="sc">|&gt;</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate word count and average word length</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">|&gt;</span></span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">unnest_tokens</span>(word, text, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarize</span>(</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">word_count =</span> <span class="fu">n</span>(),</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">avg_word_length =</span> <span class="fu">mean</span>(<span class="fu">nchar</span>(word))</span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(</span>
+<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> ., <span class="co"># use all variables</span></span>
+<span id="cb54-16"><a href="#cb54-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df</span>
+<span id="cb54-17"><a href="#cb54-17" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
+<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tokenize</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_tf</span>(text) <span class="sc">|&gt;</span></span>
+<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">|&gt;</span></span>
+<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(<span class="at">new_data =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 16
+  date       word_count avg_word_length outcome tf_text_a tf_text_and
+  &lt;date&gt;          &lt;int&gt;           &lt;dbl&gt; &lt;fct&gt;       &lt;int&gt;       &lt;int&gt;
+1 2020-01-01          5            4.8  a               1           0
+2 2021-06-14          5            5.2  a               0           0
+3 2020-11-05          6            4.33 b               1           0
+4 2023-12-25          7            4.14 b               1           1
+# ℹ 10 more variables: tf_text_another &lt;int&gt;, tf_text_boring &lt;int&gt;,
+#   tf_text_fantastic &lt;int&gt;, tf_text_final &lt;int&gt;, tf_text_fourth &lt;int&gt;,
+#   tf_text_great &lt;int&gt;, tf_text_is &lt;int&gt;, tf_text_sentence &lt;int&gt;,
+#   tf_text_third &lt;int&gt;, tf_text_this &lt;int&gt;</code></pre>
+</div>
+</div>
+<p>Models:</p>
+<p>A big advantage to using the {tidymodels} approach to modeling is that it allows us to easily try different models. We have used a multinomial logistic regression model in this recipe, but we could also try other models, such as a random forest model, a support vector machine, or a neural network. We can do this by simply changing the model specification in our workflow.</p>
+<p>For example, we could use a random forest model. We would first need to update our model specification to use the <code>rand_forest()</code> function from {parsnip} to create a random forest model. We would also need to update the engine to use {ranger}, which is a fast implementation of random forest models. Finally, we would need to update the mode to “classification”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a model specification</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>aes_spec <span class="ot">&lt;-</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Random Forest</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rand_forest</span>(</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">mtry =</span> <span class="dv">10</span>,</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trees =</span> <span class="dv">1000</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>) <span class="sc">|&gt;</span> <span class="co"># use the ranger engine</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It is important to understand that different models have different hyperparameters. As we say with the <code>logistic_reg()</code> and <code>multinom_reg()</code> models, we can tune the <code>penalty</code> hyperparameter. However, this is not the case for all models. For example, the <code>rand_forest()</code> model does not have a <code>penalty</code> hyperparameter. Instead, it has a <code>mtry</code> hyperparameter, which is the number of variables to consider at each split. We can tune this hyperparameter in the same way that we tuned the <code>penalty</code> hyperparameter using <code>tune()</code>, <code>grid_regular()</code>, and <code>tune_grid()</code>.</p>
+<p>Other models to consider for text classification include Naive Bayes, Support Vector Machines, and Neural Networks. The {tidymodels} framework supports all of these models.</p>
+<p>A last point to consider is whether we will want to be able to interpret the features that drive the model’s performance. If so, we will want to use a model that allows us to interpret the features. For example, we could use a linear model, such as a logistic regression model, or a tree-based model, such as a random forest model. However, we would not be able to interpret the features of a neural network model.</p>
+<p>Furthermore, the methods we use to interpret the features will depend on the model. For example, we can interpret the features of a linear model by looking at the coefficients. However, we cannot interpret the features of a random forest model in the same way. Instead, we can use the <code>vip()</code> function from {vip} to visualize the importance of the features.</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this recipe, we’ve covered the foundational skills needed to construct a predictive (classification) model using the tidymodels framework. We examined the key steps in predictive modeling: identifying data, dividing it into training and test sets, preprocessing, iterative model training, and result interpretation.</p>
+<p>We used a dataset of Spanish texts from three different varieties to demonstrate the process iterating over two approaches. In the first approach, we used a multinomial logistic regression model with TF-IDF features. In the second approach, we tuned the hyperparameters of the model and the preprocessing steps to improve the model’s performance. We also touched upon alternative methods, like incorporating other features such as n-grams and experimenting with other models such as random forests, which may prove useful in text classification tasks.</p>
+<p>With the matierals in this chapter you should now have an understanding of how to build and understand a text classification model in R, equipped with insights to further develop your predictive analysis projects.</p>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<ol type="1">
+<li><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select> There are two basic types of prediction models: regression and classification.</li>
+<li>What is the purpose of splitting data into training and testing sets? <select class="webex-select"><option value="blank"></option><option value="">To make computation faster</option><option value="answer">To avoid overfitting the model</option><option value="">To decrease the size of the dataset</option><option value="">To make the model simpler</option></select></li>
+<li>What is the purpose of cross-validation? <select class="webex-select"><option value="blank"></option><option value="">To make computation faster</option><option value="">To avoid overfitting the model</option><option value="answer">To evaluate the model’s performance</option><option value="">To make the model simpler</option></select></li>
+<li>Which of the following models would not be appropriate for a classification task? <select class="webex-select"><option value="blank"></option><option value="">Logistic regression</option><option value="">Random forest</option><option value="">Support vector machine</option><option value="answer">Linear regression</option></select></li>
+<li>Iterative improvement in modeling involves: <select class="webex-select"><option value="blank"></option><option value="">Changing the model</option><option value="">Changing the hyperparameters</option><option value="">Changing the preprocessing steps</option><option value="answer">All of the above</option></select></li>
+<li><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select> Feature importance measures are uniform across models.</li>
+</ol>
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
+<p>In preparation for <a href="https://github.com/qtalr/lab-09">Lab 9</a>, review and ensure that you are familiar with the following concepts:</p>
+<ul>
+<li>Building feature engineering pipelines with {recipes}</li>
+<li>Building model specifications with {parsnip}</li>
+<li>Iterative model training, evaluation, and improvement with {workflows}, {tune}, and {yardstick}</li>
+</ul>
+<p>In this lab, you will have an opportunity to apply these concepts to a new dataset and classification task. You should consider the dataset and the task in be performed in the lab and think about how you might approach the task from a feature engineering and model selection perspective. You will be asked to submit you code and a brief reflection on your approach and the results.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 
 
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -833,7 +1799,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-09/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-09/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -2,11 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
 <meta name="description" content="In this recipe, we will introduce the concept of Literate Programming and describe how to implement this concept through Quarto. I will provide a demonstration of some of the features of Quarto and describe the main structural characteristics of a Quarto document to help you get off and running writing your own documents that combine code and prose.">
 
 <title>Resources Kit - 00. Literate Programming</title>
@@ -155,7 +154,7 @@ div.csl-indent {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -223,12 +222,6 @@ div.csl-indent {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -268,7 +261,7 @@ div.csl-indent {
 <div id="fig-image-quarto-preview" class="quarto-figure quarto-figure-center quarto-float anchored" alt="An image with two document views. On the left is Quarto source code and on the right is Quarto HTML output.">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-image-quarto-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/quarto-preview.png" class="img-fluid figure-img" alt="An image with two document views. On the left is Quarto source code and on the right is Quarto HTML output.">
+<img src="images/quarto-preview.png" class="img-fluid figure-img" alt="An image with two document views. On the left is Quarto source code and on the right is Quarto HTML output." width="1814">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-image-quarto-preview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Quarto source (left) and output (right) example.
@@ -278,7 +271,7 @@ Figure&nbsp;1: Quarto source (left) and output (right) example.
 </div>
 </div>
 <p>Quarto documents generate various types of output: web documents (HTML), PDFs, Word documents, and many other types of output formats all based on the same source code. While the interleaving of code and prose to create a variety of output documents is one of the most attractive aspects of literate programming and Quarto, it is also possible to create documents with no code at all. It is a very versatile technology as you will come to appreciate.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -338,7 +331,7 @@ Figure&nbsp;1: Quarto source (left) and output (right) example.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; [1] 2</code></pre>
+<pre><code>[1] 2</code></pre>
 </div>
 </div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -356,7 +349,7 @@ Figure&nbsp;1: Quarto source (left) and output (right) example.
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; [1] 2</code></pre>
+<pre><code>[1] 2</code></pre>
 </div>
 </div>
 <ul>
@@ -380,7 +373,7 @@ Figure&nbsp;1: Quarto source (left) and output (right) example.
 <div id="fig-image-quarto-create-1" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-image-quarto-create-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/quarto-create-1.png" class="img-fluid figure-img">
+<img src="images/quarto-create-1.png" class="img-fluid figure-img" width="1552">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-image-quarto-create-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Creating a new Quarto document in RStudio.
@@ -395,7 +388,7 @@ Figure&nbsp;2: Creating a new Quarto document in RStudio.
 <div id="fig-image-quarto-create-2" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-image-quarto-create-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/quarto-create-2.png" class="img-fluid figure-img">
+<img src="images/quarto-create-2.png" class="img-fluid figure-img" width="1552">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-image-quarto-create-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Dialogue box for creating a new Quarto document in RStudio.
@@ -411,7 +404,7 @@ Figure&nbsp;3: Dialogue box for creating a new Quarto document in RStudio.
 <div id="fig-image-quarto-create-3" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-image-quarto-create-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/quarto-create-3.png" class="img-fluid figure-img">
+<img src="images/quarto-create-3.png" class="img-fluid figure-img" width="1552">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-image-quarto-create-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;4: Quarto source in RStudio.
@@ -427,7 +420,7 @@ Figure&nbsp;4: Quarto source in RStudio.
 <div id="fig-image-quarto-create-4" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-image-quarto-create-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/quarto-create-4.png" class="img-fluid figure-img">
+<img src="images/quarto-create-4.png" class="img-fluid figure-img" width="1552">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-image-quarto-create-4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;5: Quarto source and HTML output side-by-side in RStudio.
@@ -436,7 +429,7 @@ Figure&nbsp;5: Quarto source and HTML output side-by-side in RStudio.
 </div>
 </div>
 </div>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>

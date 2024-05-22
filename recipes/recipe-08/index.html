@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
+<meta name="description" content="Exploratory analysis is a wide-ranging term that encompasses many different methods. In this recipe, we will focus on the methods that are most commonly used in the analysis of textual data. These include frequency and distributional analysis, clustering, and word embedding models.">
 
-<title>Resources Kit - 08. Recipe</title>
+<title>Resources Kit - 08. Employing exploratory methods</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -40,6 +94,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,6 +130,35 @@ ul.task-list li input[type="checkbox"] {
   });
 </script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../assets/styles.css">
 <link rel="stylesheet" href="../../include/webex.css">
@@ -98,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -131,29 +216,45 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
+  <ul class="collapse">
+  <li><a href="#orientation" id="toc-orientation" class="nav-link" data-scroll-target="#orientation">Orientation</a></li>
+  <li><a href="#identify" id="toc-identify" class="nav-link" data-scroll-target="#identify">Identify</a></li>
+  <li><a href="#inspect" id="toc-inspect" class="nav-link" data-scroll-target="#inspect">Inspect</a></li>
+  <li><a href="#interrogate" id="toc-interrogate" class="nav-link" data-scroll-target="#interrogate">Interrogate</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
+  <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-08/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">08. Recipe</h1>
+<h1 class="title">08. Employing exploratory methods</h1>
+<p class="subtitle lead">Descriptive analysis and unsupervised machine learning</p>
   <div class="quarto-categories">
-    <div class="quarto-category">recipes</div>
+    <div class="quarto-category">analysis</div>
   </div>
   </div>
 
+<div>
+  <div class="description">
+    <p>Exploratory analysis is a wide-ranging term that encompasses many different methods. In this recipe, we will focus on the methods that are most commonly used in the analysis of textual data. These include frequency and distributional analysis, clustering, and word embedding models.</p>
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -164,11 +265,1108 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Hello.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Skills</strong></p>
+<ul>
+<li>Tokenize and prepare features for analysis</li>
+<li>Conduct frequency and dispersion analysis including measures and visualizations</li>
+<li>Train word embeddings and create a Term-Document Matrix</li>
+<li>Conduct a word embedding analysis</li>
+</ul>
+</div>
+</div>
+</div>
+<p>The approach to exploratory analysis is rarely linear, but rather an interative cycle of the steps in <a href="#tbl-eda-workflow" class="quarto-xref">Table&nbsp;1</a>. This cycle is repeated until the research question(s) have been addressed.</p>
+<div id="tbl-eda-workflow" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-eda-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: The exploratory analysis workflow
+</figcaption>
+<div aria-describedby="tbl-eda-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 80%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Identify</td>
+<td>Consider the research question and identify variables of potential interest to provide insight into our question.</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Inspect</td>
+<td>Check for missing data, outliers, <em>etc</em>. and check data distributions and transform if necessary.</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Interrogate</td>
+<td>Submit the selected variables to descriptive or unsupervised learning methods to provide quantitative measures to evaluate.</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Interpret</td>
+<td>Evaluate the results and determine if they are valid and meaningful to respond to the research question.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>We will model how to explore iteratively using the output of one method to inform the next and ultimately to address the research question. For this reason, the subsequent sections of this recipe are grouped by research question rather than by approach step or method.</p>
+<p>Let’s get started by loading some of the packages we will likely use.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)      <span class="co"># for data manipulation</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)    <span class="co"># for string manipulation</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)      <span class="co"># for data tidying</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)   <span class="co"># for text analysis</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)    <span class="co"># for data visualization</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="concepts-and-strategies" class="level2">
+<h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
+<section id="orientation" class="level3">
+<h3 class="anchored" data-anchor-id="orientation">Orientation</h3>
+<p>We will use the SOTU corpus to demonstrate the different methods. We will select a subset of the corpus (post-1945) and explore the question:</p>
+<ul>
+<li>How has the language of the SOTU changed over time?</li>
+</ul>
+<p>This will include methods such as frequency and distributional analysis, dimensionality reduction, and word embedding models.</p>
+<p>Let’s look at the first few rows of the data to get a sense of what we have.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sotu_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># # A tibble: 73 × 4
+#    president   year party      address                                          
+#    &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;                                            
+#  1 Truman      1947 Democratic "Mr. President, Mr. Speaker, Members of the Cong…
+#  2 Truman      1948 Democratic "Mr. President, Mr. Speaker, and Members of the …
+#  3 Truman      1949 Democratic "Mr. President, Mr. Speaker, Members of the Cong…
+#  4 Truman      1950 Democratic "Mr. President, Mr. Speaker, Members of the Cong…
+#  5 Truman      1951 Democratic "Mr. President, Mr. Speaker, Members of the Cong…
+#  6 Truman      1952 Democratic "Mr. President, Mr. Speaker, Members of the Cong…
+#  7 Eisenhower  1953 Republican "Mr. President, Mr. Speaker, Members of the Eigh…
+#  8 Eisenhower  1954 Republican "Mr. President, Mr. Speaker, Members of the Eigh…
+#  9 Eisenhower  1955 Republican "Mr. President, Mr. Speaker, Members of the Cong…
+# 10 Eisenhower  1956 Republican "My Fellow Citizens: This morning I sent to the …
+# # ℹ 63 more rows</code></pre>
+</div>
+</div>
+<p>We can see that the dataset contains the president, year, party, and address for each SOTU address.</p>
+<p>Now let’s view a statistical overview summary of the data by using the <code>skim()</code> function.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>skimr<span class="sc">::</span><span class="fu">skim</span>(sotu_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># ── Data Summary ────────────────────────
+#                            Values 
+# Name                       sotu_df
+# Number of rows             73     
+# Number of columns          4      
+# _______________________           
+# Column type frequency:            
+#   character                3      
+#   numeric                  1      
+# ________________________          
+# Group variables            None   
+# 
+# ── Variable type: character ────────────────────────────────────────────────────
+#   skim_variable n_missing complete_rate  min   max empty n_unique whitespace
+# 1 president             0             1    4    10     0       12          0
+# 2 party                 0             1   10    10     0        2          0
+# 3 address               0             1 6160 51947     0       73          0
+# 
+# ── Variable type: numeric ──────────────────────────────────────────────────────
+#   skim_variable n_missing complete_rate  mean   sd   p0  p25  p50  p75 p100
+# 1 year                  0             1 1984. 21.6 1947 1965 1984 2002 2020
+#   hist 
+# 1 ▇▇▇▇▇</code></pre>
+</div>
+</div>
+<p>We can see that the dataset contains 73 rows –corresponding to the number of SOTU addresses. Looking at missing values, we can see that there are no missing values for any of the variables. Taking a closer look at each variable, the <code>president</code> variable is a character vector with 12 unique presidents. There are two unique parties and 73 unique addresses. The <code>year</code> variable is numeric with a minimum value of 1947 and a maximum value of 2020, therefore the addresses include 73 years.</p>
+</section>
+<section id="identify" class="level3">
+<h3 class="anchored" data-anchor-id="identify">Identify</h3>
+<p>With a general sense of the data, we can now move on to the first step in the exploratory analysis workflow: identifying variables of interest.</p>
+<ul>
+<li>What linguistic variables might be of interest to address this question?</li>
+</ul>
+<p>Words might be the most obvious variable, but we might also be interested in other linguistic variables such as parts of speech, syntactic structures, or some combination of these.</p>
+<p>Let’s start with words. If we look at words, we might be interested in the frequency of words, the distribution of words, or the meaning of words. We might also be interested in the relationship between words. For example, we might be interested in the co-occurrence of words or the similarity of words. These, and more, are all possible approaches that we might consider.</p>
+<p>Another consideration is if we want to do comparisons across time, across presidents, across parties, <em>etc.</em>. In our research question, we have already identified that we want to compare across time so that will be our focus. However, what we mean by “time” is not clear. Do we mean across years, across decades, across presidencies, <em>etc.</em>? We will need to make a decision about how we want to define time, but we can fold this into our exploratory analysis, as we will see below.</p>
+<p>Let’s posit the following sub-questions:</p>
+<ol type="1">
+<li>What are the most frequent words across time periods?</li>
+<li>How does the distribution of words change across time periods?</li>
+<li>How does the meaning of words change across time periods?</li>
+</ol>
+<p>We will use these sub-questions to guide our exploratory analysis.</p>
+</section>
+<section id="inspect" class="level3">
+<h3 class="anchored" data-anchor-id="inspect">Inspect</h3>
+<p>The next step is to inspect the data. We will transform the data as necessary to prepare it for analysis and then do some diagnostic checks to make sure that the data is ready for analysis.</p>
+<p>Since we will be working with words, let’s tokenize the <code>addresses</code> variable to extract the words and maintain a tidy dataset. We will use the <code>unnest_tokens()</code> function from {tidytext} to do this. Let’s apply the function and assign the result to a new variable called <code>sotu_words_df</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize the words by year (with numbers removed)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sotu_words_df <span class="ot">&lt;-</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  sotu_df <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, address, <span class="at">strip_numeric =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s continue by looking at whether there is a relationship between the number of words and years. We can do this by using the <code>count()</code> function on the <code>year</code> variable. This will group and count the number of observations (words) per year as <code>n</code>.</p>
+<p>We can then visualize this with a line plot where the x-axis is the year and the y-axis is the number of words <code>n</code>. I’ll add the plot to a variable called <code>p</code> so that we can add layers to it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the number of words per year --------------------------------</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  sotu_words_df <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># View</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-words-over-time" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-words-over-time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-words-over-time-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sotu-words-over-time-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Number of words per year
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>The <code>count()</code> function is a wrapper for the <code>summarize()</code> function. It is a convenient way to count the number of observations in a dataset.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the output of</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(var1)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># is equivalent to</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var1) <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The difference is that <code>count()</code> grouping is added and removed automatically. In other cases, we can mimic this behavior for other operations inside a <code>summarize()</code> or <code>mutate()</code> function by using the <code>.by</code> argument. For example:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.by =</span> var1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>We can see from <a href="#fig-sotu-words-over-time-trend-lm" class="quarto-xref">Figure&nbsp;2</a> that the number of words per year varies, sometimes quite a bit. To get a sense of the relationship between the number of words and the year, we can add a linear trend line to the plot. We can do this by adding the <code>geom_smooth()</code> function to the plot. We will set the <code>method</code> argument to <code>"lm"</code> to use a linear model.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-words-over-time-trend-lm" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-words-over-time-trend-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-words-over-time-trend-lm-1.png" id="fig-sotu-words-over-time-trend-lm" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-sotu-words-over-time-trend-lm-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>This plot shows that there is a positive relationship between the number of words and the year –that is the number of words increases over time. But the line is not a great fit and furthermore the angle of the line is more horizontal than vertical. This suggests that the relationship is not a strong one. We can confirm this by calculating the correlation between the number of words and the year. We can do this by using the <code>cor.test()</code> function on the <code>year</code> and <code>n</code> variables inside a <code>summarize()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the correlation between the number of words and the year ----</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>sotu_words_df <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">cor =</span> <span class="fu">cor.test</span>(year, n)<span class="sc">$</span>estimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+    cor
+  &lt;dbl&gt;
+1 0.342</code></pre>
+</div>
+</div>
+<p>So, even though we are working to inspect our data, we already have a finding. The number of words increases over time, despite the fact that the relationship is not a strong one.</p>
+<p>Now, let’s turn our attention to the frequency of individual words. Let’s start by looking at the most frequent words for the entire corpus. We can do this by grouping by the <code>word</code> variable and then summarizing the number of times each word occurs. We will then arrange the data in descending order by the number of times each word occurs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the most frequent words ------------------------------------</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>sotu_words_df <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   word      n
+   &lt;chr&gt; &lt;int&gt;
+ 1 the   21565
+ 2 and   14433
+ 3 to    13679
+ 4 of    13087
+ 5 in     8116
+ 6 we     7327
+ 7 a      7137
+ 8 our    6822
+ 9 that   5391
+10 for    4513</code></pre>
+</div>
+</div>
+<p>The usual suspects are at the top of the list. This is not surprising, and will likely be the case for most corpora, and sizeable subcorpora –in our case the time periods. Let’s address this.</p>
+<p>We could use a stopwords list to just eliminate many of these common words, but that might be a bit too agressive and we will likely lose some words that we want to keep. Considering a more nuanced approach, we will use the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> transformation to attenuate the effect of words that are common across all time periods, and on the flip side, to promote the effect of words that are more distinctive to each time period.</p>
+<p>In order to do this, we will need to calculate the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> for each word in each time period. To keep things simple, we will calculate the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> for each word in each decade. We will do this by creating a new variable called <code>decade</code> that is the year rounded down to the nearest decade. Then we can group by this <code>decade</code> variable and then count the number of times each word occurs. We will then calculate the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> for each word in each decade using the <code>bind_tf_idf()</code> function from {tidytext}. We will then arrange the data in descending order by the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> value.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the tf-idf of words by decade ------------------------------</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>sotu_words_tfidf_df <span class="ot">&lt;-</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  sotu_words_df <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">decade =</span> <span class="fu">floor</span>(year <span class="sc">/</span> <span class="dv">10</span>) <span class="sc">*</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(decade, word) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(word, decade, n) <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(decade, <span class="fu">desc</span>(tf_idf))</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>sotu_words_tfidf_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40,073 × 6
+   decade word               n       tf   idf   tf_idf
+    &lt;dbl&gt; &lt;chr&gt;          &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1   1940 boycotts           5 0.000344 2.20  0.000756
+ 2   1940 jurisdictional     7 0.000482 1.50  0.000725
+ 3   1940 interpretation     4 0.000275 2.20  0.000605
+ 4   1940 unjustified        4 0.000275 2.20  0.000605
+ 5   1940 insecurity         5 0.000344 1.50  0.000518
+ 6   1940 arbitration        3 0.000207 2.20  0.000454
+ 7   1940 output             6 0.000413 1.10  0.000454
+ 8   1940 unjustifiable      3 0.000207 2.20  0.000454
+ 9   1940 management        25 0.00172  0.251 0.000433
+10   1940 rental             4 0.000275 1.50  0.000414
+# ℹ 40,063 more rows</code></pre>
+</div>
+</div>
+<p>OK. Even the preview shows that we are getting a more interesting list of words.</p>
+<p>Let’s look at the top 10 words for each decade. We group by <code>decade</code> and then slice the top 10 words by <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> value with <code>slice_max()</code>. Then we will use the <code>reorder_within()</code> function from {tidytext} to reorder the words within each facet by the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> value.</p>
+<p>We will visualize this with a bar chart where word is on the x-axis and the height of the bar is the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> value. We will also facet the plot by decade. I’ve flipped the coordinates so that the words are on the y-axis and the bars are horizontal. This is a personal preference, but I find it easier to read the words this way.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sotu_words_tfidf_df <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(decade) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">10</span>, tf_idf) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">decade =</span> <span class="fu">as.character</span>(decade)) <span class="sc">|&gt;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">reorder_within</span>(word, <span class="fu">desc</span>(tf_idf), decade)) <span class="sc">|&gt;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(word, tf_idf, <span class="at">fill =</span> decade)) <span class="sc">+</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>decade, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-freq-words-tfidf-top-10" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-freq-words-tfidf-top-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-freq-words-tfidf-top-10-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sotu-freq-words-tfidf-top-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Visualize the top 10 words by decade
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Scanning the top words for the decades we can see some words that signal contemporary issues. This is a hint that we are picking up on some of the changes in the language of the SOTU over time.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>The plot above makes use of the <code>reorder_within()</code> and <code>scale_x_reordered()</code> functions from {tidytext}. These functions allow us to reorder the words within each facet by the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> value. This is a nice way to visualize the most distinctive words for each decade. These are more advanced functions. If you are interested in learning more about them, you can read more about them in the help documentation <code>?tidytext::reorder_within</code></p>
+</div>
+</div>
+</div>
+<p>To my eye, however, the 1940s and the 2020s don’t seem to jump out at me in the same way. Let’s take a closer look at the 1940s and the 2020s in our original dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sotu_df <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&lt;</span> <span class="dv">1950</span> <span class="sc">|</span> year <span class="sc">&gt;=</span> <span class="dv">2020</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  president  year party      address                                            
+  &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;                                              
+1 Truman     1947 Democratic "Mr. President, Mr. Speaker, Members of the Congre…
+2 Truman     1948 Democratic "Mr. President, Mr. Speaker, and Members of the 80…
+3 Truman     1949 Democratic "Mr. President, Mr. Speaker, Members of the Congre…
+4 Trump      2020 Republican "Madam Speaker, Mr. Vice President, Members of Con…</code></pre>
+</div>
+</div>
+<p>Well, that explains it. There are only 3 addresses in the 1940s and 1 address in the 2020s. This is not enough data to get a good sense of the language of the SOTU for these decades. Let’s remove these decades from our original dataset as not being representative of the language of the SOTU.</p>
+<p>Another consideration that catches my eye in looking at the top words by decade is that our words like “communist” and “communists” are being counted separately. That is fine, but what if we want to count these as the same word? We can do this by lemmatizing the words –that is reducing the words to their root form. We can do this using the <code>lemmatize_words()</code> function from {textstem}.</p>
+<p>So consider this example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lemmatize the words --------------------------------------------</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>words_chr <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"freedom"</span>, <span class="st">"free"</span>, <span class="st">"frees"</span>, <span class="st">"freeing"</span>, <span class="st">"freed"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>textstem<span class="sc">::</span><span class="fu">lemmatize_words</span>(words_chr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "freedom" "free"    "free"    "free"    "free"   </code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>By default, the <code>lemmatize_words()</code> function uses a lookup table for English to lemmatize words. This is a simple approach that works well for many cases. However, it is not perfect. For example, it will not lemmatize words that are not in the lookup table.</p>
+<p>If you want to lemmatize words that are not in the lookup table, or you want to lemmatize words in another language, you can create or add to a lookup table. You can read more about this in the help documentation <code>?textstem::lemmatize_words()</code>.</p>
+<p>A resource for lemma lookup tables can be found here <a href="https://github.com/michmech/lemmatization-lists" class="uri">https://github.com/michmech/lemmatization-lists</a>.</p>
+</div>
+</div>
+</div>
+<p>With these considerations in mind, let’s update our <code>sotu_df</code> dataset to remove the 1940s and 2020s, tokenize and lemmatize the words, and add a decade variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Update the dataset ----------------------------------------------</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>sotu_terms_df <span class="ot">&lt;-</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  sotu_df <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1950</span> <span class="sc">&amp;</span> year <span class="sc">&lt;</span> <span class="dv">2020</span>) <span class="sc">|&gt;</span> <span class="co"># Remove the 1940s and 2020s</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, address, <span class="at">strip_numeric =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="co"># Tokenize the words</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lemma =</span> textstem<span class="sc">::</span><span class="fu">lemmatize_words</span>(word)) <span class="sc">|&gt;</span> <span class="co"># Lemmatize the words</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">decade =</span> <span class="fu">floor</span>(year <span class="sc">/</span> <span class="dv">10</span>) <span class="sc">*</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> <span class="co"># Add a decade variable</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(president, decade, year, party, word, lemma) <span class="co">#</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>sotu_terms_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 368,586 × 6
+   president decade  year party      word      lemma    
+   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;    
+ 1 Truman      1950  1950 Democratic mr        mr       
+ 2 Truman      1950  1950 Democratic president president
+ 3 Truman      1950  1950 Democratic mr        mr       
+ 4 Truman      1950  1950 Democratic speaker   speaker  
+ 5 Truman      1950  1950 Democratic members   member   
+ 6 Truman      1950  1950 Democratic of        of       
+ 7 Truman      1950  1950 Democratic the       the      
+ 8 Truman      1950  1950 Democratic congress  congress 
+ 9 Truman      1950  1950 Democratic a         a        
+10 Truman      1950  1950 Democratic year      year     
+# ℹ 368,576 more rows</code></pre>
+</div>
+</div>
+<p>This inspection process could go on for a while. We could continue to inspect the data and make changes to the dataset but it is often the case that in the process of analysis we will often run into issues that require us to go back and make changes to the dataset. So we will move on to the next step in the exploratory analysis workflow.</p>
+</section>
+<section id="interrogate" class="level3">
+<h3 class="anchored" data-anchor-id="interrogate">Interrogate</h3>
+<p>Now that we have our data in a tidy format, we can move on to the next step in the exploratory analysis workflow: interrogating the data. We will submit the selected variables to descriptive or unsupervised learning methods to provide quantitative measures to evaluate.</p>
+<section id="frequency" class="level4">
+<h4 class="anchored" data-anchor-id="frequency">Frequency</h4>
+<ol type="1">
+<li>What are the most frequent words across time periods?</li>
+</ol>
+<p>We have already made some progress on this question in the inspection phase, but now we can do it again with the updated dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the most frequent lemmas by decade --------------------------</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>sotu_lemmas_tfidf_df <span class="ot">&lt;-</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  sotu_terms_df <span class="sc">|&gt;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(decade, lemma) <span class="sc">|&gt;</span> <span class="co"># Count the lemmas by decade</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(lemma, decade, n) <span class="sc">|&gt;</span> <span class="co"># Calculate the tf-idf</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(decade, <span class="fu">desc</span>(tf_idf))</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>sotu_lemmas_tfidf_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 26,435 × 6
+   decade lemma            n       tf   idf   tf_idf
+    &lt;dbl&gt; &lt;chr&gt;        &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+ 1   1950 armament        16 0.000321 1.95  0.000625
+ 2   1950 imperialism      9 0.000181 1.95  0.000351
+ 3   1950 shall          107 0.00215  0.154 0.000331
+ 4   1950 disarmament     13 0.000261 1.25  0.000327
+ 5   1950 mineral          8 0.000160 1.95  0.000312
+ 6   1950 mobilization    12 0.000241 1.25  0.000302
+ 7   1950 survivor        12 0.000241 1.25  0.000302
+ 8   1950 expenditure     42 0.000842 0.336 0.000283
+ 9   1950 adequate        25 0.000501 0.560 0.000281
+10   1950 constantly      11 0.000221 1.25  0.000276
+# ℹ 26,425 more rows</code></pre>
+</div>
+</div>
+<p>Now we can visualize the top 10 lemmas for each decade, as we did above, but for the lemmas instead of the words and for seven full decades.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sotu_lemmas_tfidf_df <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(decade) <span class="sc">|&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_max</span>(<span class="at">n =</span> <span class="dv">10</span>, tf_idf) <span class="sc">|&gt;</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">decade =</span> <span class="fu">as.character</span>(decade)) <span class="sc">|&gt;</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lemma =</span> <span class="fu">reorder_within</span>(lemma, <span class="fu">desc</span>(tf_idf), decade)) <span class="sc">|&gt;</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(lemma, tf_idf, <span class="at">fill =</span> decade)) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>decade, <span class="at">scales =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-freq-lemmas-tfidf-top-10" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-freq-lemmas-tfidf-top-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-freq-lemmas-tfidf-top-10-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sotu-freq-lemmas-tfidf-top-10-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Visualize the top 10 lemmas by decade
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="distribution" class="level4">
+<h4 class="anchored" data-anchor-id="distribution">Distribution</h4>
+<ol start="2" type="1">
+<li>How does the distribution of words change across time periods?</li>
+</ol>
+<p>OK. Now let’s focus on word frequency distributions over time. We will return to the <code>sotu_terms_df</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sotu_terms_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 368,586 × 6
+   president decade  year party      word      lemma    
+   &lt;chr&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;    
+ 1 Truman      1950  1950 Democratic mr        mr       
+ 2 Truman      1950  1950 Democratic president president
+ 3 Truman      1950  1950 Democratic mr        mr       
+ 4 Truman      1950  1950 Democratic speaker   speaker  
+ 5 Truman      1950  1950 Democratic members   member   
+ 6 Truman      1950  1950 Democratic of        of       
+ 7 Truman      1950  1950 Democratic the       the      
+ 8 Truman      1950  1950 Democratic congress  congress 
+ 9 Truman      1950  1950 Democratic a         a        
+10 Truman      1950  1950 Democratic year      year     
+# ℹ 368,576 more rows</code></pre>
+</div>
+</div>
+<p>We want to get a sense of how the word distributions change over time. We need to calculate the frequency of words for each year, first off. So we need to go back to the <code>sotu_terms_df</code> dataset and group by <code>year</code> and <code>word</code> and then count the number of times each word occurs.</p>
+<p>Since we will lose the <code>lemma</code> variable in this process, we will add it back after the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> transformation by using the <code>mutate()</code> function and the <code>textstem::lemmatize_words()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sotu_terms_tfidf_df <span class="ot">&lt;-</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  sotu_terms_df <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, word) <span class="sc">|&gt;</span> <span class="co"># Count the words by year</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(word, year, n) <span class="sc">|&gt;</span> <span class="co"># Calculate the tf-idf</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lemma =</span> textstem<span class="sc">::</span><span class="fu">lemmatize_words</span>(word)) <span class="sc">|&gt;</span> <span class="co"># Lemmatize the words</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year, <span class="fu">desc</span>(tf_idf))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>sotu_terms_tfidf_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 97,213 × 7
+    year word               n       tf   idf  tf_idf lemma         
+   &lt;dbl&gt; &lt;chr&gt;          &lt;int&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;         
+ 1  1950 enjoyment          3 0.000585 3.54  0.00207 enjoyment     
+ 2  1950 rent               3 0.000585 2.85  0.00167 rend          
+ 3  1950 widespread         3 0.000585 2.85  0.00167 widespread    
+ 4  1950 underdeveloped     2 0.000390 4.23  0.00165 underdeveloped
+ 5  1950 ideals             7 0.00136  1.14  0.00156 ideal         
+ 6  1950 transmit           3 0.000585 2.62  0.00153 transmit      
+ 7  1950 peoples            8 0.00156  0.976 0.00152 people        
+ 8  1950 democratic        12 0.00234  0.623 0.00146 democratic    
+ 9  1950 expenditures       7 0.00136  1.06  0.00144 expenditure   
+10  1950 businessmen        3 0.000585 2.44  0.00143 businessman   
+# ℹ 97,203 more rows</code></pre>
+</div>
+</div>
+<p>With this format, we can visualize the distinctiveness of words over time. All we need to do is to filter the data to the lemmas we are interested first.</p>
+<p>Let’s just start with some random poltical-oriented words.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>plot_terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"crime"</span>, <span class="st">"law"</span>, <span class="st">"free"</span>, <span class="st">"terror"</span>, <span class="st">"family"</span>, <span class="st">"government"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>sotu_terms_tfidf_df <span class="sc">|&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lemma <span class="sc">%in%</span> plot_terms) <span class="sc">|&gt;</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, tf_idf)) <span class="sc">+</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>lemma, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-terms-tfidf-df-political" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-terms-tfidf-df-political-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-terms-tfidf-df-political-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sotu-terms-tfidf-df-political-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Distictiveness of political words over time
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see in <a href="#fig-sotu-terms-tfidf-df-political" class="quarto-xref">Figure&nbsp;5</a> that the distinctiveness of these lemmas varies over time. Now, in this plot I’ve used a small span value for the <code>geom_smooth()</code> function to get a sense of the more fine-grained changes over time. However, this is may be too fine-grained. We can adjust this by increasing the <code>span</code> value. Let’s try a <code>span</code> value of 0.5.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>sotu_terms_tfidf_df <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lemma <span class="sc">%in%</span> plot_terms) <span class="sc">|&gt;</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, tf_idf)) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>lemma, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-terms-tfidf-df-political-smooth-detail" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-terms-tfidf-df-political-smooth-detail-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-terms-tfidf-df-political-smooth-detail-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sotu-terms-tfidf-df-political-smooth-detail-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Distinctiveness of political words over time
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Figure @ref(fig:sotu-terms-tfidf-df-political-smooth-detail) seems to be picking up on some of the more general word usage trends over time.</p>
+<p>Another thing to note about the way we plotted the data is that we used the <code>facet_wrap()</code> function to create a separate plot for each word but we used the <code>scales = "free_y"</code> allowing the y-axis to vary for each plot. This means we are not comparing the y-axis values across plots and thus can not say anything about the differing magnitudes from a visual inspection.</p>
+<p>To address this, we can remove the <code>scales = "free_y"</code> argument and use the default which will fix the x- and y-axis scales across plots.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sotu_terms_tfidf_df <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lemma <span class="sc">%in%</span> plot_terms) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, tf_idf)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>lemma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-terms-tfidf-df-political-smooth-detailed-fixed" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-terms-tfidf-df-political-smooth-detailed-fixed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-terms-tfidf-df-political-smooth-detailed-fixed-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sotu-terms-tfidf-df-political-smooth-detailed-fixed-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Distinctiveness of political words over time
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>In <a href="#fig-sotu-terms-tfidf-df-political-smooth-detailed-fixed" class="quarto-xref">Figure&nbsp;7</a>, we can clearly see that the magnitude of the words “crime” and “terror” are much higher than the other words we happend to select. Furthermore, these words have interesting patterns. In particular, “terror” has two peaks on around 1980 and another around the turn of the century. “Crime” also has two distinctive peaks on in the 1970s and one in the 1990s.</p>
+<p>The terms that I selected before were somewhat arbitrary. How can I identify the words that have changed the most drastically over these years from the data itself? We can do this by creating a term-document matrix with and then calculating the standard deviation of the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> values for each word. This will give us a sense of the words that have changed the most over time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create TDM with words-year and tf-idf values</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>sotu_word_tfidf_mat <span class="ot">&lt;-</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  sotu_terms_tfidf_df <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cast_tdm</span>(word, year, tf_idf) <span class="sc">|&gt;</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>()</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(sotu_word_tfidf_mat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 13109    69</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>sotu_word_tfidf_mat[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                Docs
+Terms               1950    1951     1952 1953 1954
+  enjoyment      0.00207 0.00000 0.000661    0    0
+  rent           0.00167 0.00000 0.000000    0    0
+  widespread     0.00167 0.00000 0.000000    0    0
+  underdeveloped 0.00165 0.00000 0.000000    0    0
+  ideals         0.00156 0.00171 0.000853    0    0</code></pre>
+</div>
+</div>
+<p>To calculate the standard deviation of the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> values for each word, we can use the <code>apply()</code> function to iterate over each row of the matrix and calculate the standard deviation of the values in each row. You can think of the <code>apply()</code> function as a cousin of the <code>map()</code> function. The <code>apply()</code> function iterates over the rows or columns of a matrix or data frame and applies a function to each row or column. We choose whether the function is applied to the rows or columns with the <code>MARGIN</code> argument. We can set <code>MARGIN = 1</code> to apply the function to the rows and <code>MARGIN = 2</code> to apply the function to the columns.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the standard deviation of the tf-idf values for each word</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>sotu_words_sd <span class="ot">&lt;-</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply</span>(sotu_word_tfidf_mat, <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">FUN =</span> sd, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview seed words</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>sotu_words_sd <span class="sc">|&gt;</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sort</span>(<span class="at">decreasing =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     vietnam      hussein       saddam         salt         iraq        shall 
+    0.001188     0.001138     0.001121     0.001067     0.000976     0.000887 
+         oil        iraqi       that's   inspectors        qaida       terror 
+    0.000798     0.000786     0.000733     0.000715     0.000702     0.000662 
+  terrorists         it's        crude       soviet    terrorist     activity 
+    0.000651     0.000647     0.000635     0.000633     0.000632     0.000630 
+    covenant arrangements      session           al  disarmament       steven 
+    0.000611     0.000609     0.000596     0.000596     0.000589     0.000588 
+     wartime      barrels         isil    mentioned        ought        elvin 
+    0.000573     0.000569     0.000567     0.000559     0.000558     0.000556 
+      iraqis         ryan        we're         kids        let's          gun 
+    0.000551     0.000539     0.000539     0.000535     0.000533     0.000532 
+     rebekah           cj        camps      empower         cory        we've 
+    0.000531     0.000527     0.000524     0.000523     0.000522     0.000518 
+         92d  afghanistan    childcare        100th        music         gulf 
+    0.000516     0.000514     0.000513     0.000507     0.000500     0.000494 
+        21st   extremists   foundation      picture     beguiled  contemplate 
+    0.000491     0.000489     0.000487     0.000486     0.000473     0.000473 
+   enumerate    hurriedly   hysterical  ingredients        smile       smiles 
+    0.000473     0.000473     0.000473     0.000473     0.000473     0.000473 
+    wagehour     josefina        shi'a        alice     alliance    seventies 
+    0.000473     0.000471     0.000468     0.000468     0.000467     0.000464 
+      herman       joshua      matthew        julie         11th       border 
+    0.000463     0.000463     0.000463     0.000462     0.000461     0.000459 
+     persian    recommend    communist        mayor    nicaragua       planes 
+    0.000456     0.000453     0.000447     0.000443     0.000442     0.000442 
+      trevor        corey       kenton      preston        seong     property 
+    0.000440     0.000439     0.000439     0.000439     0.000439     0.000439 
+     regimes       disarm      mention    peacetime   localities    objective 
+    0.000437     0.000436     0.000436     0.000433     0.000429     0.000428 
+         i'm       surtax        banks       pounds       foster          she 
+    0.000424     0.000423     0.000423     0.000422     0.000421     0.000418 
+        isis  sandinistas  discharging         gold 
+    0.000417     0.000416     0.000416     0.000415 </code></pre>
+</div>
+</div>
+<p>Now we can choose from the top words that have changed the most over time. Here’s another selection of words based on the standard deviation of the <span class="math inline">\(tf\)</span>-<span class="math inline">\(idf\)</span> values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>plot_terms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"equality"</span>, <span class="st">"right"</span>, <span class="st">"community"</span>, <span class="st">"child"</span>, <span class="st">"woman"</span>, <span class="st">"man"</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>sotu_terms_tfidf_df <span class="sc">|&gt;</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(lemma <span class="sc">%in%</span> plot_terms) <span class="sc">|&gt;</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(year, tf_idf)) <span class="sc">+</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>lemma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-terms-tfidf-sd-based" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-terms-tfidf-sd-based-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-terms-tfidf-sd-based-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sotu-terms-tfidf-sd-based-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Distinctiveness of words over time
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can see that the words I selected based on the standard deviation, in <a href="#fig-sotu-terms-tfidf-sd-based" class="quarto-xref">Figure&nbsp;8</a>, can either increase, decrease, or fluctuate over time.</p>
+</section>
+<section id="meaning" class="level4">
+<h4 class="anchored" data-anchor-id="meaning">Meaning</h4>
+<ol start="3" type="1">
+<li>How does the meaning of words change across time periods?</li>
+</ol>
+<p>For this approach we need to turn to word embeddings. Word embeddings have been show to capture distributional semantics –that is the meaning of words based on their distribution in a corpus <span class="citation" data-cites="Hamilton2016">(<a href="#ref-Hamilton2016" role="doc-biblioref">Hamilton, Leskovec, and Jurafsky 2016</a>)</span>.</p>
+<p>Since our research question is aimed a change over time we are performing a diachronic analysis. This means that we will need to create word embeddings for each time period, identify the common vocabulary across time periods, and then align the word embeddings to a common space before we can compare them.</p>
+<p>Let’s load some packages that we will need.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs) <span class="co"># for file system functions</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PsychWordVec) <span class="co"># for working with word embeddings</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr) <span class="co"># for iterating over lists</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s first start by creating sub-corpora for each decade. We will write these to disk so that we can use them again if necessary. Note that data or datasets that are generated in the process of analysis are often stored in an <code>analysis/</code> folder inside of the main data folder to keep them separate from the other data acquired or derived in the project.</p>
+<p>We will use the <code>str_c()</code> function to summarize the words for each address into a single string by decade. We will then use the <code>write_lines()</code> function to write the string to a text file. The <code>pwalk()</code> function from {purrr} is a convenient way to iterate over multiple arguments (<code>decade</code> and <code>address</code> in this case) in a function without returning a value to the console. The <code>p</code> in <code>pwalk()</code> stands for “parallel” and indicates that the function will iterate over the arguments in parallel.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sub-corpora for each decade and write to disk ------------</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>sotu_terms_df <span class="sc">|&gt;</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">address =</span> <span class="fu">str_c</span>(lemma, <span class="at">collapse =</span> <span class="st">" "</span>), <span class="at">.by =</span> decade) <span class="sc">|&gt;</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(decade, address) <span class="sc">|&gt;</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pwalk</span>(\(decade, address) {</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    file_name <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="st">"../data/analysis/sotu/"</span>, decade, <span class="st">"s.txt"</span>)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">write_lines</span>(address, file_name)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now I have written a function to read the text files, train the word embeddings for each, write the word embeddings to disk, and then load them back as VectorSpaceModel objects in a list.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>A note on the training of the word embeddings. There are two main approaches to training word embeddings: Continuous Bag of Words (CBOW) and Skip-gram. CBOW is better for more common words and larger datasets. Skip-gram is better for less common words and smaller datasets. Given the varying sizes of the sub-corpora, Skip-gram might be more suitable as it may capture more nuances in less frequent words. Furthermore, the number of dimensions is a hyperparameter that needs to be tuned. The default is 50, but I have chosen 100 as we are attempting to capture more nuanced changes in the language of the SOTU.</p>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>create_embeddings <span class="ot">&lt;-</span> <span class="cf">function</span>(dir_path, <span class="at">dims =</span> <span class="dv">100</span>) {</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Get the text file paths</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  txt_files <span class="ot">&lt;-</span> <span class="fu">dir_ls</span>(dir_path, <span class="at">regexp =</span> <span class="st">"</span><span class="sc">\\</span><span class="st">.txt$"</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Train the word embeddings</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  models <span class="ot">&lt;-</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    txt_files <span class="sc">|&gt;</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">map</span>(\(file) {</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">train_wordvec</span>(</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> file,</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">dims =</span> <span class="dv">100</span>,</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">normalize =</span> <span class="cn">TRUE</span></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Modify the list names</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(models) <span class="ot">&lt;-</span></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">names</span>(models) <span class="sc">|&gt;</span></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">basename</span>() <span class="sc">|&gt;</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_remove</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">.txt"</span>)</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert to embed matrices</span></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>  models <span class="ot">&lt;-</span> <span class="fu">map</span>(models, as_embed)</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(models)</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now apply the <code>create_embeddings()</code> custom function to the decade sub-corpora text files in <code>../analysis/sotu/</code>.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>sotu_vec_mods <span class="ot">&lt;-</span> <span class="fu">create_embeddings</span>(<span class="st">"../analysis/sotu/"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each word embedding model is a matrix with the words as the rows and the dimensions as the columns as an element of the <code>sotu_vec_mods</code> list. Each of these elements have the name of the decade. We can extract an element from a list using the <code>pluck()</code> function from {purrr}.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract an element from a list</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>sotu_vec_mods <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">"1950s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        dim1 ...     dim100
+   1: the             0.2910 ... &lt;100 dims&gt;
+   2: of              0.2229 ... &lt;100 dims&gt;
+   3: and             0.2818 ... &lt;100 dims&gt;
+   4: be              0.1370 ... &lt;100 dims&gt;
+   5: to              0.2336 ... &lt;100 dims&gt;
+-----                                      
+1164: appear          0.2471 ... &lt;100 dims&gt;
+1165: allegiance      0.2689 ... &lt;100 dims&gt;
+1166: accumulate      0.2158 ... &lt;100 dims&gt;
+1167: accomplishment  0.2241 ... &lt;100 dims&gt;
+1168: accept          0.2440 ... &lt;100 dims&gt;</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>Since we have our models in a list, we will be using {purrr} functions quite a bit. Here’s a quick summary of some of the {purrr} functions we will be using.</p>
+<ul>
+<li><code>map()</code> iterates over a list and applies a function to each element of the list. It returns a list.</li>
+<li><code>walk()</code> iterates over a list and applies a function to each element of the list. It does not return a value.</li>
+</ul>
+<p>Each of these has a parallel version, <code>pmap()</code> and <code>pwalk()</code>, which iterate over multiple lists in parallel, and a version that iterates over named lists, <code>imap()</code> and <code>iwalk()</code>. The <code>p</code> in <code>pmap()</code> and <code>pwalk()</code> stands for “parallel” and indicates that the function will iterate over the arguments in parallel. The <code>i</code> in <code>imap()</code> and <code>iwalk()</code> stands for “indexed” and indicates that the function will iterate over the arguments in parallel and return the index of the list element.</p>
+</div>
+</div>
+</div>
+<p>These embeddings can be explored in a number of ways. For example, we can get the words closest to a given word in the vector space for each decade. {PsychWordVec} has a function, <code>most_similar()</code>, that will do this for us. We can use the <code>map()</code> function to iterate over each model in the list and get the words with the most similar vectors. We will then use the <code>str_c()</code> function to summarize the words into a single string for each decade.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get the closest words</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>sotu_vec_mods <span class="sc">|&gt;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(mod) {</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">most_similar</span>(mod, <span class="st">"freedom"</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>) <span class="co"># get words similar to "freedom"</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(res) {</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_c</span>(res<span class="sc">$</span>word, <span class="at">collapse =</span> <span class="st">", "</span>) <span class="co"># summarize the words into a single string</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`1950s`
+[1] "justice, peace, man, not, spirit, ideal, peaceful, fight, us, preserve"
+
+$`1960s`
+[1] "free, unity, berlin, asia, independence, course, communist, nation, europe, both"
+
+$`1970s`
+[1] "defend, close, destroy, found, shape, side, deter, honor, root, international"
+
+$`1980s`
+[1] "democracy, peace, struggle, defend, everywhere, democratic, secure, country, fighter, free"
+
+$`1990s`
+[1] "liberty, define, all, lead, perfect, share, force, communism, shape, latin"
+
+$`2000s`
+[1] "east, democracy, friend, liberty, woman, determine, military, middle, region, remain"
+
+$`2010s`
+[1] "heart, vision, remind, hero, hopeful, dignity, capitol, celebrate, journey, honor"</code></pre>
+</div>
+</div>
+<p>The previous example shows that the closest words to “freedom” in each decade in a synchronic manner. We can inspect these synchronic changes and draw conclusions from them. However, we are interested in diachronic changes. To do this, we will need to align the word embeddings to a common space.</p>
+<p>Now we will identify the common words across the decades and subset the word embeddings to the common vocabulary. The <code>map()</code> function iterates over each model in the list and returns the rownames with <code>rownames()</code> (words) for each model. The <code>reduce()</code> function then iterates over the list of words and returns the intersection of the words across the models with <code>intersect()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract the common vocabulary -----------------------------------</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>common_vocab <span class="ot">&lt;-</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  sotu_vec_mods <span class="sc">|&gt;</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(rownames) <span class="sc">|&gt;</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(intersect)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(common_vocab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 534</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(common_vocab)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "the" "of"  "and" "be"  "to"  "in" </code></pre>
+</div>
+</div>
+<p>There are 534 words in the common vocabulary. Now we can subset the word embeddings to the common vocabulary. We will use the <code>map()</code> function to iterate over each model in the list and subset the model to the common vocabulary using the <code>common_vocab</code> variable as part of the bracket notation subset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the models to the common vocabulary ----------------------</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>sotu_vec_common_mods <span class="ot">&lt;-</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  sotu_vec_mods <span class="sc">|&gt;</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(mod) {</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>    mod[common_vocab, ] <span class="co"># subset each model to the common vocabulary</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>sotu_vec_common_mods <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">"1950s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   dim1 ...     dim100
+  1: the         0.2910 ... &lt;100 dims&gt;
+  2: of          0.2229 ... &lt;100 dims&gt;
+  3: and         0.2818 ... &lt;100 dims&gt;
+  4: be          0.1370 ... &lt;100 dims&gt;
+  5: to          0.2336 ... &lt;100 dims&gt;
+----                                  
+530: happen      0.2186 ... &lt;100 dims&gt;
+531: everything  0.2229 ... &lt;100 dims&gt;
+532: different   0.2373 ... &lt;100 dims&gt;
+533: debate      0.2244 ... &lt;100 dims&gt;
+534: city        0.2320 ... &lt;100 dims&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>sotu_vec_common_mods <span class="sc">|&gt;</span> <span class="fu">pluck</span>(<span class="st">"2010s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   dim1 ...     dim100
+  1: the        -0.1464 ... &lt;100 dims&gt;
+  2: of         -0.1187 ... &lt;100 dims&gt;
+  3: and        -0.1090 ... &lt;100 dims&gt;
+  4: be         -0.1162 ... &lt;100 dims&gt;
+  5: to         -0.0842 ... &lt;100 dims&gt;
+----                                  
+530: happen     -0.1037 ... &lt;100 dims&gt;
+531: everything -0.0982 ... &lt;100 dims&gt;
+532: different  -0.1032 ... &lt;100 dims&gt;
+533: debate     -0.1111 ... &lt;100 dims&gt;
+534: city       -0.1179 ... &lt;100 dims&gt;</code></pre>
+</div>
+</div>
+<p>So now each of the models in the list has the same vocabulary and the same number of dimensions, 100.</p>
+<p>Now we can align the models to a common space. The reason that the models need to be aligned is that the word embeddings are trained on different corpora. This means that the words will be represented in different spaces. We will use the Orthogonal Procrustes solution to align the models to a common coordinate space. {PsychWordVec} <span class="citation" data-cites="R-PsychWordVec">(<a href="#ref-R-PsychWordVec" role="doc-biblioref">Bao 2023</a>)</span> has a function, <code>orth_procrustes()</code>, that will do this for us. In the process of aligning the models, the models are converted to plain matrices so we will need to convert them back to <code>embed</code> matrix objects.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Align the models to a common space</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>sotu_aligned_mods <span class="ot">&lt;-</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  sotu_vec_common_mods <span class="sc">|&gt;</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(mod) {</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">orth_procrustes</span>(sotu_vec_common_mods[[<span class="dv">1</span>]], mod) <span class="co"># align to the first model</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(mod) {</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    emb <span class="ot">&lt;-</span> <span class="fu">as_embed</span>(mod) <span class="co"># convert to a embed matrix object</span></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    emb</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>  })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Having a model for each decade which is aligned in vocabulary and space, we can now use these models to compare words across time. There are a number of ways we can compare words across time.</p>
+<p>In our first approach, let’s consider the semantic displacement of words over time in the vector space. We will do this by calculating the cosine difference between the word embeddings for a word in each decade. Once we have the cosine difference, we can visualize the change over time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the cosine difference between the models --------------</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>word <span class="ot">&lt;-</span> <span class="st">"freedom"</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>word_vectors <span class="ot">&lt;-</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>  sotu_aligned_mods <span class="sc">|&gt;</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(mod) {</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    mod[word, ]</span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>differences <span class="ot">&lt;-</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>  word_vectors <span class="sc">|&gt;</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(vec) {</span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cos_dist</span>(vec, word_vectors[[<span class="dv">1</span>]])</span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>differences</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$`1950s`
+[1] 0
+
+$`1960s`
+[1] 0.0236
+
+$`1970s`
+[1] 0.0437
+
+$`1980s`
+[1] 0.0354
+
+$`1990s`
+[1] 0.0203
+
+$`2000s`
+[1] 0.0207
+
+$`2010s`
+[1] 0.0333</code></pre>
+</div>
+</div>
+<p>We now have a list with the cosine difference for each decade compared to the first decade (“1950s”). We can visualize this with a line plot where the x-axis is the decade and the y-axis is the cosine difference. We will add a linear trend line to the plot to get a sense of the overall trend.</p>
+<p>I’ll write a function to get the differences for a word and then return a data frame with the decade and the difference. This will make it easier to visualize the differences for multiple words.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to get the cosine difference over time</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>get_cosine_diff <span class="ot">&lt;-</span> <span class="cf">function</span>(word, models) {</span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  word_vectors <span class="ot">&lt;-</span> <span class="fu">map</span>(models, \(mod) {</span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    mod[word, ]</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>  differences <span class="ot">&lt;-</span> <span class="fu">map</span>(word_vectors, \(vec) {</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cos_dist</span>(vec, word_vectors[[<span class="dv">1</span>]])</span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(word, <span class="at">decade =</span> <span class="fu">basename</span>(<span class="fu">names</span>(differences)), <span class="at">difference =</span> <span class="fu">unlist</span>(differences))</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a><span class="fu">get_cosine_diff</span>(<span class="at">word =</span> <span class="st">"freedom"</span>, <span class="at">models =</span> sotu_aligned_mods)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 3
+  word    decade difference
+  &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt;
+1 freedom 1950s      0     
+2 freedom 1960s      0.0236
+3 freedom 1970s      0.0437
+4 freedom 1980s      0.0354
+5 freedom 1990s      0.0203
+6 freedom 2000s      0.0207
+7 freedom 2010s      0.0333</code></pre>
+</div>
+</div>
+<p>Let’s create a function which performs this for us and can plot multiple words at the same time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>plot_words <span class="ot">&lt;-</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"freedom"</span>, <span class="st">"nation"</span>, <span class="st">"country"</span>, <span class="st">"america"</span>)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>plot_words <span class="sc">|&gt;</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(get_cosine_diff, <span class="at">models =</span> sotu_aligned_mods) <span class="sc">|&gt;</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">|&gt;</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(decade) <span class="sc">|&gt;</span></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(decade, difference, <span class="at">group =</span> word, <span class="at">color =</span> word)) <span class="sc">+</span></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-plot-words-cosine-diff" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-words-cosine-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-plot-words-cosine-diff-1.png" id="fig-plot-words-cosine-diff" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-plot-words-cosine-diff-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>We can then focus in on a particular word and the nearest words to that word in each decade. We will use the <code>map()</code> function to iterate over each model in the list and get the closest words to a word. We will then use the <code>str_c()</code> function to summarize the words into a single string for each decade.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to get the closest words to a word ---------------------</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>word <span class="ot">&lt;-</span> <span class="st">"america"</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>sotu_vec_common_mods <span class="sc">|&gt;</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(mod) {</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">most_similar</span>(mod, word, <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(\(mod) {</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_c</span>(mod<span class="sc">$</span>word, <span class="at">collapse =</span> <span class="st">", "</span>)</span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">enframe</span>(<span class="at">name =</span> <span class="st">"decade"</span>, <span class="at">value =</span> <span class="st">"words"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(words)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  decade words                                                                  
+  &lt;chr&gt;  &lt;chr&gt;                                                                  
+1 1950s  people, upon, life, democracy, standard, american, fail, within, deep,…
+2 1960s  leadership, agency, whole, serious, basic, historic, respect, responsi…
+3 1970s  where, liberty, determine, future, faith, happen, always, achieve, tru…
+4 1980s  never, great, let, ready, nation, faith, future, we, hope, struggle    
+5 1990s  liberty, freedom, important, duty, moment, arm, ahead, great, always, …
+6 2000s  remember, common, moment, first, rest, sense, beyond, share, reach, ch…
+7 2010s  strong, state, once, may, believe, union, your, among, citizen, forward</code></pre>
+</div>
+</div>
+<p>Another approach is to visualize the vector space that words occupy over time. To do this we will collapse the word embeddings for each decade into a single matrix. We will append the decade to each word as not to lose the decade information. The we will extract the first two principal components of the matrix, so that we can visualize the data in two dimensions. We will then plot the data with a scatter plot where the x-axis is the first principal component and the y-axis is the second principal component. We will label the points with the words.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize the vector space of words over time -------------------</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>sotu_joined_mods <span class="ot">&lt;-</span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  sotu_aligned_mods <span class="sc">|&gt;</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">imap</span>(\(mod, index) {</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames</span>(mod) <span class="ot">&lt;-</span> <span class="fu">str_c</span>(<span class="fu">rownames</span>(mod), <span class="st">"_"</span>, index)</span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>    mod</span>
+<span id="cb65-7"><a href="#cb65-7" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb65-8"><a href="#cb65-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce</span>(rbind) <span class="sc">|&gt;</span></span>
+<span id="cb65-9"><a href="#cb65-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_embed</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>PCA on the word embeddings, yes! With the aligned models the results are much more sensible and interesting. The individual words are grouped closer together across time, in general, but there are exceptions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>sotu_joined_pca <span class="ot">&lt;-</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  sotu_joined_mods <span class="sc">|&gt;</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale</span>() <span class="sc">|&gt;</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prcomp</span>()</span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>sotu_pca_df <span class="ot">&lt;-</span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(sotu_joined_pca<span class="sc">$</span>x[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]) <span class="sc">|&gt;</span></span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">names</span>(sotu_joined_pca<span class="sc">$</span>x[, <span class="dv">1</span>]))</span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a>sotu_pca_df <span class="sc">|&gt;</span></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(word, <span class="st">"^(nation|country|america)_"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> PC1, <span class="at">y =</span> PC2, <span class="at">label =</span> word)) <span class="sc">+</span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-sotu-word-embed-pca-summary" class="quarto-figure quarto-figure-center quarto-float anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sotu-word-embed-pca-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-sotu-word-embed-pca-summary-1.png" id="fig-sotu-word-embed-pca-summary" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-sotu-word-embed-pca-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>These kinds of visualizations can be very useful for exploring the data and drawing conclusions.</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this recipe, we have explored the State of the Union addresses from 1950 to 2019. We have used a number of tools and techniques to explore the data and draw conclusions. We have used {tidytext} to tokenize and lemmatize the words in the addresses. We have used {word2vec} to train word embeddings for each decade. We have used {PsychWordVec} to align the word embeddings to a common space. We have used {wordVectors} to explore the word embeddings. We have used {ggplot2} to visualize the data.</p>
+<p>These strategies, and others, can be used to explore these questions or other questions in more depth. Exploratory analysis is where your creativity and curiosity can shine.</p>
+</section>
+<section id="check-your-understanding" class="level2">
+<h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
+<!-- Comprehension questions -->
+<ol type="1">
+<li>In text analysis, <input class="webex-solveme nospaces" size="6" data-answer="[&quot;tf-idf&quot;,&quot;tfidf&quot;]"> is used to transform the effect of words that are common across all time periods and promote the effect of words that are more distinctive to each time period.</li>
+<li>What is the correct method to use when adding a linear trend line to a plot in ggplot2? <select class="webex-select"><option value="blank"></option><option value="answer">geom_smooth(method = ‘lm’)</option><option value="">geom_line()</option><option value="">geom_bar()</option><option value="">geom_point()</option></select></li>
+<li><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select> When working with lists, <code>walk()</code> is like <code>map()</code> but does not return a value.</li>
+<li><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select> When creating word embeddings, the CBOW model is better suited for less common words and smaller datasets compared to Skip-gram.</li>
+<li>The process of reducing the number of features in a dataset while retaining as much information as possible is known as <input class="webex-solveme nospaces" size="14" data-answer="[&quot;dimensionality&quot;,&quot;dimension&quot;]"> reduction.</li>
+</ol>
+</section>
+<section id="lab-preparation" class="level2">
+<h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
+<!-- Lab 08 description -->
+<p>In preparation for <a href="https://github.com/qtalr/lab-08">Lab 8</a>, review and and ensure that you are familiar with the following concepts:</p>
+<ul>
+<li>Tokenizing text</li>
+<li>Generating frequency and dispersion measures</li>
+<li>Creating Term-Document Matrices</li>
+<li>Using {purrr} to iterate over lists</li>
+<li>Visualizations with {ggplot2}</li>
+</ul>
+<p>In this lab, you will have the opportunity to apply the concepts from the materials in this chapter to a new dataset. You should consider the dataset and the questions that you want to ask of the data. You should also consider the tools and techniques that you will use to explore the data and draw conclusions. You will be asked to submit your code and a brief report of your findings.</p>
+</section>
+<section id="references" class="level2">
 
 
 
-</main> <!-- /main -->
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-R-PsychWordVec" class="csl-entry" role="listitem">
+Bao, Han-Wu-Shuang. 2023. <em>PsychWordVec: Word Embedding Research Framework for Psychological Science</em>. <a href="https://psychbruce.github.io/PsychWordVec/">https://psychbruce.github.io/PsychWordVec/</a>.
+</div>
+<div id="ref-Hamilton2016" class="csl-entry" role="listitem">
+Hamilton, William L., Jure Leskovec, and Daniel Jurafsky. 2016. <span>“Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change.”</span> In <em>Proceedings of the 54th Annual Meeting of the Association for Computational Linguistics</em>, 1489–1501.
+</div>
+</div></section></div></main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -833,7 +2031,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-08/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/recipes/recipe-08/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

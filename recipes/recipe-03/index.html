@@ -2,11 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.553">
+<meta name="generator" content="quarto-1.4.554">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jerid Francom">
 <meta name="description" content="In this Recipe we will explore appropriate methods for summarizing variables in datasets given the number and informational values of the variable(s). We will build on our understanding of how to summarize data using statistics, tables, and plots.">
 
 <title>Resources Kit - 03. Descriptive assessment of datasets</title>
@@ -155,7 +154,7 @@ div.csl-indent {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">About</span></a>
+<span class="menu-text">Getting started</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
@@ -226,12 +225,6 @@ div.csl-indent {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Jerid Francom </p>
-          </div>
-  </div>
     
   
     
@@ -250,24 +243,24 @@ div.csl-indent {
 <div class="callout-body-container">
 <p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Skills</strong></p>
 <ul>
-<li>Summary overviews of datasets with <code>skimr</code></li>
-<li>Summary statistics with <code>dplyr</code></li>
-<li>Creating Quarto tables with <code>knitr</code></li>
-<li>Creating Quarto plots with <code>ggplot2</code></li>
+<li>Summary overviews of datasets with {skimr}</li>
+<li>Summary statistics with {dplyr}</li>
+<li>Creating Quarto tables with {knitr}</li>
+<li>Creating Quarto plots with {ggplot2}</li>
 </ul>
 </div>
 </div>
 </div>
 <section id="concepts-and-strategies" class="level2">
 <h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
-<p>In this Recipe, we will use the <code>PassiveBrownFam</code> dataset from the <code>corpora</code> package <span class="citation" data-cites="R-corpora">(<a href="#ref-R-corpora" role="doc-biblioref">Evert 2023</a>)</span>. This dataset contains information on the passive voice usage in the Brown family of corpora. The dataset contains 11 variables and 2,449 observations.</p>
+<p>In this Recipe, we will use the <code>PassiveBrownFam</code> dataset from {corpora} <span class="citation" data-cites="R-corpora">(<a href="#ref-R-corpora" role="doc-biblioref">Evert 2023</a>)</span>. This dataset contains information on the passive voice usage in the Brown family of corpora. The dataset contains 11 variables and 2,449 observations.</p>
 <p>I have assigned this dataset to the object <code>brown_fam_df</code> and have made minor modifications to the variable names to improve the readability of the dataset.</p>
 <!-- [ ] code folding/ hiding? -->
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the dataset from the `corpora` package</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the dataset from {corpora}</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>brown_fam_df <span class="ot">&lt;-</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  corpora<span class="sc">::</span>PassiveBrownFam <span class="sc">|&gt;</span> <span class="co"># reference the dataset</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="co"># convert to a tibble</span></span>
@@ -287,26 +280,26 @@ div.csl-indent {
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(brown_fam_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; Rows: 2,499
-&gt; Columns: 11
-&gt; $ id              &lt;chr&gt; "brown_A01", "brown_A02", "brown_A03", "brown_A04", "b…
-&gt; $ corpus          &lt;fct&gt; Brown, Brown, Brown, Brown, Brown, Brown, Brown, Brown…
-&gt; $ section         &lt;fct&gt; A, A, A, A, A, A, A, A, A, A, A, A, A, A, A, A, A, A, …
-&gt; $ genre           &lt;fct&gt; press reportage, press reportage, press reportage, pre…
-&gt; $ period          &lt;fct&gt; 1960, 1960, 1960, 1960, 1960, 1960, 1960, 1960, 1960, …
-&gt; $ lang_variety    &lt;fct&gt; AmE, AmE, AmE, AmE, AmE, AmE, AmE, AmE, AmE, AmE, AmE,…
-&gt; $ num_words       &lt;int&gt; 2080, 2116, 2051, 2095, 2111, 2102, 2099, 2069, 2058, …
-&gt; $ active_verbs    &lt;int&gt; 164, 154, 135, 128, 170, 166, 165, 163, 153, 169, 132,…
-&gt; $ passive_verbs   &lt;int&gt; 40, 25, 34, 25, 32, 21, 31, 19, 39, 23, 17, 10, 15, 26…
-&gt; $ total_verbs     &lt;int&gt; 204, 179, 169, 153, 202, 187, 196, 182, 192, 192, 149,…
-&gt; $ percent_passive &lt;dbl&gt; 19.61, 13.97, 20.12, 16.34, 15.84, 11.23, 15.82, 10.44…</code></pre>
+<pre><code>Rows: 2,499
+Columns: 11
+$ id              &lt;chr&gt; "brown_A01", "brown_A02", "brown_A03", "brown_A04", "b…
+$ corpus          &lt;fct&gt; Brown, Brown, Brown, Brown, Brown, Brown, Brown, Brown…
+$ section         &lt;fct&gt; A, A, A, A, A, A, A, A, A, A, A, A, A, A, A, A, A, A, …
+$ genre           &lt;fct&gt; press reportage, press reportage, press reportage, pre…
+$ period          &lt;fct&gt; 1960, 1960, 1960, 1960, 1960, 1960, 1960, 1960, 1960, …
+$ lang_variety    &lt;fct&gt; AmE, AmE, AmE, AmE, AmE, AmE, AmE, AmE, AmE, AmE, AmE,…
+$ num_words       &lt;int&gt; 2080, 2116, 2051, 2095, 2111, 2102, 2099, 2069, 2058, …
+$ active_verbs    &lt;int&gt; 164, 154, 135, 128, 170, 166, 165, 163, 153, 169, 132,…
+$ passive_verbs   &lt;int&gt; 40, 25, 34, 25, 32, 21, 31, 19, 39, 23, 17, 10, 15, 26…
+$ total_verbs     &lt;int&gt; 204, 179, 169, 153, 202, 187, 196, 182, 192, 192, 149,…
+$ percent_passive &lt;dbl&gt; 19.61, 13.97, 20.12, 16.34, 15.84, 11.23, 15.82, 10.44…</code></pre>
 </div>
 </div>
 <p>You can learn more about these variables by reading the dataset documentation with <code>?corpora::PassiveBrownFam</code>.</p>
 <section id="statistical-overviews" class="level3">
 <h3 class="anchored" data-anchor-id="statistical-overviews">Statistical overviews</h3>
 <p>Understanding our data is of utmost importance before, during, and after analysis. After we get to know our data by inspecting the data origin, dictionary, and structure, we then move to summarizing the data.</p>
-<p>A statistical overview of the data is a good place to start as it gives us a sense of all of the variables and variable types in the dataset. We can use the <code>skimr</code> package to create a statistical overview of the data, using the very convienent <code>skim()</code> function.</p>
+<p>A statistical overview of the data is a good place to start as it gives us a sense of all of the variables and variable types in the dataset. We can use {skimr} to create a statistical overview of the data, using the very convienent <code>skim()</code> function.</p>
 <p>Let’s create a statistical overview of the <code>brown_fam_df</code> dataset.</p>
 <!-- [ ] skim output in rmd show a Table for part, fix -->
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
@@ -385,7 +378,7 @@ div.csl-indent {
 <section id="summary-statistics-of-particular-variables" class="level3">
 <h3 class="anchored" data-anchor-id="summary-statistics-of-particular-variables">Summary statistics of particular variables</h3>
 <p>These summary statistics are useful but for a preliminary and interactive use, but it is oftent the case that we will want to focus in on a particular variable or set of variables and their potential relationships to other variables.</p>
-<p>We can use the <code>dplyr</code> package to calculate summary statistics for a particular variable or set of variables. We can use the <code>group_by()</code> function to group the data by a particular variable or variables. Then we can use the <code>summarize()</code> function to calculate summary statistics for the grouped data.</p>
+<p>We can use {dplyr} to calculate summary statistics for a particular variable or set of variables. We can use the <code>group_by()</code> function to group the data by a particular variable or variables. Then we can use the <code>summarize()</code> function to calculate summary statistics for the grouped data.</p>
 <p>For example, let’s calculate the mean and median of the <code>percent_passive</code> variable in the <code>brown_fam_df</code> dataset grouped by the <code>lang_variety</code> variable.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mean and median of `percent_passive` grouped by `lang_variety`</span></span>
@@ -396,11 +389,11 @@ div.csl-indent {
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_percent_passive =</span> <span class="fu">median</span>(percent_passive)</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 2 × 3
-&gt;   lang_variety mean_percent_passive median_percent_passive
-&gt;   &lt;fct&gt;                       &lt;dbl&gt;                  &lt;dbl&gt;
-&gt; 1 AmE                          12.9                   11.0
-&gt; 2 BrE                          14.8                   13.3</code></pre>
+<pre><code># A tibble: 2 × 3
+  lang_variety mean_percent_passive median_percent_passive
+  &lt;fct&gt;                       &lt;dbl&gt;                  &lt;dbl&gt;
+1 AmE                          12.9                   11.0
+2 BrE                          14.8                   13.3</code></pre>
 </div>
 </div>
 <p>The result is a 2x3 data frame which includes both the mean and median of the <code>percent_passive</code> variable for each of the two levels of the <code>lang_variety</code> variable.</p>
@@ -415,21 +408,21 @@ div.csl-indent {
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_percent_passive =</span> <span class="fu">median</span>(percent_passive)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 30 × 4
-&gt; # Groups:   lang_variety [2]
-&gt;    lang_variety genre            mean_percent_passive median_percent_passive
-&gt;    &lt;fct&gt;        &lt;fct&gt;                           &lt;dbl&gt;                  &lt;dbl&gt;
-&gt;  1 AmE          press reportage                 11.5                   11.0 
-&gt;  2 AmE          press editorial                 10.6                   10.1 
-&gt;  3 AmE          press reviews                    9.54                   9.77
-&gt;  4 AmE          religion                        14.3                   14.3 
-&gt;  5 AmE          skills / hobbies                14.9                   13.9 
-&gt;  6 AmE          popular lore                    14.0                   12.7 
-&gt;  7 AmE          belles lettres                  12.0                   11.7 
-&gt;  8 AmE          miscellaneous                   23.5                   23.3 
-&gt;  9 AmE          learned                         21.3                   18.3 
-&gt; 10 AmE          general fiction                  6.22                   5.89
-&gt; # ℹ 20 more rows</code></pre>
+<pre><code># A tibble: 30 × 4
+# Groups:   lang_variety [2]
+   lang_variety genre            mean_percent_passive median_percent_passive
+   &lt;fct&gt;        &lt;fct&gt;                           &lt;dbl&gt;                  &lt;dbl&gt;
+ 1 AmE          press reportage                 11.5                   11.0 
+ 2 AmE          press editorial                 10.6                   10.1 
+ 3 AmE          press reviews                    9.54                   9.77
+ 4 AmE          religion                        14.3                   14.3 
+ 5 AmE          skills / hobbies                14.9                   13.9 
+ 6 AmE          popular lore                    14.0                   12.7 
+ 7 AmE          belles lettres                  12.0                   11.7 
+ 8 AmE          miscellaneous                   23.5                   23.3 
+ 9 AmE          learned                         21.3                   18.3 
+10 AmE          general fiction                  6.22                   5.89
+# ℹ 20 more rows</code></pre>
 </div>
 </div>
 <p>For numeric variables, such as <code>percent_passive</code>, there are a number of summary statistics that we can calculate. We’ve seen the R functions for mean and median but we can also calculate the standard deviation (<code>sd()</code>), variance (<code>var()</code>), minimum (<code>min()</code>), maximum (<code>max()</code>), interquartile range (<code>IQR()</code>), median absolute deviation (<code>mad()</code>), and quantiles (<code>quantile()</code>). All these calculations make sense for numeric variables but not for character variables.</p>
@@ -442,24 +435,24 @@ div.csl-indent {
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 15 × 2
-&gt;    genre                n
-&gt;    &lt;fct&gt;            &lt;int&gt;
-&gt;  1 press reportage    220
-&gt;  2 press editorial    135
-&gt;  3 press reviews       85
-&gt;  4 religion            85
-&gt;  5 skills / hobbies   186
-&gt;  6 popular lore       228
-&gt;  7 belles lettres     381
-&gt;  8 miscellaneous      150
-&gt;  9 learned            400
-&gt; 10 general fiction    145
-&gt; 11 detective          120
-&gt; 12 science fiction     30
-&gt; 13 adventure          144
-&gt; 14 romance            145
-&gt; 15 humour              45</code></pre>
+<pre><code># A tibble: 15 × 2
+   genre                n
+   &lt;fct&gt;            &lt;int&gt;
+ 1 press reportage    220
+ 2 press editorial    135
+ 3 press reviews       85
+ 4 religion            85
+ 5 skills / hobbies   186
+ 6 popular lore       228
+ 7 belles lettres     381
+ 8 miscellaneous      150
+ 9 learned            400
+10 general fiction    145
+11 detective          120
+12 science fiction     30
+13 adventure          144
+14 romance            145
+15 humour              45</code></pre>
 </div>
 </div>
 <p>Just as before, we can add multiple grouping variables to <code>group_by()</code>. Let’s add <code>lang_variety</code> to the grouping and calculate the number of observations <code>n()</code> grouped by the <code>genre</code> and <code>lang_variety</code> variables in the <code>brown_fam_df</code> dataset.</p>
@@ -471,24 +464,24 @@ div.csl-indent {
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 30 × 3
-&gt; # Groups:   genre [15]
-&gt;    genre            lang_variety     n
-&gt;    &lt;fct&gt;            &lt;fct&gt;        &lt;int&gt;
-&gt;  1 press reportage  AmE             88
-&gt;  2 press reportage  BrE            132
-&gt;  3 press editorial  AmE             54
-&gt;  4 press editorial  BrE             81
-&gt;  5 press reviews    AmE             34
-&gt;  6 press reviews    BrE             51
-&gt;  7 religion         AmE             34
-&gt;  8 religion         BrE             51
-&gt;  9 skills / hobbies AmE             72
-&gt; 10 skills / hobbies BrE            114
-&gt; # ℹ 20 more rows</code></pre>
+<pre><code># A tibble: 30 × 3
+# Groups:   genre [15]
+   genre            lang_variety     n
+   &lt;fct&gt;            &lt;fct&gt;        &lt;int&gt;
+ 1 press reportage  AmE             88
+ 2 press reportage  BrE            132
+ 3 press editorial  AmE             54
+ 4 press editorial  BrE             81
+ 5 press reviews    AmE             34
+ 6 press reviews    BrE             51
+ 7 religion         AmE             34
+ 8 religion         BrE             51
+ 9 skills / hobbies AmE             72
+10 skills / hobbies BrE            114
+# ℹ 20 more rows</code></pre>
 </div>
 </div>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -514,24 +507,24 @@ div.csl-indent {
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_n =</span> <span class="fu">median</span>(n)</span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 15 × 3
-&gt;    genre            mean_n median_n
-&gt;    &lt;fct&gt;             &lt;dbl&gt;    &lt;dbl&gt;
-&gt;  1 press reportage   110      110  
-&gt;  2 press editorial    67.5     67.5
-&gt;  3 press reviews      42.5     42.5
-&gt;  4 religion           42.5     42.5
-&gt;  5 skills / hobbies   93       93  
-&gt;  6 popular lore      114      114  
-&gt;  7 belles lettres    190.     190. 
-&gt;  8 miscellaneous      75       75  
-&gt;  9 learned           200      200  
-&gt; 10 general fiction    72.5     72.5
-&gt; 11 detective          60       60  
-&gt; 12 science fiction    15       15  
-&gt; 13 adventure          72       72  
-&gt; 14 romance            72.5     72.5
-&gt; 15 humour             22.5     22.5</code></pre>
+<pre><code># A tibble: 15 × 3
+   genre            mean_n median_n
+   &lt;fct&gt;             &lt;dbl&gt;    &lt;dbl&gt;
+ 1 press reportage   110      110  
+ 2 press editorial    67.5     67.5
+ 3 press reviews      42.5     42.5
+ 4 religion           42.5     42.5
+ 5 skills / hobbies   93       93  
+ 6 popular lore      114      114  
+ 7 belles lettres    190.     190. 
+ 8 miscellaneous      75       75  
+ 9 learned           200      200  
+10 general fiction    72.5     72.5
+11 detective          60       60  
+12 science fiction    15       15  
+13 adventure          72       72  
+14 romance            72.5     72.5
+15 humour             22.5     22.5</code></pre>
 </div>
 </div>
 <p>Therefore we see that we have a mean and median calculated for the number of documents in the corpus for each of the 15 genres.</p>
@@ -549,39 +542,39 @@ div.csl-indent {
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_n =</span> <span class="fu">median</span>(n)</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 1 × 2
-&gt;   mean_n median_n
-&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-&gt; 1   83.3       72</code></pre>
+<pre><code># A tibble: 1 × 2
+  mean_n median_n
+   &lt;dbl&gt;    &lt;dbl&gt;
+1   83.3       72</code></pre>
 </div>
 </div>
 <p>Now we see that we have a mean and median calculated across all genres.</p>
 <hr>
-<p>Before we leave this section, let’s look some other ways to create frequency and contingency tables for character and factor variables. A shortcut to calculate a frequency table for a character or factor variable is to use the <code>count()</code> function from the <code>dplyr</code> package.</p>
+<p>Before we leave this section, let’s look some other ways to create frequency and contingency tables for character and factor variables. A shortcut to calculate a frequency table for a character or factor variable is to use the <code>count()</code> function from {dplyr}.</p>
 <p>Let’s calculate the number of observations grouped by the <code>genre</code> variable in the <code>brown_fam_df</code> dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Frequency table for `genre`</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>brown_fam_df <span class="sc">|&gt;</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(genre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 15 × 2
-&gt;    genre                n
-&gt;    &lt;fct&gt;            &lt;int&gt;
-&gt;  1 press reportage    220
-&gt;  2 press editorial    135
-&gt;  3 press reviews       85
-&gt;  4 religion            85
-&gt;  5 skills / hobbies   186
-&gt;  6 popular lore       228
-&gt;  7 belles lettres     381
-&gt;  8 miscellaneous      150
-&gt;  9 learned            400
-&gt; 10 general fiction    145
-&gt; 11 detective          120
-&gt; 12 science fiction     30
-&gt; 13 adventure          144
-&gt; 14 romance            145
-&gt; 15 humour              45</code></pre>
+<pre><code># A tibble: 15 × 2
+   genre                n
+   &lt;fct&gt;            &lt;int&gt;
+ 1 press reportage    220
+ 2 press editorial    135
+ 3 press reviews       85
+ 4 religion            85
+ 5 skills / hobbies   186
+ 6 popular lore       228
+ 7 belles lettres     381
+ 8 miscellaneous      150
+ 9 learned            400
+10 general fiction    145
+11 detective          120
+12 science fiction     30
+13 adventure          144
+14 romance            145
+15 humour              45</code></pre>
 </div>
 </div>
 <p>We can also add multiple grouping variables to <code>count()</code> and create contingency tables.</p>
@@ -591,24 +584,24 @@ div.csl-indent {
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>brown_fam_df <span class="sc">|&gt;</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(genre, lang_variety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt; # A tibble: 30 × 3
-&gt;    genre            lang_variety     n
-&gt;    &lt;fct&gt;            &lt;fct&gt;        &lt;int&gt;
-&gt;  1 press reportage  AmE             88
-&gt;  2 press reportage  BrE            132
-&gt;  3 press editorial  AmE             54
-&gt;  4 press editorial  BrE             81
-&gt;  5 press reviews    AmE             34
-&gt;  6 press reviews    BrE             51
-&gt;  7 religion         AmE             34
-&gt;  8 religion         BrE             51
-&gt;  9 skills / hobbies AmE             72
-&gt; 10 skills / hobbies BrE            114
-&gt; # ℹ 20 more rows</code></pre>
+<pre><code># A tibble: 30 × 3
+   genre            lang_variety     n
+   &lt;fct&gt;            &lt;fct&gt;        &lt;int&gt;
+ 1 press reportage  AmE             88
+ 2 press reportage  BrE            132
+ 3 press editorial  AmE             54
+ 4 press editorial  BrE             81
+ 5 press reviews    AmE             34
+ 6 press reviews    BrE             51
+ 7 religion         AmE             34
+ 8 religion         BrE             51
+ 9 skills / hobbies AmE             72
+10 skills / hobbies BrE            114
+# ℹ 20 more rows</code></pre>
 </div>
 </div>
 <p>Note that the results of <code>count()</code> are not grouped so we do not need to use the <code>ungroup()</code> function before calculating subsequent summary statistics.</p>
-<p>Another way to create frequency and contingency tables is to use the <code>tabyl()</code> function from the <code>janitor</code> package <span class="citation" data-cites="R-janitor">(<a href="#ref-R-janitor" role="doc-biblioref">Firke 2023</a>)</span>. Let’s create a frequency table for the <code>genre</code> variable in the <code>brown_fam_df</code> dataset.</p>
+<p>Another way to create frequency and contingency tables is to use the <code>tabyl()</code> function from {janitor} <span class="citation" data-cites="R-janitor">(<a href="#ref-R-janitor" role="doc-biblioref">Firke 2023</a>)</span>. Let’s create a frequency table for the <code>genre</code> variable in the <code>brown_fam_df</code> dataset.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
@@ -617,22 +610,22 @@ div.csl-indent {
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>brown_fam_df <span class="sc">|&gt;</span></span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(genre)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt;             genre   n percent
-&gt;   press reportage 220  0.0880
-&gt;   press editorial 135  0.0540
-&gt;     press reviews  85  0.0340
-&gt;          religion  85  0.0340
-&gt;  skills / hobbies 186  0.0744
-&gt;      popular lore 228  0.0912
-&gt;    belles lettres 381  0.1525
-&gt;     miscellaneous 150  0.0600
-&gt;           learned 400  0.1601
-&gt;   general fiction 145  0.0580
-&gt;         detective 120  0.0480
-&gt;   science fiction  30  0.0120
-&gt;         adventure 144  0.0576
-&gt;           romance 145  0.0580
-&gt;            humour  45  0.0180</code></pre>
+<pre><code>            genre   n percent
+  press reportage 220  0.0880
+  press editorial 135  0.0540
+    press reviews  85  0.0340
+         religion  85  0.0340
+ skills / hobbies 186  0.0744
+     popular lore 228  0.0912
+   belles lettres 381  0.1525
+    miscellaneous 150  0.0600
+          learned 400  0.1601
+  general fiction 145  0.0580
+        detective 120  0.0480
+  science fiction  30  0.0120
+        adventure 144  0.0576
+          romance 145  0.0580
+           humour  45  0.0180</code></pre>
 </div>
 </div>
 <p>In addition to providing frequency counts, the <code>tabyl()</code> function also provides the percent of observations for each level of the variable. And, we can add up to three grouping variables to <code>tabyl()</code> as well.</p>
@@ -642,33 +635,33 @@ div.csl-indent {
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>brown_fam_df <span class="sc">|&gt;</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tabyl</span>(genre, lang_variety)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&gt;             genre AmE BrE
-&gt;   press reportage  88 132
-&gt;   press editorial  54  81
-&gt;     press reviews  34  51
-&gt;          religion  34  51
-&gt;  skills / hobbies  72 114
-&gt;      popular lore  96 132
-&gt;    belles lettres 150 231
-&gt;     miscellaneous  60  90
-&gt;           learned 160 240
-&gt;   general fiction  58  87
-&gt;         detective  48  72
-&gt;   science fiction  12  18
-&gt;         adventure  57  87
-&gt;           romance  58  87
-&gt;            humour  18  27</code></pre>
+<pre><code>            genre AmE BrE
+  press reportage  88 132
+  press editorial  54  81
+    press reviews  34  51
+         religion  34  51
+ skills / hobbies  72 114
+     popular lore  96 132
+   belles lettres 150 231
+    miscellaneous  60  90
+          learned 160 240
+  general fiction  58  87
+        detective  48  72
+  science fiction  12  18
+        adventure  57  87
+          romance  58  87
+           humour  18  27</code></pre>
 </div>
 </div>
 <p>The results do not include the percent of observations for each level of the variable as it is not clear how to calculate the percent of observations for each level of the variable when there are multiple grouping variables. We must specify if we want to calculate the percent of observations by row or by column.</p>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
-<p>The <code>janitor</code> package includes a variety of <code>adorn_*()</code> functions to add additional information to the results of <code>tabyl()</code>, including percentages, frequencies, and totals. Feel free to explore these functions on your own. We will return to this topic again later in the course.</p>
+<p>{janitor} includes a variety of <code>adorn_*()</code> functions to add additional information to the results of <code>tabyl()</code>, including percentages, frequencies, and totals. Feel free to explore these functions on your own. We will return to this topic again later in the course.</p>
 </div>
 </div>
 </div>
@@ -676,7 +669,7 @@ div.csl-indent {
 <section id="creating-quarto-tables" class="level3">
 <h3 class="anchored" data-anchor-id="creating-quarto-tables">Creating Quarto tables</h3>
 <p>Summarizing the data is not only useful for our understanding of the data as part of our analysis but also for communicating the data in reports, manuscripts, and presentations.</p>
-<p>One way to communicate summary statistics is with tables. In Quarto, we can use the <code>knitr</code> package <span class="citation" data-cites="R-knitr">(<a href="#ref-R-knitr" role="doc-biblioref">Xie 2023</a>)</span> in combination with code block options to produce formatted tables which we can cross-reference in our prose sections.</p>
+<p>One way to communicate summary statistics is with tables. In Quarto, we can use {knitr} <span class="citation" data-cites="R-knitr">(<a href="#ref-R-knitr" role="doc-biblioref">Xie 2024</a>)</span> in combination with code block options to produce formatted tables which we can cross-reference in our prose sections.</p>
 <p>Let’s create an object from the cross-tabulation for the <code>genre</code> and <code>lang_variety</code> variables in the <code>brown_fam_df</code> dataset to work with.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-tabulation for `genre` and `lang_variety`</span></span>
@@ -899,14 +892,14 @@ Table&nbsp;1: Cross-tabulation of <code>genre</code> and <code>lang_variety</cod
 </div>
 </div>
 <hr>
-<div class="callout callout-style-simple callout-none no-icon">
+<div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
-<p>The <code>kableExtra</code> package <span class="citation" data-cites="R-kableExtra">(<a href="#ref-R-kableExtra" role="doc-biblioref">Zhu 2024</a>)</span> provides additional functionality for formatting tables in Quarto.</p>
+<p>{kableExtra} <span class="citation" data-cites="R-kableExtra">(<a href="#ref-R-kableExtra" role="doc-biblioref">Zhu 2024</a>)</span> provides additional functionality for formatting tables in Quarto.</p>
 </div>
 </div>
 </div>
@@ -914,7 +907,7 @@ Table&nbsp;1: Cross-tabulation of <code>genre</code> and <code>lang_variety</cod
 <section id="creating-quarto-plots" class="level3">
 <h3 class="anchored" data-anchor-id="creating-quarto-plots">Creating Quarto plots</h3>
 <p>Where tables are useful for communicating summary statistics for numeric and character variables, plots are useful for communicating relationships between variables especially when one or more of the variables is numeric. Furthermore, for complex relationships, plots can be more effective than tables.</p>
-<p>In Quarto, we can use the <code>ggplot2</code> package <span class="citation" data-cites="R-ggplot2">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2024</a>)</span> in combination with code block options to produce formatted plots which we can cross-reference in our prose sections.</p>
+<p>In Quarto, we can use {ggplot2} <span class="citation" data-cites="R-ggplot2">(<a href="#ref-R-ggplot2" role="doc-biblioref">Wickham et al. 2024</a>)</span> in combination with code block options to produce formatted plots which we can cross-reference in our prose sections.</p>
 <p>Let’s see this in action with a simple histogram of the <code>percent_passive</code> variable in the <code>brown_fam_df</code> dataset. The Quarto document will produce the following prose with a cross-reference to the formatted plot output.</p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="at">As we see in @fig-brown-fam-percent-passive-hist, the distribution of `percent_passive` is skewed to the right.</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -943,7 +936,7 @@ Figure&nbsp;1: Histogram of <code>percent_passive</code>
 </div>
 </div>
 <hr>
-<p>The <code>ggplot2</code> package implements the ‘Grammar of Graphics’ approach to creating plots. This approach is based on the idea that plots can be broken down into components, or layers, and that each layer can be manipulated independently.</p>
+<p>{ggplot2} implements the ‘Grammar of Graphics’ approach to creating plots. This approach is based on the idea that plots can be broken down into components, or layers, and that each layer can be manipulated independently.</p>
 <p>The main components are data, aesthetics, and geometries. Data is the data frame that contains the variables to be plotted. Aesthetics are the variables that will be mapped to the x-axis, y-axis (as well as color, shape, size, <em>etc.</em>). Geometries are the visual elements that will be used to represent the data, such as points, lines, bars, <em>etc.</em>.</p>
 <p>As discussed in the R lesson “Visual Summaries”, the <code>aes()</code> function is used to map variables to aesthetics and can be added to the <code>ggplot()</code> function or to the <code>geom_*()</code> function depending on whether the aesthetic is mapped to all geometries or to a specific geometry, respectively.</p>
 <p>Take a look at the following stages of the earlier plot in each of the tabs below.</p>
@@ -1155,7 +1148,7 @@ Figure&nbsp;1: Histogram of <code>percent_passive</code>
 </section>
 <section id="other-variable-combinations" class="level4">
 <h4 class="anchored" data-anchor-id="other-variable-combinations">Other variable combinations</h4>
-<p>In these examples, we have only looked at the most common variable combinations for one and two variable plots. There are more sophisticated plots that can be used for other variable combinations using <code>ggplot2</code>. For now, we will leave these for another time.</p>
+<p>In these examples, we have only looked at the most common variable combinations for one and two variable plots. There are more sophisticated plots that can be used for other variable combinations using {ggplot2}. For now, we will leave these for another time.</p>
 </section>
 </section>
 </section>
@@ -1176,10 +1169,10 @@ Figure&nbsp;1: Histogram of <code>percent_passive</code>
 <p>Before beginning <a href="https://github.com/qtalr/lab-03">Lab 3</a>, learners should be comfortable with the skills and knowledge developed in the previous recipes and labs. In this lab, you will have a chance to use these skills and those introduced in this Recipe to provide a descriptive assessment of a dataset that includes statistics, tables, and plots using Quarto and R.</p>
 <p>The additional skills and knowledge you will need to complete Lab 3 include:</p>
 <ul>
-<li>Summarizing data with <code>skimr</code></li>
-<li>Summarizing data with <code>dplyr</code></li>
-<li>Creating Quarto tables with <code>knitr</code></li>
-<li>Creating Quarto plots with <code>ggplot2</code></li>
+<li>Summarizing data with {skimr}</li>
+<li>Summarizing data with {dplyr}</li>
+<li>Creating Quarto tables with {knitr}</li>
+<li>Creating Quarto plots with {ggplot2}</li>
 </ul>
 </section>
 <section id="references" class="level2">
@@ -1200,7 +1193,7 @@ Firke, Sam. 2023. <em>Janitor: Simple Tools for Examining and Cleaning Dirty Dat
 Wickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington, and Teun van den Brand. 2024. <em>Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics</em>. <a href="https://ggplot2.tidyverse.org">https://ggplot2.tidyverse.org</a>.
 </div>
 <div id="ref-R-knitr" class="csl-entry" role="listitem">
-Xie, Yihui. 2023. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+Xie, Yihui. 2024. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
 </div>
 <div id="ref-R-kableExtra" class="csl-entry" role="listitem">
 Zhu, Hao. 2024. <em>kableExtra: Construct Complex Table with Kable and Pipe Syntax</em>. <a href="http://haozhu233.github.io/kableExtra/">http://haozhu233.github.io/kableExtra/</a>.
