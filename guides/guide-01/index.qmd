@@ -3,18 +3,18 @@ title: "01. Setting up an R environment"
 subtitle: ""
 description: |
   In this guide, we will explore options for setting up an R environment. We will discuss local, remote, and virtual environments. Each have their own advantages and shortcomings. The best option for you will depend on your needs and preferences.
-categories: [guides]
+categories: [guides, computing environments, r, rstudio]
 ---
 
 ## Environment setups
 
 ### Local environments
 
-Choosing to work with R locally means that you will install R and an IDE on your local computer. This approach offers the following advantages:
+Choosing to work with R locally means that you will install R and an integrated development environment (IDE) on your local computer. This approach offers the following advantages:
 
 * Fast and responsive performance
-* No reliance on internet connectivity
-* Flexibility to customize your environment
+* No (inherent) reliance on internet connectivity
+* Increased flexibility to customize your environment
 
 The main disadvantages of working locally are:
 
@@ -22,58 +22,81 @@ The main disadvantages of working locally are:
 * manage your own software environment, and
 * manage your own backups and version control for collaborative projects.
 
-This can be a challenge for new users, but there are a number of resources available to help you get started and troubleshoot any issues you may encounter.
+Running and managing R locally can sometimes be a challenge for new users, compared to some other methds. However, there are important advantages to this approach. Remember there are a number of resources available to help you get started and troubleshoot any issues you may encounter.
 
-To get started, install R from [CRAN](https://cran.r-project.org/). You can download the latest version of R for your operating system [here](https://cran.r-project.org/mirrors.html). Once you have installed R, you will need to install an IDE. For complete beginners, I recommend [RStudio](https://www.rstudio.com/products/rstudio/download/), a free and open-source IDE for R. RStudio provides a number of features that make it easier to work with R. If you are new to R, but have experience with other programming languages, you may prefer to use a more general-purpose IDE such as [VS Code](https://code.visualstudio.com/).
+To get started, install R from [CRAN](https://cran.r-project.org/). You can download the latest version of R for your operating system [here](https://cran.r-project.org/mirrors.html). Once you have installed R, you will need to install an IDE or editor. For complete beginners, I recommend [RStudio](https://www.rstudio.com/products/rstudio/download/), a free and open-source IDE for R. RStudio provides a number of features that make it easier to work with R. If you have experience with programming and/ or are looking for a more customizable editor, you may prefer to use [Visual Studio Code](https://code.visualstudio.com/). Setting up VS Code for R can be found [here](https://code.visualstudio.com/docs/languages/r).
 
 ### Remote environments
 
-You can also choose to work with R in the cloud, a **remote environment**. There are a number of cloud-based options for working with R, including [Posit Cloud](https://posit.co/products/cloud/cloud/) and [Microsoft Azure](https://learn.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide). These options provide a pre-configured R environment that you can access from any computer with an internet connection.
+An alternative to running R locally is to work with R in the cloud. This is known as a **remote environment**. There are a number of cloud-based options for working with R, including [Posit Cloud](https://posit.co/products/cloud/cloud/), [Google Colab](https://colab.research.google.com/), and [Microsoft Azure](https://learn.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide). These options provide an R environment that you can access from any computer with an internet connection.
 
-Posit Cloud provides an environment where you can create, edit, and run R projects from anywhere with internet access. It offers several advantages:
+Remote environments provide an environment where you can create, edit, and run R projects from anywhere with internet access. They offers several advantages:
 
-* No need to install R or RStudio locally
+* No need to install R or an IDE/ editor locally
 * Access your projects from any device
 * Collaborate with others in real-time
 * Easily share your work
 
-Some of the drawbacks of working in the cloud include:
+Some of the drawbacks of working in the cloud include
 
 * Reliance on stable internet connection
 * Potential latency and performance issues
-* Limited customization options compared to a local setup
+* Somewhat limited customization options compared to a local setup
 
-To get started with Posit Cloud, you will need to create an account. You can sign up for a free account [here](https://posit.co/products/cloud/cloud/). Once you have created an account, you will see a list of spaces. By default you will have your personal workspace, but you can also join or be invited to other spaces.
+To get started with Posit Cloud, you will need to create an account. You can sign up for a free account [here](https://posit.co/products/cloud/cloud/). Once you have created an account, you will see a list of spaces. By default you will have your personal workspace, but you can also join or be invited to other spaces. Instructors may create spaces for their courses which can provide pre-configured environments for students.
+
+::: {#fig-posit-cloud}
+![](images/posit-cloud.png)
+
+Posit Cloud interface
+:::
 
 Visit the [Guide](https://posit.cloud/learn/guide) documentation to learn more about the features of Posit Cloud.
 
 ### Virtual environments
 
-If you are new to R, you may want to consider working in the cloud to get started. If you plan to continue to work with R in the future, you will most likely want to install R and an IDE on your local computer or explore using a **virtual environment**. Virtual environments, such as [Docker](https://www.docker.com/), provide a way to use a pre-configured computing environment or create your own that you can share with others. Virtual environments are a good option if you want to ensure that everyone in your research group is working with the same computing environment. Pre-configured virtual environments exist for R through the [Rocker project](https://rocker-project.org/) and can be used locally or in the cloud.
+If you are new to R, you may want to consider working in the cloud to get started. If you plan to continue to work with R in the future, you will most likely want to install R and an IDE/ editor on your local computer or explore using a **virtual environment**. Virtual environments, such as [Docker](https://www.docker.com/), provide a way to use a pre-configured computing environment or create your own that you can share with others. Pre-configured virtual environments exist for R through the [Rocker project](https://rocker-project.org/) and can be used locally or in the cloud.
 
-Using Docker with Rocker offers several benefits:
+In addtion to the advantages of working with R locally, using Docker with Rocker offers several benefits:
 
-* Reproducible environments
-* Simplified dependency management
-* Easy deployment and scaling
+* Safe and isolated environment from the host system
+* Reproducible and portable environments
+* Simplified dependency management using {pak}
 
 The drawbacks to using Docker with Rocker include:
 
 * Learning curve for setting up and managing Docker containers
-* Increased memory and resource requirements
-* Potential compatibility issues with certain packages or libraries
+* Increased memory and resource requirements for the host machine
+* Increased complexity in managing Git/ GitHub credentials
+
+<!-- [ ] give the cli and gui approaches: lin380 mats -->
 
 To start using Docker with a Rocker image, follow these steps:
 
-1. Install [Docker](https://www.docker.com/get-started) on your local machine
-2. Pull the desired Rocker image from [Docker Hub](https://hub.docker.com/u/rocker/)
-   ```
-   docker pull rocker/rstudio
-   ```
-3. Run a container using the pulled image
-   ```
-   docker run -d -p 8787:8787 -e PASSWORD=your_password --name rstudio_container rocker/rstudio
-   ```
+1. Install [Docker](https://www.docker.com/get-started) on your local machine (pay special attention to the installation instructions for your operating system)
+2. Pull the desired Rocker image from [Docker Hub](https://hub.docker.com/u/rocker)
+
+::: {#fig-docker-pull-rocker}
+![](images/docker-pull-rocker.gif)
+
+Pull `rocker/rstudio` image from Docker Hub
+:::
+
+3. Run a container using the pulled image\
+Note: you will need to specify the following options *before* running the container.
+
+- container name: no spaces
+- port mapping: `8787` on the host to `8787` on the container
+- environment variables: `PASSWORD` to set the password for RStudio, `ROOT` to allow root access.
+
+::: {#fig-docker-run-rocker}
+![](images/docker-run-rstudio.gif)
+
+Run a container using the `rocker/rstudio` image
+:::
+
+Optional: you can also mount a volume to share files between the host and container.
+
 4. Access RStudio in your browser at `http://localhost:8787` and log in with username `rstudio` and the password you set
 
 ## Summary
@@ -91,5 +114,3 @@ In this guide, we have discussed strategies for working with R. All three option
 Give them a try and see which one works best for your needs! Remember, you can always switch between different environments as your needs change.
 
 ## References
-
-

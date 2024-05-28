@@ -1,8 +1,125 @@
 ---
-title: "Guide 04"
+title: "02. Setting up Git and GitHub"
+subtitle: ""
+description: |
+  In this guide, we will cover the basics of setting up Git and GitHub. We will also cover the basics of using Git and GitHub to manage a project. This guide is intended for beginners who are new to Git and GitHub. It is also intended for those who are new to using Git and GitHub with R.
 categories: [guides]
 ---
 
-Hello.
+<!-- [ ] incorporate lin 380 mats -->
+
+::: {.callout}
+**{{< fa regular list-alt >}} Outcomes**
+
+<!-- Remember and understand verbs: https://tips.uark.edu/blooms-taxonomy-verb-chart/ -->
+
+- Recognize the purpose of Git and GitHub
+- Establish a working Git and GitHub environment
+- Recognize the basic Git and GitHub workflow for managing a project
+:::
+
+## Introduction
+
+This textbook places a heavy emphasis on reproducible research. The most important thing you can do to ensure reproducibility is to use a version control system and a hosting service. For most people, the best option is Git and GitHub.
+
+## What is Git, Github? And why should I use it?
+
+Git is a version control system. It allows you to track changes to files and folders over time. It also allows you to collaborate with others on projects. Think of it as MS Word's "Track Changes" feature on steroids.
+
+Git is a command line tool, but there are also graphical user interfaces (GUIs) to interact with Git in a more user-friendly way. Git is a great tool for managing projects. It is especially useful for managing projects that involve multiple people.
+
+GitHub is a web-based hosting service for Git repositories. It allows you to store your Git repositories in the cloud. It also allows you to collaborate with others on projects by sharing projects. GitHub is a great place to store and share your code. It is also a great place to find code that others have shared.
+
+Combining Git with GitHub allows you to store your Git managed project repositories in the cloud. This means that you can access your repositories from anywhere. It also means that you can collaborate with others on projects. You can also use GitHub to share your code with others. This is especially useful for making your projects reproducible.
+
+## How do I set up Git?
+
+### Install and setup Git
+
+The process for installation and setup will differ based on what operating system you are using. If you are using a Windows machine, you will likely need to install Git. If you are using a Mac or Linux machine, you will likely already have Git installed.
+
+Windows users will need to install Git. You can do this by downloading the installer from <https://git-scm.com/downloads>. Once you have downloaded the installer, you will need to run it. You will need to follow the instructions in the installer to complete the installation.
+
+Mac and Linux users can verify that Git is installed by opening a terminal window and typing `git --version`. If Git is installed, you will see a version number. If Git is not installed, you will see an error message.
+
+Once you have Git installed, you will need to set up your Git configuration. Most of the defaults will be fine, but you will need to set your name and email address, the same address you used to create your GitHub account. You can do this by opening a terminal window and typing the following commands:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@email.edu"
+```
+
+Alternatively, you can use the `usethis` package in R to set up Git in your environment. Open RStudio and run the following code in the console:
+
+```r
+if (!require("usethis")) {
+  install.packages("usethis")
+}
+library(usethis)
+
+use_git_config(user.name = "Your Name", user.email = "your.email@school.edu")
+```
+
+<!-- - [Posit Guide on Git with RStudio.](https://support.posit.co/hc/en-us/articles/200532077) -->
+
+
+## How do I set up GitHub?
+
+To set up GitHub, you will need to create an account. You can do this at <github.com>. The service is free and there are extra features available for students and educators. Once you have created an account, you will be able to create repositories. You can also create organizations and teams. You can use these to collaborate with others on projects.
+
+## How do I manage my project with Git and GitHub?
+
+Once your Git installation and Github account are set up, you can manage local and remote repositories. You can do this from the command line, but it is recommedable that you use the Git pane in RStudio to interface with Git and GitHub. Here you can perform various key operations.
+
+Let's introduce operations related to common tasks for this textbook.
+
+A. Copy a remote lab repository to your local machine:
+
+- Navigate to the repository on GitHub
+- Click on the 'Code' button and copy the clone URL (https)
+- In RStudio, create a new project from version control
+  - File > New Project > Version Control > Git
+  - Paste the URL of the repository
+  - Choose the directory location for the project
+  - Create Project
+
+B. Fork and clone a remote template repository to your local machine:
+
+- Navigate to the repository on GitHub
+- Click the 'Fork' button
+- Select the account to fork the repository to
+- In the forked repository, click on the 'Code' button and copy the clone URL (https)
+- In RStudio, create a new project from version control
+  - File > New Project > Version Control > Git
+  - Paste the URL of the forked repository
+  - Choose the directory location for the project
+  - Create Project
+
+C. Create/ Join a remote repository and clone it to your local machine:
+
+- Create a new repository on GitHub
+  - Click the 'New' button in the top right corner of the repositories listing page
+  - Name the repository
+  - Select 'Public' or 'Private'
+  - Select 'Initialize this repository with a README'
+  - Click 'Create Repository'
+- In the new repository, click on the 'Code' button and copy the clone URL (https)
+- In RStudio, create a new project from version control
+  - File > New Project > Version Control > Git
+  - Paste the URL of the repository
+  - Choose the directory location for the project
+  - Create Project
+
+::: {.callout}
+**{{< fa regular hand-point-up >}} Tip**
+
+@Bryan2020 is an excellent reference resource for all things Git and GitHub for R users.
+
+:::
+
+## Summary
+
+## References
+
 
 

@@ -15,9 +15,9 @@ website:
     foreground: light
     search: true
     left:
-      - file: index.qmd
-      - file: recipes/index.qmd
+      # - file: index.qmd
       - file: guides/index.qmd
+      - file: recipes/index.qmd
     right:
       - file: instructors.qmd
       - icon: github
