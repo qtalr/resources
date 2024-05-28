@@ -1,5 +1,16 @@
 [
   {
+    "listing": "/guides/index.html",
+    "items": [
+      "/guides/guide-01/index.html",
+      "/guides/guide-02/index.html",
+      "/guides/guide-04/index.html",
+      "/guides/guide-03/index.html",
+      "/guides/guide-05/index.html",
+      "/guides/guide-06/index.html"
+    ]
+  },
+  {
     "listing": "/recipes/index.html",
     "items": [
       "/recipes/recipe-00/index.html",
@@ -14,16 +25,6 @@
       "/recipes/recipe-09/index.html",
       "/recipes/recipe-10/index.html",
       "/recipes/recipe-11/index.html"
-    ]
-  },
-  {
-    "listing": "/guides/index.html",
-    "items": [
-      "/guides/guide-01/index.html",
-      "/guides/guide-02/index.html",
-      "/guides/guide-03/index.html",
-      "/guides/guide-04/index.html",
-      "/guides/guide-05/index.html"
     ]
   }
 ]

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="In this guide, we will explore how to create reproducible examples using the {reprex}. Reproducible examples are essential for effective communication and collaboration among data scientists and statisticians.">
+<meta name="description" content="In this guide, …">
 
-<title>Resources Kit - 03. Creating reproducible examples</title>
+<title>Resources Kit - 03. Working with the nteractive R programming lessons</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,61 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -153,16 +99,12 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Getting started</span></a>
+    <a class="nav-link" href="../../guides/index.html"> 
+<span class="menu-text">Guides</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
 <span class="menu-text">Recipes</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -187,34 +129,14 @@ div.csl-indent {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
-  <li><a href="#what-is-a-reproducible-example" id="toc-what-is-a-reproducible-example" class="nav-link" data-scroll-target="#what-is-a-reproducible-example">What is a reproducible example?</a></li>
-  <li><a href="#why-use-reprex" id="toc-why-use-reprex" class="nav-link" data-scroll-target="#why-use-reprex">Why use {reprex}?</a></li>
-  <li><a href="#installing-and-loading-reprex" id="toc-installing-and-loading-reprex" class="nav-link" data-scroll-target="#installing-and-loading-reprex">Installing and loading {reprex}</a></li>
-  </ul></li>
-  <li><a href="#creating-a-reproducible-example-with-reprex" id="toc-creating-a-reproducible-example-with-reprex" class="nav-link" data-scroll-target="#creating-a-reproducible-example-with-reprex">Creating a reproducible example with {reprex}</a>
-  <ul class="collapse">
-  <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link" data-scroll-target="#basic-usage">Basic usage</a></li>
-  <li><a href="#customizing-output-format" id="toc-customizing-output-format" class="nav-link" data-scroll-target="#customizing-output-format">Customizing output format</a></li>
-  <li><a href="#including-data-datasets" id="toc-including-data-datasets" class="nav-link" data-scroll-target="#including-data-datasets">Including data/ datasets</a></li>
-  <li><a href="#sharing-your-reproducible-example" id="toc-sharing-your-reproducible-example" class="nav-link" data-scroll-target="#sharing-your-reproducible-example">Sharing your reproducible example</a></li>
-  </ul></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-03/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">03. Creating reproducible examples</h1>
+<h1 class="title">03. Working with the nteractive R programming lessons</h1>
   <div class="quarto-categories">
     <div class="quarto-category">guides</div>
   </div>
@@ -222,7 +144,7 @@ div.csl-indent {
 
 <div>
   <div class="description">
-    <p>In this guide, we will explore how to create reproducible examples using the {reprex}. Reproducible examples are essential for effective communication and collaboration among data scientists and statisticians.</p>
+    <p>In this guide, …</p>
   </div>
 </div>
 
@@ -239,6 +161,7 @@ div.csl-indent {
 </header>
 
 
+<!-- [ ] incorporate lin 380 mats -->
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -248,140 +171,15 @@ div.csl-indent {
 <p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Outcomes</strong></p>
 <!-- Remember and understand verbs: https://tips.uark.edu/blooms-taxonomy-verb-chart/ -->
 <ul>
-<li></li>
+<li>…</li>
 </ul>
 </div>
 </div>
 </div>
-<!-- - [How to make a great R reproducible example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example) -->
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<section id="what-is-a-reproducible-example" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-a-reproducible-example">What is a reproducible example?</h3>
-<p>Reproducible examples are crucial for effectively communicating problems, solutions, and ideas in the world of data science. In this post, we will discuss the importance of reproducible examples and demonstrate how to create them using {reprex} <span class="citation" data-cites="R-reprex">(<a href="#ref-R-reprex" role="doc-biblioref">Bryan et al. 2024</a>)</span> in R</p>
-<p>A reproducible example, often referred to as a “reprex,” is a minimal, self-contained piece of code that demonstrates a specific issue or concept. It should include:</p>
-<ul>
-<li>A brief description of the problem or question</li>
-<li>The necessary data to reproduce the issue</li>
-<li>The R code used to generate the output</li>
-<li>The actual output, including any error messages or warnings</li>
-</ul>
-</section>
-<section id="why-use-reprex" class="level3">
-<h3 class="anchored" data-anchor-id="why-use-reprex">Why use {reprex}?</h3>
-<p>{reprex} in R streamlines the process of creating reproducible examples by:</p>
-<ul>
-<li>Automatically capturing code, input data, and output</li>
-<li>Formatting the example for easy sharing on various platforms (e.g., GitHub, Stack Overflow)</li>
-<li>Encouraging best practices for creating clear and concise examples</li>
-</ul>
-</section>
-<section id="installing-and-loading-reprex" class="level3">
-<h3 class="anchored" data-anchor-id="installing-and-loading-reprex">Installing and loading {reprex}</h3>
-<p>To get started with {reprex}, first install it from CRAN and load it into your R session:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"reprex"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reprex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-</section>
-<section id="creating-a-reproducible-example-with-reprex" class="level2">
-<h2 class="anchored" data-anchor-id="creating-a-reproducible-example-with-reprex">Creating a reproducible example with {reprex}</h2>
-<p>In this section, we will demonstrate how to create a reproducible example using {reprex}.</p>
-<section id="basic-usage" class="level3">
-<h3 class="anchored" data-anchor-id="basic-usage">Basic usage</h3>
-<p>To create a simple reprex, write your R code and then call the <code>reprex()</code> function:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reprex)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">x &lt;- 1:10</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">mean(x)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>(<span class="at">input =</span> code)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will generate a formatted output that includes the code, input data, and results.</p>
-</section>
-<section id="customizing-output-format" class="level3">
-<h3 class="anchored" data-anchor-id="customizing-output-format">Customizing output format</h3>
-<p>You can customize the output format of your reprex by specifying the <code>venue</code> argument. For example, to create a reprex suitable for GitHub, use:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>(<span class="at">input =</span> code, <span class="at">venue =</span> <span class="st">"gh"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="including-data-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="including-data-datasets">Including data/ datasets</h3>
-<p>When your example requires specific data, you can include it using the <code>dput()</code> function:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">y =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data_dput <span class="ot">&lt;-</span> <span class="fu">dput</span>(data)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>code_with_data <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">data &lt;- {{ data_dput }}</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">plot(data$x, data$y)</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>(<span class="at">input =</span> code_with_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will incorporate the data into your reprex, allowing others to reproduce your example easily.</p>
-</section>
-<section id="sharing-your-reproducible-example" class="level3">
-<h3 class="anchored" data-anchor-id="sharing-your-reproducible-example">Sharing your reproducible example</h3>
-<p>Once you have created your reprex, you can share it on various platforms such as GitHub, Stack Overflow, or via email. The formatted output generated by {reprex} ensures that your example is easy to read and understand.</p>
-</section>
-</section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>In this blog post, we have discussed the importance of reproducible examples and demonstrated how to create them using {reprex} in R. By creating clear and concise reprexes, you can effectively communicate problems, solutions, and ideas with your peers and collaborators. Give {reprex} a try and see how it can improve your workflow!</p>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<hr>
-<ul>
-<li><p>StackOverflow: <a href="https://stackoverflow.com/questions/tagged/r">R</a>, <a href="https://stackoverflow.com/questions/tagged/git">Git</a>, <a href="https://stackoverflow.com/questions/tagged/rstudio">RStudio</a>, <a href="https://stackoverflow.com/questions/tagged/github">GitHub</a></p></li>
-<li><p>Reddit: <a href="https://www.reddit.com/r/rstats/">R</a>, <a href="https://www.reddit.com/r/git/">Git</a>, <a href="https://www.reddit.com/r/RStudio/">RStudio</a>, <a href="https://www.reddit.com/r/github/">Github</a></p></li>
-<li><p><a href="https://community.rstudio.com/">RStudio Community</a></p></li>
-<li><p>https://reprex.tidyverse.org/</p></li>
-<li><p>https://github.com/MilesMcBain/datapasta</p></li>
-</ul>
-<!--
-- [ ] Work on reprex example with/without RStudio?
-- [ ] Example of a reprex on StackOverflow: https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example
- -->
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"reprex"</span>) <span class="co"># install reprex package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector with 100 random values from the normal distribution</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># set seed for reproducibility</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>my_vec <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>) <span class="co"># random normal vector</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(my_vec) <span class="co"># 5 number summary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>reprex<span class="sc">::</span><span class="fu">reprex</span>() <span class="co"># run reprex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Datapasta is a package that allows you to copy and paste data frames from RStudio into a reprex. This is a very useful tool for creating reproducible examples. Here is an example of how to use datapasta to create a reprex.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install the datapasta package</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"datapasta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the datapasta package</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datapasta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with 100 random values from the normal distribution</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># set seed for reproducibility</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="co"># random normal data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copy the data frame to the clipboard</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dpasta</span>(my_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
 
-</section>
-
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-R-reprex" class="csl-entry" role="listitem">
-Bryan, Jennifer, Jim Hester, David Robinson, Hadley Wickham, and Christophe Dervieux. 2024. <em>Reprex: Prepare Reproducible Example Code via the Clipboard</em>. <a href="https://reprex.tidyverse.org">https://reprex.tidyverse.org</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */
@@ -1046,7 +844,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-03/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-03/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

@@ -97,16 +97,12 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Getting started</span></a>
+    <a class="nav-link" href="../../guides/index.html"> 
+<span class="menu-text">Guides</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../recipes/index.html"> 
 <span class="menu-text">Recipes</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../guides/index.html"> 
-<span class="menu-text">Guides</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -154,6 +150,9 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="title">01. Setting up an R environment</h1>
   <div class="quarto-categories">
     <div class="quarto-category">guides</div>
+    <div class="quarto-category">computing environments</div>
+    <div class="quarto-category">r</div>
+    <div class="quarto-category">rstudio</div>
   </div>
   </div>
 
@@ -180,11 +179,11 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="environment-setups">Environment setups</h2>
 <section id="local-environments" class="level3">
 <h3 class="anchored" data-anchor-id="local-environments">Local environments</h3>
-<p>Choosing to work with R locally means that you will install R and an IDE on your local computer. This approach offers the following advantages:</p>
+<p>Choosing to work with R locally means that you will install R and an integrated development environment (IDE) on your local computer. This approach offers the following advantages:</p>
 <ul>
 <li>Fast and responsive performance</li>
-<li>No reliance on internet connectivity</li>
-<li>Flexibility to customize your environment</li>
+<li>No (inherent) reliance on internet connectivity</li>
+<li>Increased flexibility to customize your environment</li>
 </ul>
 <p>The main disadvantages of working locally are:</p>
 <ul>
@@ -192,51 +191,91 @@ ul.task-list li input[type="checkbox"] {
 <li>manage your own software environment, and</li>
 <li>manage your own backups and version control for collaborative projects.</li>
 </ul>
-<p>This can be a challenge for new users, but there are a number of resources available to help you get started and troubleshoot any issues you may encounter.</p>
-<p>To get started, install R from <a href="https://cran.r-project.org/">CRAN</a>. You can download the latest version of R for your operating system <a href="https://cran.r-project.org/mirrors.html">here</a>. Once you have installed R, you will need to install an IDE. For complete beginners, I recommend <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>, a free and open-source IDE for R. RStudio provides a number of features that make it easier to work with R. If you are new to R, but have experience with other programming languages, you may prefer to use a more general-purpose IDE such as <a href="https://code.visualstudio.com/">VS Code</a>.</p>
+<p>Running and managing R locally can sometimes be a challenge for new users, compared to some other methds. However, there are important advantages to this approach. Remember there are a number of resources available to help you get started and troubleshoot any issues you may encounter.</p>
+<p>To get started, install R from <a href="https://cran.r-project.org/">CRAN</a>. You can download the latest version of R for your operating system <a href="https://cran.r-project.org/mirrors.html">here</a>. Once you have installed R, you will need to install an IDE or editor. For complete beginners, I recommend <a href="https://www.rstudio.com/products/rstudio/download/">RStudio</a>, a free and open-source IDE for R. RStudio provides a number of features that make it easier to work with R. If you have experience with programming and/ or are looking for a more customizable editor, you may prefer to use <a href="https://code.visualstudio.com/">Visual Studio Code</a>. Setting up VS Code for R can be found <a href="https://code.visualstudio.com/docs/languages/r">here</a>.</p>
 </section>
 <section id="remote-environments" class="level3">
 <h3 class="anchored" data-anchor-id="remote-environments">Remote environments</h3>
-<p>You can also choose to work with R in the cloud, a <strong>remote environment</strong>. There are a number of cloud-based options for working with R, including <a href="https://posit.co/products/cloud/cloud/">Posit Cloud</a> and <a href="https://learn.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide">Microsoft Azure</a>. These options provide a pre-configured R environment that you can access from any computer with an internet connection.</p>
-<p>Posit Cloud provides an environment where you can create, edit, and run R projects from anywhere with internet access. It offers several advantages:</p>
+<p>An alternative to running R locally is to work with R in the cloud. This is known as a <strong>remote environment</strong>. There are a number of cloud-based options for working with R, including <a href="https://posit.co/products/cloud/cloud/">Posit Cloud</a>, <a href="https://colab.research.google.com/">Google Colab</a>, and <a href="https://learn.microsoft.com/en-us/azure/architecture/data-guide/technology-choices/r-developers-guide">Microsoft Azure</a>. These options provide an R environment that you can access from any computer with an internet connection.</p>
+<p>Remote environments provide an environment where you can create, edit, and run R projects from anywhere with internet access. They offers several advantages:</p>
 <ul>
-<li>No need to install R or RStudio locally</li>
+<li>No need to install R or an IDE/ editor locally</li>
 <li>Access your projects from any device</li>
 <li>Collaborate with others in real-time</li>
 <li>Easily share your work</li>
 </ul>
-<p>Some of the drawbacks of working in the cloud include:</p>
+<p>Some of the drawbacks of working in the cloud include</p>
 <ul>
 <li>Reliance on stable internet connection</li>
 <li>Potential latency and performance issues</li>
-<li>Limited customization options compared to a local setup</li>
+<li>Somewhat limited customization options compared to a local setup</li>
 </ul>
-<p>To get started with Posit Cloud, you will need to create an account. You can sign up for a free account <a href="https://posit.co/products/cloud/cloud/">here</a>. Once you have created an account, you will see a list of spaces. By default you will have your personal workspace, but you can also join or be invited to other spaces.</p>
+<p>To get started with Posit Cloud, you will need to create an account. You can sign up for a free account <a href="https://posit.co/products/cloud/cloud/">here</a>. Once you have created an account, you will see a list of spaces. By default you will have your personal workspace, but you can also join or be invited to other spaces. Instructors may create spaces for their courses which can provide pre-configured environments for students.</p>
+<div id="fig-posit-cloud" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-posit-cloud-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/posit-cloud.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-posit-cloud-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Posit Cloud interface
+</figcaption>
+</figure>
+</div>
 <p>Visit the <a href="https://posit.cloud/learn/guide">Guide</a> documentation to learn more about the features of Posit Cloud.</p>
 </section>
 <section id="virtual-environments" class="level3">
 <h3 class="anchored" data-anchor-id="virtual-environments">Virtual environments</h3>
-<p>If you are new to R, you may want to consider working in the cloud to get started. If you plan to continue to work with R in the future, you will most likely want to install R and an IDE on your local computer or explore using a <strong>virtual environment</strong>. Virtual environments, such as <a href="https://www.docker.com/">Docker</a>, provide a way to use a pre-configured computing environment or create your own that you can share with others. Virtual environments are a good option if you want to ensure that everyone in your research group is working with the same computing environment. Pre-configured virtual environments exist for R through the <a href="https://rocker-project.org/">Rocker project</a> and can be used locally or in the cloud.</p>
-<p>Using Docker with Rocker offers several benefits:</p>
+<p>If you are new to R, you may want to consider working in the cloud to get started. If you plan to continue to work with R in the future, you will most likely want to install R and an IDE/ editor on your local computer or explore using a <strong>virtual environment</strong>. Virtual environments, such as <a href="https://www.docker.com/">Docker</a>, provide a way to use a pre-configured computing environment or create your own that you can share with others. Pre-configured virtual environments exist for R through the <a href="https://rocker-project.org/">Rocker project</a> and can be used locally or in the cloud.</p>
+<p>In addtion to the advantages of working with R locally, using Docker with Rocker offers several benefits:</p>
 <ul>
-<li>Reproducible environments</li>
-<li>Simplified dependency management</li>
-<li>Easy deployment and scaling</li>
+<li>Safe and isolated environment from the host system</li>
+<li>Reproducible and portable environments</li>
+<li>Simplified dependency management using {pak}</li>
 </ul>
 <p>The drawbacks to using Docker with Rocker include:</p>
 <ul>
 <li>Learning curve for setting up and managing Docker containers</li>
-<li>Increased memory and resource requirements</li>
-<li>Potential compatibility issues with certain packages or libraries</li>
+<li>Increased memory and resource requirements for the host machine</li>
+<li>Increased complexity in managing Git/ GitHub credentials</li>
 </ul>
+<!-- [ ] give the cli and gui approaches: lin380 mats -->
 <p>To start using Docker with a Rocker image, follow these steps:</p>
 <ol type="1">
-<li><p>Install <a href="https://www.docker.com/get-started">Docker</a> on your local machine</p></li>
-<li><p>Pull the desired Rocker image from <a href="https://hub.docker.com/u/rocker/">Docker Hub</a></p>
-<pre><code>docker pull rocker/rstudio</code></pre></li>
-<li><p>Run a container using the pulled image</p>
-<pre><code>docker run -d -p 8787:8787 -e PASSWORD=your_password --name rstudio_container rocker/rstudio</code></pre></li>
-<li><p>Access RStudio in your browser at <code>http://localhost:8787</code> and log in with username <code>rstudio</code> and the password you set</p></li>
+<li>Install <a href="https://www.docker.com/get-started">Docker</a> on your local machine (pay special attention to the installation instructions for your operating system)</li>
+<li>Pull the desired Rocker image from <a href="https://hub.docker.com/u/rocker">Docker Hub</a></li>
+</ol>
+<div id="fig-docker-pull-rocker" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-docker-pull-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/docker-pull-rocker.gif" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-docker-pull-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Pull <code>rocker/rstudio</code> image from Docker Hub
+</figcaption>
+</figure>
+</div>
+<ol start="3" type="1">
+<li>Run a container using the pulled image<br>
+Note: you will need to specify the following options <em>before</em> running the container.</li>
+</ol>
+<ul>
+<li>container name: no spaces</li>
+<li>port mapping: <code>8787</code> on the host to <code>8787</code> on the container</li>
+<li>environment variables: <code>PASSWORD</code> to set the password for RStudio, <code>ROOT</code> to allow root access.</li>
+</ul>
+<div id="fig-docker-run-rocker" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-docker-run-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/docker-run-rstudio.gif" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-docker-run-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Run a container using the <code>rocker/rstudio</code> image
+</figcaption>
+</figure>
+</div>
+<p>Optional: you can also mount a volume to share files between the host and container.</p>
+<ol start="4" type="1">
+<li>Access RStudio in your browser at <code>http://localhost:8787</code> and log in with username <code>rstudio</code> and the password you set</li>
 </ol>
 </section>
 </section>
