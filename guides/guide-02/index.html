@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="In this guide, …">
+<meta name="description" content="In this guide, we will cover how to install and manage R packages. We will discuss two primary methods for installing packages: using the RStudio IDE interface and using the R console. We will also cover how to attach and detach packages in an R session, and how to manage packages by listing, updating, and removing them.">
 
 <title>Resources Kit - 02. Installing and managing R packages</title>
 <style>
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -40,6 +74,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="../../site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -129,10 +165,23 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r-ide" id="toc-r-ide" class="nav-link active" data-scroll-target="#r-ide">R != IDE</a></li>
+  <li><a href="#install-packages" id="toc-install-packages" class="nav-link" data-scroll-target="#install-packages">Install packages</a></li>
+  <li><a href="#using-packages" id="toc-using-packages" class="nav-link" data-scroll-target="#using-packages">Using packages</a>
+  <ul class="collapse">
+  <li><a href="#r-sessions" id="toc-r-sessions" class="nav-link" data-scroll-target="#r-sessions">R Sessions</a></li>
+  <li><a href="#managing-packages" id="toc-managing-packages" class="nav-link" data-scroll-target="#managing-packages">Managing packages</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-02/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -144,7 +193,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    <p>In this guide, …</p>
+    <p>In this guide, we will cover how to install and manage R packages. We will discuss two primary methods for installing packages: using the RStudio IDE interface and using the R console. We will also cover how to attach and detach packages in an R session, and how to manage packages by listing, updating, and removing them.</p>
   </div>
 </div>
 
@@ -161,7 +210,6 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- [ ] incorporate lin 380 mats -->
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -169,15 +217,266 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="callout-body-container">
 <p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Outcomes</strong></p>
-<!-- Remember and understand verbs: https://tips.uark.edu/blooms-taxonomy-verb-chart/ -->
 <ul>
-<li>…</li>
+<li>Recognize the difference between the R interpreter and interfaces to the R interpreter.</li>
+<li>Install R packages using the RStudio IDE interface and the R console.</li>
+<li>Manage R packages in R sessions and the R environment.</li>
 </ul>
 </div>
 </div>
 </div>
+<section id="r-ide" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="r-ide">R != IDE</h2>
+<p>As you begin your journey into R programming, it is key to understand an important distinction that can often be overlooked by many a clever student; the difference between R and RStudio (or any other integrated development environment (IDE) or editor).</p>
+<p>When you install R on your computing environment, what you are in fact installing is an R interpreter. That is, as R is a programming “language”, we need software to make sense of the R code we write and execute. The interpreter is the engine that we send commands to and from which the results are sent back. To send commands to the R interpreter, we can use many various interfaces ranging from black and white screens with a flashing cursor at the prompt to sophisticated graphical user interfaces (GUI), such as RStudio or Visual Studio Code.</p>
+<p>When you open up RStudio, you are opening up an IDE that is designed to make working with R easier. It provides a console to interact with the R interpreter, a script editor to write and run R code, and many other features to help you write, debug, and share your R code.</p>
+<div id="fig-rstudio-clean" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rstudio-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/rstudio-clean.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-clean-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: RStudio on clean start
+</figcaption>
+</figure>
+</div>
+<p>RStudio is not R. It is a tool that helps you work with R. You can use R without RStudio, but you cannot use RStudio without R. Keep this distinction in mind as you continue your journey into R programming.</p>
+<p>RStudio has a number of keyboard shortcuts that can be used to speed up your workflow. You can find a list of them <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">here</a>.</p>
+<p>For starters, here are the ones I use the most to work with Quarto and R:</p>
+<table class="table">
+<caption>For Quarto document elements</caption>
+<colgroup>
+<col style="width: 72%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Description</th>
+<th>Shortcut</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Render Quarto documents</td>
+<td><p><kbd aria-hidden="true" data-mac="Shift Command K" data-windows="Shift Ctrl K"></kbd><span class="visually-hidden"></span></p></td>
+</tr>
+<tr class="even">
+<td>Add a code block to a Quarto document</td>
+<td><p><kbd aria-hidden="true" data-mac="Command Option i" data-windows="Ctrl Alt i"></kbd><span class="visually-hidden"></span></p></td>
+</tr>
+</tbody>
+</table>
+
+<div class="no-row-height column-margin column-container"><div class="margin-aside">
+<table class="table">
+<caption>Symbols used in keyboard shortcuts</caption>
+<colgroup>
+<col style="width: 61%">
+<col style="width: 38%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Symbol</th>
+<th>Key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p><kbd aria-hidden="true">Shift</kbd><span class="visually-hidden">Shift</span></p></td>
+<td>Shift key</td>
+</tr>
+<tr class="even">
+<td><p><kbd aria-hidden="true">Ctrl</kbd><span class="visually-hidden">Ctrl</span></p></td>
+<td>Control key</td>
+</tr>
+<tr class="odd">
+<td><p><kbd aria-hidden="true">Command</kbd><span class="visually-hidden">Command</span></p></td>
+<td>Command key<br>
+(Mac only)</td>
+</tr>
+<tr class="even">
+<td><p><kbd aria-hidden="true">Alt</kbd><span class="visually-hidden">Alt</span></p></td>
+<td>Alt key</td>
+</tr>
+<tr class="odd">
+<td><p><kbd aria-hidden="true">Option</kbd><span class="visually-hidden">Option</span></p></td>
+<td>Option key<br>
+(Mac only)</td>
+</tr>
+<tr class="even">
+<td><p><kbd aria-hidden="true">Esc</kbd><span class="visually-hidden">Esc</span></p></td>
+<td>Escape key</td>
+</tr>
+<tr class="odd">
+<td><p><kbd aria-hidden="true">Tab</kbd><span class="visually-hidden">Tab</span></p></td>
+<td>Tab key</td>
+</tr>
+<tr class="even">
+<td><p><kbd aria-hidden="true">Enter</kbd><span class="visually-hidden">Enter</span></p></td>
+<td>Enter key</td>
+</tr>
+</tbody>
+</table>
+</div></div><table class="table">
+<caption>For R code elements</caption>
+<colgroup>
+<col style="width: 72%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Description</th>
+<th>Shortcut</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>To invoke code completion when typing R code</td>
+<td><p><kbd aria-hidden="true" data-mac="Tab" data-windows="Tab"></kbd><span class="visually-hidden"></span></p></td>
+</tr>
+<tr class="even">
+<td>Run current line or selection from the Editor in the Console</td>
+<td><p><kbd aria-hidden="true" data-mac="Command Enter" data-windows="Ctrl Enter"></kbd><span class="visually-hidden"></span></p></td>
+</tr>
+<tr class="odd">
+<td>To comment or uncomment a line or selection so that it is or is not run as R code</td>
+<td><p><kbd aria-hidden="true" data-mac="Shift Command C" data-windows="Shift Ctrl C"></kbd><span class="visually-hidden"></span></p></td>
+</tr>
+<tr class="even">
+<td>To insert the <code>&lt;-</code> operator to assign code output to a variable</td>
+<td><p><kbd aria-hidden="true" data-mac="Option -" data-windows="Alt -"></kbd><span class="visually-hidden"></span></p></td>
+</tr>
+<tr class="odd">
+<td>To insert a <code>|&gt;</code> operator to pipe the output of one operation to the input of the next</td>
+<td><p><kbd aria-hidden="true" data-mac="Command Shift M" data-windows="Ctrl Shift M"></kbd><span class="visually-hidden"></span></p></td>
+</tr>
+<tr class="even">
+<td>To reformat R code so that indentation is more legible</td>
+<td><p><kbd aria-hidden="true" data-mac="Command Shift A" data-windows="Ctrl Shift A"></kbd><span class="visually-hidden"></span></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="install-packages" class="level2">
+<h2 class="anchored" data-anchor-id="install-packages">Install packages</h2>
+<p>Another key principle in programming is that there is often more than one way to get something done. For package installation, there are two primary methods: using a GUI, such as the windows and panes in the RStudio IDE interface or using the R console. We will cover both methods here as getting comfortable with both will make you a more versatile R programmer.</p>
+<p>In RStudio, you can install packages using the Packages pane. This pane is located in the bottom right corner of interface. If you don’t see it, you can open it by clicking on the “Packages” tab in the bottom right corner of the RStudio interface. You can also open it by going to the “Tools” menu and selecting “Install Packages…”.</p>
+<p>From the “Install Packages” dialog, you can search for packages by name. As you type a package name, the list of available packages will be filtered. Click install to install the package. You can also install multiple packages at once by separating the package names with a space.</p>
+<div id="fig-rstudio-install-pkgs" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rstudio-install-pkgs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/rstudio-install-pkgs.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rstudio-install-pkgs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: RStudio Packages pane and Install Packages dialog
+</figcaption>
+</figure>
+</div>
+<p>From the R console, you can install packages using the <code>install.packages()</code> function. This function takes the name of the package you want to install as an argument. For example, to install {dplyr}, you would run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can also install multiple packages at once by passing a vector of package names to the <code>install.packages()</code> function. For example, to install {dplyr} and {ggplot2} packages, you would run:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"dplyr"</span>, <span class="st">"ggplot2"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In either case, you will need to select a CRAN mirror the first time you install a package in a new session. At this point, it does not matter which mirror you choose – <code>1</code> is usually a good choice.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>You can set a default CRAN mirror in your <code>.Rprofile</code> file. This file is located in your home directory (<code>~/.Rprofile</code>). If the file does not exist, you can create it. Add the following line to set a default CRAN mirror:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos =</span> <span class="fu">c</span>(<span class="at">CRAN =</span> <span class="st">"https://cloud.r-project.org"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Both methods will install the package and its dependencies from CRAN. If you want to install a package from GitHub (and/ or CRAN), you can use {pak}. Once installed, {pak} provides the <code>pak::pak()</code> function, which can install packages from CRAN or GitHub. To install a package from CRAN, you can use the package name as an argument. To install a package from GitHub, you can use the <code>user/repo</code> format as an argument.</p>
+<p>For example, let’s install the {stringr} package from CRAN and the {qtkit} package from GitHub:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"stringr"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"qtalr/qtkit"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="using-packages" class="level2">
+<h2 class="anchored" data-anchor-id="using-packages">Using packages</h2>
+<section id="r-sessions" class="level3">
+<h3 class="anchored" data-anchor-id="r-sessions">R Sessions</h3>
+<p>To understand how to use packages for programming with R, you need to understand how R sessions work. Every time you open an R session, you start a new R session. This session starts with a clean environment. No packages or variables are available at this point –other than the base R functions and variables.</p>
+<p>We can see this by running the <code>search()</code> function in the R console.</p>
+<div id="fig-r-search" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-r-search-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/r-session-search-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-r-search-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: R session search path on clean start
+</figcaption>
+</figure>
+</div>
+<section id="attach-packages" class="level4">
+<h4 class="anchored" data-anchor-id="attach-packages">Attach packages</h4>
+<p>To make a package available for use in an R session, you need to “attach it” to the search path. This will persist until you close this R session, or “detach” the package manually. You can attach a package to the search path using the <code>library()</code> function. For example, to attach the <code>dplyr</code> package to the search path, you would run:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can see what packages are currently attached by running <code>search()</code>.</p>
+<div id="fig-r-search-dplyr" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-r-search-dplyr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/r-session-search-2.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-r-search-dplyr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: R session search path with {dplyr} attached
+</figcaption>
+</figure>
+</div>
+<p>In RStudio, you can see the checkboxes next to the packages in the Packages pane. This is a visual representation of packages attached to the search path.</p>
+<p><strong>Some R session gotchas:</strong></p>
+<ul>
+<li>If you attach a package in one session, it will not be available in another session automatically. Each session is independent.</li>
+<li>Running an R script or rendering a literate document (e.g., R Markdown, Quarto) will start a new R session, and close it when the script or document is done running.</li>
+<li>Therefore, packages you attach in the R console are not available in other scripts or documents, and vice versa.</li>
+<li>To make a package available in a script or document, you need to attach it in that script or document. This is a good thing, as it makes your scripts and documents self-contained and reproducible.</li>
+</ul>
+</section>
+<section id="detach-packages" class="level4">
+<h4 class="anchored" data-anchor-id="detach-packages">Detach packages</h4>
+<p>If you “quit” an R session (<code>q()</code>), the packages you attached will be detached automatically. You can also detach a package manually by running <code>detach("package:package_name")</code>. For example, to detach {dplyr}, you would run:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">"package:dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="managing-packages" class="level3">
+<h3 class="anchored" data-anchor-id="managing-packages">Managing packages</h3>
+<p>In addition to installing packages, you may need to manage them. This will include listing packages that have newer versions available, updating packages, and removing packages.</p>
+<p>In RStudio, you can see which packages have newer versions available in the Packages pane. The “Updates” tab will list packages that have newer versions available. You can update packages by selecting the checkboxes or some or all packages and clicking the “Update” button.</p>
+<p>At the R Console, the <code>old.packages()</code> function will list packages that have newer versions available. You can then decide which packages to update, or just update all packages by running:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will update all packages without asking for confirmation. It also is of note that this function updates packages installed by any method. That is, there is not a {pak} version of this function.</p>
+<p>To remove a package in RSudio, you can click the <i class="fa-solid fa-circle-xmark" aria-label="circle-xmark"></i> button next to the package in the Packages pane. In the R console, you can remove a package using the <code>remove.packages()</code> function. For example, to remove the {dplyr} package, you would run:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">remove.packages</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>If you are working on a project and want to ensure that the package versions are consistent across all collaborators, you can use {renv}. {renv} is a package that helps you create and manage project-specific R environments. You can use {renv} to create a project-specific library of packages, and ensure that all collaborators are using the same versions of packages. To use {renv}, you will need to install it first:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"renv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Then, you can use the following functions to manage packages in your project:</p>
+<ul>
+<li><code>renv::init()</code>: Initialize a new project with {renv}.</li>
+<li><code>renv::install("package_name")</code>: Install a package in the project library.</li>
+<li><code>renv::snapshot()</code>: Snapshot the project library.</li>
+<li><code>renv::restore()</code>: Restore the project library to a previous snapshot.</li>
+<li><code>renv::status()</code>: Show the status of the project library.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this guide, we covered how to install and manage R packages. We discussed two primary methods for installing packages: using the RStudio IDE interface and using the R console. We also covered how to attach and detach packages in an R session, and how to manage packages by listing, updating, and removing them. Finally, we introduced {renv} as a way to manage project-specific R environments.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script>
@@ -844,7 +1143,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-02/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-02/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
