@@ -9,5 +9,10 @@ listing:
   fields: [image, title, subtitle, description]
 ---
 
+<!--
 
+- [ ] add 'Snippet' to the code blocks in the guides
+- [ ] add 'Figure' and 'Table' cross-references
+
+-->
 

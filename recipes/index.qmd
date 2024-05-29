@@ -11,3 +11,9 @@ listing:
   fields: [image, title, subtitle, description, word-count, reading-time]
 ---
 
+<!--
+
+- [ ] consider `webr` for the recipes for more interactive content
+
+-->
+
