@@ -189,11 +189,12 @@ div.csl-indent {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#what-is-git-github-and-why-should-i-use-it" id="toc-what-is-git-github-and-why-should-i-use-it" class="nav-link" data-scroll-target="#what-is-git-github-and-why-should-i-use-it">What is Git, Github? And why should I use it?</a></li>
-  <li><a href="#how-do-i-set-up-git" id="toc-how-do-i-set-up-git" class="nav-link" data-scroll-target="#how-do-i-set-up-git">How do I set up Git?</a>
+  <li><a href="#how-do-i-set-up-git-and-github" id="toc-how-do-i-set-up-git-and-github" class="nav-link" data-scroll-target="#how-do-i-set-up-git-and-github">How do I set up Git and GitHub?</a>
   <ul class="collapse">
   <li><a href="#install-and-setup-git" id="toc-install-and-setup-git" class="nav-link" data-scroll-target="#install-and-setup-git">Install and setup Git</a></li>
-  </ul></li>
   <li><a href="#how-do-i-set-up-github" id="toc-how-do-i-set-up-github" class="nav-link" data-scroll-target="#how-do-i-set-up-github">How do I set up GitHub?</a></li>
+  </ul></li>
+  <li><a href="#understanding-the-basic-git-and-github-workflow" id="toc-understanding-the-basic-git-and-github-workflow" class="nav-link" data-scroll-target="#understanding-the-basic-git-and-github-workflow">Understanding the basic Git and GitHub workflow</a></li>
   <li><a href="#how-do-i-manage-my-project-with-git-and-github" id="toc-how-do-i-manage-my-project-with-git-and-github" class="nav-link" data-scroll-target="#how-do-i-manage-my-project-with-git-and-github">How do I manage my project with Git and GitHub?</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -230,7 +231,6 @@ div.csl-indent {
 </header>
 
 
-<!-- [ ] incorporate lin 380 mats -->
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -238,7 +238,6 @@ div.csl-indent {
 </div>
 <div class="callout-body-container">
 <p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Outcomes</strong></p>
-<!-- Remember and understand verbs: https://tips.uark.edu/blooms-taxonomy-verb-chart/ -->
 <ul>
 <li>Recognize the purpose of Git and GitHub</li>
 <li>Establish a working Git and GitHub environment</li>
@@ -254,83 +253,93 @@ div.csl-indent {
 <section id="what-is-git-github-and-why-should-i-use-it" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-git-github-and-why-should-i-use-it">What is Git, Github? And why should I use it?</h2>
 <p>Git is a version control system. It allows you to track changes to files and folders over time. It also allows you to collaborate with others on projects. Think of it as MS Word’s “Track Changes” feature on steroids.</p>
-<p>Git is a command line tool, but there are also graphical user interfaces (GUIs) to interact with Git in a more user-friendly way. Git is a great tool for managing projects. It is especially useful for managing projects that involve multiple people.</p>
+<p>Git is a command line tool, but there are also GUIs to interact with Git in a more user-friendly way. Git is a great tool for managing projects. It is especially useful for managing projects that involve multiple people.</p>
 <p>GitHub is a web-based hosting service for Git repositories. It allows you to store your Git repositories in the cloud. It also allows you to collaborate with others on projects by sharing projects. GitHub is a great place to store and share your code. It is also a great place to find code that others have shared.</p>
 <p>Combining Git with GitHub allows you to store your Git managed project repositories in the cloud. This means that you can access your repositories from anywhere. It also means that you can collaborate with others on projects. You can also use GitHub to share your code with others. This is especially useful for making your projects reproducible.</p>
 </section>
-<section id="how-do-i-set-up-git" class="level2">
-<h2 class="anchored" data-anchor-id="how-do-i-set-up-git">How do I set up Git?</h2>
+<section id="how-do-i-set-up-git-and-github" class="level2">
+<h2 class="anchored" data-anchor-id="how-do-i-set-up-git-and-github">How do I set up Git and GitHub?</h2>
 <section id="install-and-setup-git" class="level3">
 <h3 class="anchored" data-anchor-id="install-and-setup-git">Install and setup Git</h3>
 <p>The process for installation and setup will differ based on what operating system you are using. If you are using a Windows machine, you will likely need to install Git. If you are using a Mac or Linux machine, you will likely already have Git installed.</p>
-<p>Windows users will need to install Git. You can do this by downloading the installer from <a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a>. Once you have downloaded the installer, you will need to run it. You will need to follow the instructions in the installer to complete the installation.</p>
-<p>Mac and Linux users can verify that Git is installed by opening a terminal window and typing <code>git --version</code>. If Git is installed, you will see a version number. If Git is not installed, you will see an error message.</p>
-<p>Once you have Git installed, you will need to set up your Git configuration. Most of the defaults will be fine, but you will need to set your name and email address, the same address you used to create your GitHub account. You can do this by opening a terminal window and typing the following commands:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span>
+<p>Windows users can install Git by downloading the installer from <a href="https://git-scm.com/downloads" class="uri">https://git-scm.com/downloads</a>. Once you have downloaded the installer, you will need to run it. You will need to follow the instructions in the installer to complete the installation.</p>
+<div class="{fig-terminal-git}">
+<p><img src="images/terminal-git.png" class="img-fluid"></p>
+<p>Terminal pane in RStudio</p>
+</div>
+<p>Mac and Linux users can verify that Git is installed by opening a terminal window and typing <code>git --version</code>. If Git is installed, you will see a version number. If Git is not installed, you will see an error message. If you need to install Git, you can do so following these instructions:</p>
+<ul>
+<li>Mac users can install Xcode Command Line Tools by running <code>xcode-select --install</code> in the terminal. This will install Git along with other tools that may be useful for development.</li>
+<li>Linux users can install Git using the package manager for their distribution. For example, Ubuntu users can install Git by running <code>sudo apt-get install git</code> in the terminal.</li>
+</ul>
+<p>Once you have Git installed, you will need to set up your Git configuration. Most of the defaults will be fine for now, but you will need to at least set your name and email address, this will be the same address you use to create your GitHub account, so choose accordingly.</p>
+<p>You can do this by opening a terminal window and entering the following commands (changing the name and email address to your own):</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span><span class="kw">;</span> <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@email.edu"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Alternatively, you can use the <code>usethis</code> package in R to set up Git in your environment. Open RStudio and run the following code in the console:</p>
+<p>Alternatively, you can use {usethis}<span class="citation" data-cites="R-usethis">(<a href="#ref-R-usethis" role="doc-biblioref">Wickham et al. 2024</a>)</span> in R to set up Git in your environment. Open RStudio and run the following code in the console:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"usethis"</span>)) {</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"usethis"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Your Name"</span>, <span class="at">user.email =</span> <span class="st">"your.email@school.edu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<!-- - [Posit Guide on Git with RStudio.](https://support.posit.co/hc/en-us/articles/200532077) -->
+<div id="fig-console-git" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-console-git-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/console-git.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-console-git-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Console pane in RStudio
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="how-do-i-set-up-github" class="level3">
+<h3 class="anchored" data-anchor-id="how-do-i-set-up-github">How do I set up GitHub?</h3>
+<p>To set up GitHub, you will need to create an account. You can do this at &lt;github.com&gt;. Be sure to use the email address you used in the Git setup!</p>
+<p>The service is free and there are extra features available for students and educators. Once you have created an account, you will be able to create repositories. You can also create organizations and teams. You can use these to collaborate with others on projects.</p>
 </section>
 </section>
-<section id="how-do-i-set-up-github" class="level2">
-<h2 class="anchored" data-anchor-id="how-do-i-set-up-github">How do I set up GitHub?</h2>
-<p>To set up GitHub, you will need to create an account. You can do this at &lt;github.com&gt;. The service is free and there are extra features available for students and educators. Once you have created an account, you will be able to create repositories. You can also create organizations and teams. You can use these to collaborate with others on projects.</p>
+<section id="understanding-the-basic-git-and-github-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-basic-git-and-github-workflow">Understanding the basic Git and GitHub workflow</h2>
+<p>Once your Git installation and Github account are set up, a number of options for working with and managing your project are available to you. At this point, let’s focus on one typical scenario that you will encounter early on in this textbook.</p>
+<div id="fig-git-local-remote" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-git-local-remote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/github-features.drawio.png" class="img-fluid figure-img" style="width:50.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-git-local-remote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Visualizing a common scenario using Git and GitHub
+</figcaption>
+</figure>
+</div>
+<p>Some definitions are in order.</p>
+<p>First, let’s define some key nouns:</p>
+<ul>
+<li><strong>Repository</strong>: This is a collection of folders (directories) and files in a project that are managed by Git.</li>
+<li><strong>Remote Repository</strong>: This is the repository that is stored on GitHub. It can be your repository or a repository owned by someone else. These repositories can be public, accessible by anyone, or private, accessible only by those with permission.</li>
+<li><strong>Local Repository</strong>: This is the repository that is stored on your local machine. This is where you will make changes to your project. The local repository may be a copy of a remote repository or a new repository that you create that is not stored on GitHub (yet, or ever).</li>
+</ul>
+<p>Now, some key verbs:</p>
+<ul>
+<li><strong>Clone</strong>: This is the process of copying a remote repository to your local machine.</li>
+<li><strong>Edit</strong>: This is the process of making changes to the files in your local repository.</li>
+</ul>
+<p>There are many other actions that you can perform with Git and GitHub, but these are sufficient to get you started with this textbook.</p>
 </section>
 <section id="how-do-i-manage-my-project-with-git-and-github" class="level2">
 <h2 class="anchored" data-anchor-id="how-do-i-manage-my-project-with-git-and-github">How do I manage my project with Git and GitHub?</h2>
-<p>Once your Git installation and Github account are set up, you can manage local and remote repositories. You can do this from the command line, but it is recommedable that you use the Git pane in RStudio to interface with Git and GitHub. Here you can perform various key operations.</p>
-<p>Let’s introduce operations related to common tasks for this textbook.</p>
-<p>A. Copy a remote lab repository to your local machine:</p>
-<ul>
+<p>Let’s describe the step-wise process in Scenario A, visualized in the diagram above. This scenario involves cloning a remote repository to your local machine and then making changes to the files in the local repository. Conveniently, this is the process you will follow when working on a lab assignment in this textbook.</p>
+<ol type="1">
 <li>Navigate to the repository on GitHub</li>
-<li>Click on the ‘Code’ button and copy the clone URL (https)</li>
-<li>In RStudio, create a new project from version control
-<ul>
-<li>File &gt; New Project &gt; Version Control &gt; Git</li>
-<li>Paste the URL of the repository</li>
+<li>Click on the ‘Code’ button and copy the clone URL (https) to your clipboard.</li>
+<li>Open RStudio</li>
+<li>From the menu, select File &gt; New Project &gt; Version Control &gt; Git</li>
+<li>Paste the URL of the repository into the ‘Repository URL’ field</li>
 <li>Choose the directory location for the project</li>
-<li>Create Project</li>
-</ul></li>
-</ul>
-<p>B. Fork and clone a remote template repository to your local machine:</p>
-<ul>
-<li>Navigate to the repository on GitHub</li>
-<li>Click the ‘Fork’ button</li>
-<li>Select the account to fork the repository to</li>
-<li>In the forked repository, click on the ‘Code’ button and copy the clone URL (https)</li>
-<li>In RStudio, create a new project from version control
-<ul>
-<li>File &gt; New Project &gt; Version Control &gt; Git</li>
-<li>Paste the URL of the forked repository</li>
-<li>Choose the directory location for the project</li>
-<li>Create Project</li>
-</ul></li>
-</ul>
-<p>C. Create/ Join a remote repository and clone it to your local machine:</p>
-<ul>
-<li>Create a new repository on GitHub
-<ul>
-<li>Click the ‘New’ button in the top right corner of the repositories listing page</li>
-<li>Name the repository</li>
-<li>Select ‘Public’ or ‘Private’</li>
-<li>Select ‘Initialize this repository with a README’</li>
-<li>Click ‘Create Repository’</li>
-</ul></li>
-<li>In the new repository, click on the ‘Code’ button and copy the clone URL (https)</li>
-<li>In RStudio, create a new project from version control
-<ul>
-<li>File &gt; New Project &gt; Version Control &gt; Git</li>
-<li>Paste the URL of the repository</li>
-<li>Choose the directory location for the project</li>
-<li>Create Project</li>
-</ul></li>
-</ul>
+<li>Click ‘Create Project’</li>
+</ol>
+<p>RStudio will then clone the repository to your local machine and open the project as a new RStudio project. You can now make changes to the files in the project.</p>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -345,6 +354,8 @@ div.csl-indent {
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>In this guide, we covered the basics of setting up Git and GitHub. We also covered the basics of using Git and GitHub to manage a project. We discussed the purpose of Git and GitHub, and why you should use them. We also discussed how to install and set up Git, how to set up GitHub, and the basic Git and GitHub workflow for managing a project.</p>
+<p>We will return to Git and GitHub later in the textbook to cover more functionality and use cases.</p>
 </section>
 <section id="references" class="level2">
 
@@ -356,6 +367,9 @@ div.csl-indent {
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Bryan2020" class="csl-entry" role="listitem">
 Bryan, Jennifer, and Jim Hester. 2020. <em>Happy <span>Git</span> and <span>GitHub</span> for the <span class="nocase">useR</span></em>.
+</div>
+<div id="ref-R-usethis" class="csl-entry" role="listitem">
+Wickham, Hadley, Jennifer Bryan, Malcolm Barrett, and Andy Teucher. 2024. <em>Usethis: Automate Package and Project Setup</em>. <a href="https://usethis.r-lib.org">https://usethis.r-lib.org</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script>
