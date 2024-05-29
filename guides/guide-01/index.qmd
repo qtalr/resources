@@ -69,8 +69,6 @@ The drawbacks to using Docker with Rocker include:
 * Increased memory and resource requirements for the host machine
 * Increased complexity in managing Git/ GitHub credentials
 
-<!-- [ ] give the cli and gui approaches: lin380 mats -->
-
 To start using Docker with a Rocker image, follow these steps:
 
 1. Install [Docker](https://www.docker.com/get-started) on your local machine (pay special attention to the installation instructions for your operating system)

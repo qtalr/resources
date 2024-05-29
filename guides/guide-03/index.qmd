@@ -1,12 +1,31 @@
 ---
-title: "03. Working with the nteractive R programming lessons"
+title: "03. Working with the interactive R programming lessons"
 subtitle: ""
 description: |
-  In this guide, ...
+  In this guide, we provide an overview of the interactive R programming lessons, explain how to access the lessons, use the lessons, and remove the lessons.
 categories: [guides]
 ---
 
-<!-- [ ] incorporate lin 380 mats -->
+<!--
+
+Purpose
+
+- Provide an overview of the interactive R programming lessons
+  - What are they?
+  - How do they work?
+  - What do they cover?
+- Explain how to access the lessons
+  - Install {swirl} `install.packages("swirl")`
+  - Load the package `library(swirl)`
+  - Download the lessons `install_course_github("qtalr/Lessons")`
+- Use the lessons
+  - Load {swirl} `library(swirl)`
+  - Run `swirl()` to start the lessons
+  - Follow the prompts to select and complete a lesson
+- Update the lessons
+  - Run `uninstall_course("Lessons")` to remove the current lessons
+  - Run `install_course_github("qtalr/Lessons")` to download the latest lessons
+-->
 
 ::: {.callout}
 **{{< fa regular list-alt >}} Outcomes**
@@ -15,3 +34,58 @@ categories: [guides]
 
 - ...
 :::
+
+
+## Purpose
+
+The interactive R programming lessons are designed to help you learn R programming by doing. The lessons are interactive, meaning you can complete them directly in R and feedback is provided to ensure that you understand the concepts covered and can complete the lessons. The lessons cover a range of topics. In the early chapters, the lessons cover R fundamentals, such as data types, data structures, and functions. In the later chapters, the lessons prepare you for working with the programming concepts connected to the textbook, recipes, and labs.
+
+You can preview the topics covered in the lessons by visiting the [Lessons repository](https://github.com/qtalr/lessons) on GitHub. To access and to complete the lessons read below.
+
+## Access the lessons
+
+To access the interactive R programming lessons, you need to install the {swirl} package and download the lessons.
+
+```r
+install.packages("swirl")
+library(swirl)
+install_course_github("qtalr/Lessons")
+```
+
+This code only needs to be run once. After you have installed the {swirl} package and downloaded the lessons, you can use the lessons whenever you want.
+
+## Use the lessons
+
+To use the interactive R programming lessons, you need to load the {swirl} package and run the `swirl()` function.
+
+```r
+library(swirl)
+swirl()
+```
+
+::: {#fig-swirl-lessons}
+![](images/rstudio-swirl-lessons.png)
+
+Run `swirl()`, select a course and a lesson to start
+:::
+
+When you run the `swirl()` function, you will be prompted to select a course. Select the course you want to complete and follow the prompts to complete the lessons.
+
+Each lesson will include a series of questions and exercises that you need to complete. You will be typing code directly into the R console to complete the exercises which will help you get accustomed to working with R in the R console.
+
+::: {.callout}
+**{{< fa regular hand-point-up >}} Tip**
+
+Quick tip for working in the R console, you can use the up and down arrow keys on your keyboard to navigate through your command history. This can be helpful if you want to reuse a command that you previously ran.
+:::
+
+## Uninstall the lessons (optional)
+
+If you want to uninstall the interactive R programming lessons, you can run the following code.
+
+```r
+library(swirl)
+uninstall_course("Lessons")
+```
+
+This code will remove the current lessons from your computer. If you want to reinstall the lessons, you can run the [code above again](#access-the-lessons).

@@ -1,5 +1,5 @@
 ---
-title: "02. Setting up Git and GitHub"
+title: "04. Setting up Git and GitHub"
 subtitle: ""
 description: |
   In this guide, we will cover the basics of setting up Git and GitHub. We will also cover the basics of using Git and GitHub to manage a project. This guide is intended for beginners who are new to Git and GitHub. It is also intended for those who are new to using Git and GitHub with R.

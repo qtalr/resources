@@ -2,16 +2,209 @@
 title: "02. Installing and managing R packages"
 subtitle: ""
 description: |
-  In this guide, ...
+  In this guide, we will cover how to install and manage R packages. We will discuss two primary methods for installing packages: using the RStudio IDE interface and using the R console. We will also cover how to attach and detach packages in an R session, and how to manage packages by listing, updating, and removing them.
 categories: [guides]
 ---
-
-<!-- [ ] incorporate lin 380 mats -->
 
 ::: {.callout}
 **{{< fa regular list-alt >}} Outcomes**
 
-<!-- Remember and understand verbs: https://tips.uark.edu/blooms-taxonomy-verb-chart/ -->
-
-- ...
+- Recognize the difference between the R interpreter and interfaces to the R interpreter.
+- Install R packages using the RStudio IDE interface and the R console.
+- Manage R packages in R sessions and the R environment.
 :::
+
+## R != IDE
+
+As you begin your journey into R programming, it is key to understand an important distinction that can often be overlooked by many a clever student; the difference between R and RStudio (or any other integrated development environment (IDE) or editor).
+
+When you install R on your computing environment, what you are in fact installing is an R interpreter. That is, as R is a programming "language", we need software to make sense of the R code we write and execute. The interpreter is the engine that we send commands to and from which the results are sent back. To send commands to the R interpreter, we can use many various interfaces ranging from black and white screens with a flashing cursor at the prompt to sophisticated graphical user interfaces (GUI), such as RStudio or Visual Studio Code.
+
+When you open up RStudio, you are opening up an IDE that is designed to make working with R easier. It provides a console to interact with the R interpreter, a script editor to write and run R code, and many other features to help you write, debug, and share your R code.
+
+::: {#fig-rstudio-clean}
+![](images/rstudio-clean.png)
+
+RStudio on clean start
+:::
+
+
+RStudio is not R. It is a tool that helps you work with R. You can use R without RStudio, but you cannot use RStudio without R. Keep this distinction in mind as you continue your journey into R programming.
+
+RStudio has a number of keyboard shortcuts that can be used to speed up your workflow. You can find a list of them [here](https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts).
+
+For starters, here are the ones I use the most to work with Quarto and R:
+
+| Description | Shortcut |
+|-------------|-----|
+| Render Quarto documents | {{< kbd win='Shift Ctrl K' mac='Shift Command K' >}} |
+| Add a code block to a Quarto document | {{< kbd win='Ctrl Alt i' mac='Command Option i' >}} |
+
+: For Quarto document elements
+
+::: {.aside}
+| Symbol | Key |
+|--------|-----|
+| {{< kbd Shift >}} | Shift key |
+| {{< kbd Ctrl >}} | Control key |
+| {{< kbd Command >}} | Command key\
+(Mac only) |
+| {{< kbd Alt >}} | Alt key |
+| {{< kbd Option >}} | Option key\
+(Mac only) |
+| {{< kbd Esc >}} | Escape key |
+| {{< kbd Tab >}} | Tab key |
+| {{< kbd Enter >}} | Enter key |
+
+: Symbols used in keyboard shortcuts
+
+:::
+
+| Description | Shortcut |
+|-------------|-----|
+| To invoke code completion when typing R code | {{< kbd win=Tab mac=Tab >}} |
+| Run current line or selection from the Editor in the Console | {{< kbd win='Ctrl Enter' mac='Command Enter' >}}
+| To comment or uncomment a line or selection so that it is or is not run as R code | {{< kbd win='Shift Ctrl C' mac='Shift Command C' >}} |
+| To insert the `<-` operator to assign code output to a variable | {{< kbd win='Alt -' mac='Option -' >}} |
+| To insert a `|>` operator to pipe the output of one operation to the input of the next | {{< kbd win='Ctrl Shift M' mac='Command Shift M' >}} |
+| To reformat R code so that indentation is more legible | {{< kbd win='Ctrl Shift A' mac='Command Shift A' >}} |
+
+: For R code elements
+
+## Install packages
+
+Another key principle in programming is that there is often more than one way to get something done.  For package installation, there are two primary methods: using a GUI, such as the windows and panes in the RStudio IDE interface or using the R console. We will cover both methods here as getting comfortable with both will make you a more versatile R programmer.
+
+In RStudio, you can install packages using the Packages pane. This pane is located in the bottom right corner of interface. If you don't see it, you can open it by clicking on the "Packages" tab in the bottom right corner of the RStudio interface. You can also open it by going to the "Tools" menu and selecting "Install Packages...".
+
+From the "Install Packages" dialog, you can search for packages by name. As you type a package name, the list of available packages will be filtered. Click install to install the package. You can also install multiple packages at once by separating the package names with a space.
+
+::: {#fig-rstudio-install-pkgs}
+![](images/rstudio-install-pkgs.png)
+
+RStudio Packages pane and Install Packages dialog
+:::
+
+From the R console, you can install packages using the `install.packages()` function. This function takes the name of the package you want to install as an argument. For example, to install {dplyr}, you would run:
+
+```r
+install.packages("dplyr")
+```
+
+You can also install multiple packages at once by passing a vector of package names to the `install.packages()` function. For example, to install {dplyr} and {ggplot2} packages, you would run:
+
+```r
+install.packages(c("dplyr", "ggplot2"))
+```
+
+In either case, you will need to select a CRAN mirror the first time you install a package in a new session. At this point, it does not matter which mirror you choose -- `1` is usually a good choice.
+
+::: {.callout}
+**{{< fa medal >}} Dive deeper**
+
+You can set a default CRAN mirror in your `.Rprofile` file. This file is located in your home directory (`~/.Rprofile`). If the file does not exist, you can create it. Add the following line to set a default CRAN mirror:
+
+```r
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+```
+:::
+
+Both methods will install the package and its dependencies from CRAN. If you want to install a package from GitHub (and/ or CRAN), you can use {pak}. Once installed, {pak} provides the `pak::pak()` function, which can install packages from CRAN or GitHub. To install a package from CRAN, you can use the package name as an argument. To install a package from GitHub, you can use the `user/repo` format as an argument.
+
+For example, let's install the {stringr} package from CRAN and the {qtkit} package from GitHub:
+
+```r
+pak::pak("stringr")
+pak::pak("qtalr/qtkit")
+```
+## Using packages
+
+### R Sessions
+
+To understand how to use packages for programming with R, you need to understand how R sessions work. Every time you open an R session, you start a new R session. This session starts with a clean environment. No packages or variables are available at this point --other than the base R functions and variables.
+
+We can see this by running the `search()` function in the R console.
+
+::: {#fig-r-search}
+![](images/r-session-search-1.png)
+
+R session search path on clean start
+:::
+
+#### Attach packages
+
+To make a package available for use in an R session, you need to "attach it" to the search path. This will persist until you close this R session, or "detach" the package manually. You can attach a package to the search path using the `library()` function. For example, to attach the `dplyr` package to the search path, you would run:
+
+```r
+library(dplyr)
+```
+
+You can see what packages are currently attached by running `search()`.
+
+::: {#fig-r-search-dplyr}
+![](images/r-session-search-2.png)
+
+R session search path with {dplyr} attached
+:::
+
+In RStudio, you can see the checkboxes next to the packages in the Packages pane. This is a visual representation of packages attached to the search path.
+
+**Some R session gotchas:**
+
+- If you attach a package in one session, it will not be available in another session automatically. Each session is independent.
+- Running an R script or rendering a literate document (e.g., R Markdown, Quarto) will start a new R session, and close it when the script or document is done running.
+- Therefore, packages you attach in the R console are not available in other scripts or documents, and vice versa.
+- To make a package available in a script or document, you need to attach it in that script or document. This is a good thing, as it makes your scripts and documents self-contained and reproducible.
+
+#### Detach packages
+
+If you "quit" an R session (`q()`), the packages you attached will be detached automatically. You can also detach a package manually by running `detach("package:package_name")`. For example, to detach {dplyr}, you would run:
+
+```r
+detach("package:dplyr")
+```
+
+### Managing packages
+
+In addition to installing packages, you may need to manage them. This will include listing packages that have newer versions available, updating packages, and  removing packages.
+
+In RStudio, you can see which packages have newer versions available in the Packages pane. The "Updates" tab will list packages that have newer versions available. You can update packages by selecting the checkboxes or some or all packages and clicking the "Update" button.
+
+At the R Console, the `old.packages()` function will list packages that have newer versions available. You can then decide which packages to update, or just update all packages by running:
+
+```r
+update.packages(ask = FALSE)
+```
+
+This will update all packages without asking for confirmation. It also is of note that this function updates packages installed by any method. That is, there is not a {pak} version of this function.
+
+To remove a package in RSudio, you can click the {{< fa circle-xmark >}} button next to the package in the Packages pane. In the R console, you can remove a package using the `remove.packages()` function. For example, to remove the {dplyr} package, you would run:
+
+```r
+remove.packages("dplyr")
+```
+
+::: {.callout}
+**{{< fa medal >}} Dive deeper**
+
+If you are working on a project and want to ensure that the package versions are consistent across all collaborators, you can use {renv}. {renv} is a package that helps you create and manage project-specific R environments. You can use {renv} to create a project-specific library of packages, and ensure that all collaborators are using the same versions of packages. To use {renv}, you will need to install it first:
+
+```r
+install.packages("renv")
+```
+
+Then, you can use the following functions to manage packages in your project:
+
+- `renv::init()`: Initialize a new project with {renv}.
+- `renv::install("package_name")`: Install a package in the project library.
+- `renv::snapshot()`: Snapshot the project library.
+- `renv::restore()`: Restore the project library to a previous snapshot.
+- `renv::status()`: Show the status of the project library.
+:::
+
+## Summary
+
+In this guide, we covered how to install and manage R packages. We discussed two primary methods for installing packages: using the RStudio IDE interface and using the R console. We also covered how to attach and detach packages in an R session, and how to manage packages by listing, updating, and removing them. Finally, we introduced {renv} as a way to manage project-specific R environments.
+
+
+
