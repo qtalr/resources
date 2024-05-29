@@ -40,7 +40,7 @@ With these steps completed, you will be ready to start working with the textbook
 #| echo: false
 
 knitr::write_bib(c(
-  .packages(), "dplyr", "corpora", "knitr", "kableExtra", "janitor", "skimr", "ggplot2", "regexplain", "fs", "gutenbergr", "PsychWordVec", "purrr", "reprex"
+  .packages(), "dplyr", "corpora", "knitr", "kableExtra", "janitor", "skimr", "ggplot2", "regexplain", "fs", "gutenbergr", "PsychWordVec", "purrr", "reprex", "usethis", "tinytex", "swirl", "qtkit", "stringr"
 ), "packages.bib")
 
 ```

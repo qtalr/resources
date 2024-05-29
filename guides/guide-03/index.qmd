@@ -6,33 +6,14 @@ description: |
 categories: [guides]
 ---
 
-<!--
-
-Purpose
-
-- Provide an overview of the interactive R programming lessons
-  - What are they?
-  - How do they work?
-  - What do they cover?
-- Explain how to access the lessons
-  - Install {swirl} `install.packages("swirl")`
-  - Load the package `library(swirl)`
-  - Download the lessons `install_course_github("qtalr/Lessons")`
-- Use the lessons
-  - Load {swirl} `library(swirl)`
-  - Run `swirl()` to start the lessons
-  - Follow the prompts to select and complete a lesson
-- Update the lessons
-  - Run `uninstall_course("Lessons")` to remove the current lessons
-  - Run `install_course_github("qtalr/Lessons")` to download the latest lessons
--->
-
 ::: {.callout}
 **{{< fa regular list-alt >}} Outcomes**
 
 <!-- Remember and understand verbs: https://tips.uark.edu/blooms-taxonomy-verb-chart/ -->
 
-- ...
+- Recall the purpose of the interactive R programming lessons.
+- Set up the interactive R programming lessons.
+- Understand how to use the interactive R programming lessons.
 :::
 
 
