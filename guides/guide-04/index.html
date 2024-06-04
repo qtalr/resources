@@ -276,13 +276,8 @@ div.csl-indent {
 <p>You can do this by opening a terminal window and entering the following commands (changing the name and email address to your own):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span><span class="kw">;</span> <span class="dt">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"your.email@email.edu"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Alternatively, you can use {usethis}<span class="citation" data-cites="R-usethis">(<a href="#ref-R-usethis" role="doc-biblioref">Wickham et al. 2024</a>)</span> in R to set up Git in your environment. Open RStudio and run the following code in the console:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"usethis"</span>)) {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"usethis"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(usethis)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Your Name"</span>, <span class="at">user.email =</span> <span class="st">"your.email@school.edu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Alternatively, you can use {usethis}<span class="citation" data-cites="R-usethis">(<a href="#ref-R-usethis" role="doc-biblioref">Wickham et al. 2024</a>)</span> in R to set up Git in your environment. Open RStudio, install and/ or load {usethis}, and run the following code in the console:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git_config</span>(<span class="at">user.name =</span> <span class="st">"Jerid Francom"</span>, <span class="at">user.email =</span> <span class="st">"francojc@wfu.edu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-console-git" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-console-git-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -296,7 +291,7 @@ Figure&nbsp;1: Console pane in RStudio
 </section>
 <section id="how-do-i-set-up-github" class="level3">
 <h3 class="anchored" data-anchor-id="how-do-i-set-up-github">How do I set up GitHub?</h3>
-<p>To set up GitHub, you will need to create an account. You can do this at &lt;github.com&gt;. Be sure to use the email address you used in the Git setup!</p>
+<p>To set up GitHub, you will need to create an account. You can do this at [github.com(https://github.com). Be sure to use the email address you used in the Git setup!</p>
 <p>The service is free and there are extra features available for students and educators. Once you have created an account, you will be able to create repositories. You can also create organizations and teams. You can use these to collaborate with others on projects.</p>
 </section>
 </section>
@@ -306,7 +301,7 @@ Figure&nbsp;1: Console pane in RStudio
 <div id="fig-git-local-remote" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-git-local-remote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/github-features.drawio.png" class="img-fluid figure-img" style="width:50.0%">
+<img src="images/github-features.drawio.png" class="img-fluid figure-img" style="width:40.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-git-local-remote-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Visualizing a common scenario using Git and GitHub
@@ -326,6 +321,17 @@ Figure&nbsp;2: Visualizing a common scenario using Git and GitHub
 <li><strong>Edit</strong>: This is the process of making changes to the files in your local repository.</li>
 </ul>
 <p>There are many other actions that you can perform with Git and GitHub, but these are sufficient to get you started with this textbook.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p><span class="citation" data-cites="Bryan2020">Bryan and Hester (<a href="#ref-Bryan2020" role="doc-biblioref">2020</a>)</span> is an excellent reference resource for all things Git and GitHub for R users.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="how-do-i-manage-my-project-with-git-and-github" class="level2">
 <h2 class="anchored" data-anchor-id="how-do-i-manage-my-project-with-git-and-github">How do I manage my project with Git and GitHub?</h2>
@@ -340,17 +346,6 @@ Figure&nbsp;2: Visualizing a common scenario using Git and GitHub
 <li>Click ‘Create Project’</li>
 </ol>
 <p>RStudio will then clone the repository to your local machine and open the project as a new RStudio project. You can now make changes to the files in the project.</p>
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
-<p><span class="citation" data-cites="Bryan2020">Bryan and Hester (<a href="#ref-Bryan2020" role="doc-biblioref">2020</a>)</span> is an excellent reference resource for all things Git and GitHub for R users.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
