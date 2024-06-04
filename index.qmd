@@ -10,7 +10,7 @@ The primary resources available for the textbook include the following:
 
 | Resource | Description | Location |
 |----------|-------------|----------|
-| [Lessons](https://qtalr.github.io/lessons) | A series of interactive R programming lessons using {swirl} that accompany the textbook. | GitHub |
+| [Lessons](https://github.com/qtalr/Lessons) | A series of interactive R programming lessons using {swirl} that accompany the textbook. | GitHub |
 | [Recipes](recipes) | A collection of coding demonstrations and examples that illustrate how to perform specific tasks in the text analysis workflow. | Resources Kit |
 | [Labs](https://github.com/stars/francojc/lists/labs) | A series of hands-on exercises that guide you through the process of conducting text analysis research. | GitHub |
 
