@@ -87,7 +87,7 @@ library(___)
 
 This code block assumes that {readr} and {dplyr} are installed on the current computing environment. If the packages are not installed, the code block will stop and display an error message, such as:
 
-```plain
+```{.plain style="color: red;"}
 Error in library(readr) : there is no package called ‘readr’
 ```
 
@@ -120,7 +120,7 @@ This data origin file provides an overview of the original data source. In this 
 
 The data dictionary which describes the dataset we will read appears in @tbl-brown-passives-dd.
 
-```r
+```{.r}
 # Read and display the data documentation file
 read_csv(file = "../data/derived/brown_passives_curated_dd.csv") |>
   kable() |>
