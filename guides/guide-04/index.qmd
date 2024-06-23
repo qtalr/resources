@@ -126,3 +126,4 @@ In this guide, we covered the basics of setting up Git and GitHub. We also cover
 We will return to Git and GitHub later in the textbook to cover more functionality and use cases.
 
 ## References
+
