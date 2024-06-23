@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="In this guide, we will explore how to create reproducible examples using the {reprex}. Reproducible examples are essential for effective communication and collaboration among data scientists and statisticians.">
+<meta name="description" content="In this guide, we will explore how to create reproducible examples using {reprex}. Reproducible examples are essential for effective communication and collaboration among data scientists and statisticians.">
 
 <title>Resources Kit - 05. Creating reproducible examples</title>
 <style>
@@ -190,15 +190,14 @@ div.csl-indent {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#what-is-a-reproducible-example" id="toc-what-is-a-reproducible-example" class="nav-link" data-scroll-target="#what-is-a-reproducible-example">What is a reproducible example?</a></li>
-  <li><a href="#why-use-reprex" id="toc-why-use-reprex" class="nav-link" data-scroll-target="#why-use-reprex">Why use {reprex}?</a></li>
-  <li><a href="#installing-and-loading-reprex" id="toc-installing-and-loading-reprex" class="nav-link" data-scroll-target="#installing-and-loading-reprex">Installing and loading {reprex}</a></li>
+  <li><a href="#why-are-reproducible-examples-important" id="toc-why-are-reproducible-examples-important" class="nav-link" data-scroll-target="#why-are-reproducible-examples-important">Why are reproducible examples important?</a></li>
+  <li><a href="#create-a-reproducible-example" id="toc-create-a-reproducible-example" class="nav-link" data-scroll-target="#create-a-reproducible-example">Create a reproducible example</a></li>
   </ul></li>
-  <li><a href="#creating-a-reproducible-example-with-reprex" id="toc-creating-a-reproducible-example-with-reprex" class="nav-link" data-scroll-target="#creating-a-reproducible-example-with-reprex">Creating a reproducible example with {reprex}</a>
+  <li><a href="#building-blocks" id="toc-building-blocks" class="nav-link" data-scroll-target="#building-blocks">Building blocks</a>
   <ul class="collapse">
-  <li><a href="#basic-usage" id="toc-basic-usage" class="nav-link" data-scroll-target="#basic-usage">Basic usage</a></li>
-  <li><a href="#customizing-output-format" id="toc-customizing-output-format" class="nav-link" data-scroll-target="#customizing-output-format">Customizing output format</a></li>
-  <li><a href="#including-data-datasets" id="toc-including-data-datasets" class="nav-link" data-scroll-target="#including-data-datasets">Including data/ datasets</a></li>
-  <li><a href="#sharing-your-reproducible-example" id="toc-sharing-your-reproducible-example" class="nav-link" data-scroll-target="#sharing-your-reproducible-example">Sharing your reproducible example</a></li>
+  <li><a href="#formatting-code-and-code-output" id="toc-formatting-code-and-code-output" class="nav-link" data-scroll-target="#formatting-code-and-code-output">Formatting code and code output</a></li>
+  <li><a href="#including-data" id="toc-including-data" class="nav-link" data-scroll-target="#including-data">Including data</a></li>
+  <li><a href="#including-session-information" id="toc-including-session-information" class="nav-link" data-scroll-target="#including-session-information">Including session information</a></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -211,6 +210,7 @@ div.csl-indent {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">05. Creating reproducible examples</h1>
+<p class="subtitle lead">Helping you help yourself</p>
   <div class="quarto-categories">
     <div class="quarto-category">guides</div>
   </div>
@@ -218,7 +218,7 @@ div.csl-indent {
 
 <div>
   <div class="description">
-    <p>In this guide, we will explore how to create reproducible examples using the {reprex}. Reproducible examples are essential for effective communication and collaboration among data scientists and statisticians.</p>
+    <p>In this guide, we will explore how to create reproducible examples using {reprex}. Reproducible examples are essential for effective communication and collaboration among data scientists and statisticians.</p>
   </div>
 </div>
 
@@ -241,132 +241,393 @@ div.csl-indent {
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Outcomes</strong> <!-- [ ] add reprex outcomes --> <!-- Remember and understand verbs: https://tips.uark.edu/blooms-taxonomy-verb-chart/ --></p>
+<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Outcomes</strong></p>
 <ul>
-<li></li>
+<li>Understand the importance of reproducible examples</li>
+<li>Create a reproducible example using {reprex} and other tools</li>
+<li>Share your reproducible example with others</li>
 </ul>
 </div>
 </div>
 </div>
-<!-- - [How to make a great R reproducible example](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example) -->
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <section id="what-is-a-reproducible-example" class="level3">
 <h3 class="anchored" data-anchor-id="what-is-a-reproducible-example">What is a reproducible example?</h3>
-<p>Reproducible examples are crucial for effectively communicating problems, solutions, and ideas in the world of data science. In this post, we will discuss the importance of reproducible examples and demonstrate how to create them using {reprex} <span class="citation" data-cites="R-reprex">(<a href="#ref-R-reprex" role="doc-biblioref">Bryan et al. 2024</a>)</span> in R</p>
-<p>A reproducible example, often referred to as a “reprex,” is a minimal, self-contained piece of code that demonstrates a specific issue or concept. It should include:</p>
+<p>Reproducible examples are crucial for effectively communicating problems, solutions, and ideas in the world of data science. In most cases, a simple description of an issue or concept is not enough to convey the full context of the problem. A reproducible example provides a minimal, self-contained piece of code (and other relevant resources) that demonstrates a specific issue or concept. It includes:</p>
 <ul>
-<li>A brief description of the problem or question</li>
-<li>The necessary data to reproduce the issue</li>
+<li>A brief description of the problem or question and the expected output</li>
+<li>The necessary (and only the necessary) data to reproduce the issue</li>
 <li>The R code used to generate the output</li>
 <li>The actual output, including any error messages or warnings</li>
 </ul>
 </section>
-<section id="why-use-reprex" class="level3">
-<h3 class="anchored" data-anchor-id="why-use-reprex">Why use {reprex}?</h3>
-<p>{reprex} in R streamlines the process of creating reproducible examples by:</p>
+<section id="why-are-reproducible-examples-important" class="level3">
+<h3 class="anchored" data-anchor-id="why-are-reproducible-examples-important">Why are reproducible examples important?</h3>
+<p>You may very well understand the problem you are facing, but others likely will not. By providing sufficient context to understand the problem, you can increase the likelihood of receiving a helpful response. Another reason to create reproducible examples is to help you think through the problem more clearly. By creating a minimal example, you may discover the source of the problem yourself!</p>
+</section>
+<section id="create-a-reproducible-example" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-reproducible-example">Create a reproducible example</h3>
+<p>The trickiest part of asking a question about R code is often not the question itself, but providing this information in a self-contained, reproducible example. Luckily, there are a few R packages that provide tools to help you create reproducible examples. {reprex}<span class="citation" data-cites="R-reprex">(<a href="#ref-R-reprex" role="doc-biblioref">Bryan et al. 2024</a>)</span>, {datapasta}<span class="citation" data-cites="R-datapasta">(<a href="#ref-R-datapasta" role="doc-biblioref">McBain et al. 2020</a>)</span>, and creative uses of {knitr} and base R functions can help you create reproducible examples.</p>
+<div id="tbl-reprex-packages" class="quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-reprex-packages-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Package options for creating reproducible examples
+</figcaption>
+<div aria-describedby="tbl-reprex-packages-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 40%">
+<col style="width: 31%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Package</th>
+<th>Description</th>
+<th>Use case</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>{reprex}</td>
+<td>Creates reproducible examples</td>
+<td>General use</td>
+</tr>
+<tr class="even">
+<td>{datapasta}</td>
+<td>Copy and paste data frames</td>
+<td>Data manipulation</td>
+</tr>
+<tr class="odd">
+<td>{knitr}</td>
+<td>Swiss Army knife of rendering</td>
+<td>Extract code from literate programming documents (<em>i.e.</em> Quarto)</td>
+</tr>
+<tr class="even">
+<td>Base R functions</td>
+<td><code>dput()</code>, <code>dump()</code>, <code>sessionInfo()</code></td>
+<td>Represent data as text and report environment settings</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>In this guide, we will focus on using {reprex} to create reproducible examples. {reprex} is a powerful tool that captures R code, input data, and output in a formatted output that can be easily shared with others. Let’s dive in!</p>
+</section>
+</section>
+<section id="building-blocks" class="level2">
+<h2 class="anchored" data-anchor-id="building-blocks">Building blocks</h2>
+<section id="formatting-code-and-code-output" class="level3">
+<h3 class="anchored" data-anchor-id="formatting-code-and-code-output">Formatting code and code output</h3>
+<p>Let’s run through the building blocks of producing a reproducible example. Let’s start with a simple example. We’ll start with the following R code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sentences to tokenize</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"This is a sentence."</span>, <span class="st">"This is another sentence."</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize the sentences</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>stringr<span class="sc">::</span><span class="fu">str_split</span>(x, <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "This"      "is"        "a"         "sentence."
+
+[[2]]
+[1] "This"      "is"        "another"   "sentence."</code></pre>
+</div>
+</div>
+<p>First, we need to describe the problem or question the code attempts to address. In this case, we are trying to tokenize the sentences in the vector <code>x</code>. We should also include the expected output as part of the description. Here, the code functions without an error, but it does not seem to produce the desired output. On the one hand, punctuation is not removed and the words are not lowercased. On the other hand, the output is returned in a data structure we may not be familiar with –we’d like to see a data frame with one word per row. Something like this:</p>
+<p>So our description could be:</p>
+<blockquote class="blockquote">
+<p>I am trying to tokenize the sentences in the vector <code>x</code>. The expected output is a data frame with one word per row, where punctuation is removed and words are lowercased. The output should look like something like this:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>token</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>this</td>
+</tr>
+<tr class="even">
+<td>is</td>
+</tr>
+<tr class="odd">
+<td>a</td>
+</tr>
+<tr class="even">
+<td>sentence</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>Next, we need to include the necessary R code to reproduce the issue. This is where the {reprex} package comes in handy. We can use the <code>reprex()</code> function to create a reproducible example from the code. The <code>reprex()</code> function will capture the code, input data, and output in a formatted output that can be easily shared with others.</p>
+<p>To capture our example code, we first need to load {reprex} in our R session:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reprex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we need to select and copy the code we want to include in the reproducible example. We can then call the <code>reprex()</code> function to create the example:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><code>reprex()</code> will find the code we copied to the clipboard, run the code, and will generate a formatted output that includes the code, input data, and results. The output will be displayed in either a browser or preview pane and copied to the clipboard for easy sharing.</p>
+<p>Here is the output of the code from the clipboard:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(stringr)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Sentences to tokenize</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>      x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"This is a sentence."</span>, <span class="st">"This is another sentence."</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Tokenize the sentences</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>          stringr<span class="sc">::</span><span class="fu">str_split</span>(x, <span class="st">" "</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "This"      "is"        "a"         "sentence."</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "This"      "is"        "another"   "sentence."</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>sup<span class="sc">&gt;</span>Created on <span class="dv">2024-06-23</span> with [reprex v2.<span class="fl">1.0</span>](https<span class="sc">:</span><span class="er">//</span>reprex.tidyverse.org)<span class="sc">&lt;</span><span class="er">/</span>sup<span class="sc">&gt;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The default output of <code>reprex()</code> is a markdown document that can be shared on various platforms such as GitHub, Stack Overflow, or any other markdown-enabled site. The formatted output makes it easy for others to understand the problem and provide a solution. If you plan to share the output on a platform that does not support markdown, you can use the <code>venue</code> argument to specify a different output format. For example, to can get the reprex formatted as:</p>
 <ul>
-<li>Automatically capturing code, input data, and output</li>
-<li>Formatting the example for easy sharing on various platforms (e.g., GitHub, Stack Overflow)</li>
-<li>Encouraging best practices for creating clear and concise examples</li>
+<li><code>r</code> for plain text</li>
+<li><code>rtf</code> for rich text format</li>
+<li><code>html</code> for HTML</li>
 </ul>
+<p>So for example, to create a reprex formatted as plain text, you can use:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>(<span class="at">venue =</span> <span class="st">"r"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This is a handy output if you want to share a code snippet in an email or a chat message!</p>
 </section>
-<section id="installing-and-loading-reprex" class="level3">
-<h3 class="anchored" data-anchor-id="installing-and-loading-reprex">Installing and loading {reprex}</h3>
-<p>To get started with {reprex}, first install it from CRAN and load it into your R session:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"reprex"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reprex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="including-data" class="level3">
+<h3 class="anchored" data-anchor-id="including-data">Including data</h3>
+<p>In the previous example, our ‘data’ was the vector <code>x</code>. In more complex examples, you may need to include data frames or other data structures. Let’s say we are working on some code that aims to read some data from a file which has two columns <code>doc_id</code> and <code>text</code>, and calculate the number of words per document. The code we’ve written so far is giving us an error, and we need help from the community to debug it.</p>
+<p>The code we have so far is:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the text file</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/text.csv"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize the text</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>tokens_tbl <span class="ot">&lt;-</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">doc_words =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>This code produces the following error:</p>
+<pre class="plain"><code>Error in `group_by()`:
+! Must group by variables found in `.data`.
+✖ Column `doc_id` is not found.
+Run `rlang::last_trace()` to see where the error occurred.</code></pre>
+<p>In this case, we need to include a relevant dataset that can be used to reproduce the error. Now, the first thing we should do is to consider if there are any built-in datasets that can be used to reproduce the error. It is always easier use a dataset that is comes with R, as it is readily available to everyone. If there is no (easily accessible) built-in dataset that can be used, we can add our own data to the reprex. Ideally, we should include the smallest amount of data that is necessary to reproduce the error.</p>
+<p>To get a better understanding how we might proceed, let’s take a quick look at the data we are working with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   doc_id text                                                                
+    &lt;dbl&gt; &lt;chr&gt;                                                               
+ 1      1 The Sapir-Whorf hypothesis suggests language influences thought.    
+ 2      2 Cognitive dissonance occurs when beliefs contradict behaviors.      
+ 3      3 Plato's allegory of the cave explores perception vs. reality.       
+ 4      4 Object-oriented programming focuses on creating reusable code.      
+ 5      5 Chomsky's universal grammar theory proposes innate language ability.
+ 6      6 The bystander effect explains reduced helping in crowds.            
+ 7      7 Descartes' 'I think, therefore I am' establishes existence.         
+ 8      8 Machine learning algorithms improve with more data.                 
+ 9      9 Phonemes are the smallest units of sound in language.               
+10     10 The halting problem proves some computations are undecidable.       </code></pre>
+</div>
+</div>
+<p>From the output, we can see that the data has two columns: <code>doc_id</code> and <code>text</code>. We can create a small data frame with this structure to include in the reprex. We can use the <code>tribble()</code> function from the {tibble} package to create the data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a small data frame</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>doc_id, <span class="sc">~</span>text,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">"This is a sentence."</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">"This is another sentence."</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  doc_id text                     
+   &lt;dbl&gt; &lt;chr&gt;                    
+1      1 This is a sentence.      
+2      2 This is another sentence.</code></pre>
+</div>
+</div>
+<p>Now that we have the code to create some sample data, we can replace the call to the <code>read_csv()</code> function with the code to create the data frame. Copy the new code to the clipboard and run <code>reprex()</code> again to create a new reproducible example:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a small data frame</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>doc_id, <span class="sc">~</span>text,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">"This is a sentence."</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">"This is another sentence."</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize the text</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>tokens_tbl <span class="ot">&lt;-</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">doc_words =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We the default setting for markdown output, the reprex will look like this:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a small data frame</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>doc_id, <span class="sc">~</span>text,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">"This is a sentence."</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">"This is another sentence."</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize the text</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>tokens_tbl <span class="ot">&lt;-</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">doc_words =</span> <span class="fu">n</span>())</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in `group_by()`:</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! Must group by variables found in `.data`.</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✖ Column `doc_id` is not found.</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>&lt;sup&gt;Created on 2024-06-23 with <span class="co">[</span><span class="ot">reprex v2.1.0</span><span class="co">](https://reprex.tidyverse.org)</span>&lt;/sup&gt;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-</section>
-<section id="creating-a-reproducible-example-with-reprex" class="level2">
-<h2 class="anchored" data-anchor-id="creating-a-reproducible-example-with-reprex">Creating a reproducible example with {reprex}</h2>
-<p>In this section, we will demonstrate how to create a reproducible example using {reprex}.</p>
-<section id="basic-usage" class="level3">
-<h3 class="anchored" data-anchor-id="basic-usage">Basic usage</h3>
-<p>To create a simple reprex, write your R code and then call the <code>reprex()</code> function:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reprex)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">x &lt;- 1:10</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">mean(x)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>(<span class="at">input =</span> code)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will generate a formatted output that includes the code, input data, and results.</p>
-</section>
-<section id="customizing-output-format" class="level3">
-<h3 class="anchored" data-anchor-id="customizing-output-format">Customizing output format</h3>
-<p>You can customize the output format of your reprex by specifying the <code>venue</code> argument. For example, to create a reprex suitable for GitHub, use:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>(<span class="at">input =</span> code, <span class="at">venue =</span> <span class="st">"gh"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="including-data-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="including-data-datasets">Including data/ datasets</h3>
-<p>When your example requires specific data, you can include it using the <code>dput()</code> function:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">y =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">20</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>data_dput <span class="ot">&lt;-</span> <span class="fu">dput</span>(data)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>code_with_data <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">data &lt;- {{ data_dput }}</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="st">plot(data$x, data$y)</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>(<span class="at">input =</span> code_with_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This will incorporate the data into your reprex, allowing others to reproduce your example easily.</p>
-</section>
-<section id="sharing-your-reproducible-example" class="level3">
-<h3 class="anchored" data-anchor-id="sharing-your-reproducible-example">Sharing your reproducible example</h3>
-<p>Once you have created your reprex, you can share it on various platforms such as GitHub, Stack Overflow, or via email. The formatted output generated by {reprex} ensures that your example is easy to read and understand.</p>
+<section id="including-session-information" class="level3">
+<h3 class="anchored" data-anchor-id="including-session-information">Including session information</h3>
+<p>Another piece of information that can prove key to solving a problem is the R session information. This information describes some important details about your particular R environment. If others are not able to reproduce the error, the session information can help them understand the context in which the error occurred. It’s not always the case that the code itself is the problem, necessarily, but rather the mismatch between the code and the environment in which it is run.</p>
+<p>Conviently, the <code>reprex()</code> function can also include the session information in the output. The argument <code>session_info = TRUE</code> will include the session information in the output. This can be a lot of information, but don’t worry, it is common practice to include this information in a reprex.</p>
+<p>Here is an example of how to include the session information in the reprex:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reprex</span>(<span class="at">session_info =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, the reprex will include the session information at the end of the output. As an example, I’ll include the session information in a (formatted) reprex:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a small data frame</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>doc_id, <span class="sc">~</span>text,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span>, <span class="st">"This is a sentence."</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>, <span class="st">"This is another sentence."</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tokenize the text</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>tokens_tbl <span class="ot">&lt;-</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">|&gt;</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">doc_words =</span> <span class="fu">n</span>())</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in `group_by()`:</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! Must group by variables found in `.data`.</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✖ Column `doc_id` is not found.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><sup>Created on 2024-06-23 with <a href="https://reprex.tidyverse.org">reprex v2.1.0</a></sup></p>
+<details style="margin-bottom:10px;">
+<summary>
+Session info
+</summary>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ─ Session info ───────────────────────────────────────────────────────────────</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  setting  value</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  version  R version 4.4.1 (2024-06-14)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  os       macOS Sonoma 14.5</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  system   aarch64, darwin23.4.0</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ui       unknown</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  language (EN)</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  collate  en_US.UTF-8</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ctype    en_US.UTF-8</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tz       America/New_York</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  date     2024-06-23</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pandoc   3.2 @ /opt/homebrew/bin/ (via rmarkdown)</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ─ Packages ───────────────────────────────────────────────────────────────────</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  package     * version date (UTC) lib source</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  cli           3.6.2   2023-12-11 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  colorspace    2.1-0   2023-01-23 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  digest        0.6.35  2024-03-11 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  dplyr       * 1.1.4   2023-11-17 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  evaluate      0.24.0  2024-06-10 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  fansi         1.0.6   2023-12-08 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  fastmap       1.2.0   2024-05-15 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  forcats     * 1.0.0   2023-01-29 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  fs            1.6.4   2024-04-25 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  generics      0.1.3   2022-07-05 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ggplot2     * 3.5.1   2024-04-23 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  glue          1.7.0   2024-01-09 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  gtable        0.3.5   2024-04-22 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  hms           1.1.3   2023-03-21 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  htmltools     0.5.8.1 2024-04-04 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  janeaustenr   1.0.0   2022-08-26 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  knitr         1.47    2024-05-29 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  lattice       0.22-6  2024-03-20 [3] CRAN (R 4.4.1)</span></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  lifecycle     1.0.4   2023-11-07 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  lubridate   * 1.9.3   2023-09-27 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  magrittr      2.0.3   2022-03-30 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Matrix        1.7-0   2024-04-26 [3] CRAN (R 4.4.1)</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  munsell       0.5.1   2024-04-01 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pillar        1.9.0   2023-03-22 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  purrr       * 1.0.2   2023-08-10 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  R.cache       0.16.0  2022-07-21 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  R.methodsS3   1.8.2   2022-06-13 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  R.oo          1.26.0  2024-01-24 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  R.utils       2.12.3  2023-11-18 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  R6            2.5.1   2021-08-19 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Rcpp          1.0.12  2024-01-09 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  readr       * 2.1.5   2024-01-10 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  reprex        2.1.0   2024-01-11 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rlang         1.1.4   2024-06-04 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  rmarkdown     2.27    2024-05-17 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  scales        1.3.0   2023-11-28 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  SnowballC     0.7.1   2023-04-25 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  stringi       1.8.4   2024-05-06 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  stringr     * 1.5.1   2023-11-14 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  styler        1.10.3  2024-04-07 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tibble      * 3.2.1   2023-03-20 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tidyr       * 1.3.1   2024-01-24 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tidyselect    1.2.1   2024-03-11 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tidytext    * 0.4.2   2024-04-10 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tidyverse   * 2.0.0   2023-02-22 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  timechange    0.3.0   2024-01-18 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tokenizers    0.3.0   2022-12-22 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  tzdb          0.4.0   2023-05-12 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  utf8          1.2.4   2023-10-22 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  vctrs         0.6.5   2023-12-01 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  withr         3.0.0   2024-01-16 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  xfun          0.44    2024-05-15 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  yaml          2.3.8   2023-12-11 [1] CRAN (R 4.4.0)</span></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;</span></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] /Users/francojc/R/Library</span></span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [2] /opt/homebrew/lib/R/4.4/site-library</span></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] /opt/homebrew/Cellar/r/4.4.1/lib/R/library</span></span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;</span></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ──────────────────────────────────────────────────────────────────────────────</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </section>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>In this blog post, we have discussed the importance of reproducible examples and demonstrated how to create them using {reprex} in R. By creating clear and concise reprexes, you can effectively communicate problems, solutions, and ideas with your peers and collaborators. Give {reprex} a try and see how it can improve your workflow!</p>
+<p>In this guide, we have discussed the importance of reproducible examples and demonstrated how to create them using {reprex} in R. By creating clear and concise reprexes, you can effectively communicate problems, solutions, and ideas with your peers and collaborators. Give {reprex} a try and see how it can improve your workflow!</p>
 </section>
 <section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<hr>
-<ul>
-<li><p>StackOverflow: <a href="https://stackoverflow.com/questions/tagged/r">R</a>, <a href="https://stackoverflow.com/questions/tagged/git">Git</a>, <a href="https://stackoverflow.com/questions/tagged/rstudio">RStudio</a>, <a href="https://stackoverflow.com/questions/tagged/github">GitHub</a></p></li>
-<li><p>Reddit: <a href="https://www.reddit.com/r/rstats/">R</a>, <a href="https://www.reddit.com/r/git/">Git</a>, <a href="https://www.reddit.com/r/RStudio/">RStudio</a>, <a href="https://www.reddit.com/r/github/">Github</a></p></li>
-<li><p><a href="https://community.rstudio.com/">RStudio Community</a></p></li>
-<li><p>https://reprex.tidyverse.org/</p></li>
-<li><p>https://github.com/MilesMcBain/datapasta</p></li>
-</ul>
-<!--
-- [ ] Work on reprex example with/without RStudio?
-- [ ] Example of a reprex on StackOverflow: https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example
- -->
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"reprex"</span>) <span class="co"># install reprex package</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector with 100 random values from the normal distribution</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># set seed for reproducibility</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>my_vec <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>) <span class="co"># random normal vector</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(my_vec) <span class="co"># 5 number summary</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>reprex<span class="sc">::</span><span class="fu">reprex</span>() <span class="co"># run reprex</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Datapasta is a package that allows you to copy and paste data frames from RStudio into a reprex. This is a very useful tool for creating reproducible examples. Here is an example of how to use datapasta to create a reprex.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install the datapasta package</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"datapasta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the datapasta package</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datapasta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with 100 random values from the normal distribution</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># set seed for reproducibility</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)) <span class="co"># random normal data frame</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copy the data frame to the clipboard</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dpasta</span>(my_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+
 
 
 
@@ -375,6 +636,9 @@ div.csl-indent {
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-R-reprex" class="csl-entry" role="listitem">
 Bryan, Jennifer, Jim Hester, David Robinson, Hadley Wickham, and Christophe Dervieux. 2024. <em>Reprex: Prepare Reproducible Example Code via the Clipboard</em>. <a href="https://reprex.tidyverse.org">https://reprex.tidyverse.org</a>.
+</div>
+<div id="ref-R-datapasta" class="csl-entry" role="listitem">
+McBain, Miles, Jonathan Carroll, Sharla Gelfand, Suthira Owlarn, and Garrick Aden-Buie. 2020. <em>Datapasta: R Tools for Data Copy-Pasta</em>. <a href="https://github.com/milesmcbain/datapasta">https://github.com/milesmcbain/datapasta</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script>

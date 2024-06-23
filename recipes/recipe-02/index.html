@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.554">
+<meta name="generator" content="quarto-1.4.555">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -336,7 +336,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"editor-quick-suggestions":"false","comment":"","fig-height":5,"label":"unnamed-chunk-1","editor-font-scale":1,"warning":"true","out-height":"","message":"true","read-only":"false","fig-width":7,"context":"interactive","output":"true","autorun":"false","results":"markup","classes":"","editor-max-height":"","dpi":72,"out-width":"700px","fig-cap":""},"code":"# Load packages\nlibrary(readr)\nlibrary(___)","id":1}];
+globalThis.qwebrCellDetails = [{"code":"# Load packages\nlibrary(readr)\nlibrary(___)","options":{"label":"unnamed-chunk-1","autorun":"false","editor-quick-suggestions":"false","fig-width":7,"out-width":"700px","editor-font-scale":1,"comment":"","message":"true","results":"markup","fig-cap":"","dpi":72,"read-only":"false","warning":"true","classes":"","context":"interactive","output":"true","fig-height":5,"out-height":"","editor-max-height":""},"id":1}];
 
 </script>
 <script type="module">
@@ -1566,7 +1566,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <div id="qwebr-insertion-location-1"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>This code block assumes that {readr} and {dplyr} are installed on the current computing environment. If the packages are not installed, the code block will stop and display an error message, such as:</p>
-<pre class="plain"><code>Error in library(readr) : there is no package called ‘readr’</code></pre>
+<pre class="plain" style="color: red;"><code>Error in library(readr) : there is no package called ‘readr’</code></pre>
 <p>This error can be addressed by installing the missing package with <code>install.packages("readr")</code> and then re-running the code block. This is not ideal for reproducibility, however, because the code block will stop if the package is not installed. We will consider a more reproducible approach later in the course.</p>
 <div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -1598,8 +1598,7 @@ Table&nbsp;1: Data origin file for the Brown Corpus.
 </figcaption>
 <div aria-describedby="tbl-brown-passives-do-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">attribute</th>
@@ -1645,7 +1644,6 @@ Table&nbsp;1: Data origin file for the Brown Corpus.
 
 </div>
 </div>
-</div>
 </figure>
 </div>
 </div>
@@ -1663,8 +1661,7 @@ Table&nbsp;2: Data dictionary file for the Brown Corpus.
 </figcaption>
 <div aria-describedby="tbl-brown-passives-dd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<table class="table do-not-create-environment cell table-sm table-striped small" data-quarto-postprocess="true">
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">variable</th>
@@ -1708,7 +1705,6 @@ Table&nbsp;2: Data dictionary file for the Brown Corpus.
 </table>
 
 
-</div>
 </div>
 </div>
 </figure>
@@ -1846,13 +1842,13 @@ $ name    &lt;chr&gt; "press reportage", "press editorial", "press reviews", "re
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(brown_passives_df, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 5
-  cat   passive    n_w   n_s name           
-  &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          
-1 D         351  39029  1372 religion       
-2 G        1460 173017  6537 belles lettres 
-3 C         283  40749  1459 press reviews  
-4 R         146  21757   975 humour         
-5 M         104  14433   873 science fiction</code></pre>
+  cat   passive   n_w   n_s name           
+  &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;          
+1 B         543 61535  2399 press editorial
+2 D         351 39029  1372 religion       
+3 H         837 69446  2012 miscellaneous  
+4 R         146 21757   975 humour         
+5 P         290 70476  4187 romance        </code></pre>
 </div>
 </div>
 <p>These functions can be helpful to get a sense of the dataset in different ways. In combination with <code>arrange()</code> function, we can also sort the data frame by a column or columns and then select the first or last rows.</p>
@@ -2142,7 +2138,7 @@ $ name    &lt;chr&gt; "press reportage", "press editorial", "press reviews", "re
 Evert, Stephanie. 2023. <em>Corpora: Statistics and Data Sets for Corpus Frequency Data</em>. <a href="http://SIGIL.R-Forge.R-Project.org/">http://SIGIL.R-Forge.R-Project.org/</a>.
 </div>
 <div id="ref-Francis1961" class="csl-entry" role="listitem">
-Francis, W. Nelson, and Henry Kuçera. 1961. <span>“Brown Corpus of Present Day <span>American English</span>.”</span>
+Francis, W. Nelson, and Henry Kuçera. 1961. <span>“Brown <span>Corpus</span> of <span>Present Day American English</span>.”</span> <a href="http://hdl.handle.net/20.500.12024/0402">http://hdl.handle.net/20.500.12024/0402</a>.
 </div>
 </div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 

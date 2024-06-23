@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="In this guide, we provide an overview of the interactive R programming lessons, explain how to access the lessons, use the lessons, and remove the lessons.">
 
-<title>Resources Kit - 03. Working with the interactive R programming lessons</title>
+<title>Resources Kit</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,8 +73,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -163,114 +160,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link active" data-scroll-target="#purpose">Purpose</a></li>
-  <li><a href="#access-the-lessons" id="toc-access-the-lessons" class="nav-link" data-scroll-target="#access-the-lessons">Access the lessons</a></li>
-  <li><a href="#use-the-lessons" id="toc-use-the-lessons" class="nav-link" data-scroll-target="#use-the-lessons">Use the lessons</a></li>
-  <li><a href="#uninstall-the-lessons-optional" id="toc-uninstall-the-lessons-optional" class="nav-link" data-scroll-target="#uninstall-the-lessons-optional">Uninstall the lessons (optional)</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-03/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">03. Working with the interactive R programming lessons</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">guides</div>
-  </div>
-  </div>
-
-<div>
-  <div class="description">
-    <p>In this guide, we provide an overview of the interactive R programming lessons, explain how to access the lessons, use the lessons, and remove the lessons.</p>
-  </div>
-</div>
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong><i class="fa-regular fa-list-alt" aria-label="list-alt"></i> Outcomes</strong></p>
-<!-- Remember and understand verbs: https://tips.uark.edu/blooms-taxonomy-verb-chart/ -->
-<ul>
-<li>Recall the purpose of the interactive R programming lessons.</li>
-<li>Set up the interactive R programming lessons.</li>
-<li>Understand how to use the interactive R programming lessons.</li>
-</ul>
-</div>
-</div>
-</div>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
-<p>The interactive R programming lessons are designed to help you learn R programming by doing. The lessons are interactive, meaning you can complete them directly in R and feedback is provided to ensure that you understand the concepts covered and can complete the lessons. The lessons cover a range of topics. In the early chapters, the lessons cover R fundamentals, such as data types, data structures, and functions. In the later chapters, the lessons prepare you for working with the programming concepts connected to the textbook, recipes, and labs.</p>
-<p>You can preview the topics covered in the lessons by visiting the <a href="https://github.com/qtalr/lessons">Lessons repository</a> on GitHub. To access and to complete the lessons read below.</p>
-</section>
-<section id="access-the-lessons" class="level2">
-<h2 class="anchored" data-anchor-id="access-the-lessons">Access the lessons</h2>
-<p>To access the interactive R programming lessons, you need to install the {swirl} package and download the lessons.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"swirl"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(swirl)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install_course_github</span>(<span class="st">"qtalr/Lessons"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This code only needs to be run once. After you have installed the {swirl} package and downloaded the lessons, you can use the lessons whenever you want.</p>
-</section>
-<section id="use-the-lessons" class="level2">
-<h2 class="anchored" data-anchor-id="use-the-lessons">Use the lessons</h2>
-<p>To use the interactive R programming lessons, you need to load the {swirl} package and run the <code>swirl()</code> function.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(swirl)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">swirl</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="fig-swirl-lessons" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-swirl-lessons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/rstudio-swirl-lessons.png" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-swirl-lessons-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Run <code>swirl()</code>, select a course and a lesson to start
-</figcaption>
-</figure>
-</div>
-<p>When you run the <code>swirl()</code> function, you will be prompted to select a course. Select the course you want to complete and follow the prompts to complete the lessons.</p>
-<p>Each lesson will include a series of questions and exercises that you need to complete. You will be typing code directly into the R console to complete the exercises which will help you get accustomed to working with R in the R console.</p>
-<div class="callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
-<p>Quick tip for working in the R console, you can use the up and down arrow keys on your keyboard to navigate through your command history. This can be helpful if you want to reuse a command that you previously ran.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="uninstall-the-lessons-optional" class="level2">
-<h2 class="anchored" data-anchor-id="uninstall-the-lessons-optional">Uninstall the lessons (optional)</h2>
-<p>If you want to uninstall the interactive R programming lessons, you can run the following code.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(swirl)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">uninstall_course</span>(<span class="st">"Lessons"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This code will remove the current lessons from your computer. If you want to reinstall the lessons, you can run the <a href="#access-the-lessons">code above again</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(tidytext)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Read the text file</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/text.csv"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 10 Columns: 2</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ── Column specification ────────────────────────────────────────────────────────</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Delimiter: ","</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; chr (1): text</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dbl (1): doc_id</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>          <span class="co"># Tokenize the text</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            tokens_tbl <span class="ot">&lt;-</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                data <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">unnest_tokens</span>(word, text) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">count</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">summarize</span>(<span class="at">doc_words =</span> <span class="fu">n</span>())</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in `group_by()`:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ! Must group by variables found in `.data`.</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✖ Column `doc_id` is not found.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><sup>Created on 2024-06-23 with <a href="https://reprex.tidyverse.org">reprex v2.1.0</a></sup></p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script>
@@ -560,7 +485,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/qtalr\.github\.io\/resources\/");
+      var filterRegex = new RegExp('/' + window.location.host + '/');
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -937,7 +862,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-03/index.qmd" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions"><ul><li><a href="{{< var site.repo-url >}}/edit/main/guides/guide-05/hexed-tuna_reprex.md" target="_blank" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="{{< var site.repo-url >}}/issues/new" target="_blank" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
