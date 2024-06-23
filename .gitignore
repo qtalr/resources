@@ -3,6 +3,7 @@
 *code-workspace
 *_cache
 *_files
+\.lintr
 
 # Data
 recipes/recipe-06/data/original/swda/*
