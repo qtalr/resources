@@ -76,6 +76,10 @@ pre.sourceCode {
 
 /* Code */
 
+pre {
+  font-size: .85em;
+}
+
 .sourceCode {
   font-size: .95em;
 }
