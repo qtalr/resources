@@ -4,6 +4,7 @@ subtitle: "Helping you help yourself"
 description: |
   In this guide, we will explore how to create reproducible examples using {reprex}. Reproducible examples are essential for effective communication and collaboration among data scientists and statisticians.
 categories: [guides]
+image: images/reprex.png
 ---
 
 ::: {.callout}
@@ -263,7 +264,6 @@ tokens_tbl <-
   count(word) |>
   group_by(doc_id) |>
   summarize(doc_words = n())
-
 ```
 With the default setting for markdown output, the reprex will look like this:
 
