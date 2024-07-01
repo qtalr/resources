@@ -4,6 +4,13 @@ description: |
   Welcome to the Resources Kit for the textbook ["An Introduction Quantitative Text Analysis for Linguistics: Reproducible Research using R"](https://qtalr.github.io/book). This site provides description and access to supplementary resources for the textbook.
 ---
 
+<!-- todos
+
+- [ ] Add a section on the textbook
+- [ ] Add a section on the resources kit
+-->
+
+
 ## Overview
 
 The primary resources available for the textbook include the following:
@@ -42,5 +49,4 @@ With these steps completed, you will be ready to start working with the textbook
 knitr::write_bib(c(
   .packages(), "dplyr", "corpora", "knitr", "kableExtra", "janitor", "skimr", "ggplot2", "regexplain", "fs", "gutenbergr", "PsychWordVec", "purrr", "reprex", "usethis", "tinytex", "swirl", "qtkit", "stringr", "datapasta"
 ), "packages.bib")
-
 ```

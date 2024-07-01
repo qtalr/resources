@@ -96,6 +96,7 @@ reprex()
 ```
 
 ```{r}
+#| label: basic-reprex
 #| echo: false
 
 library(reprex)
@@ -107,7 +108,6 @@ reprex::reprex({
   # Tokenize the sentences
   stringr::str_split(x, " ")
 }, html_preview = FALSE)
-
 ```
 
 `reprex()` will find the code we copied to the clipboard, run the code, and will generate a formatted output that includes the code, input data, and results. The output will be displayed in either a browser or preview pane and copied to the clipboard for easy sharing.
@@ -220,7 +220,6 @@ To get a better understanding how we might proceed, let's take a quick look at t
 
 ```{r}
 data
-
 ```
 
 From the output, we can see that the data has two columns: `doc_id` and `text`. We can create a small data
@@ -236,7 +235,6 @@ data <- tibble::tribble(
 )
 
 data
-
 ```
 
 Now that we have the code to create some sample data, we can replace the call to the `read_csv()` function with

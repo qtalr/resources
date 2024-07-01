@@ -29,6 +29,8 @@ website:
 # Formats ------------------------------
 format:
   html:
+    include-in-header:
+      - assets/js/analytics.js
     theme: flatly
     code-overflow: wrap
     code-line-numbers: false
@@ -39,6 +41,10 @@ format:
     include-after-body: include/webex.js
     comments:
       hypothesis: true
+    # filters:
+    #   - ~/.local/share/nvim/lazy/zotcite/python3/zotref.py
+    #   - ./citeproc.lua
+    # pandoc_args: ['-F', 'zotref.py', '--citeproc'] # zotcite test
 
 # Reference and numbering ---------------
 

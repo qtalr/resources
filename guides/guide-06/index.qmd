@@ -2,10 +2,23 @@
 title: "06. Identifying data and data sources"
 subtitle: ""
 description: |
-  In this guide, we will explore how to create reproducible examples using the {reprex}. Reproducible examples are essential for effective communication and collaboration among data scientists and statisticians.
+  This guide will outline some key data and dataset resources that will be usefull for your own text analysis projects. This guide is not exhaustive, but it will provide you with a good starting point for you to start to explore different types of data and data sources.
 categories: [guides]
 ---
 
-Hello.
+::: {.callout}
+**{{< fa regular list-alt >}} Outcomes**
 
+- ...
+- ...
+- ...
+:::
+
+## Introduction
+
+```{r}
+#| label: load-data
+#| echo: false
+
+```
 

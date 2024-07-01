@@ -32,7 +32,7 @@ To find data sources, it is best to have a research question in mind. This will 
 Consult the [Identifying data and data sources](/guides/guide-04/) guide for some ideas on where to find data sources.
 :::
 
-In this recipe, we will consider some hypothetical reseach aimed at exploring potential similarities and differences in the lexical, syntactic, and/ or stylistic features between American and English literature during the mid 19th century.
+In this recipe, we will consider some hypothetical research aimed at exploring potential similarities and differences in the lexical, syntactic, and/ or stylistic features between American and English literature during the mid 19th century.
 
 ::: {.callout .halfsize}
 **{{< fa medal >}} Dive deeper**
@@ -64,6 +64,7 @@ We will load {dplyr}, {readr}, and {gutenbergr} to prepare for the data collecti
 library(dplyr)
 library(readr)
 library(gutenbergr)
+
 ```
 
 The main workhorse of {gutenbergr} is the `gutenberg_download()`. It's only required argument is the id(s) used by Project Gutenberg to index all of the works in their database. This function will then download the text of the work(s) and return a data frame with the gutenberg id and the text of the work(s).
@@ -74,19 +75,22 @@ This will work for individual works, but why wouldn't we just download the text 
 
 However, what if are interested in downloading multiple works? As the number of works increases, the time it takes to manually download each work increases. Furthermore, {gutenbergr} provides a number of additional attributes that can be downloaded and organized along side the text. Finally, the results of the `gutenberg_download()` function are returned as a data frame which can be easily manipulated and analyzed in R.
 
-In our data acquisition plan, we want to collect works from a number of authors. So it will be best to leverge {gutenbergr} to download the works we are interested in. To do this we need to know the gutenberg ids for the works we are interested in.
+In our data acquisition plan, we want to collect works from a number of authors. So it will be best to leverage {gutenbergr} to download the works we are interested in. To do this we need to know the gutenberg ids for the works we are interested in.
 
-Convienently, {gutenbergr} also includes a number of data frames that contain meta data for the works in the Project Gutenberg database. These data frames include meta data for works in the Project Gutenberg database (`gutenberg_metadata`), authors (`gutenberg_authors`), and subjects (`gutenberg_subjects`).
+Conveniently, {gutenbergr} also includes a number of data frames that contain meta data for the works in the Project Gutenberg database. These data frames include meta data for works in the Project Gutenberg database (`gutenberg_metadata`), authors (`gutenberg_authors`), and subjects (`gutenberg_subjects`).
 
 Let's take a look at the structure of these data frames.
 
-```{r view-gutenberg-tables}
+```{r}
+#| label: view-gutenberg-tables
+
 glimpse(gutenberg_metadata)
 glimpse(gutenberg_authors)
 glimpse(gutenberg_subjects)
+
 ```
 
-From this overvew, we can see that there are `r format(nrow(gutenberg_metadata), big.mark = ",")` works in the Project Gutenberg database. We can also see that there are `r format(nrow(gutenberg_authors), big.mark = ",")` authors and `r format(nrow(gutenberg_subjects), big.mark = ",")` subjects.
+From this overview, we can see that there are `r format(nrow(gutenberg_metadata), big.mark = ",")` works in the Project Gutenberg database. We can also see that there are `r format(nrow(gutenberg_authors), big.mark = ",")` authors and `r format(nrow(gutenberg_subjects), big.mark = ",")` subjects.
 
 As we dicussed, each work in the Project Gutenberg database has a gutenberg id. The `gutenberg_id` appears in the `gutenberg_metadata` and also in the `gutenberg_subjects` data frame. This common attribute means that a work with a particular gutenberg id can be linked to the subject(s) associated with that work. Another important attribute is is the `gutenberg_author_id` which links the work to the author(s) of that work. Yes, the author name is in the `gutenberg_metadata` data frame, but the `gutenberg_author_id` can be used to link the work to the `gutenberg_authors` data frame which contains additional information about authors.
 
@@ -126,6 +130,7 @@ authors <-
     birthdate > 1800,
     deathdate < 1880
   )
+
 ```
 
 That's it! We now have a data frame with the authors that lived during the mid 19th century, some `r format(nrow(authors), big.mark = ",")` authors in total. This will span all subjects and languages, so this isn't the final number of authors we will be working with.
@@ -140,6 +145,7 @@ subjects <-
     subject_type == "lcc",
     subject %in% c("PR", "PS")
   )
+
 ```
 
 Now, we have a data frame with the subjects that we are interested in. Let's inspect this data frame to see how many works we have for each subject.
@@ -172,6 +178,7 @@ With this in mind, let's do a quick test before we download all of the works. Le
 
 ```{r}
 #| label: download-works-sample
+
 works_sample <-
   works |>
   filter(
@@ -184,6 +191,7 @@ works_sample <-
   )
 
 works_sample
+
 ```
 
 Let's inspect the `works_sample` data frame. First, from the output we can see that all of our meta data attributes were returned. Second, we can see that the `text` column contains values for each line of text (delimited by a carriage return) for each of the 5 works we downloaded, even blank lines. To make sure that we have the correct number of works, we can use the `count()` function to count the number of works by `gutenberg_id`.
@@ -192,6 +200,7 @@ Let's inspect the `works_sample` data frame. First, from the output we can see t
 #| label: count-works-sample
 works_sample |>
   count(gutenberg_id)
+
 ```
 
 Yes, we have 5 works and we can see how many lines are in each of these works.

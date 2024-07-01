@@ -22,7 +22,6 @@ execute:
 - Modify front-matter and prose sections
 :::
 
-
 ## Concepts and strategies
 
 ### Literate Programming
@@ -115,7 +114,6 @@ In the previous example, R is used as a simple calculator adding `1 + 1`. Here's
 #| echo: true
 1 + 1
 ```
-
 
 ```{{r}}
 #| label: add
@@ -223,7 +221,9 @@ and that you are prepared to do the following:
 With this in mind, you are ready to move on to Lab 00.
 
 <!--
-[ ] possible options for accessing? Github clone and/ or Posit cloud, Dockerfile
+TODO: possible options for accessing? Github clone and/ or Posit cloud, Dockerfile
 
-[ ] add instructions to Guide and/ or instructor's resources to outline approaches to using Git/GiHub, Docker, etc. for managing lab resources.
+TODO: add instructions to Guide and/ or instructor's resources to outline approaches to using Git/GiHub, Docker, etc. for managing lab resources.
 -->
+
+

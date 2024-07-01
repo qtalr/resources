@@ -101,7 +101,7 @@ In @fig-github-features, I provide a schematic look at the relationship between 
 
 ::: {#fig-github-features}
 
-[![](images/github-features-drawio.png){width=100%}]{alt-text="Key features of GitHub"}
+[![](images/github-features.drawio.png){width=100%}]{alt-text="Key features of GitHub"}
 
 Key features of GitHub
 :::
