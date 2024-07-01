@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.555">
+<meta name="generator" content="quarto-1.4.557">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -129,6 +129,7 @@ div.csl-indent {
     document.body.classList.add('hypothesis-enabled');
   });
 </script>
+<script data-goatcounter="https://bold.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 
 
 <link rel="stylesheet" href="../../assets/styles.css">
@@ -263,7 +264,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>In this recipe, we will consider some hypothetical reseach aimed at exploring potential similarities and differences in the lexical, syntactic, and/ or stylistic features between American and English literature during the mid 19th century.</p>
+<p>In this recipe, we will consider some hypothetical research aimed at exploring potential similarities and differences in the lexical, syntactic, and/ or stylistic features between American and English literature during the mid 19th century.</p>
 <div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -303,8 +304,8 @@ div.csl-indent {
 <p>So how do we find the gutenberg ids? The manual method is to go to the Project Gutenberg website and search for the work you are interested in. For example, let’s say we are interested in the work “A Tale of Two Cities” by Charles Dickens. We can search for this work on the Project Gutenberg website and then click on the link to the work. The url for this work is: <a href="https://www.gutenberg.org/ebooks/98" class="uri">https://www.gutenberg.org/ebooks/98</a>. The gutenberg id is the number at the end of the url, in this case 98.</p>
 <p>This will work for individual works, but why wouldn’t we just download the text from the Project Gutenberg website? For the works on Project Gutenberg this would be perfectly fine. We can share the text with others as the license for the works on Project Gutenberg are in the public domain.</p>
 <p>However, what if are interested in downloading multiple works? As the number of works increases, the time it takes to manually download each work increases. Furthermore, {gutenbergr} provides a number of additional attributes that can be downloaded and organized along side the text. Finally, the results of the <code>gutenberg_download()</code> function are returned as a data frame which can be easily manipulated and analyzed in R.</p>
-<p>In our data acquisition plan, we want to collect works from a number of authors. So it will be best to leverge {gutenbergr} to download the works we are interested in. To do this we need to know the gutenberg ids for the works we are interested in.</p>
-<p>Convienently, {gutenbergr} also includes a number of data frames that contain meta data for the works in the Project Gutenberg database. These data frames include meta data for works in the Project Gutenberg database (<code>gutenberg_metadata</code>), authors (<code>gutenberg_authors</code>), and subjects (<code>gutenberg_subjects</code>).</p>
+<p>In our data acquisition plan, we want to collect works from a number of authors. So it will be best to leverage {gutenbergr} to download the works we are interested in. To do this we need to know the gutenberg ids for the works we are interested in.</p>
+<p>Conveniently, {gutenbergr} also includes a number of data frames that contain meta data for the works in the Project Gutenberg database. These data frames include meta data for works in the Project Gutenberg database (<code>gutenberg_metadata</code>), authors (<code>gutenberg_authors</code>), and subjects (<code>gutenberg_subjects</code>).</p>
 <p>Let’s take a look at the structure of these data frames.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(gutenberg_metadata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -341,7 +342,7 @@ $ subject_type &lt;chr&gt; "lcsh", "lcsh", "lcc", "lcc", "lcsh", "lcsh", "lcc", 
 $ subject      &lt;chr&gt; "United States -- History -- Revolution, 1775-1783 -- Sou…</code></pre>
 </div>
 </div>
-<p>From this overvew, we can see that there are 72,569 works in the Project Gutenberg database. We can also see that there are 23,980 authors and 231,741 subjects.</p>
+<p>From this overview, we can see that there are 72,569 works in the Project Gutenberg database. We can also see that there are 23,980 authors and 231,741 subjects.</p>
 <p>As we dicussed, each work in the Project Gutenberg database has a gutenberg id. The <code>gutenberg_id</code> appears in the <code>gutenberg_metadata</code> and also in the <code>gutenberg_subjects</code> data frame. This common attribute means that a work with a particular gutenberg id can be linked to the subject(s) associated with that work. Another important attribute is is the <code>gutenberg_author_id</code> which links the work to the author(s) of that work. Yes, the author name is in the <code>gutenberg_metadata</code> data frame, but the <code>gutenberg_author_id</code> can be used to link the work to the <code>gutenberg_authors</code> data frame which contains additional information about authors.</p>
 <div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
