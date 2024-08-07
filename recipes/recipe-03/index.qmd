@@ -54,6 +54,7 @@ brown_fam_df <-
 
 # Preview
 glimpse(brown_fam_df)
+
 ```
 
 You can learn more about these variables by reading the dataset documentation with `?corpora::PassiveBrownFam`.
@@ -85,6 +86,7 @@ library(skimr)
 
 # Create a statistical overview of the `brown_fam_df` dataset
 skim(brown_fam_df) |> capture.output() |> cat(sep = "\n")
+
 ```
 
 The output of the `skim()` function contains a lot of information but it essentially has two parts: a summary of the dataset and a summary of each variable in the dataset. The summary of each of the variables, however, is grouped by variable type. Remember, each of our variables in a data frame is a vector and each vector has a type.

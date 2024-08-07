@@ -1,11 +1,14 @@
 ---
-title: "06. Identifying data and data sources"
-subtitle: ""
-description: |
-  This guide will outline some key data and dataset resources that will be usefull for your own text analysis projects. This guide is not exhaustive, but it will provide you with a good starting point for you to start to explore different types of data and data sources.
-categories: [guides]
+title: 06. Identifying data and data sources
+subtitle: ''
+description: >
+  This guide will outline some key data and dataset resources that will be
+  usefull for your own text analysis projects. This guide is not exhaustive, but
+  it will provide you with a good starting point for you to start to explore
+  different types of data and data sources.
+categories:
+  - guides
 ---
-
 ::: {.callout}
 **{{< fa regular list-alt >}} Outcomes**
 
@@ -20,5 +23,41 @@ categories: [guides]
 #| label: load-data
 #| echo: false
 
+library(dplyr)
+library(tinytable)
+
+mtcars |> 
+  as_tibble() |> 
+  mutate(
+    cyl = as.factor(cyl)
+  )
+
 ```
+
+In this guide, ... 
+
+:::: {.panel-tabset}
+
+### 
+
+
+```{r}
+#| label: load-data 
+#| echo: false 
+
+# Load the data
+mtcars <- as_tibble(mtcars)
+mtcars
+
+```
+
+### 
+
+
+
+::::
+
+![](~/Screenshots/CodeSnap_2024-07-05_at_08:32:14.png)
+
+
 

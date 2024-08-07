@@ -4,12 +4,13 @@ description: |
   Welcome to the Resources Kit for the textbook ["An Introduction Quantitative Text Analysis for Linguistics: Reproducible Research using R"](https://qtalr.github.io/book). This site provides description and access to supplementary resources for the textbook.
 ---
 
-<!-- todos
-
-- [ ] Add a section on the textbook
-- [ ] Add a section on the resources kit
+<!--
+FIX: add the textbook image
+TODO: Add a section on the textbook
+TODO: Add a section on the resources kit
 -->
 
+![]({{< var book.cover >}}){style="float: right; margin-right: 1em;" width="100px"}
 
 ## Overview
 

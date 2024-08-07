@@ -23,7 +23,7 @@ categories: [preparation]
 
 In this recipe, we will make use of {readr}, {dplyr}, {stringr}, and {purrr}, employ regular expressions to parse the semi-structured data, and use {qtalrkit} to document the dataset. Let's load those packages now.
 
-<!-- [ ] replace with {qtkit} -->
+<!-- TODO: replace with {qtkit} -->
 
 ```{r}
 #| label: load-packages
@@ -36,6 +36,7 @@ library(stringr)
 library(purrr)
 library(fs)
 library(qtalrkit)
+
 ```
 
 In Lab 6, we will apply what we learn in this recipe to curate and document acquired data.
@@ -53,7 +54,7 @@ As a semi-structured example we will work with the The Switchboard Dialog Act Co
 
 If you would like to download and decompress the data yourself, you can do so by running the following code:
 
-<!-- [ ] get_archive_data() {qtkit} -->
+<!-- TODO: get_archive_data() {qtkit} -->
 
 ```r
 qtalrkit::get_compressed_data(
@@ -438,6 +439,8 @@ We now have the tidy dataset we set out to create. But this dataset only include
 The approach will be to create a custom function which groups the code we've done for this single file and then iteratively send each file from the corpus through this function and combine the results into one data frame.
 
 Here's the custom function with some extra code to print a progress message for each file when it runs.
+
+<!-- TODO:   -->
 
 ```{r swda-function-metadata}
 # [ ] add to {qtalrkit}, note the convention of `extract_` prefix for curation functions. In combination with `get_compressed_data()` this corpus can be curated with few steps.
