@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://qtalr.github.io/resources/guides/guide-06/index.html</loc>
-    <lastmod>2024-07-01T13:33:05.371Z</lastmod>
+    <lastmod>2024-08-16T21:23:32.718Z</lastmod>
   </url>
   <url>
     <loc>https://qtalr.github.io/resources/guides/index.html</loc>
@@ -38,23 +38,99 @@
   </url>
   <url>
     <loc>https://qtalr.github.io/resources/recipes/recipe-06/index.html</loc>
-    <lastmod>2024-06-05T00:56:43.407Z</lastmod>
+    <lastmod>2024-08-01T04:02:38.471Z</lastmod>
   </url>
   <url>
     <loc>https://qtalr.github.io/resources/recipes/recipe-08/index.html</loc>
     <lastmod>2024-06-05T00:56:44.930Z</lastmod>
   </url>
   <url>
+    <loc>https://qtalr.github.io/resources/R/Library/openai/NEWS.html</loc>
+    <lastmod>2024-08-07T14:55:35.830Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/tidytext/doc/tf_idf.html</loc>
+    <lastmod>2024-08-07T14:55:41.044Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/tidytext/doc/tidytext.html</loc>
+    <lastmod>2024-08-07T14:55:41.044Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/gutenbergr/doc/intro.html</loc>
+    <lastmod>2024-08-07T14:55:38.550Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/triebeard/doc/r_radix.html</loc>
+    <lastmod>2024-08-07T14:55:08.005Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/qtkit/NEWS.html</loc>
+    <lastmod>2024-08-07T18:08:56.160Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/here/doc/rmarkdown.html</loc>
+    <lastmod>2024-08-07T18:14:51.815Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/here/NEWS.html</loc>
+    <lastmod>2024-08-07T18:14:51.794Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/tokenizers/doc/introduction-to-tokenizers.html</loc>
+    <lastmod>2024-08-07T14:55:34.155Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/tokenizers/NEWS.html</loc>
+    <lastmod>2024-08-07T14:55:29.657Z</lastmod>
+  </url>
+  <url>
     <loc>https://qtalr.github.io/resources/instructors.html</loc>
     <lastmod>2024-06-05T00:56:31.201Z</lastmod>
   </url>
   <url>
+    <loc>https://qtalr.github.io/resources/R/Library/tokenizers/doc/tif-and-tokenizers.html</loc>
+    <lastmod>2024-08-07T14:55:34.155Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/qtalrkit/NEWS.html</loc>
+    <lastmod>2024-08-07T18:07:04.280Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/here/demo-project/analysis/report.html</loc>
+    <lastmod>2024-08-07T18:14:51.814Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/here/doc/here.html</loc>
+    <lastmod>2024-08-07T18:14:51.815Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/urltools/doc/urltools.html</loc>
+    <lastmod>2024-08-07T14:55:27.945Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/triebeard/doc/rcpp_radix.html</loc>
+    <lastmod>2024-08-07T14:55:08.005Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/tidytext/NEWS.html</loc>
+    <lastmod>2024-08-07T14:55:40.589Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/tidytext/doc/tidying_casting.html</loc>
+    <lastmod>2024-08-07T14:55:41.044Z</lastmod>
+  </url>
+  <url>
+    <loc>https://qtalr.github.io/resources/R/Library/janeaustenr/NEWS.html</loc>
+    <lastmod>2024-08-07T14:55:13.348Z</lastmod>
+  </url>
+  <url>
     <loc>https://qtalr.github.io/resources/index.html</loc>
-    <lastmod>2024-06-24T19:06:50.839Z</lastmod>
+    <lastmod>2024-08-07T18:37:04.844Z</lastmod>
   </url>
   <url>
     <loc>https://qtalr.github.io/resources/recipes/recipe-01/index.html</loc>
-    <lastmod>2024-06-05T00:56:43.132Z</lastmod>
+    <lastmod>2024-08-07T18:43:04.185Z</lastmod>
   </url>
   <url>
     <loc>https://qtalr.github.io/resources/recipes/recipe-07/index.html</loc>
@@ -70,7 +146,7 @@
   </url>
   <url>
     <loc>https://qtalr.github.io/resources/recipes/recipe-03/index.html</loc>
-    <lastmod>2024-06-05T00:56:43.217Z</lastmod>
+    <lastmod>2024-07-14T05:27:58.971Z</lastmod>
   </url>
   <url>
     <loc>https://qtalr.github.io/resources/recipes/recipe-10/index.html</loc>

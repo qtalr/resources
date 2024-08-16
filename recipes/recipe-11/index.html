@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.557">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="In this recipe, I cover the tools and strategies for sharing research findings with the public and peers. We will begin assuming we are using Quarto websites as the primary tool for sharing research findings in both forums. From there, we will enter into some of the details of articles, presentations, and publishing research code and data.">
 
-<title>Resources Kit - 11. Sharing research</title>
+<title>11. Sharing research – Resources Kit</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -128,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -154,7 +154,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="public-facing-communication">Public facing communication</h3>
 <p>R (or Python) research projects that take advantage of Quarto websites have access to a wide range of tools for sharing research. First, the entire research tool chain can be published as a website, which is a great way to share the research process. Second, the website can be used to share the research findings in particular formats including articles and presentations. Let’s focus in on these later formats and discuss strategies for setting up and formatting research articles and presentations.</p>
 <p>We will assume the project directory structure in <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>.</p>
-<div id="lst-quarto-website" class="listing quarto-float">
+<div id="lst-quarto-website" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-website-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Snippet&nbsp;1: Quarto website structure for reproducible research
@@ -319,7 +319,7 @@ Snippet&nbsp;1: Quarto website structure for reproducible research
 </figure>
 </div>
 <p>I will also assume the following Quarto configuration file <em>_quarto.yml</em> in <a href="#lst-quarto-config" class="quarto-xref">Snippet&nbsp;2</a>.</p>
-<div id="lst-quarto-config" class="listing quarto-float">
+<div id="lst-quarto-config" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-config-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Snippet&nbsp;2: Quarto configuration file for reproducible research
@@ -394,7 +394,7 @@ Snippet&nbsp;2: Quarto configuration file for reproducible research
 <h3 class="anchored" data-anchor-id="articles">Articles</h3>
 <p>In the <em>reports/</em> directory a file named <em>article.qmd</em> appears. This file, which can be named anything, will be the document in which we will draft the research article. This file is a standard Quarto document. However, we can take advantage of some options that we have not seen so far that adds functionality to the document.</p>
 <p>In <a href="#lst-quarto-article" class="quarto-xref">Snippet&nbsp;3</a>, we see an example of the YAML frontmatter for a Quarto article.</p>
-<div id="lst-quarto-article" class="listing quarto-float">
+<div id="lst-quarto-article" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-article-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Snippet&nbsp;3: Quarto article YAML frontmatter
@@ -461,7 +461,7 @@ Snippet&nbsp;3: Quarto article YAML frontmatter
 </div>
 <p>In addition to typical YAML frontmatter, we see a number of new times. Looking at the first three, we see that we can add author information, an abstract, and keywords. These are standard for articles and are used to provide information about the article to readers.</p>
 <p>When rendered, the article header information will now contain this new information, as seen in <a href="#fig-header-format" class="quarto-xref">Figure&nbsp;1</a>.</p>
-<div id="fig-header-format" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-header-format" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-header-format-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <p><span data-alt-text="Header format for Quarto article"><img src="images/header-format.png" class="img-fluid figure-img"></span></p>
@@ -473,7 +473,7 @@ Figure&nbsp;1: Appearance of the header format for a Quarto article.
 </div>
 <p>The next two items are the citation style and bibliography. These are used to create and format citations in the article. The citation style is a CSL file that specifies the citation style. You can find a database of various citation styles at the <a href="https://www.zotero.org/styles">Zotero Style Repository</a>. You can search for a style or by field. Once you find a style you like, you can download the CSL file and add it to your project. The bibliography is a BibTeX file that contains the references for the article. You can create this file (as mentioned before) in a reference manager like Zotero or Mendeley.</p>
 <p>Now the <code>citation</code> option is not for references that we have gathered. Rather, it is for generating a citation for the current article. This is useful if someone else would like to cite your article. When the article is rendered, the citation will appear at the bottom of the article, as seen in <a href="#fig-citation-attribution" class="quarto-xref">Figure&nbsp;2</a>.</p>
-<div id="fig-citation-attribution" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-citation-attribution" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-citation-attribution-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <p><span data-alt-text="Citation attribution in Quarto article"><img src="images/citation-attribution.png" class="img-fluid figure-img"></span></p>
@@ -490,7 +490,7 @@ Figure&nbsp;2: Appearance of the citation attribution in a Quarto article.
 <h3 class="anchored" data-anchor-id="presentations">Presentations</h3>
 <p>In the <em>reports/</em> directory we can also include presentations and associated slide decks. A popular web-based presentation framework is <a href="https://revealjs.com/">reveal.js</a>. This framework is used in Quarto to create presentations. In <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>, the <em>slides/</em> directory contains a directory for each presentation and an <em>index.qmd</em> file within. The <em>index.qmd</em> file contains the presentation content, which we will see soon. To provide a listings page each presentation, the <em>presentations.qmd</em> file contains special YAML instructions to be a listings page.</p>
 <p>Let’s first dive into the <em>index.qmd</em> file for a presentation and discuss some of the key features. In <a href="#lst-quarto-presentation" class="quarto-xref">Snippet&nbsp;4</a>, we see a basic example of a Quarto presentation.</p>
-<div id="lst-quarto-presentation" class="listing quarto-float">
+<div id="lst-quarto-presentation" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst" id="lst-quarto-presentation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Snippet&nbsp;4: Quarto presentation YAML frontmatter <em>index.qmd</em>
@@ -505,7 +505,7 @@ Snippet&nbsp;4: Quarto presentation YAML frontmatter <em>index.qmd</em>
 </div>
 <p>The YAML frontmatter for a Quarto presentation is similar to that of most Quarto documents. The title, date, and author are all included. The <code>format</code> option specifies that the presentation will be rendered in <code>reveal.js</code> format. When rendered, the presentation the slide deck will be interactive and can be navigated by the user. The slide deck will also be responsive and can be viewed on any device.</p>
 <p>In <a href="#fig-revealjs-example" class="quarto-xref">Figure&nbsp;3</a>, we see an example of a Quarto presentation rendered in <code>reveal.js</code> format. I will discuss some of the key features of the presentation, in the presentation itself.</p>
-<div id="fig-revealjs-example" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-revealjs-example" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-revealjs-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <style>
@@ -829,18 +829,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -872,7 +861,29 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp("https:\/\/qtalr\.github\.io\/resources\/");
@@ -880,7 +891,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
