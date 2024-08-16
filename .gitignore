@@ -4,9 +4,17 @@
 *_cache
 *_files
 \.lintr
+_freeze/
+
+# Nix
+.direnv/
+.envrc
 
 # Data
 recipes/recipe-06/data/original/swda/*
+
+# Local library
+R/
 
 _notes.md
 _webexercises.qmd

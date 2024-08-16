@@ -36,7 +36,28 @@
           rmarkdown
           usethis
           # Project
+          bslib
+          corpora
+          downlit
+          fontawesome
+          ggrepel
+          glmnet
+          gutenbergr
+          infer
+          janitor
+          kableExtra
+          pacman
+          PsychWordVec
+          quanteda
+          scales
+          skimr
+          stopwords
+          textrecipes
+          textstem
+          tidymodels
           tidyverse
+          tinytable
+          webexercises
         ];
 
         # Texlive packages

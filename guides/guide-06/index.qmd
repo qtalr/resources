@@ -2,62 +2,90 @@
 title: 06. Identifying data and data sources
 subtitle: ''
 description: >
-  This guide will outline some key data and dataset resources that will be
-  usefull for your own text analysis projects. This guide is not exhaustive, but
-  it will provide you with a good starting point for you to start to explore
-  different types of data and data sources.
+  This guide will outline some key data and dataset resources that will be usefull for your own text analysis projects. This guide is not exhaustive, but it will provide you with a good starting point for you to start to explore different types of data and data sources.
 categories:
   - guides
 ---
+
 ::: {.callout}
 **{{< fa regular list-alt >}} Outcomes**
 
-- ...
-- ...
-- ...
+- Recognize the difference between various sources of data and datasets.
+- Identify data and/or datasets that are relevant to your research project.
+- Locate and access data and/datasets used in the textbook and resources.
 :::
 
 ## Introduction
 
-```{r}
-#| label: load-data
-#| echo: false
+## Data sharing platforms
 
-library(dplyr)
-library(tinytable)
+There are many data sharing platforms that include various types of research materials, often including datasets.
 
-mtcars |> 
-  as_tibble() |> 
-  mutate(
-    cyl = as.factor(cyl)
-  )
+::: {#tbl-data-sharing-platforms tbl-colwidths="[20, 50, 30]"}
 
-```
+| Platform | Description | URL |
+| :--- | :--- | :--- |
+| Dataverse | Dataverse is an open-source web application to share, preserve, cite, explore, and analyze research data. | [https://dataverse.org/](https://dataverse.org/) |
+| Figshare | Figshare is a repository where users can make all of their research outputs available in a citable, shareable, and discoverable manner. | [https://figshare.com/](https://figshare.com/) |
+| Zenodo | Zenodo is a general-purpose open-access repository developed under the European OpenAIRE program and operated by CERN. | [https://zenodo.org/](https://zenodo.org/) |
+| Dryad | Dryad is a curated general-purpose repository that makes the data underlying scientific publications discoverable, freely reusable, and citable. | [https://datadryad.org/](https://datadryad.org/) |
+| Open Science Framework | The Open Science Framework (OSF) is a free, open-source web application built to help researchers manage their workflows. | [https://osf.io/](https://osf.io/) |
 
-In this guide, ... 
+:::
 
-:::: {.panel-tabset}
+## Language data repositories
 
-### 
+::: {#tbl-language-2data-repositories tbl-colwidths="[20, 50, 30]"}
 
+| Platform | Description | URL |
+| :--- | :--- | :--- |
+| Linguistic Data Consortium | The Linguistic Data Consortium is an open consortium of universities, companies, and government research laboratories. | [https://www.ldc.upenn.edu/](https://www.ldc.upenn.edu/) |
+| Open Language Archives Community | The Open Language Archives Community (OLAC) is an international partnership of institutions and individuals who are creating a worldwide virtual library of language resources. | [http://www.language-archives.org/](http://www.language-archives.org/) |
+| The Language Archive | The Language Archive is a digital repository for language resources. | [https://tla.mpi.nl/](https://archive.mpi.nl/tla/) |
+| The Language Bank | The Language Bank is a digital repository for language resources. | [https://www.sprakbanken.se/](https://www.sprakbanken.se/sprakbanken-in-english) |
+| TalkBank | TalkBank is a system for sharing and studying conversational interactions. | [https://talkbank.org/](https://talkbank.org/) |
+| Oxford Text Archive | The Oxford Text Archive develops, collects, catalogues, and preserves electronic literary and linguistic resources. | [https://ota.bodleian.ox.ac.uk/](https://ota.bodleian.ox.ac.uk/) |
 
-```{r}
-#| label: load-data 
-#| echo: false 
+:::
 
-# Load the data
-mtcars <- as_tibble(mtcars)
-mtcars
+## Developed corpora
 
-```
+::: {#tbl-developed-corpora tbl-colwidths="[20, 50, 30]"}
 
-### 
+| Platform | Description | URL |
+| :--- | :--- | :--- |
+| British National Corpus | The British National Corpus (BNC) is a 100-million-word text corpus of samples of written and spoken language from a wide range of sources. | [https://www.english-corpora.org/bnc/](https://www.english-corpora.org/bnc/) |
+| American National Corpus | The American National Corpus (ANC) is a text corpus of American English. | [https://anc.org/](https//anc.org) |
+| Corpus of Contemporary American English | The Corpus of Contemporary American English (COCA) is the largest freely-available corpus of English, and the only large and balanced corpus of American English. | [https://www.english-corpora.org/coca/](https://www.english-corpora.org/coca/) |
 
+:::
 
+## Data sources in the textbook and resources
 
-::::
+### Textbook
 
-![](~/Screenshots/CodeSnap_2024-07-05_at_08:32:14.png)
+::: {#tbl-textbook-data tbl-colwidths="[10, 10, 50, 30]"}
 
+| Dataset | Location(s) | Description | URL |
+| :--- | :--- | :--- | :--- |
+| `masc` | Ch. 2 and 8 | The `masc` dataset is drawn from the Manually Annotated Sub-Corpus (MASC) of the American National Corpus. | [https://anc.org/data/masc/](https://anc.org/data/masc/) |
+| `belc` | Ch. 3 | The `belc` dataset is acquired from the TalkBank repository. It is a dataset that contains the results of a study on the use of English as a second language. On the written portion is used. | [https://talkbank.org/](https://talkbank.org/) |
+| `cedel2` | Ch. 5 and 9 | A corpus of Spanish as a second language. This dataset appears in chapter 5. | [http://cedel2.learnercorpora.com/](http://cedel2.learnercorpora.com/) |
+| `swda` | Ch. 5 | The Switchboard Dialog Act Corpus (SWDA) is a corpus of telephone conversations. | [https://catalog.ldc.upenn.edu/docs/LDC97S62/](https://catalog.ldc.upenn.edu/docs/LDC97S62/)
+| `cabnc` | Ch. 5 and 6 | The spoken portion of the British National Corpus. It is available through Talkbank. | [https://ca.talkbank.org/access/CABNC.html](https://ca.talkbank.org/access/CABNC.html) |
+| `europarl` | Ch. 6 and 7 | The Europarl Parallel Corpus is a parallel corpus of the European Parliament proceedings. | [https://www.statmt.org/europarl/](https://www.statmt.org/europarl/) |
+| `enntt` | Ch. 6 and 7 | The Europarl Corpus of Native and Non-Native and Translated Texts (ENNTT) is a parallel corpus of the European Parliament proceedings. | [https://github.com/senisioi/enntt-release](https://github.com/senisioi/enntt-release) |
+| `dative` | Ch. 10  | The `dative` from the {languageR} package is a dataset that contains the results of a study on the use of dative constructions in English. | [https://cran.r-project.org/web/packages/languageR/languageR.pdf](https://cran.r-project.org/web/packages/languageR/languageR.pdf) |
 
+:::
+<!--
+### Resources
 
+::: {#tbl-resources-data tbl-colwidths="[10, 10, 50, 30]"}
+
+| Dataset | Location(s) | Description | URL |
+| :--- | :--- | :--- | :--- |
+| `brown` | Recipe 2 | The Brown Corpus is a text corpus of American English. The dataset used here is drawn from {corpora}. | [https://r-forge.r-universe.dev/corpora](https://r-forge.r-universe.dev/corpora) |
+
+:::
+-->

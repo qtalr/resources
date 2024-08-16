@@ -4,20 +4,16 @@ description: |
   Welcome to the Resources Kit for the textbook ["An Introduction Quantitative Text Analysis for Linguistics: Reproducible Research using R"](https://qtalr.github.io/book). This site provides description and access to supplementary resources for the textbook.
 ---
 
-<!--
-FIX: add the textbook image
-TODO: Add a section on the textbook
-TODO: Add a section on the resources kit
--->
+![]({{< var book.cover >}}){style="float: right; margin: 0 0 .5em .5em;" width="100px"}
 
-![]({{< var book.cover >}}){style="float: right; margin-right: 1em;" width="100px"}
+\vspace{1cm}
 
 ## Overview
 
-The primary resources available for the textbook include the following:
+Resources available for the textbook include:
 
 | Resource | Description | Location |
-|----------|-------------|----------|
+|:---------|:------------|:---------|
 | [Lessons](https://github.com/qtalr/Lessons) | A series of interactive R programming lessons using {swirl} that accompany the textbook. | GitHub |
 | [Recipes](recipes) | A collection of coding demonstrations and examples that illustrate how to perform specific tasks in the text analysis workflow. | Resources Kit |
 | [Labs](https://github.com/stars/francojc/lists/labs) | A series of hands-on exercises that guide you through the process of conducting text analysis research. | GitHub |
@@ -27,7 +23,7 @@ The primary resources available for the textbook include the following:
 In addition to these main resources, the Resources Kit also includes the following:
 
 | Resource | Description | Location |
-|----------|-------------|----------|
+|:---------|:------------|:---------|
 | [Guides](guides) | A collection of guides that provide additional information and instructions on how to use the resources available in the kit. | Resources Kit |
 | [Instructors](instructors) | Information for instructors who are using the textbook in their courses. | Resources Kit |
 

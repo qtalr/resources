@@ -190,7 +190,7 @@ We can also create tables using markdown syntax. In this case, the format is a l
 
 ```markdown
 | Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
+|:---------|:---------|:---------|
 | A        | B        | C        |
 | D        | E        | F        |
 
@@ -200,7 +200,7 @@ We can also create tables using markdown syntax. In this case, the format is a l
 ::: {.callout .halfsize}
 
 | Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
+|:---------|:---------|:---------|
 | A        | B        | C        |
 | D        | E        | F        |
 
