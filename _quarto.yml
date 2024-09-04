@@ -1,6 +1,9 @@
 # Project ------------------------------
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "!R/"
   preview:
     port: 3210
 
@@ -41,10 +44,6 @@ format:
     include-after-body: include/webex.js
     comments:
       hypothesis: true
-    # filters:
-    #   - ~/.local/share/nvim/lazy/zotcite/python3/zotref.py
-    #   - ./citeproc.lua
-    # pandoc_args: ['-F', 'zotref.py', '--citeproc'] # zotcite test
 
 # Reference and numbering ---------------
 
