@@ -17,7 +17,13 @@ categories:
 
 ## Introduction
 
-## Data sharing platforms
+Finding data can be a challenging task, especially when you are looking for data that is relevant to your research project. Ideally you begin your data search with a research question in hand. This will allow you to vet sources as you encounter them. In other cases, however, you may begin to peruse available resources and brainstorm potential research questions that a given resource may support.
+
+In either case, it is helpful to have a place to start. Below I've included various sources and data/datasets that will help you kickstart your exploration. There is a vast world of data available on the web and this list is by no means exhaustive.
+
+## Sources
+
+### Data sharing platforms
 
 There are many data sharing platforms that include various types of research materials, often including datasets.
 
@@ -33,7 +39,7 @@ There are many data sharing platforms that include various types of research mat
 
 :::
 
-## Language data repositories
+### Language data repositories
 
 ::: {#tbl-language-2data-repositories tbl-colwidths="[20, 50, 30]"}
 
@@ -48,7 +54,7 @@ There are many data sharing platforms that include various types of research mat
 
 :::
 
-## Developed corpora
+### Developed corpora
 
 ::: {#tbl-developed-corpora tbl-colwidths="[20, 50, 30]"}
 
@@ -60,7 +66,7 @@ There are many data sharing platforms that include various types of research mat
 
 :::
 
-## Data sources in the textbook and resources
+## Referenced datasets
 
 ### Textbook
 
@@ -71,7 +77,7 @@ There are many data sharing platforms that include various types of research mat
 | `masc` | Ch. 2 and 8 | The `masc` dataset is drawn from the Manually Annotated Sub-Corpus (MASC) of the American National Corpus. | [https://anc.org/data/masc/](https://anc.org/data/masc/) |
 | `belc` | Ch. 3 | The `belc` dataset is acquired from the TalkBank repository. It is a dataset that contains the results of a study on the use of English as a second language. On the written portion is used. | [https://talkbank.org/](https://talkbank.org/) |
 | `cedel2` | Ch. 5 and 9 | A corpus of Spanish as a second language. This dataset appears in chapter 5. | [http://cedel2.learnercorpora.com/](http://cedel2.learnercorpora.com/) |
-| `swda` | Ch. 5 | The Switchboard Dialog Act Corpus (SWDA) is a corpus of telephone conversations. | [https://catalog.ldc.upenn.edu/docs/LDC97S62/](https://catalog.ldc.upenn.edu/docs/LDC97S62/)
+| `swda` | Ch. 5 and 10 | The Switchboard Dialog Act Corpus (SWDA) is a corpus of telephone conversations. | [https://catalog.ldc.upenn.edu/docs/LDC97S62/](https://catalog.ldc.upenn.edu/docs/LDC97S62/)
 | `cabnc` | Ch. 5 and 6 | The spoken portion of the British National Corpus. It is available through Talkbank. | [https://ca.talkbank.org/access/CABNC.html](https://ca.talkbank.org/access/CABNC.html) |
 | `europarl` | Ch. 6 and 7 | The Europarl Parallel Corpus is a parallel corpus of the European Parliament proceedings. | [https://www.statmt.org/europarl/](https://www.statmt.org/europarl/) |
 | `enntt` | Ch. 6 and 7 | The Europarl Corpus of Native and Non-Native and Translated Texts (ENNTT) is a parallel corpus of the European Parliament proceedings. | [https://github.com/senisioi/enntt-release](https://github.com/senisioi/enntt-release) |
