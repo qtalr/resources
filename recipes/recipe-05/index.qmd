@@ -2,7 +2,7 @@
 title: "05. Collecting and documenting data"
 subtitle: "Acquiring datasets with the Project Gutenberg API"
 description: |
-  At this point, we now have a strong undertanding of the foundations of programming in R and the data science workflow. Previous lessons, recipes, and labs focused on developing these skills while the chapters aimed to provide a conceptual framework for understanding the steps in the data science workflow. We now turn to applying our conceptual knowledge and our technical skills to accomplish the tasks of the data science workflow, starting with data acquisition.
+  At this point, we now have a strong undertanding of the foundations of programming in R and the data science workflow. Previous lessons, recipes, and labs focused on developing these skills while the chapters aimed to provide a conceptual framework for understanding the steps in the data science workflow. We now turn to applying our conceptual knowledge and our technical skills to accomplish the tasks of the data science workflow, startine with data acquisition.
 categories: [preparation]
 ---
 
@@ -64,7 +64,6 @@ We will load {dplyr}, {readr}, and {gutenbergr} to prepare for the data collecti
 library(dplyr)
 library(readr)
 library(gutenbergr)
-
 ```
 
 The main workhorse of {gutenbergr} is the `gutenberg_download()`. It's only required argument is the id(s) used by Project Gutenberg to index all of the works in their database. This function will then download the text of the work(s) and return a data frame with the gutenberg id and the text of the work(s).
@@ -87,10 +86,9 @@ Let's take a look at the structure of these data frames.
 glimpse(gutenberg_metadata)
 glimpse(gutenberg_authors)
 glimpse(gutenberg_subjects)
-
 ```
 
-From this overview, we can see that there are `r format(nrow(gutenberg_metadata), big.mark = ",")` works in the Project Gutenberg database. We can also see that there are `r format(nrow(gutenberg_authors), big.mark = ",")` authors and `r format(nrow(gutenberg_subjects), big.mark = ",")` subjects.
+From this overview, we can see that there are `r format(nrow(gutenbergr::gutenberg_metadata), big.mark = ",")` works in the Project Gutenberg database. We can also see that there are `r format(nrow(gutenbergr::gutenberg_authors), big.mark = ",")` authors and `r format(nrow(gutenbergr::gutenberg_subjects), big.mark = ",")` subjects.
 
 As we dicussed, each work in the Project Gutenberg database has a gutenberg id. The `gutenberg_id` appears in the `gutenberg_metadata` and also in the `gutenberg_subjects` data frame. This common attribute means that a work with a particular gutenberg id can be linked to the subject(s) associated with that work. Another important attribute is is the `gutenberg_author_id` which links the work to the author(s) of that work. Yes, the author name is in the `gutenberg_metadata` data frame, but the `gutenberg_author_id` can be used to link the work to the `gutenberg_authors` data frame which contains additional information about authors.
 
@@ -658,11 +656,9 @@ get_gutenberg_works(
 
 Another option is to add this function to your own package. This is a great option if you plan to use this function in multiple projects or share it with others. Since I have already created a package for this book, {qtkit}, I've added this function, with some additional functionality, to the package.
 
-<!-- [ ] change to {qtkit} -->
-
 ```{.r}
 # Load package
-library(qtalrkit)
+library(qtkit)
 
 # Get works for fiction for authors born between 1870 and 1920
 get_gutenberg_works(

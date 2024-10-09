@@ -22,7 +22,7 @@ website:
       - file: guides/index.qmd
       - file: recipes/index.qmd
     right:
-      - file: instructors.qmd
+      - file: instructors/index.qmd
       - icon: github
         href: "{{< var site.repo-url >}}"
 
@@ -53,7 +53,7 @@ crossref:
   appendix-title: "App"
   appendix-delim: ":"
 
-bibliography: [bibliography.bib, packages.bib]
+bibliography: [bibliography.bib, packages.bib, packages_add.bib]
 biblio-style: apalike
 link-citations: true
 

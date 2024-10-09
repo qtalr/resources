@@ -25,7 +25,7 @@ In addition to these main resources, the Resources Kit also includes the followi
 | Resource | Description | Location |
 |:---------|:------------|:---------|
 | [Guides](guides) | A collection of guides that provide additional information and instructions on how to use the resources available in the kit. | Resources Kit |
-| [Instructors](instructors) | Information for instructors who are using the textbook in their courses. | Resources Kit |
+| [Instructors](instructors.html) | Information for instructors who are using the textbook in their courses. | Resources Kit |
 
 : Additional resources in the Resources Kit {#tbl-additional-resources tbl-colwidths="[20, 65, 15]"}
 

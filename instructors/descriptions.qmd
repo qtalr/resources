@@ -1,0 +1,69 @@
+---
+title: Descriptions
+description: |
+  This page provides descriptions of the resources available in the Resources Kit for the textbook ["An Introduction Quantitative Text Analysis for Linguistics: Reproducible Research using R"](https://qtalr.github.io/book). The resources include lessons, recipes, labs, guides, and information for instructors who are using the textbook in their courses.
+---
+
+## Chapters
+
+<!-- descriptions of each of the chapters in the book -->
+
+- Preface
+- Text analysis
+- Data
+- Analysis
+- Research
+- Acquire
+- Curate
+- Transform
+- Explore
+- Predict
+- Infer
+- Contribute
+
+
+## Lessons
+
+- Intro_to_Swirl
+- Workspace
+- Vectors
+- Objects
+- Packages_and_Functions
+- Summarizing_Data
+- Visual_Summaries
+- Project_Environment
+- ...
+
+## Recipes
+
+- Literate Programming: an introduction to Quarto\
+The implementation of literate programming we are using in this course is Quarto with R. As we have seen in previously, Quarto provides the ability to combine prose and code in a single document. This is a powerful strategy for creating reproducible documents that can be easily updated and shared.
+
+- Academic Writing with Quarto\
+The implementation of literate programming we are using in this course is Quarto with R. As we have seen in previously, Quarto provides the ability to combine prose and code in a single document. This is a powerful strategy for creating reproducible documents that can be easily updated and shared.
+
+- Reading, Inspecting, and Writing Datasets\
+This Recipe guides you through the process of reading, inspecting, and writing datasets using R packages and functions in a Quarto environment. You'll learn how to effectively combine code and narrative to create a reproducible document that can be shared with others.
+
+- Descriptive Assessment of Datasets\
+In this Recipe we will explore appropriate methods for summarizing variables in datasets given the number and informational values of the variable(s). We will build on our understanding of how to summarize data using statistics, tables, and plots.
+
+- Understanding the Computing Environment\
+In this recipe, we will learn how to scaffold a research project and how to use the tools and resources available to us to manage research projects. We will build on our understanding of the computing environment and the structure of reproducible projects and introduce new features of Git and GitHub.
+
+## Labs
+
+- Writing with code
+  - Review accessing a lab activity, creating a Quarto document, and exporting it as a report
+  - Practice your ability to use basic Markdown syntax
+  - Learn to use common elements in academic writing (*i.e.* citations, figures, tables, *etc*.) using Quarto
+  - Discover and summarize literature on text analysis in an area of interest to you
+- Crafting scholarly documents
+  - Review using Markdown syntax for formatting, including tables, numbering sections, and citations and references
+  - Practice interleaving code and prose in a Quarto document
+  - Learn to read, inspect, and write structured data using R functions and Quarto code blocks
+  - Practice describing data using prose and code in a Quarto document
+- Dive into datasets
+  - ...
+- Trace the datascape
+  - ...

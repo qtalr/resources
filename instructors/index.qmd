@@ -1,0 +1,225 @@
+---
+title: "Instructors"
+description: |
+  This guide provides information on how to structure your course, how to use the textbook, and how to access additional resources to support your teaching.
+---
+
+<span style="color: orange;"> {{< fa wrench >}} Under construction </span>
+
+## Overview
+
+The structure of the book takes an approach which first introduces the conceptual aspects and then the practical aspects and implementational strategies of quantitative text analysis. To understand how you might approach teaching with this book, it is important to understand the structure of the book and how the resources are connected to the book.
+
+The Data to Insight Hiearchy, introduced in the Preface, is used as a framework to understand the process of text analysis.
+
+::: {#fig-diki-structure}
+
+![](../assets/images/preface-diki.drawio.png)
+
+Data to Insight Hierarchy
+
+:::
+
+@fig-diki-structure illustrates how the relationship between each of the parts of the book and the overall goal of the book. Part I is an orientation to the area of text analysis. Subsequently, Part II, III, IV, and V cover the foundational concepts, preparation, analysis, and contribution, respectively.
+
+The book, its parts, and their chapters are connected to a series of materials to develop student experience and confidence in working with the concepts and practical stragegies employed in text analysis research.
+
+In @tbl-course-structure-overview, the chapters are connected to lessons and labs that can be used to support the learning process. The lessons are interactive programming tutorials that introduce students to essential R programming skills. Recipes elaborate on concepts in the chapter and provide more engagement with the programming techniques from the lesson(s) and chapter to further develop student experience in the practice of data analysis. The labs are hands-on exercises that allow students to practice the skills they have learned throughout the sequence and apply it in a more free-form environment.
+
+::: {#tbl-course-structure-overview tblcolwidths="[20, 20, 20, 20, 20]"}
+
+| Part | Chapter | Lesson[^lessons] | Recipe | Lab[^labs] |
+|:----|:--------|:----------|:-------|:----|
+| | Preface       | Intro to Swirl | Literate Programming and Quarto    | Writing with code |
+| **Part I: Orientation** | |  |  |  |
+| | Text analysis | Workspace<br>Vectors         | Academic writing with Quarto | Crafting scholarly documents |
+| **Part II: Foundations** | |  |  |  |
+| | Data | Objects<br>Packages and functions | Reading, inspecting, and writing datasets | Dive into datasets |
+| | Analysis | Summarizing data<br>Visual summaries | Descriptive assessment of datasets | Trace the datascape |
+| | Research | Project environment | Understanding the computing environment | Scaffolding reproducible research  |
+| **Part III: Preparation** | |  |  |  |
+| | Acquire | Control Statements<br>Custom Functions  | Collecting and documenting data | Harvesting research data |
+| | Curate | Pattern matching<br>Tidy datasets  | Organizing and documenting datasets | Taming data |
+| | Transform | Reshape Datasets by Rows<br>Reshape datasets by Columns  | Transforming and documenting datasets | Dataset alchemy |
+| **Part IV: Analysis** | |  |  |  |
+| | Explore | Advanced objects | Exploratory analysis methods | Pattern discovery |
+| | Predict | Advanced visualization | Building predictive models | Text classification |
+| | Infer | Advanced tables  | Building inference models | Statistical inference |
+| **Part V: Contribution** | |  |  |  |
+| | Communicate | Computing environment | Manage project and computing environments | Future-proofing research |
+
+Resource overview
+
+:::
+
+[^lessons]: See [descriptions](https://github.com/qtalr/Lessons/tree/main?tab=readme-ov-file#overview)
+[^labs]: See [list and descriptions](https://github.com/stars/francojc/lists/labs)
+
+::: {.callout}
+**{{< fa scissors >}} Modifiable materials**
+
+I encourage you to modify the materials to fit the needs of your course. This apply particularly to the lessons and labs. Both of these resources can be found on the GitHub repository for the book. Feel free to fork the repository and modify the materials as needed. If you believe that your modifications would be beneficial to others, please consider submitting a pull request to the repository.
+
+:::
+
+
+## Course structures
+
+Given the structure of the book and its resources, there are various options for organizing a course. Below I have structured three potential courses: introductory, intermediate, and advanced. Each option will have a recommended course structure and a list of materials that can be used for support. Each of these considers the following questions:
+
+- What the student profile is.
+- What the learning outcomes are.
+- What content to cover.
+- What computing environment to use.
+- What supplementary materials to use.
+
+I will also suggest some possible deliverables for each course type as well as some general considerations from my own experience in teaching with this book.
+
+:::: {.panel-tabset}
+
+### Introductory course
+
+**Student profile**
+
+- No prior experience with programming or data analysis.
+- An interest in or are studying linguistics, or a language-related field.
+- Want to know how to use programming to analyze language data.
+
+**Goals**
+
+To introduce students to the practice of data analysis with a focus on language data. An introduction to the fundamental aspects of R programming and an undestanding of reproducible research and its importance in data analysis.
+
+**Content**
+
+Chapters 0-4 are covered in this course. The corresponding supplementary materials are used to support the learning process.
+
+**Deliverables**
+
+- Literature review, research statement, and research question
+
+**Computing environment**
+
+- Posit Cloud or other cloud-based computing environment. The reasoning here is to help avoid some of the hurdles that come with setting up a local environment. This will allow students to focus on the content and not the setup. It also allows for a uniform environment for all students.
+
+**Notes**
+
+Given the fact that only 5 chapters are covered, the text and materials can be completed in much shorter time than a typical 15 week semester. It is recommended to supplement this book and its resources with other materials relevant to the course that will enhance the students' learning experience and preparation for the literature review, research statement, and research question.
+
+For intro students, the material in the Preparation, Analysis, and Contribution parts can be quite overwhelming. However, if there is interest, content from those chapters may be used as needed.
+
+### Intermediate course
+
+**Student profile**
+
+- Students have some experience with data analysis, likely with graphical user interfaces (GUIs) and some experience with programming.
+- Students have taken an introductory course in linguistics or a related field.
+- Students are interested in learning how to use programming with R to analyze language data.
+
+**Goals**
+
+- To introduce students to designing a reproducible research project, preparing data for analysis, and choosing an appropriate analysis method (exploratory, predictive, or inferential). The students will be able to prepare a prospectus which outlines this research project.
+
+**Content**
+
+- Textbook (12) chapters
+- Lessons (swirl interactive programming lessons: numbers 1-17)
+- Recipes: 0-10
+
+**Deliverables**
+
+- Lab exercises: 0-11
+- Prospectus
+
+**Computing environment**
+
+- RStudio on Docker image/ container
+
+**Notes**
+
+...
+
+### Advanced course
+
+**Student profile**
+
+- Students have experience in programming and data analysis.
+- Students have taken an intermediate course in linguistics or a related field.
+- Students are interested in learning how to apply these skills to language data and/ or want to learn how to approach projects with reproducibility in mind.
+
+**Goals**
+
+- To provide students with the skills to work with designing and conducting a reproducible research project. Students will demonstrate the ability to reproduce the results and collaborate with others on a project.
+
+**Content**
+
+- Part I/II (optional/review)
+- Part III: Preparation
+- Part IV: Analysis
+- Part V: Contribution
+- Lessons (swirl interactive programming lessons: numbers 1-18)
+- Recipes: 0-11
+
+**Deliverables**
+
+- Lab exercises: 0-11
+- Prospectus
+- Research project
+
+**Computing environment**
+
+- RStudio on Docker image/ container
+- VS Code on Docker image/ devcontainer
+- Neovim on Docker image (with Quarto kickstart)
+
+**Notes**
+
+...
+
+If RStudio is not used as the primary IDE/ Editor, it is recommended to supplement the material with relevant information on how to manage projects, use Git/ GitHub, and other tools that are used in the course. This will help students to be able to work with the material in a way that is most comfortable for them. That being said, the expectation is that students have previous experience with programming, and therefore will have some familiarity with previous tools and may not need as much guidance.
+
+::::
+
+
+## Teaching resources
+
+- [ ] Course site template
+- [ ] Lab exercises
+  - [ ] Git/ GitHub setup for lab submissions and corrections
+- [ ] Prospectus template
+- [ ] Research project template
+- [ ] Slide templates
+  - [ ] reveal.js (Quarto)
+- [ ] `webr` (interactive code blocks in Quarto documents)
+
+## Additional resources
+
+### Computing environments
+
+- [ ] [RStudio Cloud](https://rstudio.cloud/): An online platform for R programming.
+- [ ] [RStudio Server](https://www.rstudio.com/products/rstudio/download-server/): An open-source platform for R programming.
+- [ ] [Docker](https://www.docker.com/): A platform for developing, shipping, and running applications.
+  - [ ] [R] image
+  - [ ] [RStudio] image
+  - [ ] [VS Code] image
+  - [ ] [Neovim] image
+- [ ] [Nix](https://nixos.org/): A purely functional package manager. (coming soon)
+ [ ]
+- [ ] [swirl](https://swirlstats.com/): An interactive programming lessons for R.
+
+### Reading
+
+- [ ] [R for Data Science](https://r4ds.had.co.nz/): A book on data science with R.
+- [ ] [Tidy Text Mining with R](https://www.tidytextmining.com/): A book on text mining with R.
+- [ ] [Supervised Machine Learning for Text Analysis in R](https://smltar.com/): A book on supervised machine learning for text analysis in R.
+
+### Data and datasets
+
+- View [Guide 06](./recipes/recipe-06/index.qmd) for more information on data and datasets.
+
+## Community resources
+
+- [ ] [RStudio Community](https://community.rstudio.com/): A community forum for R programming.
+- [ ] [Stack Overflow](https://stackoverflow.com/): A community forum for programming questions.
+- [ ] [qtalr Discussions (GitHub)](): A community forum for qtalr discussions.
+- [ ] [Resource Kit issues](https://github.com/qtalr/resources/issues): A place to report issues with the resource kit.
+

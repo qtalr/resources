@@ -20,7 +20,6 @@ pacman::p_load(
   rmarkdown,
   knitr,
   kableExtra,
-  qtalrkit, # [ ] remove qtalrkit
   qtkit,
   tinytable,
   webexercises

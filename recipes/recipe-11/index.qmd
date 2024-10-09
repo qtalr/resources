@@ -190,6 +190,7 @@ In the *reports/* directory we can also include presentations and associated sli
 Let's first dive into the *index.qmd* file for a presentation and discuss some of the key features. In @lst-quarto-presentation, we see a basic example of a Quarto presentation.
 
 ::: {#lst-quarto-presentation}
+
 ```yaml
 title: "Examle presentation"
 date: 2024-02-20
@@ -222,6 +223,7 @@ In @fig-revealjs-example, we see an example of a Quarto presentation rendered in
 TBD
 
 <!--
+TODO: Add content for peer facing communication
 
 Demonstration of running a collaborative research project on GitHub following reproducible research principles
 

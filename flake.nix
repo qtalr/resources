@@ -7,7 +7,6 @@
   };
 
   outputs = { nixpkgs, flake-utils, ... }:
-
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
@@ -74,12 +73,9 @@
       in
       {
         devShell = pkgs.mkShell {
-          name = "r-dev";
           buildInputs = allPackages;
           shellHook = ''
             export R_LIBS_USER=$PWD/R/Library; mkdir -p $R_LIBS_USER;
-            echo "R development environment loaded"
-            echo "Available tools: R, radian, quarto, ..."
           '';
         };
       });

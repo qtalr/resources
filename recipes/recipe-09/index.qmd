@@ -72,12 +72,12 @@ We will use the ACTIV-ES corpus to build a predictive model that can classify te
 <!-- Prep the dataset -->
 
 ```{r, eval=FALSE, echo=FALSE}
-library(qtalrkit)
+library(qtkit)
 
 # Acquire AES data ---------------------------------------------------
 plain_url <- "https://github.com/francojc/activ-es/raw/master/activ-es-v.02/corpus/plain.zip"
 
-get_compressed_data(url = plain_url, target_dir = "recipes/recipes-09/original/actives", confirmed = TRUE)
+get_archive_data(url = plain_url, target_dir = "recipes/recipes-09/original/actives", confirmed = TRUE)
 
 aes <- readtext::readtext(
   file = "recipes/recipes-09/original/actives",

@@ -9,37 +9,37 @@
 /* Link color */
 
 a {
-  color: var(--link-color)
+  color: var(--link-color);
 }
 
 a:hover {
-  color: var(--link-color)
+  color: var(--link-color);
 }
 
-.sidebar nav[role=doc-toc] ul>li>a.active,
-.sidebar nav[role=doc-toc] ul>li>ul>li>a.active {
+.sidebar nav[role='doc-toc'] ul > li > a.active,
+.sidebar nav[role='doc-toc'] ul > li > ul > li > a.active {
   border-left: 1px solid var(--link-color);
-  color: var(--link-color) !important
+  color: var(--link-color) !important;
 }
 
-.sidebar nav[role=doc-toc] ul>li>a:hover,
-.sidebar nav[role=doc-toc] ul>li>ul>li>a:hover {
-  color: var(--link-color) !important
+.sidebar nav[role='doc-toc'] ul > li > a:hover,
+.sidebar nav[role='doc-toc'] ul > li > ul > li > a:hover {
+  color: var(--link-color) !important;
 }
 
 div.sidebar-item-container .active,
-div.sidebar-item-container .show>.nav-link,
-div.sidebar-item-container .sidebar-link>code {
-  color: var(--link-color)
+div.sidebar-item-container .show > .nav-link,
+div.sidebar-item-container .sidebar-link > code {
+  color: var(--link-color);
 }
 
 div.sidebar-item-container:hover,
 div.sidebar-item-container:focus {
-  color: var(--link-color)
+  color: var(--link-color);
 }
 
 .nav-page a:hover {
-  color: var(--link-color)
+  color: var(--link-color);
 }
 
 /* Callouts */
@@ -65,31 +65,31 @@ pre.sourceCode {
   width: 50%;
   float: right;
   margin-left: 1.5em;
-  margin-top: .5em;
+  margin-top: 0.5em;
 }
 
 /* Tables */
 
 .table {
-  font-size: .85em;
+  font-size: 0.85em;
 }
 
 /* Code */
 
 pre {
-  font-size: .85em;
+  font-size: 0.85em;
 }
 
 .sourceCode {
-  font-size: .95em;
+  font-size: 0.95em;
 }
 
 .cell-output {
-  font-size: .85em;
+  font-size: 0.85em;
 }
 
 /* Webr */
 
 #qwebr-insertion-location-1 {
-  font-size: .8em;
+  font-size: 0.8em;
 }

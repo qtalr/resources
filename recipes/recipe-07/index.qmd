@@ -29,7 +29,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(tidytext)
-library(qtalrkit)
+library(qtkit)
 ```
 
 In Lab 7, we will apply what we have learned in this recipe to a new dataset.
@@ -55,7 +55,7 @@ If you would like to acquire the original data and curate it for use in this rec
 
 ```r
 # Acquire the original data
-qtalrkit::get_compressed_data(
+qtkit::get_archive_data(
   url = "..",
   target_dir = "data/original/masc/"
 )
@@ -91,19 +91,24 @@ Looking at the data dictionary, in @tbl-masc-data-dictionary.
 #| echo: false
 #| message: false
 # Read and print the data dictionary
+
 read_csv("data/derived/masc_curated_dd.csv") |>
   kable(caption = "Data dictionary for the MASC dataset") |>
   kable_styling()
+
 ```
 
 Let's read in the data and take a glimpse at it.
 
 ```{r masc-read-curated-data, message=FALSE}
 # Read the data
+
 masc_curated <- read_csv("data/derived/masc/masc_curated.csv")
 
 # Preview
+
 glimpse(masc_curated)
+
 ```
 
 We may also want to do a summary overview of the dataset with {skimr}. This will give us a sense of the data types and the number of missing values.

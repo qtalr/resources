@@ -21,7 +21,7 @@ categories: [preparation]
 - Documenting the data curation process and resulting dataset
 :::
 
-In this recipe, we will make use of {readr}, {dplyr}, {stringr}, and {purrr}, employ regular expressions to parse the semi-structured data, and use {qtalrkit} to document the dataset. Let's load those packages now.
+In this recipe, we will make use of {readr}, {dplyr}, {stringr}, and {purrr}, employ regular expressions to parse the semi-structured data, and use {qtkit} to document the dataset. Let's load those packages now.
 
 <!-- TODO: replace with {qtkit} -->
 
@@ -35,7 +35,7 @@ library(dplyr)
 library(stringr)
 library(purrr)
 library(fs)
-library(qtalrkit)
+library(qtkit)
 
 ```
 
@@ -57,7 +57,7 @@ If you would like to download and decompress the data yourself, you can do so by
 <!-- TODO: get_archive_data() {qtkit} -->
 
 ```r
-qtalrkit::get_compressed_data(
+qtkit::get_archive_data(
   url = "https://catalog.ldc.upenn.edu/docs/LDC97S62/swb1_dialogact_annot.tar.gz",
   target_dir = "data/original/swda/"
 )
@@ -443,9 +443,9 @@ Here's the custom function with some extra code to print a progress message for 
 <!-- TODO:   -->
 
 ```{r swda-function-metadata}
-# [ ] add to {qtalrkit}, note the convention of `extract_` prefix for curation functions. In combination with `get_compressed_data()` this corpus can be curated with few steps.
+# [ ] add to {qtkit}, note the convention of `extract_` prefix for curation functions. In combination with `get_archive_data()` this corpus can be curated with few steps.
 
-extract_swda_data <- function(file) {
+curate_swda_data <- function(file) {
   # Progress message
   file_basename <- basename(file) # file name
   message("Processing ", file_basename, "\n")
@@ -514,11 +514,11 @@ extract_swda_data <- function(file) {
 }
 ```
 
-As a sanity check we will run the `extract_swda_data()` function on a the conversation file we were just working on to make sure it works as expected.
+As a sanity check we will run the `curate_swda_data()` function on a the conversation file we were just working on to make sure it works as expected.
 
 ```{r swda-process-files-1-show, eval=FALSE}
 # Process a single file (test)
-extract_swda_data(
+curate_swda_data(
   file = "../data/original/swda/sw00utt/sw_0001_4325.utt"
 ) |>
   glimpse()
@@ -526,7 +526,7 @@ extract_swda_data(
 
 ```{r swda-process-files-1-run, echo=FALSE}
 # Process a single file (test)
-extract_swda_data(
+curate_swda_data(
   file = "data/original/swda/sw00utt/sw_0001_4325.utt"
 ) |>
   glimpse()
@@ -562,14 +562,14 @@ swda_files_chr <-
 head(swda_files_chr) # preview file paths
 ```
 
-To pass each conversation file in the vector of paths to our conversation files iteratively to the `extract_swda_data()` function we use `map_dfr()`. This will apply the function to each conversation file and return a data frame for each and then combine the results into a single data frame.
+To pass each conversation file in the vector of paths to our conversation files iteratively to the `curate_swda_data()` function we use `map_dfr()`. This will apply the function to each conversation file and return a data frame for each and then combine the results into a single data frame.
 
 ```{r swda-process-files-3, message=FALSE}
 #| cache: true
 # Process all conversation files
 swda_df <-
   swda_files_chr |> # pass file names
-  map_dfr(extract_swda_data) # read and tidy iteratively
+  map_dfr(curate_swda_data) # read and tidy iteratively
 
 # Preview
 glimpse(swda_df)
@@ -622,7 +622,7 @@ data/
         └── sw13utt/
 ```
 
-The data dictionary file will contain information about the dataset variables and their values. This file can be created manually and edited with a text editor or spreadsheet software. Or alternatively, the scaffolding for a CSV file can be generated with the `create_data_dictionary()` function from {qtalrkit}.
+The data dictionary file will contain information about the dataset variables and their values. This file can be created manually and edited with a text editor or spreadsheet software. Or alternatively, the scaffolding for a CSV file can be generated with the `create_data_dictionary()` function from {qtkit}.
 
 ```{r swda-data-dictionary, eval=FALSE}
 # Create data dictionary
@@ -636,7 +636,7 @@ create_data_dictionary(
 
 In this recipe, we learned how to read and parse semi-structured data, create a custom function and iterate over a collection of files, combine the results into a single dataset, and document the data curation process and resulting dataset.
 
-The skills we used in this recipe include regular expressions, the {readr}, {dplyr}, {stringr}, and {purrr}, and {qtalrkit} for documenting the dataset.
+The skills we used in this recipe include regular expressions, the {readr}, {dplyr}, {stringr}, and {purrr}, and {qtkit} for documenting the dataset.
 
 ## Check your understanding
 
