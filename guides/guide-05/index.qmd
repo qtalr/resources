@@ -35,7 +35,7 @@ You may very well understand the problem you are facing, but others likely will 
 The trickiest part of asking a question about R code is often not the question itself, but providing this information in a self-contained, reproducible example. Luckily, there are a few R packages that provide tools to help you create reproducible examples. {reprex}[@R-reprex], {datapasta}[@R-datapasta], and creative uses of {knitr} and base R functions can help you create reproducible examples.
 
 | Package | Description | Use case |
-|---------|-------------|----------|
+|:--------|:------------|:---------|
 | {reprex} | Creates reproducible examples | General use |
 | {datapasta} | Copy and paste data frames | Data manipulation |
 | {knitr} | Swiss Army knife of rendering | Extract code from literate programming documents (*i.e.* Quarto) |
@@ -73,7 +73,7 @@ So our description could be:
 >
 >
 > | token    |
-> |----------|
+> |:---------|
 > | this     |
 > | is       |
 > | a        |
