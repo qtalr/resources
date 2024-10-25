@@ -220,10 +220,3 @@ and that you are prepared to do the following:
 
 With this in mind, you are ready to move on to Lab 00.
 
-<!--
-TODO: possible options for accessing? Github clone and/ or Posit cloud, Dockerfile
-
-TODO: add instructions to Guide and/ or instructor's resources to outline approaches to using Git/GiHub, Docker, etc. for managing lab resources.
--->
-
-
