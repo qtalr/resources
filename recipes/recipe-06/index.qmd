@@ -23,8 +23,6 @@ categories: [preparation]
 
 In this recipe, we will make use of {readr}, {dplyr}, {stringr}, and {purrr}, employ regular expressions to parse the semi-structured data, and use {qtkit} to document the dataset. Let's load those packages now.
 
-<!-- TODO: replace with {qtkit} -->
-
 ```{r}
 #| label: load-packages
 #| message: false
@@ -54,7 +52,6 @@ As a semi-structured example we will work with the The Switchboard Dialog Act Co
 
 If you would like to download and decompress the data yourself, you can do so by running the following code:
 
-<!-- TODO: get_archive_data() {qtkit} -->
 
 ```r
 qtkit::get_archive_data(
