@@ -117,7 +117,7 @@ Looking more closely at the directory structure in @lst-quarto-website, let's fo
 
 Next, it is worth pointing out some important features that appear in the @lst-quarto-config configuration file. The `execute-dir` specifies the root directory for all execution. That is the path to directories and files will be the same no matter from what file the code is executed. The `render` option specifies the order in which the files are rendered. This is important for ensuring that the research process is executed in the correct order. The files that are executed and rendered for display appear in the website and the `style` and `contents` options specify the style and contents of the sidebar, respectively. Another key option is the `freeze` option under `execute`. This option specifies that only changed files will be rendered. This helps avoid re-rendering files that have not changed, which can be time-consuming and computationally expensive.
 
-### Articles
+#### Articles
 
 In the *reports/* directory a file named *article.qmd* appears. This file, which can be named anything, will be the document in which we will draft the research article. This file is a standard Quarto document. However, we can take advantage of some options that we have not seen so far that adds functionality to the document.
 
@@ -183,7 +183,7 @@ There are two other features to mention. One is the `format` option. Since the a
 
 Although not employed in this example, it is also possible to use more extensive format changes with [Quarto extensions](https://quarto.org/docs/extensions/listing-journals.html). Currently, there are various extensions for different journals and publishing houses. For more information and examples, consult the documentation above.
 
-### Presentations
+#### Presentations
 
 In the *reports/* directory we can also include presentations and associated slide decks. A popular web-based presentation framework is [reveal.js](https://revealjs.com/). This framework is used in Quarto to create presentations. In @lst-quarto-website, the *slides/* directory contains a directory for each presentation and an *index.qmd* file within. The *index.qmd* file contains the presentation content, which we will see soon. To provide a listings page each presentation, the *presentations.qmd* file contains special YAML instructions to be a listings page.
 
@@ -220,7 +220,32 @@ In @fig-revealjs-example, we see an example of a Quarto presentation rendered in
 
 ### Peer facing communication
 
-TBD
+For those who are interested in interacting with your work, it is key to prepare materials that can be reliably shared. This includes the research code and data. In the next section, we will discuss some of the strategies for sharing research code and data, including version control with Git, pinned R package versions with {renv}, and containerization with Docker.
+
+#### Version control
+
+Version control is a key part of reproducible research. It allows you to track changes to your research code and data over time. This is important for ensuring that your research is reproducible and transparent. One of the most popular version control systems is Git. Git allows you to track changes to your research code and data, collaborate with others, and share your research with the world. GitHub is a popular platform for hosting Git repositories. It allows you to share your research code and data with others, collaborate on research projects, and contribute to open source projects.
+
+You are now familiar with working with Git and GitHub, but there are a few additional aspects to cover to ...
+
+
+#### Pinned package versions
+
+As you develop your research code, you will likely use a number of R packages. These packages are constantly being updated, which can lead to issues with reproducibility. To ensure that your research is reproducible, it is important to pin the versions of the R packages that you use. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.
+
+
+#### Containerization
+
+Containerization is another key part of reproducible research. It allows you to create a self-contained environment for your research code and data. This environment can then be shared with others, ensuring that they have everything they need to reproduce your research. One popular containerization tool is Docker. Docker allows you to create a container that contains all of the dependencies for your research project. This container can then be shared with others, ensuring that they have everything they need to reproduce your research.
+
+
+
+
+
+
+
+
+
 
 <!--
 TODO: Add content for peer facing communication
