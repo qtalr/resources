@@ -13,10 +13,6 @@
 
         # Base packages
         basePackages = with pkgs; [
-          bashInteractive
-          gettext
-          gh
-          git
           pandoc
           quarto
           R
@@ -29,32 +25,46 @@
           devtools
           knitr
           languageserver
+          pacman
           pak
           renv
           rlang
           rmarkdown
           usethis
-          # Project
-          bslib
-          corpora
+          # Rendering
           downlit
+          bslib
+          here
+          rstudioapi
+          # Project
+          corpora
+          dplyr
           fontawesome
+          fs
+          GGally
+          ggplot2
           ggrepel
           glmnet
           gutenbergr
           infer
           janitor
           kableExtra
-          pacman
           PsychWordVec
+          purrr
           quanteda
+          # quanteda.corpora
+          readr
+          reprex
           scales
           skimr
+          stringr
           stopwords
           textrecipes
           textstem
+          tibble
           tidymodels
-          tidyverse
+          tidyr
+          tidytext
           tinytable
           webexercises
         ];
@@ -75,7 +85,8 @@
         devShell = pkgs.mkShell {
           buildInputs = allPackages;
           shellHook = ''
-            export R_LIBS_USER=$PWD/R/Library; mkdir -p $R_LIBS_USER;
+            export R_LIBS_USER=$PWD/R/Library; mkdir -p "$R_LIBS_USER";
+            echo "R environment set up";
           '';
         };
       });
