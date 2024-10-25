@@ -55,7 +55,7 @@ Resource overview
 [^lessons]: See [descriptions](https://github.com/qtalr/Lessons/tree/main?tab=readme-ov-file#overview)
 [^labs]: See [list and descriptions](https://github.com/stars/francojc/lists/labs)
 
-::: {.callout}
+::: {.callout }
 **{{< fa scissors >}} Modifiable materials**
 
 I encourage you to modify the materials to fit the needs of your course. This apply particularly to the lessons and labs. Both of these resources can be found on the GitHub repository for the book. Feel free to fork the repository and modify the materials as needed. If you believe that your modifications would be beneficial to others, please consider submitting a pull request to the repository.
@@ -136,6 +136,7 @@ For intro students, the material in the Preparation, Analysis, and Contribution 
 
 **Notes**
 
+<!-- TODO: add notes and suggestions for the intermediate course structure. -->
 ...
 
 ### Advanced course
@@ -173,6 +174,7 @@ For intro students, the material in the Preparation, Analysis, and Contribution 
 
 **Notes**
 
+<!-- TODO: add notes and suggestions for the advanced course structure. -->
 ...
 
 If RStudio is not used as the primary IDE/ Editor, it is recommended to supplement the material with relevant information on how to manage projects, use Git/ GitHub, and other tools that are used in the course. This will help students to be able to work with the material in a way that is most comfortable for them. That being said, the expectation is that students have previous experience with programming, and therefore will have some familiarity with previous tools and may not need as much guidance.
@@ -214,11 +216,11 @@ If RStudio is not used as the primary IDE/ Editor, it is recommended to suppleme
 
 ### Data and datasets
 
-- View [Guide 06](./recipes/recipe-06/index.qmd) for more information on data and datasets.
+- View [Guide 06](../recipes/recipe-06/index.qmd) for more information on data and datasets.
 
 ## Community resources
 
-- [ ] [RStudio Community](https://community.rstudio.com/): A community forum for R programming.
+- [x] [RStudio Community](https://community.rstudio.com/): A community forum for R programming.
 - [ ] [Stack Overflow](https://stackoverflow.com/): A community forum for programming questions.
 - [ ] [qtalr Discussions (GitHub)](): A community forum for qtalr discussions.
 - [ ] [Resource Kit issues](https://github.com/qtalr/resources/issues): A place to report issues with the resource kit.
