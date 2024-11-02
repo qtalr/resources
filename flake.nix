@@ -38,6 +38,7 @@
           rstudioapi
           # Project
           corpora
+          datapasta
           dplyr
           fontawesome
           fs
@@ -72,10 +73,9 @@
         # Texlive packages
         texlivePackages = with pkgs; [
           (texlive.combine {
-            inherit (texlive) scheme-small
+            inherit (texlive) scheme-small;
               # Add texlive packages here
 
-              ;
           })
         ];
 

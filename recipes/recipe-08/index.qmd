@@ -119,7 +119,8 @@ The next step is to inspect the data. We will transform the data as necessary to
 
 Since we will be working with words, let's tokenize the `addresses` variable to extract the words and maintain a tidy dataset. We will use the `unnest_tokens()` function from {tidytext} to do this. Let's apply the function and assign the result to a new variable called `sotu_words_df`.
 
-```{r sotu-tokenize-words-strip-numeric}
+```{r}
+#| label: sotu-tokenize-words-strip-numeric
 # Tokenize the words by year (with numbers removed)
 sotu_words_df <-
   sotu_df |>

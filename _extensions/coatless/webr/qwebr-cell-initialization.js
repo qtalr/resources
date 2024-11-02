@@ -64,9 +64,8 @@ qwebrInstance.then(
 
       switch (evalType) {
         case 'interactive':
-          // TODO: Make this more standardized.
           // At the moment, we're overriding the interactive status update by pretending its
-          // output-like. 
+          // output-like.
           const tempOptions = entry.options;
           tempOptions["context"] = "output"
           // Run the code in a non-interactive state that is geared to displaying output
@@ -81,8 +80,8 @@ qwebrInstance.then(
           // Run the code in a non-interactive state with all output thrown away
           await mainWebR.evalRVoid(`${cellCode}`);
           break;
-        default: 
-          break; 
+        default:
+          break;
       }
 
       if (['output', 'setup'].includes(evalType)) {
@@ -101,10 +100,10 @@ qwebrInstance.then(
     if (qwebrShowStartupMessage) {
       qwebrStartupMessage.innerText = "🟢 Ready!"
     }
-  
+
     qwebrSetInteractiveButtonState(
-      `<i class="fa-solid fa-play qwebr-icon-run-code"></i> <span>Run Code</span>`, 
+      `<i class="fa-solid fa-play qwebr-icon-run-code"></i> <span>Run Code</span>`,
       true
-    );  
+    );
   }
 );

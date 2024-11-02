@@ -220,33 +220,6 @@ In @fig-revealjs-example, we see an example of a Quarto presentation rendered in
 
 ### Peer facing communication
 
-For those who are interested in interacting with your work, it is key to prepare materials that can be reliably shared. This includes the research code and data. In the next section, we will discuss some of the strategies for sharing research code and data, including version control with Git, pinned R package versions with {renv}, and containerization with Docker.
-
-#### Version control
-
-Version control is a key part of reproducible research. It allows you to track changes to your research code and data over time. This is important for ensuring that your research is reproducible and transparent. One of the most popular version control systems is Git. Git allows you to track changes to your research code and data, collaborate with others, and share your research with the world. GitHub is a popular platform for hosting Git repositories. It allows you to share your research code and data with others, collaborate on research projects, and contribute to open source projects.
-
-You are now familiar with working with Git and GitHub, but there are a few additional aspects to cover to ...
-
-
-#### Pinned package versions
-
-As you develop your research code, you will likely use a number of R packages. These packages are constantly being updated, which can lead to issues with reproducibility. To ensure that your research is reproducible, it is important to pin the versions of the R packages that you use. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.
-
-
-#### Containerization
-
-Containerization is another key part of reproducible research. It allows you to create a self-contained environment for your research code and data. This environment can then be shared with others, ensuring that they have everything they need to reproduce your research. One popular containerization tool is Docker. Docker allows you to create a container that contains all of the dependencies for your research project. This container can then be shared with others, ensuring that they have everything they need to reproduce your research.
-
-
-
-
-
-
-
-
-
-
 <!--
 TODO: Add content for peer facing communication
 
@@ -261,26 +234,123 @@ Walkthrough of a complete reproducible research project setup, including documen
 
 -->
 
-<!-- ::: {.callout .halfsize}
+For those who are interested in interacting with your work, it is key to prepare materials that can be reliably shared. This includes the research code and data, of course, but also the computational environment in which the research was conducted so that the research can be reproduced.
+
+::: {#fig-computational-environment}
+
+![](./images/nested-project.drawio.png)
+
+Computational environment for reproducible research
+
+:::
+
+
+In the next section, we will discuss some of the strategies for sharing a reproducible computational environment, along with code and data. This will include version control with Git, pinned package versions with {renv}, containerization with Docker, and automation with GitHub Actions.
+
+#### Tools and strategies
+
+As seen in @fig-computational-environment, the computational environment for a research project includes various components. Let's start with the inner components are work our way out.
+
+As has been stressed throughout this text, version control is a key part of reproducible research. It allows you to track changes to your research code and data over time, the research compendium. This is important for ensuring that the research record is transparent. One of the most popular version control systems is Git. If you have interacted with the supplementary materials provided with this text (lessons, recipes, and labs), you are now familiar with working with Git (and GitHub) in day-to-day tasks. These tasks include:
+
+- Cloning a repository
+- Making changes to a repository
+- Committing changes to a repository
+- Pushing changes to a repository
+- Pulling changes from a repository
+- Forking a repository
+
+These tasks are essential for collaborating with others on research projects and contributing to open source projects. However, if the goal is to produce research that is reproducible, it is important to be aware of some additional toos and strategies. In Git, these include:
+
+- Branching to maintain different versions of the research code
+- Merging branches to combine different versions
+- Pull requests to review and merge changes, either from yourself or other
+contributors
+
+We will not cover these in detail here, but they are important to be aware of. For more information, see the [GitHub documentation](https://docs.github.com/en).
+
+Moving out a level, we have the software layer. This includes the R packages that you use in your project, the version of R that you use, and the system dependencies that are required for your project. Sharing your research project code and all does not guarantee that others will be able to reproduce your research --R packages versions are constantly being updated (and this can lead to 'breaking changes' that render your code inoperable). R too changes over time. Although less frequent when compared to packages.  ...
+
+
+To ensure that your research is reproducible, it is important to share the software layer as well. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.
+
+
+
+
+
+
+
+
+
+
+#### Pinned package versions
+
+As you develop your research code, you will likely use a number of R packages. These packages are constantly being updated, which can lead to issues with reproducibility. To ensure that your research is reproducible, it is important to pin the versions of the R packages that you use. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.
+
+As you develop your research code, you will be adding packages along the way. In most cases, it is not necessary at this step to identify the version of the package(s) that you are using. However, when you are ready to share your research code, it is important. For example, you can see the package version using the `packageVersion()` function,.
+
+```{r}
+packageVersion("knitr")
+```
+
+<!-- NOTE: Examples and demos will need to be run in a container as the Nix environment does not work well with renv -->
+
+```r
+renv::snapshot()
+```
+
+
+#### Containerization
+
+Containerization is another key part of reproducible research. It allows you to create a self-contained environment for your research code and data. This environment can then be shared with others, ensuring that they have everything they need to reproduce your research. One popular containerization tool is Docker. Docker allows you to create a container that contains all of the dependencies for your research project. This container can then be shared with others, ensuring that they have everything they need to reproduce your research.
+
+When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible.
+
+
+
+
+The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
+
+
+```dockerfile
+# Dockerfile
+FROM rocker/r-ver:4.1.1
+# ...
+```
+
+::: {.callout}
 **{{< fa medal >}} Dive deeper**
 
 When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
 
 ```r
-pak::pkg_sysreqs(pkg = "knitr", sysreqs = "ubuntu")
+pak::pkg_sysreqs(pkg = c("knitr", "systemfonts"), sysreqs = "ubuntu")
 ```
 
 ```xml
-── Install scripts ── Ubuntu NA
+── Install scripts ──── Ubuntu NA
 apt-get -y update
-apt-get -y install pandoc
+apt-get -y install pandoc libfontconfig1-dev libfreetype6-dev
 
-── Packages/ system dependencies
-knitr – pandoc
+── Packages and their system dependencies
+knitr       – pandoc
+systemfonts – libfontconfig1-dev, libfreetype6-dev
 ```
 
-These can be added to the computational setup script for the project.
-::: -->
+These can be added to the Dockerfile for the project
+:::
+
+
+In GitHub, these include:
+
+- Using issues to track and respond to inquiries
+- GitHub Actions for automating tasks
+- GitHub Pages for hosting websites
+
+We will have more to say about these tools and strategies later in this recipe.
+
+
+
 
 
 ## Check your understanding

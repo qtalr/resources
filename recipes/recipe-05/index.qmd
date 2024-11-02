@@ -128,7 +128,6 @@ authors <-
     birthdate > 1800,
     deathdate < 1880
   )
-
 ```
 
 That's it! We now have a data frame with the authors that lived during the mid 19th century, some `r format(nrow(authors), big.mark = ",")` authors in total. This will span all subjects and languages, so this isn't the final number of authors we will be working with.

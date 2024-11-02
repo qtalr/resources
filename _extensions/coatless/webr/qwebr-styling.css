@@ -127,7 +127,7 @@ body.quarto-dark .qwebr-button:hover {
   max-height: 100%;
   margin: 0;
   padding: 0;
-} 
+}
 
 /* Provide space to entries */
 .reveal div.qwebr-output-code-area pre div {
@@ -166,7 +166,6 @@ body.reveal.quarto-dark div.qwebr-console-area {
 
 
 /* Cap output height and allow text to scroll */
-/* TODO: Is there a better way to fit contents/max it parallel to the monaco editor size? */
 .reveal div.qwebr-output-code-area pre {
   max-height: 400px;
   overflow: scroll;

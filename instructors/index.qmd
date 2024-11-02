@@ -4,11 +4,9 @@ description: |
   This guide provides information on how to structure your course, how to use the textbook, and how to access additional resources to support your teaching.
 ---
 
-<span style="color: orange;"> {{< fa wrench >}} Under construction </span>
-
 ## Overview
 
-The structure of the book takes an approach which first introduces the conceptual aspects and then the practical aspects and implementational strategies of quantitative text analysis. To understand how you might approach teaching with this book, it is important to understand the structure of the book and how the resources are connected to the book.
+The structure of the book takes an approach which first introduces the conceptual aspects and then the practical aspects and implementation strategies of quantitative text analysis. To understand how you might approach teaching with this book, it is important to understand the structure of the book and how the resources are connected to the book.
 
 The Data to Insight Hiearchy, introduced in the Preface, is used as a framework to understand the process of text analysis.
 
@@ -22,7 +20,7 @@ Data to Insight Hierarchy
 
 @fig-diki-structure illustrates how the relationship between each of the parts of the book and the overall goal of the book. Part I is an orientation to the area of text analysis. Subsequently, Part II, III, IV, and V cover the foundational concepts, preparation, analysis, and contribution, respectively.
 
-The book, its parts, and their chapters are connected to a series of materials to develop student experience and confidence in working with the concepts and practical stragegies employed in text analysis research.
+The book, its parts, and their chapters are connected to a series of materials to develop student experience and confidence in working with the concepts and practical strategies employed in text analysis research.
 
 In @tbl-course-structure-overview, the chapters are connected to lessons and labs that can be used to support the learning process. The lessons are interactive programming tutorials that introduce students to essential R programming skills. Recipes elaborate on concepts in the chapter and provide more engagement with the programming techniques from the lesson(s) and chapter to further develop student experience in the practice of data analysis. The labs are hands-on exercises that allow students to practice the skills they have learned throughout the sequence and apply it in a more free-form environment.
 
@@ -99,7 +97,8 @@ Chapters 0-4 are covered in this course. The corresponding supplementary materia
 
 **Computing environment**
 
-- Posit Cloud or other cloud-based computing environment. The reasoning here is to help avoid some of the hurdles that come with setting up a local environment. This will allow students to focus on the content and not the setup. It also allows for a uniform environment for all students.
+- Posit Cloud or other cloud-based computing environment. \
+The reasoning here is to help avoid some of the hurdles that come with setting up a local environment. This will allow students to focus on the content and not the setup. It also allows for a uniform environment for all students.
 
 **Notes**
 
@@ -132,18 +131,20 @@ For intro students, the material in the Preparation, Analysis, and Contribution 
 
 **Computing environment**
 
-- RStudio on Docker image/ container
+- An IDE (RStudio) running in a containerized environment. \
+Students will likely want to have more control over their working environments. While instructors will want to have a consistent environment for the class. Using a containerized environment will works well in this scenario. Furthermore, the isolation between the host and container will help to avoid any unexpected issues or interactions with the host system.
 
 **Notes**
 
-<!-- TODO: add notes and suggestions for the intermediate course structure. -->
-...
+The textbook and resources are an ideal fit for this student profile and course goals. In this course structure, each chapter is covered and the preparatory and follow up materials are used to support the learning process. The lessons and labs are used to help students develop their programming skills and apply them to the content of the chapters, respectively.
+
+In my experience, the prospectus allows students to demonstrate their understanding of the fundamental aspects of the research process and highlight their ability to apply these concepts to a topic of their choosing. Given that there is a lot to learn in the course, and the learning curve is steep for some students, a full research project may be too much to ask in a single semester.
 
 ### Advanced course
 
 **Student profile**
 
-- Students have experience in programming and data analysis.
+- Students have experience in programming (likely not with R) and data analysis.
 - Students have taken an intermediate course in linguistics or a related field.
 - Students are interested in learning how to apply these skills to language data and/ or want to learn how to approach projects with reproducibility in mind.
 
@@ -153,12 +154,9 @@ For intro students, the material in the Preparation, Analysis, and Contribution 
 
 **Content**
 
-- Part I/II (optional/review)
-- Part III: Preparation
-- Part IV: Analysis
-- Part V: Contribution
-- Lessons (swirl interactive programming lessons: numbers 1-18)
-- Recipes: 0-11
+- Textbook (12) chapters
+- Lessons (swirl interactive programming lessons: numbers 1-17)
+- Recipes: 0-10
 
 **Deliverables**
 
@@ -168,51 +166,51 @@ For intro students, the material in the Preparation, Analysis, and Contribution 
 
 **Computing environment**
 
-- RStudio on Docker image/ container
-- VS Code on Docker image/ devcontainer
-- Neovim on Docker image (with Quarto kickstart)
+- IDE (RStudio or VSCode) running on the host machine (or in a containerized environment). \
+Given that students have experience with programming and data analysis, they will likely have a preferred IDE or Editor. RStudio and VSCode both have functionality (or plugin functionality) which make the particularly well-suited for working with R and Quarto. \
+Furthermore, you may choose to allow students to use their preferred environment. However, it is also worth considering the use of containerized environments to ensure that all students have a consistent environment for the course.
 
 **Notes**
 
-<!-- TODO: add notes and suggestions for the advanced course structure. -->
-...
-
-If RStudio is not used as the primary IDE/ Editor, it is recommended to supplement the material with relevant information on how to manage projects, use Git/ GitHub, and other tools that are used in the course. This will help students to be able to work with the material in a way that is most comfortable for them. That being said, the expectation is that students have previous experience with programming, and therefore will have some familiarity with previous tools and may not need as much guidance.
+In this learning scenario, some of the content early on may be condensed or skipped altogether (particularly Chapters 1-4). Note that the lessons and labs are still useful for students to develop R fundamentals and apply them. These may be assigned in a more self-directed manner, with students working through them at their own pace. In addition to the prospectus, students will complete a research project that demonstrates their ability to apply the concepts and skills learned in the course. In addition, to the research process proper, creating a reproducible research project will be a key component of the course.
 
 ::::
 
-
 ## Teaching resources
 
-- [ ] Course site template
+### Templates
+- [ ] Course site
+- [ ] Slides
 - [ ] Lab exercises
-  - [ ] Git/ GitHub setup for lab submissions and corrections
-- [ ] Prospectus template
-- [ ] Research project template
-- [ ] Slide templates
-  - [ ] reveal.js (Quarto)
-- [ ] `webr` (interactive code blocks in Quarto documents)
+- [ ] Prospectus
+- [ ] Research project
 
-## Additional resources
+### Computing
 
-### Computing environments
+**Environments**
 
 - [ ] [RStudio Cloud](https://rstudio.cloud/): An online platform for R programming.
 - [ ] [RStudio Server](https://www.rstudio.com/products/rstudio/download-server/): An open-source platform for R programming.
 - [ ] [Docker](https://www.docker.com/): A platform for developing, shipping, and running applications.
-  - [ ] [R] image
-  - [ ] [RStudio] image
-  - [ ] [VS Code] image
-  - [ ] [Neovim] image
+  - [ ] [R image]()
+  - [ ] [RStudio image]()
+- [ ] [Visual Studio Code](https://code.visualstudio.com/): An open-source code editor.
+  - [ ] Devcontainer (coming soon)
 - [ ] [Nix](https://nixos.org/): A purely functional package manager. (coming soon)
- [ ]
-- [ ] [swirl](https://swirlstats.com/): An interactive programming lessons for R.
 
-### Reading
+**Resources**
+
+- [ ] [{swirl}](https://swirlstats.com/): An interactive programming lessons for R.
+- [ ] [{webr}](https://docs.r-wasm.org/webr/latest/) and [webr quarto](https://github.com/coatless/quarto-webr) Interactive code blocks in Quarto documents including reveal.js slides.
+- [ ] [Qtalr extras](): A GitHub repository with additional resources to add to R computing environments: Git setup, R packages, RStudio preferences, etc. (coming soon).
+
+### Further reading
 
 - [ ] [R for Data Science](https://r4ds.had.co.nz/): A book on data science with R.
 - [ ] [Tidy Text Mining with R](https://www.tidytextmining.com/): A book on text mining with R.
 - [ ] [Supervised Machine Learning for Text Analysis in R](https://smltar.com/): A book on supervised machine learning for text analysis in R.
+- [ ] [Quantitative Corpus Linguistics with R](https://www.routledge.com/Quantitative-Corpus-Linguistics-with-R-A-Practical-Introduction/Gries/p/book/9781138816282)
+- [ ] [Statistics in Corpus Linguistics Research: A new approach](https://www.routledge.com/Statistics-in-Corpus-Linguistics-Research-A-New-Approach/Wallis/p/book/9781138589384)
 
 ### Data and datasets
 
@@ -220,8 +218,8 @@ If RStudio is not used as the primary IDE/ Editor, it is recommended to suppleme
 
 ## Community resources
 
-- [x] [RStudio Community](https://community.rstudio.com/): A community forum for R programming.
+- [ ] [RStudio Community](https://community.rstudio.com/): A community forum for R programming.
 - [ ] [Stack Overflow](https://stackoverflow.com/): A community forum for programming questions.
-- [ ] [qtalr Discussions (GitHub)](): A community forum for qtalr discussions.
+- [ ] [qtalr Discussions](https://github.com/orgs/qtalr/discussions): A community forum for An Introduction to Quantitative Text Analysis for Linguistics discussions.
 - [ ] [Resource Kit issues](https://github.com/qtalr/resources/issues): A place to report issues with the resource kit.
 
