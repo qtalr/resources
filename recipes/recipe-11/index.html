@@ -144,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../instructors.html"> 
+    <a class="nav-link" href="../../instructors/index.html"> 
 <span class="menu-text">Instructors</span></a>
   </li>  
   <li class="nav-item compact">
@@ -171,8 +171,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
   <ul class="collapse">
   <li><a href="#public-facing-communication" id="toc-public-facing-communication" class="nav-link" data-scroll-target="#public-facing-communication">Public facing communication</a></li>
-  <li><a href="#articles" id="toc-articles" class="nav-link" data-scroll-target="#articles">Articles</a></li>
-  <li><a href="#presentations" id="toc-presentations" class="nav-link" data-scroll-target="#presentations">Presentations</a></li>
   <li><a href="#peer-facing-communication" id="toc-peer-facing-communication" class="nav-link" data-scroll-target="#peer-facing-communication">Peer facing communication</a></li>
   </ul></li>
   <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
@@ -230,89 +228,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Snippet&nbsp;1: Quarto website structure for reproducible research
 </figcaption>
 <div aria-describedby="lst-quarto-website-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project/</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> data/</span>
-<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── analysis/</span>
-<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── derived/</span>
-<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── original/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> process/</span>
-<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 1_acquire.qmd</span>
-<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 2_curate.qmd</span>
-<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 3_transform.qmd</span>
-<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── 4_analyze.qmd</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-11" class="code-annotation-target"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> reports/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-12" class="code-annotation-target"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── figures/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6">6</button><span id="annotated-cell-1-13" class="code-annotation-target"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── slides/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="7">7</button><span id="annotated-cell-1-14" class="code-annotation-target"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   ├── workshop/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="8">8</button><span id="annotated-cell-1-15" class="code-annotation-target"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   │    └── index.qmd</span>
-<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   └── conference/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="9">9</button><span id="annotated-cell-1-17" class="code-annotation-target"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── tables/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="10">10</button><span id="annotated-cell-1-18" class="code-annotation-target"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── article.qmd</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="11">11</button><span id="annotated-cell-1-19" class="code-annotation-target"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── citation-style.csl</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="12">12</button><span id="annotated-cell-1-20" class="code-annotation-target"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── presentations.qmd</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="13">13</button><span id="annotated-cell-1-21" class="code-annotation-target"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── bibliography.bib</span>
-<span id="annotated-cell-1-22"><a href="#annotated-cell-1-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> renv/</span>
-<span id="annotated-cell-1-23"><a href="#annotated-cell-1-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── ...</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="14">14</button><span id="annotated-cell-1-24" class="code-annotation-target"><a href="#annotated-cell-1-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> _quarto.yml</span>
-<span id="annotated-cell-1-25"><a href="#annotated-cell-1-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> index.qmd</span>
-<span id="annotated-cell-1-26"><a href="#annotated-cell-1-26" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> README.md</span>
-<span id="annotated-cell-1-27"><a href="#annotated-cell-1-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> renv.lock</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-1" class="code-annotation-target"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project/</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2">2</button><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> data/</span>
+<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── analysis/</span>
+<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── derived/</span>
+<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── original/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3">3</button><span id="annotated-cell-4-6" class="code-annotation-target"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> process/</span>
+<span id="annotated-cell-4-7"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 1_acquire.qmd</span>
+<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 2_curate.qmd</span>
+<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 3_transform.qmd</span>
+<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── 4_analyze.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="4">4</button><span id="annotated-cell-4-11" class="code-annotation-target"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> reports/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="5">5</button><span id="annotated-cell-4-12" class="code-annotation-target"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── figures/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="6">6</button><span id="annotated-cell-4-13" class="code-annotation-target"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── slides/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="7">7</button><span id="annotated-cell-4-14" class="code-annotation-target"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   ├── workshop/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="8">8</button><span id="annotated-cell-4-15" class="code-annotation-target"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   │    └── index.qmd</span>
+<span id="annotated-cell-4-16"><a href="#annotated-cell-4-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   └── conference/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="9">9</button><span id="annotated-cell-4-17" class="code-annotation-target"><a href="#annotated-cell-4-17" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── tables/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="10">10</button><span id="annotated-cell-4-18" class="code-annotation-target"><a href="#annotated-cell-4-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── article.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="11">11</button><span id="annotated-cell-4-19" class="code-annotation-target"><a href="#annotated-cell-4-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── citation-style.csl</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="12">12</button><span id="annotated-cell-4-20" class="code-annotation-target"><a href="#annotated-cell-4-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── presentations.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="13">13</button><span id="annotated-cell-4-21" class="code-annotation-target"><a href="#annotated-cell-4-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── bibliography.bib</span>
+<span id="annotated-cell-4-22"><a href="#annotated-cell-4-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> renv/</span>
+<span id="annotated-cell-4-23"><a href="#annotated-cell-4-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── ...</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="14">14</button><span id="annotated-cell-4-24" class="code-annotation-target"><a href="#annotated-cell-4-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> _quarto.yml</span>
+<span id="annotated-cell-4-25"><a href="#annotated-cell-4-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> index.qmd</span>
+<span id="annotated-cell-4-26"><a href="#annotated-cell-4-26" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> README.md</span>
+<span id="annotated-cell-4-27"><a href="#annotated-cell-4-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> renv.lock</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1"><strong>Project root</strong>: The root directory for the project.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="1" data-code-annotation="1"><strong>Project root</strong>: The root directory for the project.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2"><strong>Data directory</strong>: The directory for storing data files.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="2"><strong>Data directory</strong>: The directory for storing data files.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="3"><strong>Process directory</strong>: The directory for storing process files.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="6" data-code-annotation="3"><strong>Process directory</strong>: The directory for storing process files.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="11" data-code-annotation="4"><strong>Reports directory</strong>: The directory for storing reports.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="11" data-code-annotation="4"><strong>Reports directory</strong>: The directory for storing reports.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="12" data-code-annotation="5"><strong>Figures directory</strong>: The directory for storing figures.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="12" data-code-annotation="5"><strong>Figures directory</strong>: The directory for storing figures.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="13" data-code-annotation="6"><strong>Slides directory</strong>: The directory for storing presentations.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="13" data-code-annotation="6"><strong>Slides directory</strong>: The directory for storing presentations.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="14" data-code-annotation="7"><strong>Workshop directory</strong>: The directory for storing a “workshop” presentation.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="14" data-code-annotation="7"><strong>Workshop directory</strong>: The directory for storing a “workshop” presentation.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="8">8</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="15" data-code-annotation="8"><strong>Workshop presentation file</strong>: The file for the “workshop” presentation.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="15" data-code-annotation="8"><strong>Workshop presentation file</strong>: The file for the “workshop” presentation.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="9">9</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="17" data-code-annotation="9"><strong>Tables directory</strong>: The directory for storing tables.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="17" data-code-annotation="9"><strong>Tables directory</strong>: The directory for storing tables.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="10">10</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="10">10</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="18" data-code-annotation="10"><strong>Article file</strong>: The file for the article.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="18" data-code-annotation="10"><strong>Article file</strong>: The file for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="11">11</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="11">11</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="19" data-code-annotation="11"><strong>Citation style file</strong>: The file for the citation style.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="19" data-code-annotation="11"><strong>Citation style file</strong>: The file for the citation style.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="12">12</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="12">12</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="20" data-code-annotation="12"><strong>Presentations listing file</strong>: The file for the presentations listing.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="20" data-code-annotation="12"><strong>Presentations listing file</strong>: The file for the presentations listing.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="13">13</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="13">13</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="21" data-code-annotation="13"><strong>References file</strong>: The file for the references.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="21" data-code-annotation="13"><strong>References file</strong>: The file for the references.</span>
 </dd>
-<dt data-target-cell="annotated-cell-1" data-target-annotation="14">14</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="14">14</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="24" data-code-annotation="14"><strong>Quarto configuration file</strong>: The file for the Quarto configuration.</span>
+<span data-code-cell="annotated-cell-4" data-code-lines="24" data-code-annotation="14"><strong>Quarto configuration file</strong>: The file for the Quarto configuration.</span>
 </dd>
 </dl>
 </div>
@@ -325,63 +323,63 @@ Snippet&nbsp;1: Quarto website structure for reproducible research
 Snippet&nbsp;2: Quarto configuration file for reproducible research
 </figcaption>
 <div aria-describedby="lst-quarto-config-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
-<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Web project"</span></span>
-<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-4" class="code-annotation-target"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">execute-dir</span><span class="kw">:</span><span class="at"> project</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-5" class="code-annotation-target"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span></span>
-<span id="annotated-cell-2-6"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
-<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/1_acquire.qmd</span></span>
-<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/2_curate.qmd</span></span>
-<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/3_transform.qmd</span></span>
-<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/4_analyze.qmd</span></span>
-<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> reports/</span></span>
-<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
-<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3">3</button><span id="annotated-cell-2-15" class="code-annotation-target"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"docked"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4">4</button><span id="annotated-cell-2-16" class="code-annotation-target"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="annotated-cell-2-17"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
-<span id="annotated-cell-2-18"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Process"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="5">5</button><span id="annotated-cell-2-19" class="code-annotation-target"><a href="#annotated-cell-2-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> process/*</span></span>
-<span id="annotated-cell-2-20"><a href="#annotated-cell-2-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reports"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="6">6</button><span id="annotated-cell-2-21" class="code-annotation-target"><a href="#annotated-cell-2-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> reports/*</span></span>
-<span id="annotated-cell-2-22"><a href="#annotated-cell-2-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-2-23"><a href="#annotated-cell-2-23" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="annotated-cell-2-24"><a href="#annotated-cell-2-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="annotated-cell-2-25"><a href="#annotated-cell-2-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
-<span id="annotated-cell-2-26"><a href="#annotated-cell-2-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="annotated-cell-2-27"><a href="#annotated-cell-2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-2-28"><a href="#annotated-cell-2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="7">7</button><span id="annotated-cell-2-29" class="code-annotation-target"><a href="#annotated-cell-2-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">freeze</span><span class="kw">:</span><span class="at"> auto</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-5"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Web project"</span></span>
+<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-4" class="code-annotation-target"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">execute-dir</span><span class="kw">:</span><span class="at"> project</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-5" class="code-annotation-target"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span></span>
+<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="annotated-cell-5-7"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/1_acquire.qmd</span></span>
+<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/2_curate.qmd</span></span>
+<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/3_transform.qmd</span></span>
+<span id="annotated-cell-5-10"><a href="#annotated-cell-5-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/4_analyze.qmd</span></span>
+<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> reports/</span></span>
+<span id="annotated-cell-5-12"><a href="#annotated-cell-5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-5-13"><a href="#annotated-cell-5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="annotated-cell-5-14"><a href="#annotated-cell-5-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-15" class="code-annotation-target"><a href="#annotated-cell-5-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"docked"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="4">4</button><span id="annotated-cell-5-16" class="code-annotation-target"><a href="#annotated-cell-5-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="annotated-cell-5-17"><a href="#annotated-cell-5-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="annotated-cell-5-18"><a href="#annotated-cell-5-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Process"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="5">5</button><span id="annotated-cell-5-19" class="code-annotation-target"><a href="#annotated-cell-5-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> process/*</span></span>
+<span id="annotated-cell-5-20"><a href="#annotated-cell-5-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reports"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="6">6</button><span id="annotated-cell-5-21" class="code-annotation-target"><a href="#annotated-cell-5-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> reports/*</span></span>
+<span id="annotated-cell-5-22"><a href="#annotated-cell-5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-5-23"><a href="#annotated-cell-5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="annotated-cell-5-24"><a href="#annotated-cell-5-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="annotated-cell-5-25"><a href="#annotated-cell-5-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
+<span id="annotated-cell-5-26"><a href="#annotated-cell-5-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="annotated-cell-5-27"><a href="#annotated-cell-5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-5-28"><a href="#annotated-cell-5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="7">7</button><span id="annotated-cell-5-29" class="code-annotation-target"><a href="#annotated-cell-5-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">freeze</span><span class="kw">:</span><span class="at"> auto</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="4" data-code-annotation="1"><strong>Execution directory</strong>: The root directory for all execution.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="4" data-code-annotation="1"><strong>Execution directory</strong>: The root directory for all execution.</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="5" data-code-annotation="2"><strong>Render order</strong>: The order in which files are rendered.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="5" data-code-annotation="2"><strong>Render order</strong>: The order in which files are rendered.</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="15" data-code-annotation="3"><strong>Sidebar style</strong>: The style of the sidebar.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="15" data-code-annotation="3"><strong>Sidebar style</strong>: The style of the sidebar.</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="16" data-code-annotation="4"><strong>Sidebar contents</strong>: The contents of the sidebar.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="16" data-code-annotation="4"><strong>Sidebar contents</strong>: The contents of the sidebar.</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="19" data-code-annotation="5"><strong>Process contents</strong>: The contents of the process section.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="19" data-code-annotation="5"><strong>Process contents</strong>: The contents of the process section.</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="21" data-code-annotation="6"><strong>Reports contents</strong>: The contents of the reports section.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="21" data-code-annotation="6"><strong>Reports contents</strong>: The contents of the reports section.</span>
 </dd>
-<dt data-target-cell="annotated-cell-2" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="29" data-code-annotation="7"><strong>Freeze option</strong>: The option for rendering only changed files.</span>
+<span data-code-cell="annotated-cell-5" data-code-lines="29" data-code-annotation="7"><strong>Freeze option</strong>: The option for rendering only changed files.</span>
 </dd>
 </dl>
 </div>
@@ -389,9 +387,8 @@ Snippet&nbsp;2: Quarto configuration file for reproducible research
 </div>
 <p>Looking more closely at the directory structure in <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>, let’s focus on the aspects that are shared between articles and presentations. You will notice that the <em>reports/</em> directory contains a <em>figures/</em> directory for saving figures, a <em>tables/</em> directory for saving tables, and a <em>references.bib</em> file for saving references. These are shared resources that can be used in both articles and presentations. In the process directory, you can save tables, figures, and other resources that are generated during the research process that you believe will be useful in commmunicating the research findings. Then, when you create your presentations, you can include the same materials in either format with the same files. If changes are made to the figures or tables, they will be updated in both the article and the presentation(s).</p>
 <p>Next, it is worth pointing out some important features that appear in the <a href="#lst-quarto-config" class="quarto-xref">Snippet&nbsp;2</a> configuration file. The <code>execute-dir</code> specifies the root directory for all execution. That is the path to directories and files will be the same no matter from what file the code is executed. The <code>render</code> option specifies the order in which the files are rendered. This is important for ensuring that the research process is executed in the correct order. The files that are executed and rendered for display appear in the website and the <code>style</code> and <code>contents</code> options specify the style and contents of the sidebar, respectively. Another key option is the <code>freeze</code> option under <code>execute</code>. This option specifies that only changed files will be rendered. This helps avoid re-rendering files that have not changed, which can be time-consuming and computationally expensive.</p>
-</section>
-<section id="articles" class="level3">
-<h3 class="anchored" data-anchor-id="articles">Articles</h3>
+<section id="articles" class="level4">
+<h4 class="anchored" data-anchor-id="articles">Articles</h4>
 <p>In the <em>reports/</em> directory a file named <em>article.qmd</em> appears. This file, which can be named anything, will be the document in which we will draft the research article. This file is a standard Quarto document. However, we can take advantage of some options that we have not seen so far that adds functionality to the document.</p>
 <p>In <a href="#lst-quarto-article" class="quarto-xref">Snippet&nbsp;3</a>, we see an example of the YAML frontmatter for a Quarto article.</p>
 <div id="lst-quarto-article" class="listing quarto-float quarto-figure quarto-figure-left anchored">
@@ -400,60 +397,60 @@ Snippet&nbsp;2: Quarto configuration file for reproducible research
 Snippet&nbsp;3: Quarto article YAML frontmatter
 </figcaption>
 <div aria-describedby="lst-quarto-article-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Article"</span></span>
-<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2024-02-20</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-3" class="code-annotation-target"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
-<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your name"</span></span>
-<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> youremail@school.edu</span></span>
-<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your affiliation"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2">2</button><span id="annotated-cell-3-7" class="code-annotation-target"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abstract</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a>  This is a sample article. It is a work in progress and will be updated as the research progresses.</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3">3</button><span id="annotated-cell-3-9" class="code-annotation-target"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">keywords</span><span class="kw">:</span></span>
-<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> article</span></span>
-<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> example</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4">4</button><span id="annotated-cell-3-12" class="code-annotation-target"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> citation-style.csl</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="5">5</button><span id="annotated-cell-3-13" class="code-annotation-target"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> ../bibliography.bib</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="6">6</button><span id="annotated-cell-3-14" class="code-annotation-target"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="7">7</button><span id="annotated-cell-3-15" class="code-annotation-target"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="8">8</button><span id="annotated-cell-3-16" class="code-annotation-target"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="9">9</button><span id="annotated-cell-3-17" class="code-annotation-target"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
-<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Article"</span></span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2024-02-20</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
+<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your name"</span></span>
+<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> youremail@school.edu</span></span>
+<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your affiliation"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2">2</button><span id="annotated-cell-6-7" class="code-annotation-target"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abstract</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>  This is a sample article. It is a work in progress and will be updated as the research progresses.</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3">3</button><span id="annotated-cell-6-9" class="code-annotation-target"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">keywords</span><span class="kw">:</span></span>
+<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> article</span></span>
+<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> example</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4">4</button><span id="annotated-cell-6-12" class="code-annotation-target"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> citation-style.csl</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5">5</button><span id="annotated-cell-6-13" class="code-annotation-target"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> ../bibliography.bib</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6">6</button><span id="annotated-cell-6-14" class="code-annotation-target"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="7">7</button><span id="annotated-cell-6-15" class="code-annotation-target"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="8">8</button><span id="annotated-cell-6-16" class="code-annotation-target"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="9">9</button><span id="annotated-cell-6-17" class="code-annotation-target"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="annotated-cell-6-18"><a href="#annotated-cell-6-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="3" data-code-annotation="1"><strong>Author information</strong>: The author information for the article.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="1"><strong>Author information</strong>: The author information for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="7" data-code-annotation="2"><strong>Abstract</strong>: The abstract for the article.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="7" data-code-annotation="2"><strong>Abstract</strong>: The abstract for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="9" data-code-annotation="3"><strong>Keywords</strong>: The keywords for the article.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="9" data-code-annotation="3"><strong>Keywords</strong>: The keywords for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="12" data-code-annotation="4"><strong>Citation style</strong>: The citation style for the article.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="12" data-code-annotation="4"><strong>Citation style</strong>: The citation style for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="13" data-code-annotation="5"><strong>Bibliography</strong>: The bibliography for the article.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="13" data-code-annotation="5"><strong>Bibliography</strong>: The bibliography for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="14" data-code-annotation="6"><strong>Citation</strong>: The citation for the article itself.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="14" data-code-annotation="6"><strong>Citation</strong>: The citation for the article itself.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="15" data-code-annotation="7"><strong>Format</strong>: The format for the article.</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="15" data-code-annotation="7"><strong>Format</strong>: The format for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="8">8</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="16" data-code-annotation="8"><strong>HTML format</strong>: The HTML format for the article (for web presentation)</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="16" data-code-annotation="8"><strong>HTML format</strong>: The HTML format for the article (for web presentation)</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="9">9</dt>
+<dt data-target-cell="annotated-cell-6" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-lines="17" data-code-annotation="9"><strong>PDF format</strong>: The PDF format for the article (for printing)</span>
+<span data-code-cell="annotated-cell-6" data-code-lines="17" data-code-annotation="9"><strong>PDF format</strong>: The PDF format for the article (for printing)</span>
 </dd>
 </dl>
 </div>
@@ -486,8 +483,8 @@ Figure&nbsp;2: Appearance of the citation attribution in a Quarto article.
 <p>There are two other features to mention. One is the <code>format</code> option. Since the article is a Quarto document, it can be rendered in multiple formats. The <code>html</code> option ensures that our article is rendered in HTML format as part of the website. However, in addition, we can add a <code>pdf</code> option that will render the article in PDF format. Note that in <a href="#fig-header-format" class="quarto-xref">Figure&nbsp;1</a>, the <code>pdf</code> option has created an “Other formats” listing on the right side below the table of contents. Clicking this will open the PDF version of the article.</p>
 <p>Although not employed in this example, it is also possible to use more extensive format changes with <a href="https://quarto.org/docs/extensions/listing-journals.html">Quarto extensions</a>. Currently, there are various extensions for different journals and publishing houses. For more information and examples, consult the documentation above.</p>
 </section>
-<section id="presentations" class="level3">
-<h3 class="anchored" data-anchor-id="presentations">Presentations</h3>
+<section id="presentations" class="level4">
+<h4 class="anchored" data-anchor-id="presentations">Presentations</h4>
 <p>In the <em>reports/</em> directory we can also include presentations and associated slide decks. A popular web-based presentation framework is <a href="https://revealjs.com/">reveal.js</a>. This framework is used in Quarto to create presentations. In <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>, the <em>slides/</em> directory contains a directory for each presentation and an <em>index.qmd</em> file within. The <em>index.qmd</em> file contains the presentation content, which we will see soon. To provide a listings page each presentation, the <em>presentations.qmd</em> file contains special YAML instructions to be a listings page.</p>
 <p>Let’s first dive into the <em>index.qmd</em> file for a presentation and discuss some of the key features. In <a href="#lst-quarto-presentation" class="quarto-xref">Snippet&nbsp;4</a>, we see a basic example of a Quarto presentation.</p>
 <div id="lst-quarto-presentation" class="listing quarto-float quarto-figure quarto-figure-left anchored">
@@ -523,10 +520,11 @@ Figure&nbsp;3
 </figure>
 </div>
 </section>
+</section>
 <section id="peer-facing-communication" class="level3">
 <h3 class="anchored" data-anchor-id="peer-facing-communication">Peer facing communication</h3>
-<p>TBD</p>
 <!--
+TODO: Add content for peer facing communication
 
 Demonstration of running a collaborative research project on GitHub following reproducible research principles
 
@@ -538,26 +536,89 @@ We will also discuss some of the strategies for sharing research code and data, 
 Walkthrough of a complete reproducible research project setup, including documentation, modular scripts, and containerization with GitHub Actions.
 
 -->
-<!-- ::: {.callout .halfsize}
-** Dive deeper**
-
-When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
-
-```r
-pak::pkg_sysreqs(pkg = "knitr", sysreqs = "ubuntu")
-```
-
-```xml
-── Install scripts ── Ubuntu NA
-apt-get -y update
-apt-get -y install pandoc
-
-── Packages/ system dependencies
-knitr – pandoc
-```
-
-These can be added to the computational setup script for the project.
-::: -->
+<p>For those who are interested in interacting with your work, it is key to prepare materials that can be reliably shared. This includes the research code and data, of course, but also the computational environment in which the research was conducted so that the research can be reproduced.</p>
+<div id="fig-computational-environment" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-computational-environment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/nested-project.drawio.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-computational-environment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Computational environment for reproducible research
+</figcaption>
+</figure>
+</div>
+<p>In the next section, we will discuss some of the strategies for sharing a reproducible computational environment, along with code and data. This will include version control with Git, pinned package versions with {renv}, containerization with Docker, and automation with GitHub Actions.</p>
+<section id="tools-and-strategies" class="level4">
+<h4 class="anchored" data-anchor-id="tools-and-strategies">Tools and strategies</h4>
+<p>As seen in <a href="#fig-computational-environment" class="quarto-xref">Figure&nbsp;4</a>, the computational environment for a research project includes various components. Let’s start with the inner components are work our way out.</p>
+<p>As has been stressed throughout this text, version control is a key part of reproducible research. It allows you to track changes to your research code and data over time, the research compendium. This is important for ensuring that the research record is transparent. One of the most popular version control systems is Git. If you have interacted with the supplementary materials provided with this text (lessons, recipes, and labs), you are now familiar with working with Git (and GitHub) in day-to-day tasks. These tasks include:</p>
+<ul>
+<li>Cloning a repository</li>
+<li>Making changes to a repository</li>
+<li>Committing changes to a repository</li>
+<li>Pushing changes to a repository</li>
+<li>Pulling changes from a repository</li>
+<li>Forking a repository</li>
+</ul>
+<p>These tasks are essential for collaborating with others on research projects and contributing to open source projects. However, if the goal is to produce research that is reproducible, it is important to be aware of some additional toos and strategies. In Git, these include:</p>
+<ul>
+<li>Branching to maintain different versions of the research code</li>
+<li>Merging branches to combine different versions</li>
+<li>Pull requests to review and merge changes, either from yourself or other contributors</li>
+</ul>
+<p>We will not cover these in detail here, but they are important to be aware of. For more information, see the <a href="https://docs.github.com/en">GitHub documentation</a>.</p>
+<p>Moving out a level, we have the software layer. This includes the R packages that you use in your project, the version of R that you use, and the system dependencies that are required for your project. Sharing your research project code and all does not guarantee that others will be able to reproduce your research –R packages versions are constantly being updated (and this can lead to ‘breaking changes’ that render your code inoperable). R too changes over time. Although less frequent when compared to packages. …</p>
+<p>To ensure that your research is reproducible, it is important to share the software layer as well. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.</p>
+</section>
+<section id="pinned-package-versions" class="level4">
+<h4 class="anchored" data-anchor-id="pinned-package-versions">Pinned package versions</h4>
+<p>As you develop your research code, you will likely use a number of R packages. These packages are constantly being updated, which can lead to issues with reproducibility. To ensure that your research is reproducible, it is important to pin the versions of the R packages that you use. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.</p>
+<p>As you develop your research code, you will be adding packages along the way. In most cases, it is not necessary at this step to identify the version of the package(s) that you are using. However, when you are ready to share your research code, it is important. For example, you can see the package version using the <code>packageVersion()</code> function,.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"knitr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] '1.47'</code></pre>
+</div>
+</div>
+<!-- NOTE: Examples and demos will need to be run in a container as the Nix environment does not work well with renv -->
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="containerization" class="level4">
+<h4 class="anchored" data-anchor-id="containerization">Containerization</h4>
+<p>Containerization is another key part of reproducible research. It allows you to create a self-contained environment for your research code and data. This environment can then be shared with others, ensuring that they have everything they need to reproduce your research. One popular containerization tool is Docker. Docker allows you to create a container that contains all of the dependencies for your research project. This container can then be shared with others, ensuring that they have everything they need to reproduce your research.</p>
+<p>When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible.</p>
+<p>The <code>pak</code> package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dockerfile</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/r-ver:4.1.1</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
+<p>When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The <code>pak</code> package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_sysreqs</span>(<span class="at">pkg =</span> <span class="fu">c</span>(<span class="st">"knitr"</span>, <span class="st">"systemfonts"</span>), <span class="at">sysreqs =</span> <span class="st">"ubuntu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>── Install scripts ──── Ubuntu NA</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>apt-get -y update</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>apt-get -y install pandoc libfontconfig1-dev libfreetype6-dev</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>── Packages and their system dependencies</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>knitr       – pandoc</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>systemfonts – libfontconfig1-dev, libfreetype6-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>These can be added to the Dockerfile for the project</p>
+</div>
+</div>
+</div>
+<p>In GitHub, these include:</p>
+<ul>
+<li>Using issues to track and respond to inquiries</li>
+<li>GitHub Actions for automating tasks</li>
+<li>GitHub Pages for hosting websites</li>
+</ul>
+<p>We will have more to say about these tools and strategies later in this recipe.</p>
+</section>
 </section>
 </section>
 <section id="check-your-understanding" class="level2">

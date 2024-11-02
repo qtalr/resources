@@ -164,7 +164,7 @@ div.csl-indent {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../instructors.html"> 
+    <a class="nav-link" href="../../instructors/index.html"> 
 <span class="menu-text">Instructors</span></a>
   </li>  
   <li class="nav-item compact">
@@ -269,7 +269,7 @@ div.csl-indent {
 </section>
 <section id="create-a-reproducible-example" class="level3">
 <h3 class="anchored" data-anchor-id="create-a-reproducible-example">Create a reproducible example</h3>
-<p>The trickiest part of asking a question about R code is often not the question itself, but providing this information in a self-contained, reproducible example. Luckily, there are a few R packages that provide tools to help you create reproducible examples. {reprex}<span class="citation" data-cites="R-reprex">(<a href="#ref-R-reprex" role="doc-biblioref">Bryan et al. 2024</a>)</span>, {datapasta}<span class="citation" data-cites="R-datapasta">(<a href="#ref-R-datapasta" role="doc-biblioref">McBain et al. 2020</a>)</span>, and creative uses of {knitr} and base R functions can help you create reproducible examples.</p>
+<p>The trickiest part of asking a question about R code is often not the question itself, but providing this information in a self-contained, reproducible example. Luckily, there are a few R packages that provide tools to help you create reproducible examples. {reprex}<span class="citation" data-cites="R-reprex">(<a href="#ref-R-reprex" role="doc-biblioref">Bryan et al. 2024</a>)</span>, {datapasta}<span class="citation" data-cites="R-datapasta">(<a href="#ref-R-datapasta" role="doc-biblioref"><strong>R-datapasta?</strong></a>)</span>, and creative uses of {knitr} and base R functions can help you create reproducible examples.</p>
 <div id="tbl-reprex-packages" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-reprex-packages-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -284,31 +284,31 @@ Table&nbsp;1: Package options for creating reproducible examples
 </colgroup>
 <thead>
 <tr class="header">
-<th>Package</th>
-<th>Description</th>
-<th>Use case</th>
+<th style="text-align: left;">Package</th>
+<th style="text-align: left;">Description</th>
+<th style="text-align: left;">Use case</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>{reprex}</td>
-<td>Creates reproducible examples</td>
-<td>General use</td>
+<td style="text-align: left;">{reprex}</td>
+<td style="text-align: left;">Creates reproducible examples</td>
+<td style="text-align: left;">General use</td>
 </tr>
 <tr class="even">
-<td>{datapasta}</td>
-<td>Copy and paste data frames</td>
-<td>Data manipulation</td>
+<td style="text-align: left;">{datapasta}</td>
+<td style="text-align: left;">Copy and paste data frames</td>
+<td style="text-align: left;">Data manipulation</td>
 </tr>
 <tr class="odd">
-<td>{knitr}</td>
-<td>Swiss Army knife of rendering</td>
-<td>Extract code from literate programming documents (<em>i.e.</em> Quarto)</td>
+<td style="text-align: left;">{knitr}</td>
+<td style="text-align: left;">Swiss Army knife of rendering</td>
+<td style="text-align: left;">Extract code from literate programming documents (<em>i.e.</em> Quarto)</td>
 </tr>
 <tr class="even">
-<td>Base R functions</td>
-<td><code>dput()</code>, <code>dump()</code>, <code>sessionInfo()</code></td>
-<td>Represent data as text and report environment settings</td>
+<td style="text-align: left;">Base R functions</td>
+<td style="text-align: left;"><code>dput()</code>, <code>dump()</code>, <code>sessionInfo()</code></td>
+<td style="text-align: left;">Represent data as text and report environment settings</td>
 </tr>
 </tbody>
 </table>
@@ -345,21 +345,21 @@ Table&nbsp;1: Package options for creating reproducible examples
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>token</th>
+<th style="text-align: left;">token</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>this</td>
+<td style="text-align: left;">this</td>
 </tr>
 <tr class="even">
-<td>is</td>
+<td style="text-align: left;">is</td>
 </tr>
 <tr class="odd">
-<td>a</td>
+<td style="text-align: left;">a</td>
 </tr>
 <tr class="even">
-<td>sentence</td>
+<td style="text-align: left;">sentence</td>
 </tr>
 </tbody>
 </table>
@@ -482,7 +482,7 @@ Run `rlang::last_trace()` to see where the error occurred.</code></pre>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_id) <span class="sc">|&gt;</span></span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">doc_words =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We the default setting for markdown output, the reprex will look like this:</p>
+<p>With the default setting for markdown output, the reprex will look like this:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
@@ -637,9 +637,6 @@ Session info
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-R-reprex" class="csl-entry" role="listitem">
 Bryan, Jennifer, Jim Hester, David Robinson, Hadley Wickham, and Christophe Dervieux. 2024. <em>Reprex: Prepare Reproducible Example Code via the Clipboard</em>. <a href="https://reprex.tidyverse.org">https://reprex.tidyverse.org</a>.
-</div>
-<div id="ref-R-datapasta" class="csl-entry" role="listitem">
-McBain, Miles, Jonathan Carroll, Sharla Gelfand, Suthira Owlarn, and Garrick Aden-Buie. 2020. <em>Datapasta: R Tools for Data Copy-Pasta</em>. <a href="https://github.com/milesmcbain/datapasta">https://github.com/milesmcbain/datapasta</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script>

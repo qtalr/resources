@@ -265,7 +265,7 @@ body.quarto-dark .qwebr-button:hover {
   max-height: 100%;
   margin: 0;
   padding: 0;
-} 
+}
 
 /* Provide space to entries */
 .reveal div.qwebr-output-code-area pre div {
@@ -304,7 +304,6 @@ body.reveal.quarto-dark div.qwebr-console-area {
 
 
 /* Cap output height and allow text to scroll */
-/* TODO: Is there a better way to fit contents/max it parallel to the monaco editor size? */
 .reveal div.qwebr-output-code-area pre {
   max-height: 400px;
   overflow: scroll;
@@ -337,7 +336,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"options":{"message":"true","read-only":"false","comment":"","dpi":72,"classes":"","warning":"true","editor-quick-suggestions":"false","fig-width":7,"fig-height":5,"results":"markup","editor-max-height":"","output":"true","out-height":"","context":"interactive","out-width":"700px","label":"unnamed-chunk-1","autorun":"false","fig-cap":"","editor-font-scale":1},"id":1,"code":"# Load packages\nlibrary(readr)\nlibrary(___)"}];
+globalThis.qwebrCellDetails = [{"id":1,"options":{"label":"unnamed-chunk-1","context":"interactive","comment":"","message":"true","classes":"","read-only":"false","warning":"true","out-width":"700px","dpi":72,"results":"markup","autorun":"false","fig-cap":"","out-height":"","fig-height":5,"editor-max-height":"","editor-font-scale":1,"editor-quick-suggestions":"false","output":"true","fig-width":7},"code":"# Load packages\nlibrary(readr)\nlibrary(___)"}];
 
 </script>
 <script type="module">
@@ -1207,7 +1206,7 @@ globalThis.qwebrExecuteCode = async function (
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../instructors.html"> 
+    <a class="nav-link" href="../../instructors/index.html"> 
 <span class="menu-text">Instructors</span></a>
   </li>  
   <li class="nav-item compact">
@@ -2895,9 +2894,8 @@ qwebrInstance.then(
 
       switch (evalType) {
         case 'interactive':
-          // TODO: Make this more standardized.
           // At the moment, we're overriding the interactive status update by pretending its
-          // output-like. 
+          // output-like.
           const tempOptions = entry.options;
           tempOptions["context"] = "output"
           // Run the code in a non-interactive state that is geared to displaying output
@@ -2912,8 +2910,8 @@ qwebrInstance.then(
           // Run the code in a non-interactive state with all output thrown away
           await mainWebR.evalRVoid(`${cellCode}`);
           break;
-        default: 
-          break; 
+        default:
+          break;
       }
 
       if (['output', 'setup'].includes(evalType)) {
@@ -2932,13 +2930,14 @@ qwebrInstance.then(
     if (qwebrShowStartupMessage) {
       qwebrStartupMessage.innerText = "🟢 Ready!"
     }
-  
+
     qwebrSetInteractiveButtonState(
-      `<i class="fa-solid fa-play qwebr-icon-run-code"></i> <span>Run Code</span>`, 
+      `<i class="fa-solid fa-play qwebr-icon-run-code"></i> <span>Run Code</span>`,
       true
-    );  
+    );
   }
 );
+
 </script>
 
 

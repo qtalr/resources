@@ -166,7 +166,7 @@ div.csl-indent {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../instructors.html"> 
+    <a class="nav-link" href="../../instructors/index.html"> 
 <span class="menu-text">Instructors</span></a>
   </li>  
   <li class="nav-item compact">
@@ -250,8 +250,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>In this recipe, we will make use of {readr}, {dplyr}, {stringr}, and {purrr}, employ regular expressions to parse the semi-structured data, and use {qtalrkit} to document the dataset. Let’s load those packages now.</p>
-<!-- TODO: replace with {qtkit} -->
+<p>In this recipe, we will make use of {readr}, {dplyr}, {stringr}, and {purrr}, employ regular expressions to parse the semi-structured data, and use {qtkit} to document the dataset. Let’s load those packages now.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
@@ -259,7 +258,7 @@ div.csl-indent {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qtalrkit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(qtkit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In Lab 6, we will apply what we learn in this recipe to curate and document acquired data.</p>
 <section id="concepts-and-strategies" class="level2">
@@ -276,8 +275,7 @@ div.csl-indent {
 <div class="callout-body-container">
 <p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
 <p>If you would like to download and decompress the data yourself, you can do so by running the following code:</p>
-<!-- TODO: get_archive_data() {qtkit} -->
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qtalrkit<span class="sc">::</span><span class="fu">get_compressed_data</span>(</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>qtkit<span class="sc">::</span><span class="fu">get_archive_data</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"https://catalog.ldc.upenn.edu/docs/LDC97S62/swb1_dialogact_annot.tar.gz"</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">target_dir =</span> <span class="st">"data/original/swda/"</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -762,9 +760,9 @@ $ speaker_id     &lt;chr&gt; "1632", "1632", "1519", "1632", "1519", "1632", "15
 <p>Here’s the custom function with some extra code to print a progress message for each file when it runs.</p>
 <!-- TODO:   -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [ ] add to {qtalrkit}, note the convention of `extract_` prefix for curation functions. In combination with `get_compressed_data()` this corpus can be curated with few steps.</span></span>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># [ ] add to {qtkit}, note the convention of `extract_` prefix for curation functions. In combination with `get_archive_data()` this corpus can be curated with few steps.</span></span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>extract_swda_data <span class="ot">&lt;-</span> <span class="cf">function</span>(file) {</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>curate_swda_data <span class="ot">&lt;-</span> <span class="cf">function</span>(file) {</span>
 <span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Progress message</span></span>
 <span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  file_basename <span class="ot">&lt;-</span> <span class="fu">basename</span>(file) <span class="co"># file name</span></span>
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Processing "</span>, file_basename, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
@@ -832,10 +830,10 @@ $ speaker_id     &lt;chr&gt; "1632", "1632", "1519", "1632", "1519", "1632", "15
 <span id="cb42-68"><a href="#cb42-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(swda_df)</span>
 <span id="cb42-69"><a href="#cb42-69" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>As a sanity check we will run the <code>extract_swda_data()</code> function on a the conversation file we were just working on to make sure it works as expected.</p>
+<p>As a sanity check we will run the <code>curate_swda_data()</code> function on a the conversation file we were just working on to make sure it works as expected.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process a single file (test)</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_swda_data</span>(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">curate_swda_data</span>(</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"../data/original/swda/sw00utt/sw_0001_4325.utt"</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
 <span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -877,12 +875,12 @@ data/original/swda/sw00utt/sw_0005_4646.utt
 data/original/swda/sw00utt/sw_0006_4108.utt</code></pre>
 </div>
 </div>
-<p>To pass each conversation file in the vector of paths to our conversation files iteratively to the <code>extract_swda_data()</code> function we use <code>map_dfr()</code>. This will apply the function to each conversation file and return a data frame for each and then combine the results into a single data frame.</p>
+<p>To pass each conversation file in the vector of paths to our conversation files iteratively to the <code>curate_swda_data()</code> function we use <code>map_dfr()</code>. This will apply the function to each conversation file and return a data frame for each and then combine the results into a single data frame.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Process all conversation files</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>swda_df <span class="ot">&lt;-</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>  swda_files_chr <span class="sc">|&gt;</span> <span class="co"># pass file names</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(extract_swda_data) <span class="co"># read and tidy iteratively</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map_dfr</span>(curate_swda_data) <span class="co"># read and tidy iteratively</span></span>
 <span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Preview</span></span>
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(swda_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -937,7 +935,7 @@ $ speaker_id     &lt;chr&gt; "1632", "1632", "1519", "1632", "1519", "1632", "15
 <span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw11utt/</span>
 <span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> sw12utt/</span>
 <span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> sw13utt/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The data dictionary file will contain information about the dataset variables and their values. This file can be created manually and edited with a text editor or spreadsheet software. Or alternatively, the scaffolding for a CSV file can be generated with the <code>create_data_dictionary()</code> function from {qtalrkit}.</p>
+<p>The data dictionary file will contain information about the dataset variables and their values. This file can be created manually and edited with a text editor or spreadsheet software. Or alternatively, the scaffolding for a CSV file can be generated with the <code>create_data_dictionary()</code> function from {qtkit}.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create data dictionary</span></span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">create_data_dictionary</span>(</span>
@@ -950,7 +948,7 @@ $ speaker_id     &lt;chr&gt; "1632", "1632", "1519", "1632", "1519", "1632", "15
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <p>In this recipe, we learned how to read and parse semi-structured data, create a custom function and iterate over a collection of files, combine the results into a single dataset, and document the data curation process and resulting dataset.</p>
-<p>The skills we used in this recipe include regular expressions, the {readr}, {dplyr}, {stringr}, and {purrr}, and {qtalrkit} for documenting the dataset.</p>
+<p>The skills we used in this recipe include regular expressions, the {readr}, {dplyr}, {stringr}, and {purrr}, and {qtkit} for documenting the dataset.</p>
 </section>
 <section id="check-your-understanding" class="level2">
 <h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
