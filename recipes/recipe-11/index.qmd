@@ -43,12 +43,9 @@ project/                          # <1>
   │   ├── citation-style.csl      # <11>
   │   ├── presentations.qmd       # <12>
   │   └── bibliography.bib        # <13>
-  ├── renv/
-  │   └── ...
   ├── _quarto.yml                 # <14>
   ├── index.qmd
-  ├── README.md
-  └── renv.lock
+  └── README.md
 ```
 1. **Project root**: The root directory for the project.
 2. **Data directory**: The directory for storing data files.
@@ -251,6 +248,8 @@ In the next section, we will discuss some of the strategies for sharing a reprod
 
 As seen in @fig-computational-environment, the computational environment for a research project includes various components. Let's start with the inner components are work our way out.
 
+**Version control**
+
 As has been stressed throughout this text, version control is a key part of reproducible research. It allows you to track changes to your research code and data over time, the research compendium. This is important for ensuring that the research record is transparent. One of the most popular version control systems is Git. If you have interacted with the supplementary materials provided with this text (lessons, recipes, and labs), you are now familiar with working with Git (and GitHub) in day-to-day tasks. These tasks include:
 
 - Cloning a repository
@@ -260,63 +259,126 @@ As has been stressed throughout this text, version control is a key part of repr
 - Pulling changes from a repository
 - Forking a repository
 
-These tasks are essential for collaborating with others on research projects and contributing to open source projects. However, if the goal is to produce research that is reproducible, it is important to be aware of some additional toos and strategies. In Git, these include:
+These tasks are essential for collaborating with others on research projects and contributing to open source projects. However, there are a few other tasks which will prove useful if you continue on in your reproducible research journey. In Git, these include:
 
-- Branching to maintain different versions of the research code
-- Merging branches to combine different versions
-- Pull requests to review and merge changes, either from yourself or other
-contributors
+- **Branching** \
+This allows you to work on different versions of your research project at the same time. For example, you could have a `main` branch for the current version of your research project and a `develop` branch for the next version of your research project.
+- **Merging** \
+This allows you to combine changes from one branch into another branch. For example, you could merge changes from the `develop` branch into the `main` branch once they are complete.
+- **Pull requests** \
+This allows you to propose changes to a repository and discuss them with others before merging them. For example, you could create a pull request to propose changes to the `main` branch from the `develop` branch.
 
-We will not cover these in detail here, but they are important to be aware of. For more information, see the [GitHub documentation](https://docs.github.com/en).
+We will not cover these in detail here, but it is good to be aware of them if you plan on collaborating on git-maintained projects. For more information, see the [GitHub documentation](https://docs.github.com/en).
 
-Moving out a level, we have the software layer. This includes the R packages that you use in your project, the version of R that you use, and the system dependencies that are required for your project. Sharing your research project code and all does not guarantee that others will be able to reproduce your research --R packages versions are constantly being updated (and this can lead to 'breaking changes' that render your code inoperable). R too changes over time. Although less frequent when compared to packages.  ...
+**Pinned package versions**
 
+Moving out a level, we have the software layer. This includes the R packages that you use in your project, the version of R that you use, and the system dependencies that are required. Sharing your research project code does not guarantee that others will be able to reproduce it --R packages versions are constantly being updated and this can lead to 'breaking changes' that render your code inoperable. R itself changes over time, although less frequent when compared to packages.
 
-To ensure that your research is reproducible, it is important to share the software layer as well. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.
+To ensure that your research is reproducible, it is important to share the software layer as well. This can be done with the {renv} package. {renv} allows you to create a snapshot of the version of R and the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same R and R package versions that you use.
 
-
-
-
-
-
-
+To set up an R project with {renv}, you need to initialize the project. In the R console, run `renv::init()`. Let's assume we start with the project structure in @lst-quarto-website, after initializing {renv}, a `renv/` directory and a `renv.lock` file are added, as seen in @lst-renv-init.
 
 
-
-#### Pinned package versions
-
-As you develop your research code, you will likely use a number of R packages. These packages are constantly being updated, which can lead to issues with reproducibility. To ensure that your research is reproducible, it is important to pin the versions of the R packages that you use. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.
-
-As you develop your research code, you will be adding packages along the way. In most cases, it is not necessary at this step to identify the version of the package(s) that you are using. However, when you are ready to share your research code, it is important. For example, you can see the package version using the `packageVersion()` function,.
-
-```{r}
-packageVersion("knitr")
+::: {#lst-renv-init}
+```bash
+project/
+  ├── data/
+  ├── process/
+  ├── reports/
+  ├── renv/                  # <1>
+  │  ├── activate.R          # <2>
+  │  ├── library/            # <3>
+  │  └── settings.json       # <4>
+  ├── _quarto.yml
+  ├── index.qmd
+  ├── README.md
+  └── renv.lock              # <5>
 ```
+1. **renv directory**: The directory for the {renv} package
+2. **activate.R file**: The file for the {renv} activation script
+3. **library directory**: The directory for the {renv} library
+4. **settings.json file**: The file for the {renv} settings
+5. **renv.lock file**: The file for the {renv} lock file
+:::
 
-<!-- NOTE: Examples and demos will need to be run in a container as the Nix environment does not work well with renv -->
 
-```r
-renv::snapshot()
+On initalization, {renv} will create a `renv.lock` file that contains a registry of the versions of the R packages that you are using. This file can be shared with others, ensuring that they install the same versions of the R packages that you used in your research project. The `renv/` directory contains a `activate.R` file is a script that activates the {renv} package when you open the project in RStudio, a `library/` directory contains a local library, that is, the R packages that you are using in your research project, and finally a `settings.json` file contains the settings for the {renv} package.
+
+Behind the scenes, {renv} also adds a `.gitignore` file within the `renv/` directory which ensures you do not accidentally commit the R packages to your repository (found in the `renv/library/` directory). This is important because the R packages can be large and take up a lot of space in your repository. The `renv.lock` file alone can be used to restore the R packages with the correct versions by running `renv::restore()` function.
+
+::: {.callout}
+**{{< fa regular hand-point-up >}} Tip**
+
+If you start a project with {renv}, you will need to make sure that your local library and `renv.lock` reflect the packages you install moving forward. To check the status of your project, you can run `renv::status()`. This will show you the packages that are installed in your local library and the packages that are in the `renv.lock` file. If there are differences, you can run `renv::snapshot()` to update the `renv.lock` file.
+:::
+
+**Containerization**
+
+Now, we are nearing the outer layer of the computational environment. But before we get there, we need to discuss containerization, a strategy that will help us share operating system and system software dependencies, straddling two layers of the computational environment illustrated in @fig-computational-environment.
+
+Containerization allows you to create a self-contained environment for your research code and data. This effectively means that you and your collaborators can use the same operating system and system dependencies. The container runs an operating system which is isolated from the host operating system. This has two main benefits: one, users do not need to change their host systems to run your project and two, the operating system and system dependencies are the same for everyone, ensuring that the research is reproducible.
+
+One popular containerization tool is Docker. Docker allows you to create a Docker image that contains the operating system and system dependencies for your research project from a blueprint file called a Dockerfile. A Dockerfile is a text file that contains the instructions to create the Docker image. For example, we can create a very simple Dockerfile that will generate an image with R installed, as seen in @lst-base-dockerfile.
+
+::: {#lst-base-dockerfile}
+```dockerfile
+# Dockerfile
+
+# Base image with R
+FROM rocker/r-ver:4.1.1            # <1>
 ```
+1. **Base image**: The base image for the Dockerfile
+:::
 
+In this Dockerfile we use the `rocker/r-ver:4.1.1` image as the base image. That is to say that Dockerfiles can import and extend other images that have been built from other Dockerfiles. The [Rocker Project](https://rocker-project.org/) creates and maintains a number of very useful images for R users to use and extend. In this case, we are using the `r-ver` image which contains R version 4.1.1. There are `r-ver` for many other R versions, even one for the latest R version, whatever that may be.
 
-#### Containerization
+::: {.callout}
+**{{< fa medal >}} Dive deeper**
 
-Containerization is another key part of reproducible research. It allows you to create a self-contained environment for your research code and data. This environment can then be shared with others, ensuring that they have everything they need to reproduce your research. One popular containerization tool is Docker. Docker allows you to create a container that contains all of the dependencies for your research project. This container can then be shared with others, ensuring that they have everything they need to reproduce your research.
+Visit the Rocker Project's [image list](https://rocker-project.org/images/) to explore the available images.
+:::
 
-When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible.
+Another thing to note about images from the Rocker Project (and many other Docker images) is that the operating system will be based on some version of Linux. Linux is a popular choice for Docker images because it is lightweight and can be easily extended. These are good attributes, but even more importantly, Linux is freely available and open sources, this means that the images can be shared without licensing issues.
 
+An OS is not the only aspect that a Dockerfile can address that will help us to create a publishable reproducible research project. In addition, we can add system dependencies, modify the system in various ways, add files to the image, and set up the environment for running the project.
 
+So if we assume the project structure in @lst-quarto-website, we can add a Dockerfile to the project as seen in @lst-dockerfile.
+
+::: {#lst-dockerfile}
+```dockerfile
+# Dockerfile
+
+# Base image with R
+FROM rocker/r-ver:4.1.1                        # <1>
+
+ENV DEFAULT_USER="ruser"
+
+# User rocker scripts to set up
+# pandoc, quarto, and default user
+RUN /rocker_scripts/install_pandoc.sh
+RUN /rocker_scripts/install_quarto.sh
+RUN /rocker_scripts/default_user.sh $DEFAULT_USER
+
+RUN usermod -aG sudo ${DEFAULT_USER} && \
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER $DEFAULT_USER
+
+# Copy project file
+COPY . /home/ruser/project
+
+# Set working directory
+WORKDIR /home/ruser/project
+
+RUN R -q -e "install.packages(c('pak', 'renv'), repos = c('https://cloud.r-project.org/', 'https://r-lib.r-universe.dev'));"
+
+# Set bash entrypoint
+ENTRYPOINT ["/bin/bash"]
+```
+:::
 
 
 The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
-
-
-```dockerfile
-# Dockerfile
-FROM rocker/r-ver:4.1.1
-# ...
-```
 
 ::: {.callout}
 **{{< fa medal >}} Dive deeper**
@@ -349,8 +411,24 @@ In GitHub, these include:
 
 We will have more to say about these tools and strategies later in this recipe.
 
+#### Round trip
 
+**Preparing the computational environment**
 
+- Create/ develop project
+- Use Git/ GitHub for version control
+- Initialize {renv} in the project
+- Create a Dockerfile for the project
+- Create a GitHub workflow which builds the Docker image and pushes it to Docker Hub
+- Create a GitHub Pages site for the project/ README
+
+**Restoring the computational environment**
+
+- Clone the project from GitHub
+- Build the Docker image from the Dockerfile
+- Run the Docker image
+- Restore the {renv} environment
+- Run the project
 
 
 ## Check your understanding
