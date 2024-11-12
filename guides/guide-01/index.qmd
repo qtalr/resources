@@ -75,9 +75,9 @@ To start using Docker with a Rocker image, follow these steps:
 2. Pull the desired Rocker image from [Docker Hub](https://hub.docker.com/u/rocker)
 
 ::: {#fig-docker-pull-rocker}
-![](images/docker-pull-rocker.gif)
 
-Pull `rocker/rstudio` image from Docker Hub
+{{< video src="./images/docker-pull-rocker.webm" >}}
+
 :::
 
 3. Run a container using the pulled image\
@@ -88,7 +88,9 @@ Note: you will need to specify the following options *before* running the contai
 - environment variables: `PASSWORD` to set the password for RStudio, `ROOT` to allow root access.
 
 ::: {#fig-docker-run-rocker}
-![](images/docker-run-rstudio.gif)
+
+{{< video src="./images/docker-run-rstudio.webm" >}}
+
 
 Run a container using the `rocker/rstudio` image
 :::
@@ -102,7 +104,7 @@ Optional: you can also mount a volume to share files between the host and contai
 In this guide, we have discussed strategies for working with R. All three options offer unique advantages. In @tbl-env-comparison, we summarize some of the characteristics, benefits, and drawbacks of each option.
 
 | Environment              | Characteristics           | Benefits                                 | Drawbacks                                |
-|-----------------------|---------------------------|------------------------------------------|------------------------------------------|
+|:----------------------|:--------------------------|:-----------------------------------------|:-----------------------------------------|
 | Local (Computer)                | - R/RStudio installed locally<br>- Project files stored on local machine<br>- Accessible without internet connection<br>- Full control over software version and environment  | - Fast and responsive performance<br>- No reliance on internet connectivity<br>- Ability to work offline<br>- Complete control over software version and environment  | - Limited collaboration options<br>- Difficulty in sharing projects with others<br>- Potential compatibility issues with different operating systems |
 | Remote (Cloud)        | - R/RStudio accessed via web browser<br>- Project files stored on cloud server<br>- Accessible from any device with internet connection<br>- Easy collaboration with others<br>- Automatic backups and version control  | - No need for local installation or setup<br>- Easy access from anywhere<br>- Seamless collaboration with teammates<br>- Backup and version control provided by the cloud service  | - Reliance on stable internet connection<br>- Potential latency and performance issues<br>- Limited customization options compared to a local setup |
 | Virtual (Docker)      | - R/RStudio environment encapsulated in a Docker container<br>- Project files stored locally or on the cloud<br>- Consistent environment across different machines  | - Reproducible and portable environment<br>- Easy setup and sharing of the container<br>- Flexibility to run on different operating systems<br>- Isolation from host system dependencies  | - Learning curve for setting up and managing Docker containers<br>- Increased memory and resource requirements<br>- Potential compatibility issues with certain packages or libraries |
