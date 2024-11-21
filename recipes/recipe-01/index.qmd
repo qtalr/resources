@@ -4,6 +4,7 @@ subtitle: "Key Quarto features for academic writing"
 description: |
   The implementation of literate programming we are using in this course is Quarto with R. As we have seen in previously, Quarto provides the ability to combine prose and code in a single document. This is a powerful strategy for creating reproducible documents that can be easily updated and shared.
 categories: [orientation]
+image: images/quarto-num-sections_thumb.png
 ---
 
 ```{r}
