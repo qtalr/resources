@@ -179,6 +179,9 @@ In this learning scenario, some of the content early on may be condensed or skip
 ## Teaching resources
 
 ### Templates
+
+<!-- TODO: add these templates to the qtalr repository -->
+
 - [ ] Course site
 - [ ] Slides
 - [ ] Lab exercises
@@ -192,17 +195,23 @@ In this learning scenario, some of the content early on may be condensed or skip
 - [ ] [RStudio Cloud](https://rstudio.cloud/): An online platform for R programming.
 - [ ] [RStudio Server](https://www.rstudio.com/products/rstudio/download-server/): An open-source platform for R programming.
 - [ ] [Docker](https://www.docker.com/): A platform for developing, shipping, and running applications.
-  - [ ] [R image]()
-  - [ ] [RStudio image]()
-- [ ] [Visual Studio Code](https://code.visualstudio.com/): An open-source code editor.
-  - [ ] Devcontainer (coming soon)
+  - [ ] [R image](https://github.com/qtalr/qtalr-r) to use R in a containerized environment.
+  - [ ] [RStudio image](https://github.com/qtalr/qtalr-rstudio) to use RStudio in a containerized environment.
+  - [ ] [Devcontainer](https://github.com/qtalr/r-devcontainer) for Visual Studio Code in a containerized or codespace environment.
 - [ ] [Nix](https://nixos.org/): A purely functional package manager. (coming soon)
 
 **Resources**
 
 - [ ] [{swirl}](https://swirlstats.com/): An interactive programming lessons for R.
 - [ ] [{webr}](https://docs.r-wasm.org/webr/latest/) and [webr quarto](https://github.com/coatless/quarto-webr) Interactive code blocks in Quarto documents including reveal.js slides.
-- [ ] [Qtalr extras](): A GitHub repository with additional resources to add to R computing environments: Git setup, R packages, RStudio preferences, etc. (coming soon).
+- [ ] [Qtalr extras](https://github.com/qtalr/qtalr-extras): A GitHub repository with additional resources to add to R computing environments: Git setup, R packages, RStudio preferences, etc.
+
+**Scripts**
+
+- [ ] Shell scripts to manage GitHub repositories for student repository submissions.
+  - [fetch-student-remote](https://gist.github.com/francojc/04a3b71e0eb47952822314f08c6d4646): A script to fetch a student repository for a given assignment. This is used once per student per assignment.
+  - [push-pull-request](https://gist.github.com/francojc/3597c39c20def54120550b6c59fa5be3): A script to push changes to a student repository and create a pull request.
+  - [fetch-student-merge](https://gist.github.com/francojc/b7d021402ce02f461146a7b5eeaa8d29): A script to fetch a student repository and merge changes into the main repository. This is used iteratively to merge subsequent changes from the student repository.
 
 ### Further reading
 
