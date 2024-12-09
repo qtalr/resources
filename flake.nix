@@ -13,7 +13,6 @@
 
         # Base packages
         basePackages = with pkgs; [
-          pandoc
           quarto
           R
           radianWrapper
@@ -54,6 +53,7 @@
           purrr
           quanteda
           # quanteda.corpora
+          quarto
           readr
           reprex
           scales
@@ -74,8 +74,7 @@
         texlivePackages = with pkgs; [
           (texlive.combine {
             inherit (texlive) scheme-small;
-              # Add texlive packages here
-
+            # Add texlive packages here
           })
         ];
 
@@ -85,7 +84,9 @@
         devShell = pkgs.mkShell {
           buildInputs = allPackages;
           shellHook = ''
-            export R_LIBS_USER=$PWD/R/Library; mkdir -p "$R_LIBS_USER";
+            # For installing non-nix R packages in the shell
+            export R_LIBS_USER=$PWD/R/Library;
+            mkdir -p "$R_LIBS_USER";
             echo "R environment set up";
           '';
         };

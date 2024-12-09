@@ -74,3 +74,4 @@ knitr:
   opts_chunk:
     comment: ""
     out.width: NULL
+
