@@ -1,0 +1,23 @@
+---
+title: 07. Web scraping with R
+subtitle: ''
+description: >
+  This guide will provide you with an overview of web scraping and how you can use R to scrape data from the web. Web scraping is a technique used to extract data from websites. It is a powerful tool that can be used to collect data for research, analysis, and visualization. In this guide, you will learn how to use R to scrape data from websites and save it in a format that can be used for further analysis.
+categories:
+  - guides
+---
+
+
+::: {.callout}
+**{{< fa regular list-alt >}} Outcomes**
+
+- Understand the concept of web scraping and its applications.
+- Learn how to use R to scrape data from websites.
+- Save scraped data in a format that can be used for further analysis.
+:::
+
+## Introduction
+
+Web scraping is a technique used to extract data from websites. It is a powerful tool that can be used to collect data for research, analysis, and visualization. Web scraping can be used to extract data from a wide range of websites, including news sites, social media platforms, and online databases.
+
+...
