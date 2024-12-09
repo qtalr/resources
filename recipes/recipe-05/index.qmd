@@ -4,6 +4,7 @@ subtitle: "Acquiring datasets with the Project Gutenberg API"
 description: |
   At this point, we now have a strong undertanding of the foundations of programming in R and the data science workflow. Previous lessons, recipes, and labs focused on developing these skills while the chapters aimed to provide a conceptual framework for understanding the steps in the data science workflow. We now turn to applying our conceptual knowledge and our technical skills to accomplish the tasks of the data science workflow, startine with data acquisition.
 categories: [preparation]
+bibliography: ../../bibliography.bib
 ---
 
 ```{r}
@@ -51,7 +52,7 @@ Let's now turn to the data collection strategy. There are a number of data colle
 ::: {.callout .halfsize}
 **`r fontawesome::fa('medal')` Dive deeper**
 
-If you are interested in learning about another data collection strategy, web scraping, I suggest you look at the [Web scraping with R](guide-5.html) guide.
+If you are interested in learning about another data collection strategy, web scraping, I suggest you look at the [Web scraping with R](guide-07) guide.
 :::
 
 We will load {dplyr}, {readr}, and {gutenbergr} to prepare for the data collection process.
@@ -136,6 +137,7 @@ The next step is to select the works from the Library of Congress Classification
 
 ```{r}
 #| label: select-subjects
+
 subjects <-
   gutenberg_subjects |>
   filter(

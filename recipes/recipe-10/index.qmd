@@ -84,7 +84,7 @@ The data dictionary for the dataset is as follows:
 #| echo: false
 
 read_csv("data/derived/pelic_transformed_dd.csv") |>
-  kbl(col.names = c("Variable", "Name", "Type", "Description")) |>
+  kable(col.names = c("Variable", "Name", "Type", "Description")) |>
   kable_styling("striped")
 ```
 
@@ -332,7 +332,7 @@ In summary, this programming tutorial has provided a comprehensive guide to buil
 
 ## Check your understanding
 
-<!-- [ ] return to edit these comprehension questions -->
+<!-- TODO: return to edit these comprehension questions -->
 
 1. `r torf(TRUE)` Simulation-based inference is a method that can be used to approximate traditional inferential statistics without the need for theoretical assumptions about the data.
 2. What is the primary goal of using {infer} for simulation-based inference? `r mcq(c("To visualize data distributions", "To perform regression analysis", answer = "To create resampling simulations for hypothesis testing and constructing confidence intervals", "To fit predictive models"))`
@@ -343,7 +343,7 @@ In summary, this programming tutorial has provided a comprehensive guide to buil
 
 ## Lab preparation
 
-In preparation for [Lab 10](https://github.com/qtalr/lab-09), ensure that you are comfortable with the following key concepts related to simulation-based inference:
+In preparation for [Lab 10](https://github.com/qtalr/lab-10), ensure that you are comfortable with the following key concepts related to simulation-based inference:
 
 - Understanding the principles of statistical inference and how simulations can be used to approximate traditional inferential statistics.
 

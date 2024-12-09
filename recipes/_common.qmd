@@ -129,10 +129,4 @@ options(digits = 3) # number of digits to print
 
 # Avoid conflict with stats::filter
 filter <- dplyr::filter
-
-# Avoid kableextra from outputting HTML on kable tables
-options(kableExtra.auto_format = FALSE)
-
-# Avoid tinytable from outputting HTML on tinytable tables
-options(tinytable_print_output = "markdown") # for markdown
 ```

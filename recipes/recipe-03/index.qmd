@@ -25,25 +25,25 @@ categories: [foundations]
 
 In this Recipe, we will use the `PassiveBrownFam` dataset from {corpora} [@R-corpora]. This dataset contains information on the passive voice usage in the Brown family of corpora. The dataset contains 11 variables and 2,449 observations.
 
-I have assigned this dataset to the object `brown_fam_df` and have made minor modifications to the variable names to improve the readability of the dataset.
+I have assigned this dataset to the object `brown_fam_df` and have made minor modifications to the variable names in @lst-brown-curate to improve the readability of the dataset.
 
-<!-- [ ] code folding/ hiding? -->
-
+::: {#lst-brown-curate}
 ```{r}
 #| label: read-brown-fam
 #| message: false
+
 # Load packages
 library(dplyr)
 
 # Read the dataset from {corpora}
 brown_fam_df <-
-  corpora::PassiveBrownFam |> # reference the dataset
-  as_tibble() # convert to a tibble
+  corpora::PassiveBrownFam |>
+  as_tibble()
 
 # Rename variables
 brown_fam_df <-
-  brown_fam_df |> # pass the original dataset
-  rename( # rename variables: new_name = old_name
+  brown_fam_df |>
+  rename(
     lang_variety = lang,
     num_words = n.words,
     active_verbs = act,
@@ -56,6 +56,7 @@ brown_fam_df <-
 glimpse(brown_fam_df)
 
 ```
+:::
 
 You can learn more about these variables by reading the dataset documentation with `?corpora::PassiveBrownFam`.
 
@@ -65,10 +66,9 @@ Understanding our data is of utmost importance before, during, and after analysi
 
 A statistical overview of the data is a good place to start as it gives us a sense of all of the variables and variable types in the dataset. We can use {skimr} to create a statistical overview of the data, using the very convienent `skim()` function.
 
-Let's create a statistical overview of the `brown_fam_df` dataset.
+Let's create a statistical overview of the `brown_fam_df` dataset in @lst-skim-brown-fam.
 
-<!-- [ ] skim output in rmd show a Table for part, fix -->
-
+::: {#lst-skim-brown-fam}
 ```r
 # Load packages
 library(skimr)
@@ -88,6 +88,7 @@ library(skimr)
 skim(brown_fam_df) |> capture.output() |> cat(sep = "\n")
 
 ```
+:::
 
 The output of the `skim()` function contains a lot of information but it essentially has two parts: a summary of the dataset and a summary of each variable in the dataset. The summary of each of the variables, however, is grouped by variable type. Remember, each of our variables in a data frame is a vector and each vector has a type.
 
@@ -99,8 +100,9 @@ For all variables, `skim()` will also provide the number of missing values and t
 
 Inspecting the entire dataset is a good place to start but at some point we often want focus in on a set of variables. We can add the `yank()` function to extract the statistical overview of a set of variables by their variable types.
 
-Let's extract the statistical overview of the numeric variables in the `brown_fam_df` dataset.
+Let's extract the statistical overview of the numeric variables in the `brown_fam_df` dataset in @lst-brown-yank-num.
 
+::: {#lst-brown-yank-num}
 ```{r}
 #| label: yank-brown-fam
 #| eval: false
@@ -120,6 +122,7 @@ brown_fam_df |>
 4 total_verbs             0             1  204.  49.1    66      170     196    234    571   ▃▇▂▁▁
 5 percent_passive         0             1   14.0  9.13    0.612    7.39   12.1   18.2   67.7 ▇▅▁▁▁
 ```
+:::
 
 ### Summary statistics of particular variables
 
@@ -127,8 +130,9 @@ These summary statistics are useful but for a preliminary and interactive use, b
 
 We can use {dplyr} to calculate summary statistics for a particular variable or set of variables. We can use the `group_by()` function to group the data by a particular variable or variables. Then we can use the `summarize()` function to calculate summary statistics for the grouped data.
 
-For example, let's calculate the mean and median of the `percent_passive` variable in the `brown_fam_df` dataset grouped by the `lang_variety` variable.
+For example, let's calculate the mean and median of the `percent_passive` variable in the `brown_fam_df` dataset grouped by the `lang_variety` variable, as seen in @lst-brown-summarize-lang-variety.
 
+::: {#lst-brown-summarize-lang-variety}
 ```{r}
 #| label: summarize-brown-fam-lang-variety
 
@@ -140,11 +144,13 @@ brown_fam_df |>
     median_percent_passive = median(percent_passive)
   )
 ```
+:::
 
 The result is a 2x3 data frame which includes both the mean and median of the `percent_passive` variable for each of the two levels of the `lang_variety` variable.
 
-The `group_by()` function can also be used to group by multiple variables. For example, let's calculate the mean and median of the `percent_passive` variable in the `brown_fam_df` dataset grouped by the `lang_variety` and `genre` variables.
+The `group_by()` function can also be used to group by multiple variables. For example, in @lst-brown-summarize-grouped we calculate the mean and median of the `percent_passive` variable in the `brown_fam_df` dataset grouped by the `lang_variety` and `genre` variables.
 
+::: {#lst-brown-summarize-grouped}
 ```{r}
 #| label: summarize-brown-fam-lang-variety-genre
 
@@ -157,11 +163,13 @@ brown_fam_df |>
     median_percent_passive = median(percent_passive)
   )
 ```
+:::
 
 For numeric variables, such as `percent_passive`, there are a number of summary statistics that we can calculate. We've seen the R functions for mean and median but we can also calculate the standard deviation (`sd()`), variance (`var()`), minimum (`min()`), maximum (`max()`), interquartile range (`IQR()`), median absolute deviation (`mad()`), and quantiles (`quantile()`). All these calculations make sense for numeric variables but not for character variables.
 
-For character variables, and factors, the summary statistics are more limited. We can calculate the number of observations (`n()`) and/ or the number of unique values (`n_distinct()`). Let's now summarize the number of observations `n()` grouped by the `genre` variable in the `brown_fam_df` dataset.
+For character variables, and factors, the summary statistics are more limited. We can calculate the number of observations (`n()`) and/ or the number of unique values (`n_distinct()`). Let's now summarize the number of observations `n()` grouped by the `genre` variable in the `brown_fam_df` dataset in @lst-summarize-brown-genre-n-distinct.
 
+::: {#lst-summarize-brown-genre-n-distinct}
 ```{r}
 #| label: summarize-brown-fam-genre-n-distinct
 
@@ -172,9 +180,11 @@ brown_fam_df |>
     n = n(),
   )
 ```
+:::
 
-Just as before, we can add multiple grouping variables to `group_by()`. Let's add `lang_variety` to the grouping and calculate the number of observations `n()` grouped by the `genre` and `lang_variety` variables in the `brown_fam_df` dataset.
+Just as before, we can add multiple grouping variables to `group_by()`. Let's add `lang_variety` to the grouping and calculate the number of observations `n()` grouped by the `genre` and `lang_variety` variables in the `brown_fam_df` dataset as seen in @lst-summarize-brown-genre-lang-variety-n-distinct.
 
+::: {#lst-summarize-brown-genre-lang-variety-n-distinct}
 ```{r}
 #| label: summarize-brown-fam-genre-lang-variety-n-distinct
 
@@ -185,6 +195,7 @@ brown_fam_df |>
     n = n(),
   )
 ```
+:::
 
 ::: {.callout .halfsize}
 **{{< fa regular hand-point-up >}} Tip**
@@ -196,8 +207,9 @@ Now, we can also pipe the results of a `group_by()` and `summarize()` to another
 
 Let's return to calculating the number of observations `n()` grouped by the `genre` and `lang_variety` variables in the `brown_fam_df` dataset. But let's add another summary which uses the `n` variable to calculate the mean and median number of observations.
 
-If we do not use the `ungroup()` function, the mean and median will be calculated for each `genre` collapsed across `lang_variety`.
+If we do not use the `ungroup()` function, the mean and median will be calculated for each `genre` collapsed across `lang_variety`. We can see this in @lst-summarize-brown-genre-n-distinct-mean-median.
 
+::: {#lst-summarize-brown-genre-n-distinct-mean-median}
 ```{r}
 #| label: summarize-brown-fam-genre-n-distinct-mean-median
 
@@ -212,11 +224,13 @@ brown_fam_df |>
     median_n = median(n)
   )
 ```
+:::
 
 Therefore we see that we have a mean and median calculated for the number of documents in the corpus for each of the 15 genres.
 
-If we use the `ungroup()` function, the mean and median will be calculated for all genres. Note we will use the `ungroup()` function between these summaries to clear the grouping before calculating the mean and median.
+If we use the `ungroup()` function, the mean and median will be calculated for all genres. Note we will use the `ungroup()` function between these summaries to clear the grouping before calculating the mean and median, as in @lst-summarize-ungroup-mean-median.
 
+::: {#lst-summarize-ungroup-mean-median}
 ```{r}
 #| label: summarize-brown-fam-genre-n-mean-median
 
@@ -226,12 +240,14 @@ brown_fam_df |>
   summarize(
     n = n(),
   ) |>
-  ungroup() |>
+  ungroup() |>                       # <1>
   summarize(
     mean_n = mean(n),
     median_n = median(n)
   )
 ```
+1. Use the `ungroup()` function to remove the grouping before calculating the mean and median.
+:::
 
 Now we see that we have a mean and median calculated across all genres.
 
@@ -240,6 +256,8 @@ Now we see that we have a mean and median calculated across all genres.
 Before we leave this section, let's look some other ways to create frequency and contingency tables for character and factor variables. A shortcut to calculate a frequency table for a character or factor variable is to use the `count()` function from {dplyr}.
 
 Let's calculate the number of observations grouped by the `genre` variable in the `brown_fam_df` dataset.
+
+<!-- TODO: continue adding snippet blocks ... -->
 
 ```{r}
 #| label: count-brown-fam-genre
@@ -568,9 +586,9 @@ In these examples, we have only looked at the most common variable combinations 
 
 <!-- Provide a checklist of knowledge and skills that learners should be comfortable with before beginning the lab -->
 
-Before beginning [Lab 3](https://github.com/qtalr/lab-03), learners should be comfortable with the skills and knowledge developed in the previous recipes and labs. In this lab, you will have a chance to use these skills and those introduced in this Recipe to provide a descriptive assessment of a dataset that includes statistics, tables, and plots using Quarto and R.
+Before beginning [Lab 03](https://github.com/qtalr/lab-03), learners should be comfortable with the skills and knowledge developed in the previous recipes and labs. In this lab, you will have a chance to use these skills and those introduced in this Recipe to provide a descriptive assessment of a dataset that includes statistics, tables, and plots using Quarto and R.
 
-The additional skills and knowledge you will need to complete Lab 3 include:
+The additional skills and knowledge you will need to complete Lab 03 include:
 
 - Summarizing data with {skimr}
 - Summarizing data with {dplyr}

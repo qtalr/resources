@@ -4,6 +4,7 @@ subtitle: "Communicating research findings"
 description: |
   In this recipe, I cover the tools and strategies for sharing research findings with the public and peers. We will begin assuming we are using Quarto websites as the primary tool for sharing research findings in both forums. From there, we will enter into some of the details of articles, presentations, and publishing research code and data.
 categories: [contribute, research, revealjs, quarto, reproducible-research, github, docker, renv]
+bibliography: ../../bibliography.bib
 ---
 
 ```{r}
@@ -14,14 +15,14 @@ categories: [contribute, research, revealjs, quarto, reproducible-research, gith
 
 ## Concepts and strategies
 
-### Public facing communication
+### Public-facing communication
 
-R (or Python) research projects that take advantage of Quarto websites have access to a wide range of tools for sharing research. First, the entire research tool chain can be published as a website, which is a great way to share the research process. Second, the website can be used to share the research findings in particular formats including articles and presentations. Let's focus in on these later formats and discuss strategies for setting up and formatting research articles and presentations.
+R research projects that take advantage of Quarto websites have access to a wide range of tools for sharing research. First, the entire research tool chain can be published as a website, which is a great way to share the research process in an easily perusable format. Second, the website can be used to share the research findings in particular formats including articles and presentations. Let's focus in on these later formats and discuss strategies for setting up and formatting research articles and presentations.
 
 We will assume the project directory structure in @lst-quarto-website.
 
 ::: {#lst-quarto-website}
-```bash
+```xml
 project/                          # <1>
   ├── data/                       # <2>
   │   ├── analysis/
@@ -69,6 +70,7 @@ I will also assume the following Quarto configuration file *\_quarto.yml* in @ls
 
 ::: {#lst-quarto-config}
 ```yaml
+# _quarto.yml
 project:
   title: "Web project"
   type: website
@@ -122,6 +124,7 @@ In @lst-quarto-article, we see an example of the YAML frontmatter for a Quarto a
 
 ::: {#lst-quarto-article}
 ```yaml
+# reports/article.qmd
 title: "Article"
 date: 2024-02-20
 author:                               # <1>
@@ -154,7 +157,7 @@ format:                               # <7>
 Quarto article YAML frontmatter
 :::
 
-In addition to typical YAML frontmatter, we see a number of new times. Looking at the first three, we see that we can add author information, an abstract, and keywords. These are standard for articles and are used to provide information about the article to readers.
+In addition to typical YAML frontmatter, we see a number of new items. Looking at the first three, we see that we can add author information, an abstract, and keywords. These are standard for articles and are used to provide information about the article to readers.
 
 When rendered, the article header information will now contain this new information, as seen in @fig-header-format.
 
@@ -215,23 +218,9 @@ In @fig-revealjs-example, we see an example of a Quarto presentation rendered in
 ```
 :::
 
-### Peer facing communication
+### Peer-facing communication
 
-<!--
-TODO: Add content for peer facing communication
-
-Demonstration of running a collaborative research project on GitHub following reproducible research principles
-
-We will also discuss some of the strategies for sharing research code and data, including:
-
-- Version control (GitHub)
-- Reproducible research (Quarto, `renv`, Docker)
-
-Walkthrough of a complete reproducible research project setup, including documentation, modular scripts, and containerization with GitHub Actions.
-
--->
-
-For those who are interested in interacting with your work, it is key to prepare materials that can be reliably shared. This includes the research code and data, of course, but also the computational environment in which the research was conducted so that the research can be reproduced.
+For those who are interested in interacting with your work, it is key to prepare materials that can be reliably shared. This includes the research compendium, of course, but also the computational environment in which the research was conducted so that the research can be reproduced.
 
 ::: {#fig-computational-environment}
 
@@ -241,8 +230,7 @@ Computational environment for reproducible research
 
 :::
 
-
-In the next section, we will discuss some of the strategies for sharing a reproducible computational environment, along with code and data. This will include version control with Git, pinned package versions with {renv}, containerization with Docker, and automation with GitHub Actions.
+In the next section, we will discuss some of the strategies for sharing a reproducible computational environment. This will include version control with Git, pinned package versions with {renv}, containerization with Docker, and automation with GitHub Actions.
 
 #### Tools and strategies
 
@@ -250,7 +238,9 @@ As seen in @fig-computational-environment, the computational environment for a r
 
 **Version control**
 
-As has been stressed throughout this text, version control is a key part of reproducible research. It allows you to track changes to your research code and data over time, the research compendium. This is important for ensuring that the research record is transparent. One of the most popular version control systems is Git. If you have interacted with the supplementary materials provided with this text (lessons, recipes, and labs), you are now familiar with working with Git (and GitHub) in day-to-day tasks. These tasks include:
+As has been stressed throughout this text, version control is a key part of reproducible research. It allows you to track changes to your research compendium. This is important for ensuring that the research record is transparent.
+
+One of the most popular version control systems is Git. If you have interacted with the supplementary materials provided with this text (lessons, recipes, and labs), you are now familiar with working with Git (and GitHub) in day-to-day tasks. These tasks include:
 
 - Cloning a repository
 - Making changes to a repository
@@ -280,7 +270,7 @@ To set up an R project with {renv}, you need to initialize the project. In the R
 
 
 ::: {#lst-renv-init}
-```bash
+```xml
 project/
   ├── data/
   ├── process/
@@ -302,9 +292,11 @@ project/
 :::
 
 
-On initalization, {renv} will create a `renv.lock` file that contains a registry of the versions of the R packages that you are using. This file can be shared with others, ensuring that they install the same versions of the R packages that you used in your research project. The `renv/` directory contains a `activate.R` file is a script that activates the {renv} package when you open the project in RStudio, a `library/` directory contains a local library, that is, the R packages that you are using in your research project, and finally a `settings.json` file contains the settings for the {renv} package.
+On initialization, {renv} will create a `renv.lock` file that contains a registry of the versions of the R packages that you are using. This file can be shared with others, ensuring that they install the same versions of the R packages that you used in your research project.
 
-Behind the scenes, {renv} also adds a `.gitignore` file within the `renv/` directory which ensures you do not accidentally commit the R packages to your repository (found in the `renv/library/` directory). This is important because the R packages can be large and take up a lot of space in your repository. The `renv.lock` file alone can be used to restore the R packages with the correct versions by running `renv::restore()` function.
+The `renv/` directory contains a `activate.R` file is a script that activates the {renv} package when you open the project in RStudio, a `library/` directory contains a local library, that is, the R packages that you are using in your research project, and finally a `settings.json` file contains the settings for the {renv} package.
+
+Behind the scenes, {renv} also adds a `.gitignore` file within the `renv/` directory which ensures you do not accidentally commit the R packages to your repository (found in the `renv/library/` directory). This is important because the R packages can be large and take up a lot of space in your repository. Furthermore, the `renv.lock` file alone can be used to restore the R packages with the correct versions by running `renv::restore()` function.
 
 ::: {.callout}
 **{{< fa regular hand-point-up >}} Tip**
@@ -314,11 +306,13 @@ If you start a project with {renv}, you will need to make sure that your local l
 
 **Containerization**
 
-Now, we are nearing the outer layer of the computational environment. But before we get there, we need to discuss containerization, a strategy that will help us share operating system and system software dependencies, straddling two layers of the computational environment illustrated in @fig-computational-environment.
+Now, we are nearing the outer layer of the computational environment. But before we get there, we need to discuss containerization, a strategy that will help us share operating system and system software dependencies that we did not address with {renv}, straddling two layers of the computational environment illustrated in @fig-computational-environment.
 
-Containerization allows you to create a self-contained environment for your research code and data. This effectively means that you and your collaborators can use the same operating system and system dependencies. The container runs an operating system which is isolated from the host operating system. This has two main benefits: one, users do not need to change their host systems to run your project and two, the operating system and system dependencies are the same for everyone, ensuring that the research is reproducible.
+Containerization allows you to create a self-contained environment for your research project that can be shared with others. This effectively means that you and your collaborators can use the same operating system and system dependencies. The container runs an operating system which is isolated from the host operating system. This has two main benefits: one, users do not need to change their host systems to run your project and two, the operating system and system dependencies are the same for everyone, ensuring that the research is reproducible.
 
-One popular containerization tool is Docker. Docker allows you to create a Docker image that contains the operating system and system dependencies for your research project from a blueprint file called a Dockerfile. A Dockerfile is a text file that contains the instructions to create the Docker image. For example, we can create a very simple Dockerfile that will generate an image with R installed, as seen in @lst-base-dockerfile.
+One popular containerization tool is Docker. Docker allows you to create a Docker image that contains the operating system and system dependencies (as well as your research compendium!) for your research project based on a blueprint file called a Dockerfile. A Dockerfile is a text file that contains the instructions to create the Docker image.
+
+For example, we can create a very simple Dockerfile that will generate an image with R installed, as seen in @lst-base-dockerfile.
 
 ::: {#lst-base-dockerfile}
 ```dockerfile
@@ -330,7 +324,7 @@ FROM rocker/r-ver:4.1.1            # <1>
 1. **Base image**: The base image for the Dockerfile
 :::
 
-In this Dockerfile we use the `rocker/r-ver:4.1.1` image as the base image. That is to say that Dockerfiles can import and extend other images that have been built from other Dockerfiles. The [Rocker Project](https://rocker-project.org/) creates and maintains a number of very useful images for R users to use and extend. In this case, we are using the `r-ver` image which contains R version 4.1.1. There are `r-ver` for many other R versions, even one for the latest R version, whatever that may be.
+In this Dockerfile, we use the `rocker/r-ver:4.1.1` image as the base image. That is to say that Dockerfiles can import and extend other images that have been built from other Dockerfiles. The [Rocker Project](https://rocker-project.org/) creates and maintains a number of very useful images for R users to use and extend. In this case, we are using the `r-ver` image which contains R version 4.1.1. There are `r-ver` for many other R versions, even one for the latest R version, whatever that may be.
 
 ::: {.callout}
 **{{< fa medal >}} Dive deeper**
@@ -338,97 +332,226 @@ In this Dockerfile we use the `rocker/r-ver:4.1.1` image as the base image. That
 Visit the Rocker Project's [image list](https://rocker-project.org/images/) to explore the available images.
 :::
 
-Another thing to note about images from the Rocker Project (and many other Docker images) is that the operating system will be based on some version of Linux. Linux is a popular choice for Docker images because it is lightweight and can be easily extended. These are good attributes, but even more importantly, Linux is freely available and open sources, this means that the images can be shared without licensing issues.
+Another thing to note about images from the Rocker Project (and many other Docker images) is that the operating system will a version of Linux. Linux is a popular choice for Docker images because it is lightweight, can be easily extended, and is freely available and open sources. This means that the images can be shared without licensing issues.
 
 An OS is not the only aspect that a Dockerfile can address that will help us to create a publishable reproducible research project. In addition, we can add system dependencies, modify the system in various ways, add files to the image, and set up the environment for running the project.
 
-So if we assume the project structure in @lst-quarto-website, we can add a Dockerfile to the project as seen in @lst-dockerfile.
+Let's look at a more realistic Dockerfile example. If we assume the project structure in @lst-quarto-website, we can add a Dockerfile to the project as seen in @lst-dockerfile.
 
 ::: {#lst-dockerfile}
 ```dockerfile
 # Dockerfile
 
 # Base image with R
-FROM rocker/r-ver:4.1.1                        # <1>
+FROM rocker/r-ver:4.1.1                                    # <1>
 
-ENV DEFAULT_USER="ruser"
+ENV DEFAULT_USER="ruser"                                   # <2>
 
 # User rocker scripts to set up
 # pandoc, quarto, and default user
-RUN /rocker_scripts/install_pandoc.sh
-RUN /rocker_scripts/install_quarto.sh
-RUN /rocker_scripts/default_user.sh $DEFAULT_USER
+RUN /rocker_scripts/install_pandoc.sh                      # <3>
+RUN /rocker_scripts/install_quarto.sh                      # <4>
+RUN /rocker_scripts/default_user.sh $DEFAULT_USER          # <5>
 
 RUN usermod -aG sudo ${DEFAULT_USER} && \
-    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers   # <6>
 
-USER $DEFAULT_USER
+USER $DEFAULT_USER                                        # <7>
 
 # Copy project file
-COPY . /home/ruser/project
+COPY . /home/ruser/project                                # <8>
 
 # Set working directory
-WORKDIR /home/ruser/project
+WORKDIR /home/ruser/project                               # <9>
 
-RUN R -q -e "install.packages(c('pak', 'renv'), repos = c('https://cloud.r-project.org/', 'https://r-lib.r-universe.dev'));"
+RUN R -q -e "install.packages(c('pak', 'renv'), repos = c('https://cloud.r-project.org/', 'https://r-lib.r-universe.dev'));" # <10>
 
 # Set bash entrypoint
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/bash"]                                  # <11>
 ```
+1. **Base image**: The base image for the Dockerfile
+2. **Default user**: The default user for the container
+3. **Install pandoc**: Install pandoc in the container (from rocker_scripts)
+4. **Install quarto**: Install quarto in the container (from rocker_scripts)
+5. **Default user script**: Set the default user in the container (from rocker_scripts)
+6. **Add user to sudo**: Add the default user to the sudo group (for root access)
+7. **User**: Set the default user for the container
+8. **Copy project**: Copy the project files to the container
+9. **Working directory**: Set the working directory for the container
+10. **Install packages**: Install the `pak` and `renv` packages in the container
+11. **Entrypoint**: Set the entrypoint for the container (bash shell)
 :::
 
+Now there is a lot going on here. Let's break down the key parts of this Dockerfile and understand why each part matters:
 
-The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
+1. **Base Image Selection**: We use the Rocker Project `r-ver` image which provides R version 4.1.1. This ensures everyone starts with exactly the same R version.
+
+2. **User Setup**:
+   - We create a default user `ruser` rather than running as root (a security best practice)
+   - The user gets sudo access which helps if we need to install additional system packages later
+
+3. **Essential Tools**:
+   - Pandoc is needed for document conversion in Quarto
+   - Quarto is our publishing system
+   - These are installed via Rocker's convenience scripts which handle dependencies
+
+4. **Project Setup**:
+   - The entire project gets copied into the container at `/home/ruser/project`
+   - We set this as our working directory so commands run in the right place
+   - The `pak` and `renv` packages are installed to handle R package management
+
+5. **Runtime Configuration**:
+   - The bash entrypoint gives us an interactive shell when we run the container
+   - This makes it easier to troubleshoot or run additional commands
+
+This setup creates a complete, isolated environment that contains everything needed to run our project reliably.
+
+**Automation**
+
+The final part of the process is to automate the building and sharing of your research environment. This automation serves several purposes:
+
+1. Ensures consistent builds of your Docker images
+2. Makes your research environment available on different hardware architectures
+3. Automates testing and validation of your environment
+4. Simplifies sharing with the research community
+
+This automation can be accomplished with GitHub Actions, a continuous integration and continuous deployment (CI/CD) tool that allows you to automate tasks in your GitHub repository. Let's walk through setting up automated Docker image builds.
+
+First, you'll need to set up a few prerequisites:
+
+1. A Docker Hub account (https://hub.docker.com)
+2. A Docker Hub access token (https://hub.docker.com/settings/security)
+3. GitHub repository secrets for Docker Hub credentials
+
+To add your Docker Hub credentials to GitHub:
+
+1. Go to your GitHub repository
+2. Click on "Settings" > "Secrets and variables" > "Actions"
+3. Add two new repository secrets:
+   - `DOCKER_HUB_USERNAME`: Your Docker Hub username
+   - `DOCKER_HUB_ACCESS_TOKEN`: Your Docker Hub access token
 
 ::: {.callout}
-**{{< fa medal >}} Dive deeper**
+**{{< fa regular hand-point-up >}} Tip**
 
-When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The `pak` package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).
+Once you add your Docker Hub credentials to your GitHub profile, you will not need to do it again for other repositories under this user's scope.
 
-```r
-pak::pkg_sysreqs(pkg = c("knitr", "systemfonts"), sysreqs = "ubuntu")
-```
-
-```xml
-── Install scripts ──── Ubuntu NA
-apt-get -y update
-apt-get -y install pandoc libfontconfig1-dev libfreetype6-dev
-
-── Packages and their system dependencies
-knitr       – pandoc
-systemfonts – libfontconfig1-dev, libfreetype6-dev
-```
-
-These can be added to the Dockerfile for the project
 :::
 
 
-In GitHub, these include:
+Next, create a GitHub workflow file. You'll need to create a `.github/workflows/` directory in your repository and add a YAML file. For example, create `build-and-push.yml` with the following content:
 
-- Using issues to track and respond to inquiries
-- GitHub Actions for automating tasks
-- GitHub Pages for hosting websites
+::: {#lst-github-actions}
+```yaml
+# .github/workflows/build-and-push.yml
+name: Docker Build and Push to Docker Hub
+on:
+  push:                                                               # <1>
+    branches: [main]
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout                                                # <2>
+        uses: actions/checkout@v4
+      - name: Set up QEMU for multi-architecture builds               # <3>
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx                                    # <4>
+        uses: docker/setup-buildx-action@v3
+      - name: Docker Login                                            # <5>
+        uses: docker/login-action@v3.0.0
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Build and push Docker images                            # <6>
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/my-image:latest
+          platforms: linux/amd64,linux/arm64
+```
+1. **Trigger**: When to run the workflow
+2. **Checkout**: Checks out the repository code
+3. **QEMU**: Sets up QEMU for multi-architecture builds
+4. **Docker Buildx**: Configures Docker Buildx for the build process
+5. **Authentication**: Logs into Docker Hub using the stored credentials
+6. **Build & Push**: Builds the Docker image using the repository's Dockerfile, creates images for both AMD64 and ARM64 architectures, and pushes the images to Docker Hub
+:::
 
-We will have more to say about these tools and strategies later in this recipe.
+Let's break down what this workflow does:
+
+1. **Trigger**: The workflow runs when changes are pushed to the `main` branch
+2. **Setup**:
+   - Checks out the repository code
+   - Sets up QEMU for multi-architecture builds (x86 and ARM, *i.e.* Apple Silicon)
+   - Configures Docker Buildx for the build process
+3. **Authentication**: Logs into Docker Hub using the stored credentials
+4. **Build & Push**:
+   - Builds the Docker image using the repository's Dockerfile
+   - Creates images for both AMD64 and ARM64 architectures
+   - Pushes the images to Docker Hub
+
+Once this workflow is in place, every push to the main branch will:
+
+1. Trigger an automated build
+2. Create Docker images for multiple architectures
+3. Push these images to Docker Hub
+
+You can monitor the progress of your builds in the "Actions" tab of your GitHub repository. Each workflow run will show detailed logs of the build process, making it easy to troubleshoot any issues that arise.
+
+This GitHub workflow requires that we have a GitHub repository with a Dockerfile in the root directory. There are bound to be files or directories inside our project that will will not want to add to the Docker image. For this case, we have the `.dockerignore` file, as seen in @lst-project-docker. This is much like the `.gitignore` file but instead of telling Git not to track certain files and directories, this file pertains to Docker image builds. In many cases, however, both files will contain the same files and directories to ignore.
+
+::: {#lst-project-docker}
+```xml
+project/
+  ├── data/
+  ├── process/
+  ├── reports/
+  ├── renv/
+  ├── _quarto.yml
+  ├── Dockerfile        # <1>
+  ├── .dockerignore     # <2>
+  ├── .gitignore
+  ├── index.qmd
+  ├── README.md
+  └── renv.lock
+```
+1. **Dockerfile**: The Dockerfile for the project
+2. **.dockerignore**: Files to ignore when building the Docker image
+:::
 
 #### Round trip
 
+Here's an overview of the steps involved in preparing and restoring the computational environment for a research project:
+
 **Preparing the computational environment**
 
-- Create/ develop project
-- Use Git/ GitHub for version control
-- Initialize {renv} in the project
-- Create a Dockerfile for the project
-- Create a GitHub workflow which builds the Docker image and pushes it to Docker Hub
-- Create a GitHub Pages site for the project/ README
+- Create/develop project with version control (Git/GitHub)
+  - Organize files in a clear structure (data, process, reports)
+  - Track changes with meaningful commit messages
+  - Push to GitHub repository for sharing
+- Set up reproducible environment
+  - Initialize {renv} to track R package versions
+  - Create Dockerfile to capture system dependencies
+  - Add GitHub Actions workflow for automated builds
+- Document and share
+  - Write clear README with setup instructions
+  - Configure GitHub Pages for web publication
+  - Push Docker image to Docker Hub
 
 **Restoring the computational environment**
 
-- Clone the project from GitHub
-- Build the Docker image from the Dockerfile
-- Run the Docker image
-- Restore the {renv} environment
-- Run the project
+1. Review README for setup requirements
+   - Take note of steps for restoring and running the project
+2. Set up environment:
+   - Pull Docker image from Docker Hub (or build locally)
+   - Start container from image
+   - Restore {renv} environment inside container
+3. Run the project:
+   - Follow documented workflow
+   - Render reports/analysis
+   - Verify results match published findings
 
 
 ## Check your understanding
@@ -438,20 +561,59 @@ We will have more to say about these tools and strategies later in this recipe.
 1. `r torf(FALSE)` Using Quarto websites for sharing research findings is the only way to meet the requirements of a reproducible research project.
 2. Using @lst-quarto-config, what option specifies the order in which files are rendered? `r mcq(c("execute-dir", answer = "render", "sidebar", "contents", "freeze"))`
 3. What is the name of the framework that Quarto uses to create presentations? `r fitb(c(answer = c("reveal.js", "Reveal.js", "revealjs")), ignore_case = TRUE)`
-4. TBD
-5. TBD
-6. TBD
+4. `r torf(TRUE)` Docker containers help ensure reproducibility by providing a consistent operating system and system dependencies across different machines.
+5. `r fitb(c(answer = c(".dockerignore")))` What file should you create to prevent certain files and directories from being included in your Docker image during the build process?
+6. `r torf(FALSE)` When using {renv} in a project, you should commit the entire renv/library/ directory to your Git repository.
 
 ## Lab preparation
 
-TBD
+In lab [Lab 11](https://github.com/qtalr/lab-11), we will practice setting up a reproducible research environment that can be shared with others. In preparation, review the following:
+
+**Concepts and strategies**
+
+- Git/GitHub version control using clone, add, commit, and push.
+- {renv} package for R package version management.
+- The basics of Docker containerization for system dependencies. In particular, the difference between a Dockerfile, a Docker image, and a Docker container.
+- GitHub Actions for automating tasks in a GitHub repository.
+- The use of Docker Hub for sharing Docker images.
+
+**Tools and setup**
+
+- Git/GitHub setup
+- Docker Desktop installed
+- Docker Hub account
+- RStudio/R environment
+- {renv} package installed
+- A research project with some R code/analysis
+
+In this lab, you will set up a research project with version control, {renv} for R package management, a Dockerfile for system dependencies, and a GitHub Actions workflow for automated Docker image builds. You will then test the automated build pipeline and run the analysis in the container.
+
+This is a more advanced lab, so be prepared to troubleshoot and ask questions as needed.
 
 <!--
-Lab: Future-proofing research
 
-- Add `renv` to a research project
-- Create a Dockerfile for a research project
-- Build Docker image for a research project using GitHub Actions
 
+1. Initialize and configure {renv} to track R package versions
+2. Create a Dockerfile to capture system dependencies
+3. Set up GitHub Actions to automate Docker image builds
+
+### Tasks
+
+1. **Configure {renv}**
+   - Initialize {renv} in your project
+   - Install required packages
+   - Create/update the lockfile
+   - Test package restoration in a clean environment
+
+2. **Create Docker Environment**
+   - Write a Dockerfile based on rocker/r-ver
+   - Add system dependencies and R packages
+   - Test building the image locally
+   - Run analysis in the container
+
+3. **Setup Automated Builds**
+   - Create Docker Hub repository
+   - Add GitHub Actions workflow
+   - Configure repository secrets
+   - Test the automated build pipeline
 -->
-
