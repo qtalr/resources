@@ -4,7 +4,6 @@ subtitle: "Communicating research findings"
 description: |
   In this recipe, I cover the tools and strategies for sharing research findings with the public and peers. We will begin assuming we are using Quarto websites as the primary tool for sharing research findings in both forums. From there, we will enter into some of the details of articles, presentations, and publishing research code and data.
 categories: [contribute, research, revealjs, quarto, reproducible-research, github, docker, renv]
-bibliography: ../../bibliography.bib
 ---
 
 ```{r}
