@@ -2,11 +2,14 @@
 title: 07. Web scraping with R
 subtitle: ''
 description: >
-  This guide will provide you with an overview of web scraping and how you can use R to scrape data from the web. Web scraping is a technique used to extract data from websites. It is a powerful tool that can be used to collect data for research, analysis, and visualization. In this guide, you will learn how to use R to scrape data from websites and save it in a format that can be used for further analysis.
+  This guide will provide you with an overview of web scraping and how you can use R to scrape data from the web using packages such as {rvest}. Web scraping is a technique used to extract data from websites. It is a powerful tool that can be used to collect data for research, analysis, and visualization. In this guide, you will learn how to use R to scrape data from websites and save it in a format that can be used for further analysis.
 categories:
   - guides
 ---
 
+<!--
+Goal: The goal of the guide is to provide readers of the textbook "An Introduction to Quantitative Text Analysis for Linguistics: Reproducible Research Using R" an overview of web scraping as an approach to gathering (language) data from the web for use in linguistic research. The guide needs to be accessible to readers who are new to web scraping and R. The guide should provide a basic introduction to web scraping, explain HTML (the language of the web) enough to understand how packages like {rvest} can use the Document Object Structure to target and extract information. Finally, the guide should provide a simple example of how to scrape data from a website using R that is relevant to the field of linguistics.
+-->
 
 ::: {.callout}
 **{{< fa regular list-alt >}} Outcomes**
@@ -18,6 +21,74 @@ categories:
 
 ## Introduction
 
-Web scraping is a technique used to extract data from websites. It is a powerful tool that can be used to collect data for research, analysis, and visualization. Web scraping can be used to extract data from a wide range of websites, including news sites, social media platforms, and online databases.
+Web scraping is a technique used to extract data from websites. It is a powerful tool that can be used to collect data from documents such as PDF or DOCX files, but is most often used to acquire the contents of the public-facing web.
 
-...
+The language of the web is HTML. A markup language, raw HTML contains a semi-structured document which is formed around the concept of tags. Tags are opened `<tag>` and closed `</tag>` in a hierarchical fashion. The tags come pre-defined in terms of how they are used and displayed when a browser parses the document. For example, `<ul></ul>` delimits an unordered list. Embedded inside will be a series of `<li></li>` tags for items in the unordered list. So for example, the HTML fragment in @lst-html-ul is displayed by a browser as in @lst-html-ul-browser.
+
+:::{#lst-html-ul}
+```{.html}
+<ul>
+  <li>First item</li>
+  <li>Second item</li>
+  <li>Third item</li>
+</ul>
+```
+:::
+
+
+:::{#lst-html-ul-browser}
+```{=html}
+<ul>
+  <li>First item</li>
+  <li>Second item</li>
+  <li>Third item</li>
+</ul>
+```
+:::
+
+This structure is what makes it possible to target and extract content from websites, as we will soon see. However, in addition to tags we need to be aware of and understand `ids` and `classes`. Ids and classes are used in HTML to specify that particular tags should behave in a certain way.
+
+OK, that isn't very insightful. Let me give you an example. So imagine that we have two lists much like in @lst-html-ul but one corresponds to the table of contents of our page and the other is used in the content area as a basic list. Say we want to make our table of contents appear in bold font and the other list to appear as normal text. One way to do this is to distinguish between these two lists using a class attribute, as in @lst-html-ul-class.
+
+:::{#lst-html-ul-class}
+```{.html}
+<ul class="toc">             <# 1>
+  <li>First item</li>
+  <li>Second item</li>
+  <li>Third item</li>
+</ul>
+```
+:::
+
+After doing this a web designer would then create a CSS expression to target tags with the `toc` class and make them bold. In our toy case, this only targets our unordered list with the `class="toc"`.
+
+:::{#lst-css-class-toc}
+```{.css}
+.toc {
+  font-weight: bold
+}
+```
+:::
+
+Now, our list from @lst-html-ul-class will appear as in @lst-html-ul-class-browser.
+
+:::{#lst-html-ul-class-browser}
+```{=html}
+<style>
+  .toc {
+    font-weight: bold
+  }
+</style>
+
+<ul class="toc">
+  <li>First item</li>
+  <li>Second item</li>
+  <li>Third item</li>
+</ul>
+```
+:::
+
+Ids work in a similar way, but instead have the apt `id="..."` attribute.
+
+All this is to say that the combination of the HTML tag structure and the use of id and class attributes tends to give the would-be web scraper various ways to target certain elements on a webpage and not others.
+
