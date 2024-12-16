@@ -92,3 +92,75 @@ Ids work in a similar way, but instead have the apt `id="..."` attribute.
 
 All this is to say that the combination of the HTML tag structure and the use of id and class attributes tends to give the would-be web scraper various ways to target certain elements on a webpage and not others.
 
+## Web Scraping for Text Analysis
+
+While web scraping can be used to collect structured data, it's particularly valuable for collecting text for corpus linguistics and text analysis. In R, the {rvest} package makes it straightforward to:
+1. Download webpage content
+2. Parse the HTML structure
+3. Extract text content
+
+Before scraping any website, remember to:
+- Check the website's robots.txt file and terms of service
+- Be respectful with request frequency
+- Consider using an API if one is available
+
+## A Text Analysis Example
+
+Let's look at a practical example relevant to text analysis. We'll scrape the text of a public domain literary work from Project Gutenberg's HTML version:
+
+```r
+library(rvest)
+library(stringr)
+
+# Read the webpage (using Pride and Prejudice as an example)
+url <- "https://www.gutenberg.org/files/1342/1342-h/1342-h.htm"
+page <- read_html(url)
+
+# Extract the main text content
+# Project Gutenberg typically contains the main text within specific div tags
+text <- page %>%
+  html_elements("body") %>%  # Target the body of the document
+  html_text2() %>%          # Extract text with preserved whitespace
+  str_remove_all("\\r")     # Clean up any carriage returns
+
+# Basic text cleaning
+# Remove Project Gutenberg header and footer
+text <- text %>%
+  str_replace_all("^.*?\\*\\*\\* START OF.*?\\*\\*\\*", "") %>%  # Remove header
+  str_replace_all("\\*\\*\\* END OF.*$", "") %>%                 # Remove footer
+  str_trim()                                                      # Trim whitespace
+
+# Save the raw text
+writeLines(text, "pride_and_prejudice.txt")
+```
+
+This example shows how to:
+1. Extract raw text from a webpage
+2. Perform basic cleaning
+3. Save the text for further analysis
+
+## Best Practices for Text Collection
+
+When scraping web text for linguistic research:
+
+1. Document your source URL and date of collection
+2. Save the raw scraped text before any processing
+3. Include error handling in your code
+4. Consider text encoding issues
+5. Verify the quality of extracted text
+6. Document any cleaning steps performed
+
+These practices ensure your text collection is reproducible and suitable for linguistic analysis.
+
+## Next Steps
+
+To build on these basics:
+
+- Explore different text sources and their HTML structures
+- Learn to handle different text encodings
+- Practice extracting text from more complex webpage layouts
+- Consider using the {polite} package for ethical scraping
+- Explore ways to collect metadata along with your text
+
+The textbook provides more detailed examples of text collection and processing in Chapter X, where we explore building and analyzing corpora from web sources.
+
