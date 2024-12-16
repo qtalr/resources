@@ -92,17 +92,24 @@ Ids work in a similar way, but instead have the apt `id="..."` attribute.
 
 All this is to say that the combination of the HTML tag structure and the use of id and class attributes tends to give the would-be web scraper various ways to target certain elements on a webpage and not others.
 
-## Web Scraping for Text Analysis
+## Web Scraping
 
-While web scraping can be used to collect structured data, it's particularly valuable for collecting text for corpus linguistics and text analysis. In R, the {rvest} package makes it straightforward to:
+Where it has always been possible to navigate to a webpage, select/copy, and paste content into a document, web scraping makes this workflow automatic. This is particularly useful when you need to collect data from multiple pages or websites.
+
+In R, {rvest} makes it straightforward to:
+
 1. Download webpage content
-2. Parse the HTML structure
+2. Parse the HTML structure (using tags, attributes, etc.)
 3. Extract text content
+4. Save the extracted content
 
-Before scraping any website, remember to:
+::: {.callout}
+**{{< fa regular info-circle >}} Note**
+
 - Check the website's robots.txt file and terms of service
 - Be respectful with request frequency
 - Consider using an API if one is available
+:::
 
 ## A Text Analysis Example
 
@@ -135,6 +142,7 @@ writeLines(text, "pride_and_prejudice.txt")
 ```
 
 This example shows how to:
+
 1. Extract raw text from a webpage
 2. Perform basic cleaning
 3. Save the text for further analysis
