@@ -113,39 +113,74 @@ In R, {rvest} makes it straightforward to:
 
 ## A Text Analysis Example
 
-Let's look at a practical example relevant to text analysis. We'll scrape the text of a public domain literary work from Project Gutenberg's HTML version:
+Let's look at a simple example using a toy HTML document that contains some text excerpts we want to extract. Here's our sample HTML:
 
 ```r
+# Create a sample HTML string
+html_string <- '
+<html>
+  <body>
+    <div class="article">
+      <h1>Language Varieties</h1>
+      
+      <div class="excerpt" id="excerpt1">
+        <h2>American English</h2>
+        <p>American English is the variety of English spoken in the United States. 
+        It has several distinctive features in pronunciation, vocabulary, and grammar.</p>
+      </div>
+      
+      <div class="excerpt" id="excerpt2">
+        <h2>British English</h2>
+        <p>British English refers to the English language as spoken and written in 
+        Great Britain. It differs from American English in spelling, vocabulary, 
+        and some grammatical constructions.</p>
+      </div>
+    </div>
+  </body>
+</html>'
+
+# Now let's use rvest to parse and extract content
 library(rvest)
 library(stringr)
 
-# Read the webpage (using Pride and Prejudice as an example)
-url <- "https://www.gutenberg.org/files/1342/1342-h/1342-h.htm"
-page <- read_html(url)
+# Read the HTML string
+page <- read_html(html_string)
 
-# Extract the main text content
-# Project Gutenberg typically contains the main text within specific div tags
-text <- page %>%
-  html_elements("body") %>%  # Target the body of the document
-  html_text2() %>%          # Extract text with preserved whitespace
-  str_remove_all("\\r")     # Clean up any carriage returns
+# Extract all excerpts
+excerpts <- page %>%
+  html_elements(".excerpt") %>%  # Target elements with class "excerpt"
+  html_text2()                   # Extract text with preserved whitespace
 
-# Basic text cleaning
-# Remove Project Gutenberg header and footer
-text <- text %>%
-  str_replace_all("^.*?\\*\\*\\* START OF.*?\\*\\*\\*", "") %>%  # Remove header
-  str_replace_all("\\*\\*\\* END OF.*$", "") %>%                 # Remove footer
-  str_trim()                                                      # Trim whitespace
+# Extract just the titles (h2 elements)
+titles <- page %>%
+  html_elements(".excerpt h2") %>%
+  html_text2()
 
-# Save the raw text
-writeLines(text, "pride_and_prejudice.txt")
+# Extract just the paragraphs
+paragraphs <- page %>%
+  html_elements(".excerpt p") %>%
+  html_text2()
+
+# Create a simple data frame of our extracted content
+text_data <- data.frame(
+  title = titles,
+  content = paragraphs
+)
+
+# View the results
+print(text_data)
 ```
 
 This example shows how to:
+1. Create a simple HTML document as a string
+2. Parse it using {rvest}
+3. Extract specific elements using CSS selectors:
+   - `.excerpt` targets elements with class "excerpt"
+   - `.excerpt h2` targets h2 elements within excerpt class elements
+   - `.excerpt p` targets paragraph elements within excerpt class elements
+4. Organize the extracted text into a structured format
 
-1. Extract raw text from a webpage
-2. Perform basic cleaning
-3. Save the text for further analysis
+The CSS selectors we used (`.excerpt`, `h2`, `p`) demonstrate how we can target specific parts of an HTML document based on both tags and classes. This is the same principle we would use when scraping actual websites, just with more complex HTML structures.
 
 ## Best Practices for Text Collection
 
