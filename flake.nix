@@ -56,6 +56,7 @@
           quarto
           readr
           reprex
+          rvest
           scales
           skimr
           stringr
