@@ -178,16 +178,6 @@ In this learning scenario, some of the content early on may be condensed or skip
 
 ## Teaching resources
 
-### Templates
-
-<!-- TODO: add these templates to the qtalr repository -->
-
-- [ ] Course site
-- [ ] Slides
-- [ ] Lab exercises
-- [ ] Prospectus
-- [ ] Research project
-
 ### Computing
 
 **Environments**
