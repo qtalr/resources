@@ -198,7 +198,6 @@ Let's inspect the `works_sample` data frame. First, from the output we can see t
 #| label: count-works-sample
 works_sample |>
   count(gutenberg_id)
-
 ```
 
 Yes, we have 5 works and we can see how many lines are in each of these works.
