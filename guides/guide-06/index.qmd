@@ -1,10 +1,11 @@
 ---
 title: 06. Identifying data and data sources
 subtitle: ''
-description: >
+description: |
   This guide will outline some key data and dataset resources that will be usefull for your own text analysis projects. This guide is not exhaustive, but it will provide you with a good starting point for you to start to explore different types of data and data sources.
 categories:
   - guides
+image: images/download.png
 ---
 
 ::: {.callout}
