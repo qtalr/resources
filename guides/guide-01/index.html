@@ -40,6 +40,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -247,10 +249,10 @@ Figure&nbsp;1: Posit Cloud interface
 <div id="fig-docker-pull-rocker" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-docker-pull-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/docker-pull-rocker.gif" class="img-fluid figure-img">
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="./images/docker-pull-rocker.webm"></video></div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-docker-pull-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Pull <code>rocker/rstudio</code> image from Docker Hub
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-docker-pull-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2
 </figcaption>
 </figure>
 </div>
@@ -266,7 +268,7 @@ Note: you will need to specify the following options <em>before</em> running the
 <div id="fig-docker-run-rocker" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-docker-run-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/docker-run-rstudio.gif" class="img-fluid figure-img">
+<div class="quarto-video"><video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="./images/docker-run-rstudio.webm"></video></div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-docker-run-rocker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Run a container using the <code>rocker/rstudio</code> image
@@ -297,30 +299,30 @@ Table&nbsp;1: Comparison of different environments for working with R and RStudi
 </colgroup>
 <thead>
 <tr class="header">
-<th>Environment</th>
-<th>Characteristics</th>
-<th>Benefits</th>
-<th>Drawbacks</th>
+<th style="text-align: left;">Environment</th>
+<th style="text-align: left;">Characteristics</th>
+<th style="text-align: left;">Benefits</th>
+<th style="text-align: left;">Drawbacks</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Local (Computer)</td>
-<td>- R/RStudio installed locally<br>- Project files stored on local machine<br>- Accessible without internet connection<br>- Full control over software version and environment</td>
-<td>- Fast and responsive performance<br>- No reliance on internet connectivity<br>- Ability to work offline<br>- Complete control over software version and environment</td>
-<td>- Limited collaboration options<br>- Difficulty in sharing projects with others<br>- Potential compatibility issues with different operating systems</td>
+<td style="text-align: left;">Local (Computer)</td>
+<td style="text-align: left;">- R/RStudio installed locally<br>- Project files stored on local machine<br>- Accessible without internet connection<br>- Full control over software version and environment</td>
+<td style="text-align: left;">- Fast and responsive performance<br>- No reliance on internet connectivity<br>- Ability to work offline<br>- Complete control over software version and environment</td>
+<td style="text-align: left;">- Limited collaboration options<br>- Difficulty in sharing projects with others<br>- Potential compatibility issues with different operating systems</td>
 </tr>
 <tr class="even">
-<td>Remote (Cloud)</td>
-<td>- R/RStudio accessed via web browser<br>- Project files stored on cloud server<br>- Accessible from any device with internet connection<br>- Easy collaboration with others<br>- Automatic backups and version control</td>
-<td>- No need for local installation or setup<br>- Easy access from anywhere<br>- Seamless collaboration with teammates<br>- Backup and version control provided by the cloud service</td>
-<td>- Reliance on stable internet connection<br>- Potential latency and performance issues<br>- Limited customization options compared to a local setup</td>
+<td style="text-align: left;">Remote (Cloud)</td>
+<td style="text-align: left;">- R/RStudio accessed via web browser<br>- Project files stored on cloud server<br>- Accessible from any device with internet connection<br>- Easy collaboration with others<br>- Automatic backups and version control</td>
+<td style="text-align: left;">- No need for local installation or setup<br>- Easy access from anywhere<br>- Seamless collaboration with teammates<br>- Backup and version control provided by the cloud service</td>
+<td style="text-align: left;">- Reliance on stable internet connection<br>- Potential latency and performance issues<br>- Limited customization options compared to a local setup</td>
 </tr>
 <tr class="odd">
-<td>Virtual (Docker)</td>
-<td>- R/RStudio environment encapsulated in a Docker container<br>- Project files stored locally or on the cloud<br>- Consistent environment across different machines</td>
-<td>- Reproducible and portable environment<br>- Easy setup and sharing of the container<br>- Flexibility to run on different operating systems<br>- Isolation from host system dependencies</td>
-<td>- Learning curve for setting up and managing Docker containers<br>- Increased memory and resource requirements<br>- Potential compatibility issues with certain packages or libraries</td>
+<td style="text-align: left;">Virtual (Docker)</td>
+<td style="text-align: left;">- R/RStudio environment encapsulated in a Docker container<br>- Project files stored locally or on the cloud<br>- Consistent environment across different machines</td>
+<td style="text-align: left;">- Reproducible and portable environment<br>- Easy setup and sharing of the container<br>- Flexibility to run on different operating systems<br>- Isolation from host system dependencies</td>
+<td style="text-align: left;">- Learning curve for setting up and managing Docker containers<br>- Increased memory and resource requirements<br>- Potential compatibility issues with certain packages or libraries</td>
 </tr>
 </tbody>
 </table>
@@ -1017,6 +1019,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+<script>videojs(video_shortcode_videojs_video1);</script>
+<script>videojs(video_shortcode_videojs_video2);</script>
 
 
 

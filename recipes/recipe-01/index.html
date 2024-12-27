@@ -252,6 +252,12 @@ div.csl-indent {
 <h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
 <p>For many of the style components that we use in Quarto, there is a part that is addressed in the front-matter section and a part that is addressed in the prose section and/ or code block sections.</p>
 <p>To refresh our memory, the front-matter is fenced by three dashes (<code>---</code>) and is where we set the document attributes. The prose section is where we write the text of the document. The code block section is where we write the code that will be executed and is fenced by three backticks (<code>```</code>) and the name of the code interpreter <code>{r}</code> (R for us).</p>
+<div id="lst-quarto-structure" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-quarto-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;1
+</figcaption>
+<div aria-describedby="lst-quarto-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document title"</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-3" class="code-annotation-target"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> pdf</span></span>
@@ -274,17 +280,26 @@ div.csl-indent {
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="3">The prose section</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="3">The Markdown prose section</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
 <dd>
 <span data-code-cell="annotated-cell-1" data-code-lines="8,9,10" data-code-annotation="4">The code block section</span>
 </dd>
 </dl>
-<p>With this in mind let’s look at each of these elements in turn.</p>
+</div>
+</figure>
+</div>
+<p>With the basic structure in <a href="#lst-quarto-structure" class="quarto-xref">Snippet&nbsp;1</a> in mind let’s look at each of these elements in turn.</p>
 <section id="numbered-sections" class="level3">
 <h3 class="anchored" data-anchor-id="numbered-sections">Numbered sections</h3>
-<p>To number sections in Quarto, we use the <code>number_sections</code> key with the value <code>yes</code>. This is set in the front-matter section, nested under the value for the document type to be rendered. For example, to number sections in a PDF document, we would set the <code>number-sections</code> key to <code>true</code> in the front-matter section as follows:</p>
+<p>To number sections in Quarto, we use the <code>number_sections</code> key with the value <code>yes</code>. This is set in the front-matter section, nested under the value for the document type to be rendered. For example, to number sections in a PDF document, we would set the <code>number-sections</code> key to <code>true</code> in the front-matter section as in <a href="#lst-quarto-num-sections" class="quarto-xref">Snippet&nbsp;2</a>.</p>
+<div id="lst-quarto-num-sections" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-quarto-num-sections-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;2
+</figcaption>
+<div aria-describedby="lst-quarto-num-sections-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-2" class="code-annotation-target"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document title"</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-3" class="code-annotation-target"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
@@ -309,27 +324,45 @@ div.csl-indent {
 <span data-code-cell="annotated-cell-2" data-code-lines="5" data-code-annotation="4">The key-value pair to number sections in the PDF document, again note the identation</span>
 </dd>
 </dl>
-<p>Headers in the prose section are then numbered automatically. For example, the following markdown:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Section</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Subsection</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Subsubsection</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Subsubsubsection</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">##### Subsubsubsubsection</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>Headers in the prose section are then numbered automatically. For example, the markdown in <a href="#lst-num-sections" class="quarto-xref">Snippet&nbsp;3</a>.</p>
+<div id="lst-num-sections" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-num-sections-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;3
+</figcaption>
+<div aria-describedby="lst-num-sections-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="lst-num-sections"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="lst-num-sections-1"><a href="#lst-num-sections-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Section</span></span>
+<span id="lst-num-sections-2"><a href="#lst-num-sections-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="lst-num-sections-3"><a href="#lst-num-sections-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Subsection</span></span>
+<span id="lst-num-sections-4"><a href="#lst-num-sections-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="lst-num-sections-5"><a href="#lst-num-sections-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Subsubsection</span></span>
+<span id="lst-num-sections-6"><a href="#lst-num-sections-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="lst-num-sections-7"><a href="#lst-num-sections-7" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Subsubsubsection</span></span>
+<span id="lst-num-sections-8"><a href="#lst-num-sections-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="lst-num-sections-9"><a href="#lst-num-sections-9" aria-hidden="true" tabindex="-1"></a><span class="fu">##### Subsubsubsubsection</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
 <p>would render as:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="images/quarto-num-sections.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<p><img src="images/quarto-num-sections.png" class="img-fluid figure-img" style="width:40.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>We can also control the depth of the numbering by setting the <code>number-depth</code> key in the front-matter section. For example, to number sections and subsections, but not subsubsections, we would set the <code>number-depth</code> key to <code>2</code> as follows:</p>
+<p>We can also control the depth of the numbering by setting the <code>number-depth</code> key in the front-matter section. For example, to number sections and subsections, but not subsubsections, we would set the <code>number-depth</code> key to <code>2</code> as in <a href="#lst-quarto-num-depth" class="quarto-xref">Snippet&nbsp;4</a>.</p>
+<div id="lst-quarto-num-depth" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-quarto-num-depth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;4
+</figcaption>
+<div aria-describedby="lst-quarto-num-depth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="annotated-cell-4-2"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document title"</span></span>
 <span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
@@ -343,9 +376,21 @@ div.csl-indent {
 <span data-code-cell="annotated-cell-4" data-code-lines="6" data-code-annotation="1">The key-value pair to control the depth of the numbering</span>
 </dd>
 </dl>
+</div>
+</figure>
+</div>
 <p>Now the first and second headers are numbered and formated but third and subsequent headers are only formatted.</p>
-<p>If for some reason you want to turn off numbering for a specific header, you can add <code>{.unnumbered}</code> to the end of the header. For example, the following markdown:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Section {.unnumbered}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If for some reason you want to turn off numbering for a specific header, you can add <code>{.unnumbered}</code> to the end of the header. For example, the markdown in <a href="#lst-unnumbered" class="quarto-xref">Snippet&nbsp;5</a>.</p>
+<div id="lst-unnumbered" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-unnumbered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;5
+</figcaption>
+<div aria-describedby="lst-unnumbered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="lst-unnumbered"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="lst-unnumbered-1"><a href="#lst-unnumbered-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Section {.unnumbered}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
 <p>This is particularly useful in academic writing when we want to add a reference, materials, or other section that is not numbered at the end of the document.</p>
 <div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
@@ -361,7 +406,13 @@ div.csl-indent {
 </section>
 <section id="table-of-contents" class="level3">
 <h3 class="anchored" data-anchor-id="table-of-contents">Table of contents</h3>
-<p>For longer documents including a table of contents can be a useful way to help readers navigate the document. To include a table of contents in Quarto, we use the <code>toc</code> key with the value <code>true</code>. Again, in the front-matter section, nested under the format value, as seen below:</p>
+<p>For longer documents including a table of contents can be a useful way to help readers navigate the document. To include a table of contents in Quarto, we use the <code>toc</code> key with the value <code>true</code>. Again, in the front-matter section, nested under the format value, as seen in <a href="#lst-toc" class="quarto-xref">Snippet&nbsp;6</a>.</p>
+<div id="lst-toc" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-toc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;6
+</figcaption>
+<div aria-describedby="lst-toc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document title"</span></span>
 <span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
@@ -374,6 +425,9 @@ div.csl-indent {
 <span data-code-cell="annotated-cell-6" data-code-lines="5" data-code-annotation="1">The key-value pair to include a table of contents in the PDF document</span>
 </dd>
 </dl>
+</div>
+</figure>
+</div>
 <div class="halfsize callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -385,7 +439,13 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>If if our headers are numbered, they will appeared numbered in the table of contents. If we unnnumbered a header, it will not appear with a section number. As with section numbering, we can also control the depth of the table of contents by setting the <code>toc-depth</code> key in the front-matter section. For example, to include sections and subsections, but not subsubsections, we would set the <code>toc-depth</code> key to <code>2</code> as follows:</p>
+<p>If if our headers are numbered, they will appeared numbered in the table of contents. If we unnnumbered a header, it will not appear with a section number. As with section numbering, we can also control the depth of the table of contents by setting the <code>toc-depth</code> key in the front-matter section. For example, to include sections and subsections, but not subsubsections, we would set the <code>toc-depth</code> key to <code>2</code> as in <a href="#lst-toc-depth" class="quarto-xref">Snippet&nbsp;7</a>.</p>
+<div id="lst-toc-depth" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-toc-depth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;7
+</figcaption>
+<div aria-describedby="lst-toc-depth-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document title"</span></span>
 <span id="annotated-cell-7-3"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
@@ -399,6 +459,9 @@ div.csl-indent {
 <span data-code-cell="annotated-cell-7" data-code-lines="6" data-code-annotation="1">The key-value pair to control the depth of the table of contents</span>
 </dd>
 </dl>
+</div>
+</figure>
+</div>
 <p>And as with section numbering we can avoid listing a header in the table of contents by adding <code>{.unlisted}</code> to the end of the header.</p>
 </section>
 <section id="cross-referencing-tables-and-figures" class="level3">
@@ -407,6 +470,18 @@ div.csl-indent {
 <p>In this case, we will not need to add anything to the front-matter section. Instead, we will modify keys in the code block section of a code-generated table or figure.</p>
 <p>To cross-reference a table or figure, we need to add a prefix to the <code>label</code> key’s value. The prefix, either <code>tbl-</code> or <code>fig-</code>, indicates whether the label is for a table or figure. Additionally, table or figure captions can be added with the <code>tbl-cap</code> or <code>fig-cap</code> keys, respectively.</p>
 <p>Let’s look at a basic figure that we can cross-reference. The following code block will generate a very simple scatterplot.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="lst-scatterplot-code" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-scatterplot-code-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;8
+</figcaption>
+<div aria-describedby="lst-scatterplot-code-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="at">```{r}</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-2" class="code-annotation-target"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-scatterplot</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2">2</button><span id="annotated-cell-8-3" class="code-annotation-target"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A scatterplot"</span></span>
@@ -429,14 +504,19 @@ div.csl-indent {
 <span data-code-cell="annotated-cell-8" data-code-lines="8" data-code-annotation="3">The in-line reference to the figure. Uses the <code>@</code> symbol followed by the label value.</span>
 </dd>
 </dl>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
+</div>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-body-container">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-scatterplot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -454,15 +534,26 @@ Figure&nbsp;1: A scatterplot
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <p>For tables generated by R, the process is very similar to that of figures. The only difference is that we use the <code>tbl-</code> prefix on the label value and the <code>tbl-cap</code> key instead of the <code>fig-cap</code> key for the caption.</p>
-<p>We can also create tables using markdown syntax. In this case, the format is a little different. Consider Table <a href="#tbl-table-1" class="quarto-xref">Table&nbsp;1</a>, for example.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>| Column 1 | Column 2 | Column 3 |</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>|:---------|:---------|:---------|</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>| A        | B        | C        |</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>| D        | E        | F        |</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>: A simple table {#tbl-table-1}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
+<p>We can also create tables using markdown syntax. In this case, the format is a little different. Consider <a href="#tbl-table-1" class="quarto-xref">Table&nbsp;1</a>, for example.</p>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>| Column 1 | Column 2 | Column 3 |</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>|:---------|:---------|:---------|</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>| A        | B        | C        |</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>| D        | E        | F        |</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>: A simple table {#tbl-table-1}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -501,6 +592,9 @@ Table&nbsp;1: A simple table
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 </section>
 <section id="in-line-citations-and-references-list" class="level3">
 <h3 class="anchored" data-anchor-id="in-line-citations-and-references-list">In-line citations and references list</h3>
@@ -511,17 +605,32 @@ Table&nbsp;1: A simple table
 <li>A citation in the prose section which is contained in the bibliography file</li>
 </ul>
 <p>The bibliography file is a plain text file that contains the citations that we want to use in our document. The file requires the extension <code>.bib</code> and is formatted using the BibTeX format. BibTeX is a reference syntax that is commonly used in academia.</p>
-<p>Let’s take a look at a sample file, <code>bibliography.bib</code>, that contains a single reference.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bib code-with-copy"><code class="sourceCode bibtex"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">@Manual</span>{<span class="ot">R</span>-<span class="ot">dplyr</span>,</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {dplyr: A Grammar of Data Manipulation},</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller and Davis Vaughan},</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span> = {2023},</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">note</span> = {R package version 1.1.4},</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span> = {https://dplyr.tidyverse.org},</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In this file, we can see that the reference is for a manual entry with <code>@Manual</code>. The type of entry will change what fields are relevant and/ or required. In this entry, we have the cite key <code>R-dplyr</code>, the title, the authors, the year, a note, and a URL. Other entries, and entry types will have different fields.</p>
+<p>Let’s take a look at a snippet of a sample file, <code>bibliography.bib</code>, that contains a single reference in <a href="#lst-bib" class="quarto-xref">Snippet&nbsp;9</a>.</p>
+<div id="lst-bib" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-bib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;9
+</figcaption>
+<div aria-describedby="lst-bib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="annotated-cell-11"><pre class="sourceCode bib code-annotation-code code-with-copy code-annotated"><code class="sourceCode bibtex"><button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-1" class="code-annotation-target"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a><span class="va">@Manual</span>{<span class="ot">R</span>-<span class="ot">dplyr</span>,</span>
+<span id="annotated-cell-11-2"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {dplyr: A Grammar of Data Manipulation},</span>
+<span id="annotated-cell-11-3"><a href="#annotated-cell-11-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller and Davis Vaughan},</span>
+<span id="annotated-cell-11-4"><a href="#annotated-cell-11-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span> = {2023},</span>
+<span id="annotated-cell-11-5"><a href="#annotated-cell-11-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">note</span> = {R package version 1.1.4},</span>
+<span id="annotated-cell-11-6"><a href="#annotated-cell-11-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">url</span> = {https://dplyr.tidyverse.org},</span>
+<span id="annotated-cell-11-7"><a href="#annotated-cell-11-7" aria-hidden="true" tabindex="-1"></a>}</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-11" data-code-lines="1" data-code-annotation="1">Reference type and the cite key.</span>
+</dd>
+</dl>
+</div>
+</figure>
+</div>
+<p>In this file, we can see that the reference is for an entry with the type <code>@Manual</code>. The type of entry will change what fields are relevant and/ or required. In this entry, we have the cite key <code>R-dplyr</code>, the title, the authors, the year, a note, and a URL. Other entries, and entry types will have different fields.</p>
 <p>You can find BibTeX formatted references almost everywhere you can find scholarly work. For example, Google Scholar, Web of Science, and Scopus all provide BibTeX formatted references. Additionally, many journals provide BibTeX formatted references for the articles they publish.</p>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
+<div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -529,27 +638,44 @@ Table&nbsp;1: A simple table
 <div class="callout-body-container">
 <p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
 <p>Managing your references can be a challenge if you begin to amass a large number of them. There are a number of tools that can help you manage your references. For example, <a href="https://www.zotero.org/">Zotero</a> is a free, open-source reference manager that can help you organize your references and generate BibTeX formatted references.</p>
-<p>Zotero also has a <a href="https://www.zotero.org/download/">browser extension</a> that allows you to easily add references to your Zotero library from your browser.</p>
-<p>Furthermore, Zotero can be connected to RStudio to facilitate the incorporation of BibTeX formatted references in a Quarto document. See the <a href="https://rstudio.github.io/visual-markdown-editing/citations.html">RStudio documentation</a> for more information.</p>
+<p>Zotero also has a <a href="https://www.zotero.org/download/">browser extension</a> that allows you to easily add references to your Zotero library from your browser. Furthermore, Zotero can be connected to RStudio to facilitate the incorporation of BibTeX formatted references in a Quarto document. See the <a href="https://rstudio.github.io/visual-markdown-editing/citations.html">RStudio documentation</a> for more information.</p>
 </div>
 </div>
 </div>
-<p>In the front-matter of our Quarto document, we need to add a reference to the bibliography file. This is done using the <code>bibliography</code> key. For example, if our bibliography file is called <code>bibliography.bib</code> and is located in the same directory as our Quarto document, we would add the following to the front-matter section:</p>
-<div class="sourceCode" id="annotated-cell-11"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-11-1"><a href="#annotated-cell-11-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="annotated-cell-11-2"><a href="#annotated-cell-11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document title"</span></span>
-<span id="annotated-cell-11-3"><a href="#annotated-cell-11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> pdf</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-11" data-target-annotation="1">1</button><span id="annotated-cell-11-4" class="code-annotation-target"><a href="#annotated-cell-11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> bibliography.bib</span></span>
-<span id="annotated-cell-11-5"><a href="#annotated-cell-11-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In the front-matter of our Quarto document, we need to add a reference to the bibliography file. This is done using the <code>bibliography</code> key. For example, if our bibliography file is called <code>bibliography.bib</code> and is located in the same directory as our Quarto document, we would add the front-matter section in <a href="#lst-bib-front-matter-bib" class="quarto-xref">Snippet&nbsp;10</a>.</p>
+<div id="lst-bib-front-matter-bib" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-bib-front-matter-bib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;10
+</figcaption>
+<div aria-describedby="lst-bib-front-matter-bib-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="annotated-cell-12"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-12-1"><a href="#annotated-cell-12-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="annotated-cell-12-2"><a href="#annotated-cell-12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"My document title"</span></span>
+<span id="annotated-cell-12-3"><a href="#annotated-cell-12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> pdf</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-12" data-target-annotation="1">1</button><span id="annotated-cell-12-4" class="code-annotation-target"><a href="#annotated-cell-12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> bibliography.bib</span></span>
+<span id="annotated-cell-12-5"><a href="#annotated-cell-12-5" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-12" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-11" data-code-lines="4" data-code-annotation="1">The key-value pair to include a path to the file which contains the BibTeX formatted references.</span>
+<span data-code-cell="annotated-cell-12" data-code-lines="4" data-code-annotation="1">The key-value pair to include a path to the file which contains the BibTeX formatted references.</span>
 </dd>
 </dl>
-<p>With the bibliography file and the reference to the bibliography file in the front-matter section, we can now add citations to our document. To do this, we use the <code>@</code> symbol followed by the citation key in the prose section. For example, to cite the <code>R-dplyr</code> reference from the <code>bibliography.bib</code> file, we would add <code>@R-dplyr</code> to the prose section as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>This is a citation to @R-dplyr.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
+<p>With the bibliography file and the reference to the bibliography file in the front-matter section, we can now add citations to our document. To do this, we use the <code>@</code> symbol followed by the citation key in the prose section. For example, to cite the <code>R-dplyr</code> reference from the <code>bibliography.bib</code> file, we would add <code>@R-dplyr</code> to the prose section as in <a href="#lst-citation" class="quarto-xref">Snippet&nbsp;11</a>.</p>
+<div id="lst-citation" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-citation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;11
+</figcaption>
+<div aria-describedby="lst-citation-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="lst-citation"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="lst-citation-1"><a href="#lst-citation-1" aria-hidden="true" tabindex="-1"></a>This is a citation to @R-dplyr.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</figure>
+</div>
 <p>The citation will appear as below in the rendered document.</p>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
+<div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -560,7 +686,7 @@ Table&nbsp;1: A simple table
 </div>
 </div>
 <p>And automatically, on rendering the document, a references list will be added to the end of the document. For this reason if you have citations in your document, it is a good idea to include a header section <code># References</code> at the end of your document.</p>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
+<div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -577,7 +703,13 @@ Table&nbsp;1: A simple table
 <h2 class="anchored" data-anchor-id="check-your-understanding">Check your understanding</h2>
 <!-- here are some questions to check the reader's understanding of this recipe -->
 <p>Consider the following front-matter sections, A and B.</p>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -595,7 +727,9 @@ format:
 </div>
 </div>
 </div>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
@@ -610,6 +744,9 @@ format:
     toc: true
     toc-depth: 2
 ---</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -628,8 +765,8 @@ format:
 </section>
 <section id="lab-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
-<p>This rounds out our introduction to academic writing in Quarto. In Lab 1 you will have an opportunity to practice these concepts by doing an article summary which includes some of these features using Quarto.</p>
-<p>In preparation for <a href="https://github.com/qtalr/lab-01">Lab 1</a>, ensure that you are prepared to do the following:</p>
+<p>This rounds out our introduction to academic writing in Quarto. In Lab 01 you will have an opportunity to practice these concepts by doing an article summary which includes some of these features using Quarto.</p>
+<p>In preparation for <a href="https://github.com/qtalr/lab-01">Lab 01</a>, ensure that you are prepared to do the following:</p>
 <ul>
 <li>Edit the front-matter section of a Quarto document to render:
 <ul>
@@ -642,7 +779,7 @@ format:
 </ul>
 <p>Also, since you will do an article summary, you should be prepared with:</p>
 <ul>
-<li>an article of interest related to text analysis that you have read or at least skimmed for the following:
+<li>an article of interest<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> related to text analysis that you have read or at least skimmed for the following:
 <ul>
 <li>the research question</li>
 <li>the data used</li>
@@ -651,16 +788,6 @@ format:
 </ul></li>
 <li>a BibTeX formatted reference for the article</li>
 </ul>
-<div class="halfsize callout callout-style-simple callout-none no-icon">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>If you do not find an article of interest, you can use <span class="citation" data-cites="Bychkovska2017">Bychkovska and Lee (<a href="#ref-Bychkovska2017" role="doc-biblioref">2017</a>)</span>.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="references" class="level2">
 
@@ -669,6 +796,7 @@ format:
 
 </section>
 
+
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Bychkovska2017" class="csl-entry" role="listitem">
 Bychkovska, Tetyana, and Joseph J. Lee. 2017. <span>“At the Same Time: <span>Lexical</span> Bundles in <span>L1</span> and <span>L2</span> University Student Argumentative Writing.”</span> <em>Journal of English for Academic Purposes</em> 30 (November): 38–52. <a href="https://doi.org/10.1016/j.jeap.2017.10.008">https://doi.org/10.1016/j.jeap.2017.10.008</a>.
@@ -676,7 +804,12 @@ Bychkovska, Tetyana, and Joseph J. Lee. 2017. <span>“At the Same Time: <span>L
 <div id="ref-R-dplyr" class="csl-entry" role="listitem">
 Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>.
 </div>
-</div></section></div></main> <!-- /main -->
+</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>If you do not find an article of interest, you can use <span class="citation" data-cites="Bychkovska2017">Bychkovska and Lee (<a href="#ref-Bychkovska2017" role="doc-biblioref">2017</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script>
 
 /* update total correct if #webex-total_correct exists */

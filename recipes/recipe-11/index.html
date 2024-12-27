@@ -170,8 +170,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#concepts-and-strategies" id="toc-concepts-and-strategies" class="nav-link active" data-scroll-target="#concepts-and-strategies">Concepts and strategies</a>
   <ul class="collapse">
-  <li><a href="#public-facing-communication" id="toc-public-facing-communication" class="nav-link" data-scroll-target="#public-facing-communication">Public facing communication</a></li>
-  <li><a href="#peer-facing-communication" id="toc-peer-facing-communication" class="nav-link" data-scroll-target="#peer-facing-communication">Peer facing communication</a></li>
+  <li><a href="#public-facing-communication" id="toc-public-facing-communication" class="nav-link" data-scroll-target="#public-facing-communication">Public-facing communication</a></li>
+  <li><a href="#peer-facing-communication" id="toc-peer-facing-communication" class="nav-link" data-scroll-target="#peer-facing-communication">Peer-facing communication</a></li>
   </ul></li>
   <li><a href="#check-your-understanding" id="toc-check-your-understanding" class="nav-link" data-scroll-target="#check-your-understanding">Check your understanding</a></li>
   <li><a href="#lab-preparation" id="toc-lab-preparation" class="nav-link" data-scroll-target="#lab-preparation">Lab preparation</a></li>
@@ -219,8 +219,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="concepts-and-strategies" class="level2">
 <h2 class="anchored" data-anchor-id="concepts-and-strategies">Concepts and strategies</h2>
 <section id="public-facing-communication" class="level3">
-<h3 class="anchored" data-anchor-id="public-facing-communication">Public facing communication</h3>
-<p>R (or Python) research projects that take advantage of Quarto websites have access to a wide range of tools for sharing research. First, the entire research tool chain can be published as a website, which is a great way to share the research process. Second, the website can be used to share the research findings in particular formats including articles and presentations. Let’s focus in on these later formats and discuss strategies for setting up and formatting research articles and presentations.</p>
+<h3 class="anchored" data-anchor-id="public-facing-communication">Public-facing communication</h3>
+<p>R research projects that take advantage of Quarto websites have access to a wide range of tools for sharing research. First, the entire research tool chain can be published as a website, which is a great way to share the research process in an easily perusable format. Second, the website can be used to share the research findings in particular formats including articles and presentations. Let’s focus in on these later formats and discuss strategies for setting up and formatting research articles and presentations.</p>
 <p>We will assume the project directory structure in <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>.</p>
 <div id="lst-quarto-website" class="listing quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-lst figure">
@@ -228,89 +228,86 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Snippet&nbsp;1: Quarto website structure for reproducible research
 </figcaption>
 <div aria-describedby="lst-quarto-website-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode bash code-annotation-code code-with-copy code-annotated"><code class="sourceCode bash"><button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1">1</button><span id="annotated-cell-4-1" class="code-annotation-target"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">project/</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2">2</button><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> data/</span>
-<span id="annotated-cell-4-3"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── analysis/</span>
-<span id="annotated-cell-4-4"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── derived/</span>
-<span id="annotated-cell-4-5"><a href="#annotated-cell-4-5" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── original/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3">3</button><span id="annotated-cell-4-6" class="code-annotation-target"><a href="#annotated-cell-4-6" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> process/</span>
-<span id="annotated-cell-4-7"><a href="#annotated-cell-4-7" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 1_acquire.qmd</span>
-<span id="annotated-cell-4-8"><a href="#annotated-cell-4-8" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 2_curate.qmd</span>
-<span id="annotated-cell-4-9"><a href="#annotated-cell-4-9" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── 3_transform.qmd</span>
-<span id="annotated-cell-4-10"><a href="#annotated-cell-4-10" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── 4_analyze.qmd</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="4">4</button><span id="annotated-cell-4-11" class="code-annotation-target"><a href="#annotated-cell-4-11" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> reports/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="5">5</button><span id="annotated-cell-4-12" class="code-annotation-target"><a href="#annotated-cell-4-12" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── figures/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="6">6</button><span id="annotated-cell-4-13" class="code-annotation-target"><a href="#annotated-cell-4-13" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── slides/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="7">7</button><span id="annotated-cell-4-14" class="code-annotation-target"><a href="#annotated-cell-4-14" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   ├── workshop/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="8">8</button><span id="annotated-cell-4-15" class="code-annotation-target"><a href="#annotated-cell-4-15" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   │    └── index.qmd</span>
-<span id="annotated-cell-4-16"><a href="#annotated-cell-4-16" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   │   └── conference/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="9">9</button><span id="annotated-cell-4-17" class="code-annotation-target"><a href="#annotated-cell-4-17" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── tables/</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="10">10</button><span id="annotated-cell-4-18" class="code-annotation-target"><a href="#annotated-cell-4-18" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── article.qmd</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="11">11</button><span id="annotated-cell-4-19" class="code-annotation-target"><a href="#annotated-cell-4-19" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── citation-style.csl</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="12">12</button><span id="annotated-cell-4-20" class="code-annotation-target"><a href="#annotated-cell-4-20" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   ├── presentations.qmd</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="13">13</button><span id="annotated-cell-4-21" class="code-annotation-target"><a href="#annotated-cell-4-21" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── bibliography.bib</span>
-<span id="annotated-cell-4-22"><a href="#annotated-cell-4-22" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> renv/</span>
-<span id="annotated-cell-4-23"><a href="#annotated-cell-4-23" aria-hidden="true" tabindex="-1"></a>  <span class="ex">│</span>   └── ...</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="14">14</button><span id="annotated-cell-4-24" class="code-annotation-target"><a href="#annotated-cell-4-24" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> _quarto.yml</span>
-<span id="annotated-cell-4-25"><a href="#annotated-cell-4-25" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> index.qmd</span>
-<span id="annotated-cell-4-26"><a href="#annotated-cell-4-26" aria-hidden="true" tabindex="-1"></a>  <span class="ex">├──</span> README.md</span>
-<span id="annotated-cell-4-27"><a href="#annotated-cell-4-27" aria-hidden="true" tabindex="-1"></a>  <span class="ex">└──</span> renv.lock</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-1"><pre class="sourceCode xml code-annotation-code code-with-copy code-annotated"><code class="sourceCode xml"><button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="1">1</button><span id="annotated-cell-1-1" class="code-annotation-target"><a href="#annotated-cell-1-1" aria-hidden="true" tabindex="-1"></a>project/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="2">2</button><span id="annotated-cell-1-2" class="code-annotation-target"><a href="#annotated-cell-1-2" aria-hidden="true" tabindex="-1"></a>  ├── data/</span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3" aria-hidden="true" tabindex="-1"></a>  │   ├── analysis/</span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4" aria-hidden="true" tabindex="-1"></a>  │   ├── derived/</span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5" aria-hidden="true" tabindex="-1"></a>  │   └── original/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="3">3</button><span id="annotated-cell-1-6" class="code-annotation-target"><a href="#annotated-cell-1-6" aria-hidden="true" tabindex="-1"></a>  ├── process/</span>
+<span id="annotated-cell-1-7"><a href="#annotated-cell-1-7" aria-hidden="true" tabindex="-1"></a>  │   ├── 1_acquire.qmd</span>
+<span id="annotated-cell-1-8"><a href="#annotated-cell-1-8" aria-hidden="true" tabindex="-1"></a>  │   ├── 2_curate.qmd</span>
+<span id="annotated-cell-1-9"><a href="#annotated-cell-1-9" aria-hidden="true" tabindex="-1"></a>  │   ├── 3_transform.qmd</span>
+<span id="annotated-cell-1-10"><a href="#annotated-cell-1-10" aria-hidden="true" tabindex="-1"></a>  │   └── 4_analyze.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="4">4</button><span id="annotated-cell-1-11" class="code-annotation-target"><a href="#annotated-cell-1-11" aria-hidden="true" tabindex="-1"></a>  ├── reports/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="5">5</button><span id="annotated-cell-1-12" class="code-annotation-target"><a href="#annotated-cell-1-12" aria-hidden="true" tabindex="-1"></a>  │   ├── figures/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="6">6</button><span id="annotated-cell-1-13" class="code-annotation-target"><a href="#annotated-cell-1-13" aria-hidden="true" tabindex="-1"></a>  │   ├── slides/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="7">7</button><span id="annotated-cell-1-14" class="code-annotation-target"><a href="#annotated-cell-1-14" aria-hidden="true" tabindex="-1"></a>  │   │   ├── workshop/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="8">8</button><span id="annotated-cell-1-15" class="code-annotation-target"><a href="#annotated-cell-1-15" aria-hidden="true" tabindex="-1"></a>  │   │   │    └── index.qmd</span>
+<span id="annotated-cell-1-16"><a href="#annotated-cell-1-16" aria-hidden="true" tabindex="-1"></a>  │   │   └── conference/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="9">9</button><span id="annotated-cell-1-17" class="code-annotation-target"><a href="#annotated-cell-1-17" aria-hidden="true" tabindex="-1"></a>  │   ├── tables/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="10">10</button><span id="annotated-cell-1-18" class="code-annotation-target"><a href="#annotated-cell-1-18" aria-hidden="true" tabindex="-1"></a>  │   ├── article.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="11">11</button><span id="annotated-cell-1-19" class="code-annotation-target"><a href="#annotated-cell-1-19" aria-hidden="true" tabindex="-1"></a>  │   ├── citation-style.csl</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="12">12</button><span id="annotated-cell-1-20" class="code-annotation-target"><a href="#annotated-cell-1-20" aria-hidden="true" tabindex="-1"></a>  │   ├── presentations.qmd</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="13">13</button><span id="annotated-cell-1-21" class="code-annotation-target"><a href="#annotated-cell-1-21" aria-hidden="true" tabindex="-1"></a>  │   └── bibliography.bib</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-1" data-target-annotation="14">14</button><span id="annotated-cell-1-22" class="code-annotation-target"><a href="#annotated-cell-1-22" aria-hidden="true" tabindex="-1"></a>  ├── _quarto.yml</span>
+<span id="annotated-cell-1-23"><a href="#annotated-cell-1-23" aria-hidden="true" tabindex="-1"></a>  ├── index.qmd</span>
+<span id="annotated-cell-1-24"><a href="#annotated-cell-1-24" aria-hidden="true" tabindex="-1"></a>  └── README.md</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="1" data-code-annotation="1"><strong>Project root</strong>: The root directory for the project.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="1" data-code-annotation="1"><strong>Project root</strong>: The root directory for the project.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="2"><strong>Data directory</strong>: The directory for storing data files.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2"><strong>Data directory</strong>: The directory for storing data files.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="6" data-code-annotation="3"><strong>Process directory</strong>: The directory for storing process files.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="6" data-code-annotation="3"><strong>Process directory</strong>: The directory for storing process files.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="11" data-code-annotation="4"><strong>Reports directory</strong>: The directory for storing reports.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="11" data-code-annotation="4"><strong>Reports directory</strong>: The directory for storing reports.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="12" data-code-annotation="5"><strong>Figures directory</strong>: The directory for storing figures.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="12" data-code-annotation="5"><strong>Figures directory</strong>: The directory for storing figures.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="13" data-code-annotation="6"><strong>Slides directory</strong>: The directory for storing presentations.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="13" data-code-annotation="6"><strong>Slides directory</strong>: The directory for storing presentations.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="14" data-code-annotation="7"><strong>Workshop directory</strong>: The directory for storing a “workshop” presentation.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="14" data-code-annotation="7"><strong>Workshop directory</strong>: The directory for storing a “workshop” presentation.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="8">8</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="15" data-code-annotation="8"><strong>Workshop presentation file</strong>: The file for the “workshop” presentation.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="15" data-code-annotation="8"><strong>Workshop presentation file</strong>: The file for the “workshop” presentation.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="9">9</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="17" data-code-annotation="9"><strong>Tables directory</strong>: The directory for storing tables.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="17" data-code-annotation="9"><strong>Tables directory</strong>: The directory for storing tables.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="10">10</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="10">10</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="18" data-code-annotation="10"><strong>Article file</strong>: The file for the article.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="18" data-code-annotation="10"><strong>Article file</strong>: The file for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="11">11</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="11">11</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="19" data-code-annotation="11"><strong>Citation style file</strong>: The file for the citation style.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="19" data-code-annotation="11"><strong>Citation style file</strong>: The file for the citation style.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="12">12</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="12">12</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="20" data-code-annotation="12"><strong>Presentations listing file</strong>: The file for the presentations listing.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="20" data-code-annotation="12"><strong>Presentations listing file</strong>: The file for the presentations listing.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="13">13</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="13">13</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="21" data-code-annotation="13"><strong>References file</strong>: The file for the references.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="21" data-code-annotation="13"><strong>References file</strong>: The file for the references.</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="14">14</dt>
+<dt data-target-cell="annotated-cell-1" data-target-annotation="14">14</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-lines="24" data-code-annotation="14"><strong>Quarto configuration file</strong>: The file for the Quarto configuration.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="22" data-code-annotation="14"><strong>Quarto configuration file</strong>: The file for the Quarto configuration.</span>
 </dd>
 </dl>
 </div>
@@ -323,63 +320,64 @@ Snippet&nbsp;1: Quarto website structure for reproducible research
 Snippet&nbsp;2: Quarto configuration file for reproducible research
 </figcaption>
 <div aria-describedby="lst-quarto-config-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="annotated-cell-5"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
-<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Web project"</span></span>
-<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-4" class="code-annotation-target"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">execute-dir</span><span class="kw">:</span><span class="at"> project</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-5" class="code-annotation-target"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span></span>
-<span id="annotated-cell-5-6"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
-<span id="annotated-cell-5-7"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/1_acquire.qmd</span></span>
-<span id="annotated-cell-5-8"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/2_curate.qmd</span></span>
-<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/3_transform.qmd</span></span>
-<span id="annotated-cell-5-10"><a href="#annotated-cell-5-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/4_analyze.qmd</span></span>
-<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> reports/</span></span>
-<span id="annotated-cell-5-12"><a href="#annotated-cell-5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-5-13"><a href="#annotated-cell-5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
-<span id="annotated-cell-5-14"><a href="#annotated-cell-5-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-15" class="code-annotation-target"><a href="#annotated-cell-5-15" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"docked"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="4">4</button><span id="annotated-cell-5-16" class="code-annotation-target"><a href="#annotated-cell-5-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span></span>
-<span id="annotated-cell-5-17"><a href="#annotated-cell-5-17" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
-<span id="annotated-cell-5-18"><a href="#annotated-cell-5-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Process"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="5">5</button><span id="annotated-cell-5-19" class="code-annotation-target"><a href="#annotated-cell-5-19" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> process/*</span></span>
-<span id="annotated-cell-5-20"><a href="#annotated-cell-5-20" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reports"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="6">6</button><span id="annotated-cell-5-21" class="code-annotation-target"><a href="#annotated-cell-5-21" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> reports/*</span></span>
-<span id="annotated-cell-5-22"><a href="#annotated-cell-5-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-5-23"><a href="#annotated-cell-5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="annotated-cell-5-24"><a href="#annotated-cell-5-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
-<span id="annotated-cell-5-25"><a href="#annotated-cell-5-25" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
-<span id="annotated-cell-5-26"><a href="#annotated-cell-5-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<span id="annotated-cell-5-27"><a href="#annotated-cell-5-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="annotated-cell-5-28"><a href="#annotated-cell-5-28" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="7">7</button><span id="annotated-cell-5-29" class="code-annotation-target"><a href="#annotated-cell-5-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">freeze</span><span class="kw">:</span><span class="at"> auto</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-2"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-2-1"><a href="#annotated-cell-2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># _quarto.yml</span></span>
+<span id="annotated-cell-2-2"><a href="#annotated-cell-2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-3"><a href="#annotated-cell-2-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Web project"</span></span>
+<span id="annotated-cell-2-4"><a href="#annotated-cell-2-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">type</span><span class="kw">:</span><span class="at"> website</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="1">1</button><span id="annotated-cell-2-5" class="code-annotation-target"><a href="#annotated-cell-2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">execute-dir</span><span class="kw">:</span><span class="at"> project</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="2">2</button><span id="annotated-cell-2-6" class="code-annotation-target"><a href="#annotated-cell-2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">render</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-7"><a href="#annotated-cell-2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="annotated-cell-2-8"><a href="#annotated-cell-2-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/1_acquire.qmd</span></span>
+<span id="annotated-cell-2-9"><a href="#annotated-cell-2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/2_curate.qmd</span></span>
+<span id="annotated-cell-2-10"><a href="#annotated-cell-2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/3_transform.qmd</span></span>
+<span id="annotated-cell-2-11"><a href="#annotated-cell-2-11" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> process/4_analyze.qmd</span></span>
+<span id="annotated-cell-2-12"><a href="#annotated-cell-2-12" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> reports/</span></span>
+<span id="annotated-cell-2-13"><a href="#annotated-cell-2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-14"><a href="#annotated-cell-2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">website</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-15"><a href="#annotated-cell-2-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">sidebar</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="3">3</button><span id="annotated-cell-2-16" class="code-annotation-target"><a href="#annotated-cell-2-16" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">style</span><span class="kw">:</span><span class="at"> </span><span class="st">"docked"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="4">4</button><span id="annotated-cell-2-17" class="code-annotation-target"><a href="#annotated-cell-2-17" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">contents</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-18"><a href="#annotated-cell-2-18" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> index.qmd</span></span>
+<span id="annotated-cell-2-19"><a href="#annotated-cell-2-19" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Process"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="5">5</button><span id="annotated-cell-2-20" class="code-annotation-target"><a href="#annotated-cell-2-20" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> process/*</span></span>
+<span id="annotated-cell-2-21"><a href="#annotated-cell-2-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">section</span><span class="kw">:</span><span class="at"> </span><span class="st">"Reports"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="6">6</button><span id="annotated-cell-2-22" class="code-annotation-target"><a href="#annotated-cell-2-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">contents</span><span class="kw">:</span><span class="at"> reports/*</span></span>
+<span id="annotated-cell-2-23"><a href="#annotated-cell-2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-24"><a href="#annotated-cell-2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-25"><a href="#annotated-cell-2-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span></span>
+<span id="annotated-cell-2-26"><a href="#annotated-cell-2-26" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">theme</span><span class="kw">:</span><span class="at"> cosmo</span></span>
+<span id="annotated-cell-2-27"><a href="#annotated-cell-2-27" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="annotated-cell-2-28"><a href="#annotated-cell-2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-2-29"><a href="#annotated-cell-2-29" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-2" data-target-annotation="7">7</button><span id="annotated-cell-2-30" class="code-annotation-target"><a href="#annotated-cell-2-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">freeze</span><span class="kw">:</span><span class="at"> auto</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="4" data-code-annotation="1"><strong>Execution directory</strong>: The root directory for all execution.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="5" data-code-annotation="1"><strong>Execution directory</strong>: The root directory for all execution.</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="5" data-code-annotation="2"><strong>Render order</strong>: The order in which files are rendered.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="6" data-code-annotation="2"><strong>Render order</strong>: The order in which files are rendered.</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="15" data-code-annotation="3"><strong>Sidebar style</strong>: The style of the sidebar.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="16" data-code-annotation="3"><strong>Sidebar style</strong>: The style of the sidebar.</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="16" data-code-annotation="4"><strong>Sidebar contents</strong>: The contents of the sidebar.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="17" data-code-annotation="4"><strong>Sidebar contents</strong>: The contents of the sidebar.</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="19" data-code-annotation="5"><strong>Process contents</strong>: The contents of the process section.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="20" data-code-annotation="5"><strong>Process contents</strong>: The contents of the process section.</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="21" data-code-annotation="6"><strong>Reports contents</strong>: The contents of the reports section.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="22" data-code-annotation="6"><strong>Reports contents</strong>: The contents of the reports section.</span>
 </dd>
-<dt data-target-cell="annotated-cell-5" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-2" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-5" data-code-lines="29" data-code-annotation="7"><strong>Freeze option</strong>: The option for rendering only changed files.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="30" data-code-annotation="7"><strong>Freeze option</strong>: The option for rendering only changed files.</span>
 </dd>
 </dl>
 </div>
@@ -397,66 +395,67 @@ Snippet&nbsp;2: Quarto configuration file for reproducible research
 Snippet&nbsp;3: Quarto article YAML frontmatter
 </figcaption>
 <div aria-describedby="lst-quarto-article-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Article"</span></span>
-<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2024-02-20</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-3" class="code-annotation-target"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
-<span id="annotated-cell-6-4"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your name"</span></span>
-<span id="annotated-cell-6-5"><a href="#annotated-cell-6-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> youremail@school.edu</span></span>
-<span id="annotated-cell-6-6"><a href="#annotated-cell-6-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your affiliation"</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2">2</button><span id="annotated-cell-6-7" class="code-annotation-target"><a href="#annotated-cell-6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abstract</span><span class="kw">: </span><span class="ch">|</span></span>
-<span id="annotated-cell-6-8"><a href="#annotated-cell-6-8" aria-hidden="true" tabindex="-1"></a>  This is a sample article. It is a work in progress and will be updated as the research progresses.</span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="3">3</button><span id="annotated-cell-6-9" class="code-annotation-target"><a href="#annotated-cell-6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">keywords</span><span class="kw">:</span></span>
-<span id="annotated-cell-6-10"><a href="#annotated-cell-6-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> article</span></span>
-<span id="annotated-cell-6-11"><a href="#annotated-cell-6-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> example</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="4">4</button><span id="annotated-cell-6-12" class="code-annotation-target"><a href="#annotated-cell-6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> citation-style.csl</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="5">5</button><span id="annotated-cell-6-13" class="code-annotation-target"><a href="#annotated-cell-6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> ../bibliography.bib</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="6">6</button><span id="annotated-cell-6-14" class="code-annotation-target"><a href="#annotated-cell-6-14" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="7">7</button><span id="annotated-cell-6-15" class="code-annotation-target"><a href="#annotated-cell-6-15" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="8">8</button><span id="annotated-cell-6-16" class="code-annotation-target"><a href="#annotated-cell-6-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="9">9</button><span id="annotated-cell-6-17" class="code-annotation-target"><a href="#annotated-cell-6-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
-<span id="annotated-cell-6-18"><a href="#annotated-cell-6-18" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reports/article.qmd</span></span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Article"</span></span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2024-02-20</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-4" class="code-annotation-target"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span></span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your name"</span></span>
+<span id="annotated-cell-3-6"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">email</span><span class="kw">:</span><span class="at"> youremail@school.edu</span></span>
+<span id="annotated-cell-3-7"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">affiliation</span><span class="kw">:</span><span class="at"> </span><span class="st">"Your affiliation"</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="2">2</button><span id="annotated-cell-3-8" class="code-annotation-target"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abstract</span><span class="kw">: </span><span class="ch">|</span></span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a>  This is a sample article. It is a work in progress and will be updated as the research progresses.</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="3">3</button><span id="annotated-cell-3-10" class="code-annotation-target"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">keywords</span><span class="kw">:</span></span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> article</span></span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> example</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="4">4</button><span id="annotated-cell-3-13" class="code-annotation-target"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">csl</span><span class="kw">:</span><span class="at"> citation-style.csl</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="5">5</button><span id="annotated-cell-3-14" class="code-annotation-target"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography</span><span class="kw">:</span><span class="at"> ../bibliography.bib</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="6">6</button><span id="annotated-cell-3-15" class="code-annotation-target"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">citation</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="7">7</button><span id="annotated-cell-3-16" class="code-annotation-target"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="8">8</button><span id="annotated-cell-3-17" class="code-annotation-target"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="9">9</button><span id="annotated-cell-3-18" class="code-annotation-target"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">number-sections</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="3" data-code-annotation="1"><strong>Author information</strong>: The author information for the article.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="4" data-code-annotation="1"><strong>Author information</strong>: The author information for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="7" data-code-annotation="2"><strong>Abstract</strong>: The abstract for the article.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="8" data-code-annotation="2"><strong>Abstract</strong>: The abstract for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="3">3</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="9" data-code-annotation="3"><strong>Keywords</strong>: The keywords for the article.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="10" data-code-annotation="3"><strong>Keywords</strong>: The keywords for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="4">4</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="4">4</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="12" data-code-annotation="4"><strong>Citation style</strong>: The citation style for the article.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="13" data-code-annotation="4"><strong>Citation style</strong>: The citation style for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="5">5</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="5">5</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="13" data-code-annotation="5"><strong>Bibliography</strong>: The bibliography for the article.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="14" data-code-annotation="5"><strong>Bibliography</strong>: The bibliography for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="6">6</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="6">6</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="14" data-code-annotation="6"><strong>Citation</strong>: The citation for the article itself.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="15" data-code-annotation="6"><strong>Citation</strong>: The citation for the article itself.</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="7">7</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="7">7</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="15" data-code-annotation="7"><strong>Format</strong>: The format for the article.</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="16" data-code-annotation="7"><strong>Format</strong>: The format for the article.</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="8">8</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="8">8</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="16" data-code-annotation="8"><strong>HTML format</strong>: The HTML format for the article (for web presentation)</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="17" data-code-annotation="8"><strong>HTML format</strong>: The HTML format for the article (for web presentation)</span>
 </dd>
-<dt data-target-cell="annotated-cell-6" data-target-annotation="9">9</dt>
+<dt data-target-cell="annotated-cell-3" data-target-annotation="9">9</dt>
 <dd>
-<span data-code-cell="annotated-cell-6" data-code-lines="17" data-code-annotation="9"><strong>PDF format</strong>: The PDF format for the article (for printing)</span>
+<span data-code-cell="annotated-cell-3" data-code-lines="18" data-code-annotation="9"><strong>PDF format</strong>: The PDF format for the article (for printing)</span>
 </dd>
 </dl>
 </div>
 </figure>
 </div>
-<p>In addition to typical YAML frontmatter, we see a number of new times. Looking at the first three, we see that we can add author information, an abstract, and keywords. These are standard for articles and are used to provide information about the article to readers.</p>
+<p>In addition to typical YAML frontmatter, we see a number of new items. Looking at the first three, we see that we can add author information, an abstract, and keywords. These are standard for articles and are used to provide information about the article to readers.</p>
 <p>When rendered, the article header information will now contain this new information, as seen in <a href="#fig-header-format" class="quarto-xref">Figure&nbsp;1</a>.</p>
 <div id="fig-header-format" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -522,21 +521,8 @@ Figure&nbsp;3
 </section>
 </section>
 <section id="peer-facing-communication" class="level3">
-<h3 class="anchored" data-anchor-id="peer-facing-communication">Peer facing communication</h3>
-<!--
-TODO: Add content for peer facing communication
-
-Demonstration of running a collaborative research project on GitHub following reproducible research principles
-
-We will also discuss some of the strategies for sharing research code and data, including:
-
-- Version control (GitHub)
-- Reproducible research (Quarto, `renv`, Docker)
-
-Walkthrough of a complete reproducible research project setup, including documentation, modular scripts, and containerization with GitHub Actions.
-
--->
-<p>For those who are interested in interacting with your work, it is key to prepare materials that can be reliably shared. This includes the research code and data, of course, but also the computational environment in which the research was conducted so that the research can be reproduced.</p>
+<h3 class="anchored" data-anchor-id="peer-facing-communication">Peer-facing communication</h3>
+<p>For those who are interested in interacting with your work, it is key to prepare materials that can be reliably shared. This includes the research compendium, of course, but also the computational environment in which the research was conducted so that the research can be reproduced.</p>
 <div id="fig-computational-environment" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-computational-environment-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -547,11 +533,13 @@ Figure&nbsp;4: Computational environment for reproducible research
 </figcaption>
 </figure>
 </div>
-<p>In the next section, we will discuss some of the strategies for sharing a reproducible computational environment, along with code and data. This will include version control with Git, pinned package versions with {renv}, containerization with Docker, and automation with GitHub Actions.</p>
+<p>In the next section, we will discuss some of the strategies for sharing a reproducible computational environment. This will include version control with Git, pinned package versions with {renv}, containerization with Docker, and automation with GitHub Actions.</p>
 <section id="tools-and-strategies" class="level4">
 <h4 class="anchored" data-anchor-id="tools-and-strategies">Tools and strategies</h4>
 <p>As seen in <a href="#fig-computational-environment" class="quarto-xref">Figure&nbsp;4</a>, the computational environment for a research project includes various components. Let’s start with the inner components are work our way out.</p>
-<p>As has been stressed throughout this text, version control is a key part of reproducible research. It allows you to track changes to your research code and data over time, the research compendium. This is important for ensuring that the research record is transparent. One of the most popular version control systems is Git. If you have interacted with the supplementary materials provided with this text (lessons, recipes, and labs), you are now familiar with working with Git (and GitHub) in day-to-day tasks. These tasks include:</p>
+<p><strong>Version control</strong></p>
+<p>As has been stressed throughout this text, version control is a key part of reproducible research. It allows you to track changes to your research compendium. This is important for ensuring that the research record is transparent.</p>
+<p>One of the most popular version control systems is Git. If you have interacted with the supplementary materials provided with this text (lessons, recipes, and labs), you are now familiar with working with Git (and GitHub) in day-to-day tasks. These tasks include:</p>
 <ul>
 <li>Cloning a repository</li>
 <li>Making changes to a repository</li>
@@ -560,37 +548,102 @@ Figure&nbsp;4: Computational environment for reproducible research
 <li>Pulling changes from a repository</li>
 <li>Forking a repository</li>
 </ul>
-<p>These tasks are essential for collaborating with others on research projects and contributing to open source projects. However, if the goal is to produce research that is reproducible, it is important to be aware of some additional toos and strategies. In Git, these include:</p>
+<p>These tasks are essential for collaborating with others on research projects and contributing to open source projects. However, there are a few other tasks which will prove useful if you continue on in your reproducible research journey. In Git, these include:</p>
 <ul>
-<li>Branching to maintain different versions of the research code</li>
-<li>Merging branches to combine different versions</li>
-<li>Pull requests to review and merge changes, either from yourself or other contributors</li>
+<li><strong>Branching</strong><br>
+This allows you to work on different versions of your research project at the same time. For example, you could have a <code>main</code> branch for the current version of your research project and a <code>develop</code> branch for the next version of your research project.</li>
+<li><strong>Merging</strong><br>
+This allows you to combine changes from one branch into another branch. For example, you could merge changes from the <code>develop</code> branch into the <code>main</code> branch once they are complete.</li>
+<li><strong>Pull requests</strong><br>
+This allows you to propose changes to a repository and discuss them with others before merging them. For example, you could create a pull request to propose changes to the <code>main</code> branch from the <code>develop</code> branch.</li>
 </ul>
-<p>We will not cover these in detail here, but they are important to be aware of. For more information, see the <a href="https://docs.github.com/en">GitHub documentation</a>.</p>
-<p>Moving out a level, we have the software layer. This includes the R packages that you use in your project, the version of R that you use, and the system dependencies that are required for your project. Sharing your research project code and all does not guarantee that others will be able to reproduce your research –R packages versions are constantly being updated (and this can lead to ‘breaking changes’ that render your code inoperable). R too changes over time. Although less frequent when compared to packages. …</p>
-<p>To ensure that your research is reproducible, it is important to share the software layer as well. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.</p>
-</section>
-<section id="pinned-package-versions" class="level4">
-<h4 class="anchored" data-anchor-id="pinned-package-versions">Pinned package versions</h4>
-<p>As you develop your research code, you will likely use a number of R packages. These packages are constantly being updated, which can lead to issues with reproducibility. To ensure that your research is reproducible, it is important to pin the versions of the R packages that you use. This can be done with the {renv} package. {renv} allows you to create a snapshot of the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same versions of the R packages that you used.</p>
-<p>As you develop your research code, you will be adding packages along the way. In most cases, it is not necessary at this step to identify the version of the package(s) that you are using. However, when you are ready to share your research code, it is important. For example, you can see the package version using the <code>packageVersion()</code> function,.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"knitr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] '1.47'</code></pre>
+<p>We will not cover these in detail here, but it is good to be aware of them if you plan on collaborating on git-maintained projects. For more information, see the <a href="https://docs.github.com/en">GitHub documentation</a>.</p>
+<p><strong>Pinned package versions</strong></p>
+<p>Moving out a level, we have the software layer. This includes the R packages that you use in your project, the version of R that you use, and the system dependencies that are required. Sharing your research project code does not guarantee that others will be able to reproduce it –R packages versions are constantly being updated and this can lead to ‘breaking changes’ that render your code inoperable. R itself changes over time, although less frequent when compared to packages.</p>
+<p>To ensure that your research is reproducible, it is important to share the software layer as well. This can be done with the {renv} package. {renv} allows you to create a snapshot of the version of R and the R packages that you use in your research project. This snapshot can then be shared with others, ensuring that they have the same R and R package versions that you use.</p>
+<p>To set up an R project with {renv}, you need to initialize the project. In the R console, run <code>renv::init()</code>. Let’s assume we start with the project structure in <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>, after initializing {renv}, a <code>renv/</code> directory and a <code>renv.lock</code> file are added, as seen in <a href="#lst-renv-init" class="quarto-xref">Snippet&nbsp;5</a>.</p>
+<div id="lst-renv-init" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-renv-init-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;5
+</figcaption>
+<div aria-describedby="lst-renv-init-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="annotated-cell-5"><pre class="sourceCode xml code-annotation-code code-with-copy code-annotated"><code class="sourceCode xml"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a>project/</span>
+<span id="annotated-cell-5-2"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a>  ├── data/</span>
+<span id="annotated-cell-5-3"><a href="#annotated-cell-5-3" aria-hidden="true" tabindex="-1"></a>  ├── process/</span>
+<span id="annotated-cell-5-4"><a href="#annotated-cell-5-4" aria-hidden="true" tabindex="-1"></a>  ├── reports/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-5" class="code-annotation-target"><a href="#annotated-cell-5-5" aria-hidden="true" tabindex="-1"></a>  ├── renv/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="2">2</button><span id="annotated-cell-5-6" class="code-annotation-target"><a href="#annotated-cell-5-6" aria-hidden="true" tabindex="-1"></a>  │  ├── activate.R</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="3">3</button><span id="annotated-cell-5-7" class="code-annotation-target"><a href="#annotated-cell-5-7" aria-hidden="true" tabindex="-1"></a>  │  ├── library/</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="4">4</button><span id="annotated-cell-5-8" class="code-annotation-target"><a href="#annotated-cell-5-8" aria-hidden="true" tabindex="-1"></a>  │  └── settings.json</span>
+<span id="annotated-cell-5-9"><a href="#annotated-cell-5-9" aria-hidden="true" tabindex="-1"></a>  ├── _quarto.yml</span>
+<span id="annotated-cell-5-10"><a href="#annotated-cell-5-10" aria-hidden="true" tabindex="-1"></a>  ├── index.qmd</span>
+<span id="annotated-cell-5-11"><a href="#annotated-cell-5-11" aria-hidden="true" tabindex="-1"></a>  ├── README.md</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="5">5</button><span id="annotated-cell-5-12" class="code-annotation-target"><a href="#annotated-cell-5-12" aria-hidden="true" tabindex="-1"></a>  └── renv.lock</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="5" data-code-annotation="1"><strong>renv directory</strong>: The directory for the {renv} package</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="6" data-code-annotation="2"><strong>activate.R file</strong>: The file for the {renv} activation script</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="7" data-code-annotation="3"><strong>library directory</strong>: The directory for the {renv} library</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="8" data-code-annotation="4"><strong>settings.json file</strong>: The file for the {renv} settings</span>
+</dd>
+<dt data-target-cell="annotated-cell-5" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="12" data-code-annotation="5"><strong>renv.lock file</strong>: The file for the {renv} lock file</span>
+</dd>
+</dl>
+</div>
+</figure>
+</div>
+<p>On initialization, {renv} will create a <code>renv.lock</code> file that contains a registry of the versions of the R packages that you are using. This file can be shared with others, ensuring that they install the same versions of the R packages that you used in your research project.</p>
+<p>The <code>renv/</code> directory contains a <code>activate.R</code> file is a script that activates the {renv} package when you open the project in RStudio, a <code>library/</code> directory contains a local library, that is, the R packages that you are using in your research project, and finally a <code>settings.json</code> file contains the settings for the {renv} package.</p>
+<p>Behind the scenes, {renv} also adds a <code>.gitignore</code> file within the <code>renv/</code> directory which ensures you do not accidentally commit the R packages to your repository (found in the <code>renv/library/</code> directory). This is important because the R packages can be large and take up a lot of space in your repository. Furthermore, the <code>renv.lock</code> file alone can be used to restore the R packages with the correct versions by running <code>renv::restore()</code> function.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>If you start a project with {renv}, you will need to make sure that your local library and <code>renv.lock</code> reflect the packages you install moving forward. To check the status of your project, you can run <code>renv::status()</code>. This will show you the packages that are installed in your local library and the packages that are in the <code>renv.lock</code> file. If there are differences, you can run <code>renv::snapshot()</code> to update the <code>renv.lock</code> file.</p>
 </div>
 </div>
-<!-- NOTE: Examples and demos will need to be run in a container as the Nix environment does not work well with renv -->
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">snapshot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="containerization" class="level4">
-<h4 class="anchored" data-anchor-id="containerization">Containerization</h4>
-<p>Containerization is another key part of reproducible research. It allows you to create a self-contained environment for your research code and data. This environment can then be shared with others, ensuring that they have everything they need to reproduce your research. One popular containerization tool is Docker. Docker allows you to create a container that contains all of the dependencies for your research project. This container can then be shared with others, ensuring that they have everything they need to reproduce your research.</p>
-<p>When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible.</p>
-<p>The <code>pak</code> package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode dockerfile code-with-copy"><code class="sourceCode dockerfile"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dockerfile</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/r-ver:4.1.1</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Containerization</strong></p>
+<p>Now, we are nearing the outer layer of the computational environment. But before we get there, we need to discuss containerization, a strategy that will help us share operating system and system software dependencies that we did not address with {renv}, straddling two layers of the computational environment illustrated in <a href="#fig-computational-environment" class="quarto-xref">Figure&nbsp;4</a>.</p>
+<p>Containerization allows you to create a self-contained environment for your research project that can be shared with others. This effectively means that you and your collaborators can use the same operating system and system dependencies. The container runs an operating system which is isolated from the host operating system. This has two main benefits: one, users do not need to change their host systems to run your project and two, the operating system and system dependencies are the same for everyone, ensuring that the research is reproducible.</p>
+<p>One popular containerization tool is Docker. Docker allows you to create a Docker image that contains the operating system and system dependencies (as well as your research compendium!) for your research project based on a blueprint file called a Dockerfile. A Dockerfile is a text file that contains the instructions to create the Docker image.</p>
+<p>For example, we can create a very simple Dockerfile that will generate an image with R installed, as seen in <a href="#lst-base-dockerfile" class="quarto-xref">Snippet&nbsp;6</a>.</p>
+<div id="lst-base-dockerfile" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-base-dockerfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;6
+</figcaption>
+<div aria-describedby="lst-base-dockerfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode dockerfile code-annotation-code code-with-copy code-annotated"><code class="sourceCode dockerfile"><span id="annotated-cell-6-1"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dockerfile</span></span>
+<span id="annotated-cell-6-2"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Base image with R</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1">1</button><span id="annotated-cell-6-4" class="code-annotation-target"><a href="#annotated-cell-6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/r-ver:4.1.1</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-6" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-6" data-code-lines="4" data-code-annotation="1"><strong>Base image</strong>: The base image for the Dockerfile</span>
+</dd>
+</dl>
+</div>
+</figure>
+</div>
+<p>In this Dockerfile, we use the <code>rocker/r-ver:4.1.1</code> image as the base image. That is to say that Dockerfiles can import and extend other images that have been built from other Dockerfiles. The <a href="https://rocker-project.org/">Rocker Project</a> creates and maintains a number of very useful images for R users to use and extend. In this case, we are using the <code>r-ver</code> image which contains R version 4.1.1. There are <code>r-ver</code> for many other R versions, even one for the latest R version, whatever that may be.</p>
 <div class="callout callout-style-simple callout-none no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -598,26 +651,322 @@ Figure&nbsp;4: Computational environment for reproducible research
 </div>
 <div class="callout-body-container">
 <p><strong><i class="fa-solid fa-medal" aria-label="medal"></i> Dive deeper</strong></p>
-<p>When creating a reproducible computing environment, it will be necessary to include system dependencies to ensure that the project is reproducible. The <code>pak</code> package provides a way to determine the dependencies for a package or set of packages on a given operating system (platform).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pak<span class="sc">::</span><span class="fu">pkg_sysreqs</span>(<span class="at">pkg =</span> <span class="fu">c</span>(<span class="st">"knitr"</span>, <span class="st">"systemfonts"</span>), <span class="at">sysreqs =</span> <span class="st">"ubuntu"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode xml code-with-copy"><code class="sourceCode xml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>── Install scripts ──── Ubuntu NA</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>apt-get -y update</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>apt-get -y install pandoc libfontconfig1-dev libfreetype6-dev</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>── Packages and their system dependencies</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>knitr       – pandoc</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>systemfonts – libfontconfig1-dev, libfreetype6-dev</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>These can be added to the Dockerfile for the project</p>
+<p>Visit the Rocker Project’s <a href="https://rocker-project.org/images/">image list</a> to explore the available images.</p>
 </div>
 </div>
 </div>
-<p>In GitHub, these include:</p>
+<p>Another thing to note about images from the Rocker Project (and many other Docker images) is that the operating system will a version of Linux. Linux is a popular choice for Docker images because it is lightweight, can be easily extended, and is freely available and open sources. This means that the images can be shared without licensing issues.</p>
+<p>An OS is not the only aspect that a Dockerfile can address that will help us to create a publishable reproducible research project. In addition, we can add system dependencies, modify the system in various ways, add files to the image, and set up the environment for running the project.</p>
+<p>Let’s look at a more realistic Dockerfile example. If we assume the project structure in <a href="#lst-quarto-website" class="quarto-xref">Snippet&nbsp;1</a>, we can add a Dockerfile to the project as seen in <a href="#lst-dockerfile" class="quarto-xref">Snippet&nbsp;7</a>.</p>
+<div id="lst-dockerfile" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-dockerfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;7
+</figcaption>
+<div aria-describedby="lst-dockerfile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode dockerfile code-annotation-code code-with-copy code-annotated"><code class="sourceCode dockerfile"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dockerfile</span></span>
+<span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-3"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Base image with R</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1">1</button><span id="annotated-cell-7-4" class="code-annotation-target"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> rocker/r-ver:4.1.1</span>
+<span id="annotated-cell-7-5"><a href="#annotated-cell-7-5" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="2">2</button><span id="annotated-cell-7-6" class="code-annotation-target"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">ENV</span> DEFAULT_USER=<span class="st">"ruser"</span></span>
+<span id="annotated-cell-7-7"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># User rocker scripts to set up</span></span>
+<span id="annotated-cell-7-9"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># pandoc, quarto, and default user</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3">3</button><span id="annotated-cell-7-10" class="code-annotation-target"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">/rocker_scripts/install_pandoc.sh</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="4">4</button><span id="annotated-cell-7-11" class="code-annotation-target"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">/rocker_scripts/install_quarto.sh</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="5">5</button><span id="annotated-cell-7-12" class="code-annotation-target"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">/rocker_scripts/default_user.sh</span> <span class="va">$DEFAULT_USER</span></span>
+<span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-14"><a href="#annotated-cell-7-14" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">usermod</span> <span class="at">-aG</span> sudo <span class="va">${DEFAULT_USER}</span> <span class="kw">&amp;&amp;</span> <span class="dt">\</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="6">6</button><span id="annotated-cell-7-15" class="code-annotation-target"><a href="#annotated-cell-7-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">'%sudo ALL=(ALL) NOPASSWD:ALL'</span> <span class="op">&gt;&gt;</span> /etc/sudoers</span>
+<span id="annotated-cell-7-16"><a href="#annotated-cell-7-16" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="7">7</button><span id="annotated-cell-7-17" class="code-annotation-target"><a href="#annotated-cell-7-17" aria-hidden="true" tabindex="-1"></a><span class="kw">USER</span> $DEFAULT_USER</span>
+<span id="annotated-cell-7-18"><a href="#annotated-cell-7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-19"><a href="#annotated-cell-7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy project file</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="8">8</button><span id="annotated-cell-7-20" class="code-annotation-target"><a href="#annotated-cell-7-20" aria-hidden="true" tabindex="-1"></a><span class="kw">COPY</span> . /home/ruser/project</span>
+<span id="annotated-cell-7-21"><a href="#annotated-cell-7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-22"><a href="#annotated-cell-7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Set working directory</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="9">9</button><span id="annotated-cell-7-23" class="code-annotation-target"><a href="#annotated-cell-7-23" aria-hidden="true" tabindex="-1"></a><span class="kw">WORKDIR</span> /home/ruser/project</span>
+<span id="annotated-cell-7-24"><a href="#annotated-cell-7-24" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="10">10</button><span id="annotated-cell-7-25" class="code-annotation-target"><a href="#annotated-cell-7-25" aria-hidden="true" tabindex="-1"></a><span class="kw">RUN</span> <span class="ex">R</span> <span class="at">-q</span> <span class="at">-e</span> <span class="st">"install.packages(c('pak', 'renv'), repos = c('https://cloud.r-project.org/', 'https://r-lib.r-universe.dev'));"</span></span>
+<span id="annotated-cell-7-26"><a href="#annotated-cell-7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-7-27"><a href="#annotated-cell-7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Set bash entrypoint</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="11">11</button><span id="annotated-cell-7-28" class="code-annotation-target"><a href="#annotated-cell-7-28" aria-hidden="true" tabindex="-1"></a><span class="kw">ENTRYPOINT</span> [<span class="st">"/bin/bash"</span>]</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-7" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="4" data-code-annotation="1"><strong>Base image</strong>: The base image for the Dockerfile</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="6" data-code-annotation="2"><strong>Default user</strong>: The default user for the container</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="10" data-code-annotation="3"><strong>Install pandoc</strong>: Install pandoc in the container (from rocker_scripts)</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="11" data-code-annotation="4"><strong>Install quarto</strong>: Install quarto in the container (from rocker_scripts)</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="12" data-code-annotation="5"><strong>Default user script</strong>: Set the default user in the container (from rocker_scripts)</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="15" data-code-annotation="6"><strong>Add user to sudo</strong>: Add the default user to the sudo group (for root access)</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="7">7</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="17" data-code-annotation="7"><strong>User</strong>: Set the default user for the container</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="8">8</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="20" data-code-annotation="8"><strong>Copy project</strong>: Copy the project files to the container</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="9">9</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="23" data-code-annotation="9"><strong>Working directory</strong>: Set the working directory for the container</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="10">10</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="25" data-code-annotation="10"><strong>Install packages</strong>: Install the <code>pak</code> and <code>renv</code> packages in the container</span>
+</dd>
+<dt data-target-cell="annotated-cell-7" data-target-annotation="11">11</dt>
+<dd>
+<span data-code-cell="annotated-cell-7" data-code-lines="28" data-code-annotation="11"><strong>Entrypoint</strong>: Set the entrypoint for the container (bash shell)</span>
+</dd>
+</dl>
+</div>
+</figure>
+</div>
+<p>Now there is a lot going on here. Let’s break down the key parts of this Dockerfile and understand why each part matters:</p>
+<ol type="1">
+<li><p><strong>Base Image Selection</strong>: We use the Rocker Project <code>r-ver</code> image which provides R version 4.1.1. This ensures everyone starts with exactly the same R version.</p></li>
+<li><p><strong>User Setup</strong>:</p>
 <ul>
-<li>Using issues to track and respond to inquiries</li>
-<li>GitHub Actions for automating tasks</li>
-<li>GitHub Pages for hosting websites</li>
+<li>We create a default user <code>ruser</code> rather than running as root (a security best practice)</li>
+<li>The user gets sudo access which helps if we need to install additional system packages later</li>
+</ul></li>
+<li><p><strong>Essential Tools</strong>:</p>
+<ul>
+<li>Pandoc is needed for document conversion in Quarto</li>
+<li>Quarto is our publishing system</li>
+<li>These are installed via Rocker’s convenience scripts which handle dependencies</li>
+</ul></li>
+<li><p><strong>Project Setup</strong>:</p>
+<ul>
+<li>The entire project gets copied into the container at <code>/home/ruser/project</code></li>
+<li>We set this as our working directory so commands run in the right place</li>
+<li>The <code>pak</code> and <code>renv</code> packages are installed to handle R package management</li>
+</ul></li>
+<li><p><strong>Runtime Configuration</strong>:</p>
+<ul>
+<li>The bash entrypoint gives us an interactive shell when we run the container</li>
+<li>This makes it easier to troubleshoot or run additional commands</li>
+</ul></li>
+</ol>
+<p>This setup creates a complete, isolated environment that contains everything needed to run our project reliably.</p>
+<p><strong>Automation</strong></p>
+<p>The final part of the process is to automate the building and sharing of your research environment. This automation serves several purposes:</p>
+<ol type="1">
+<li>Ensures consistent builds of your Docker images</li>
+<li>Makes your research environment available on different hardware architectures</li>
+<li>Automates testing and validation of your environment</li>
+<li>Simplifies sharing with the research community</li>
+</ol>
+<p>This automation can be accomplished with GitHub Actions, a continuous integration and continuous deployment (CI/CD) tool that allows you to automate tasks in your GitHub repository. Let’s walk through setting up automated Docker image builds.</p>
+<p>First, you’ll need to set up a few prerequisites:</p>
+<ol type="1">
+<li>A Docker Hub account (https://hub.docker.com)</li>
+<li>A Docker Hub access token (https://hub.docker.com/settings/security)</li>
+<li>GitHub repository secrets for Docker Hub credentials</li>
+</ol>
+<p>To add your Docker Hub credentials to GitHub:</p>
+<ol type="1">
+<li>Go to your GitHub repository</li>
+<li>Click on “Settings” &gt; “Secrets and variables” &gt; “Actions”</li>
+<li>Add two new repository secrets:
+<ul>
+<li><code>DOCKER_HUB_USERNAME</code>: Your Docker Hub username</li>
+<li><code>DOCKER_HUB_ACCESS_TOKEN</code>: Your Docker Hub access token</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong><i class="fa-regular fa-hand-point-up" aria-label="hand-point-up"></i> Tip</strong></p>
+<p>Once you add your Docker Hub credentials to your GitHub profile, you will not need to do it again for other repositories under this user’s scope.</p>
+</div>
+</div>
+</div>
+<p>Next, create a GitHub workflow file. You’ll need to create a <code>.github/workflows/</code> directory in your repository and add a YAML file. For example, create <code>build-and-push.yml</code> with the following content:</p>
+<div id="lst-github-actions" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-github-actions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;8
+</figcaption>
+<div aria-describedby="lst-github-actions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode yaml code-annotation-code code-with-copy code-annotated"><code class="sourceCode yaml"><span id="annotated-cell-8-1"><a href="#annotated-cell-8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .github/workflows/build-and-push.yml</span></span>
+<span id="annotated-cell-8-2"><a href="#annotated-cell-8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">name</span><span class="kw">:</span><span class="at"> Docker Build and Push to Docker Hub</span></span>
+<span id="annotated-cell-8-3"><a href="#annotated-cell-8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">on</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="1">1</button><span id="annotated-cell-8-4" class="code-annotation-target"><a href="#annotated-cell-8-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">push</span><span class="kw">:</span></span>
+<span id="annotated-cell-8-5"><a href="#annotated-cell-8-5" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">branches</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">main</span><span class="kw">]</span></span>
+<span id="annotated-cell-8-6"><a href="#annotated-cell-8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">jobs</span><span class="kw">:</span></span>
+<span id="annotated-cell-8-7"><a href="#annotated-cell-8-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">build-and-push</span><span class="kw">:</span></span>
+<span id="annotated-cell-8-8"><a href="#annotated-cell-8-8" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">runs-on</span><span class="kw">:</span><span class="at"> ubuntu-latest</span></span>
+<span id="annotated-cell-8-9"><a href="#annotated-cell-8-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">steps</span><span class="kw">:</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="2">2</button><span id="annotated-cell-8-10" class="code-annotation-target"><a href="#annotated-cell-8-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Checkout</span></span>
+<span id="annotated-cell-8-11"><a href="#annotated-cell-8-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> actions/checkout@v4</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="3">3</button><span id="annotated-cell-8-12" class="code-annotation-target"><a href="#annotated-cell-8-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up QEMU for multi-architecture builds</span></span>
+<span id="annotated-cell-8-13"><a href="#annotated-cell-8-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-qemu-action@v3</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="4">4</button><span id="annotated-cell-8-14" class="code-annotation-target"><a href="#annotated-cell-8-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Set up Docker Buildx</span></span>
+<span id="annotated-cell-8-15"><a href="#annotated-cell-8-15" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/setup-buildx-action@v3</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="5">5</button><span id="annotated-cell-8-16" class="code-annotation-target"><a href="#annotated-cell-8-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Docker Login</span></span>
+<span id="annotated-cell-8-17"><a href="#annotated-cell-8-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/login-action@v3.0.0</span></span>
+<span id="annotated-cell-8-18"><a href="#annotated-cell-8-18" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="annotated-cell-8-19"><a href="#annotated-cell-8-19" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">username</span><span class="kw">:</span><span class="at"> ${{ secrets.DOCKER_HUB_USERNAME }}</span></span>
+<span id="annotated-cell-8-20"><a href="#annotated-cell-8-20" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">password</span><span class="kw">:</span><span class="at"> ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-8" data-target-annotation="6">6</button><span id="annotated-cell-8-21" class="code-annotation-target"><a href="#annotated-cell-8-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> Build and push Docker images</span></span>
+<span id="annotated-cell-8-22"><a href="#annotated-cell-8-22" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">uses</span><span class="kw">:</span><span class="at"> docker/build-push-action@v5</span></span>
+<span id="annotated-cell-8-23"><a href="#annotated-cell-8-23" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">with</span><span class="kw">:</span></span>
+<span id="annotated-cell-8-24"><a href="#annotated-cell-8-24" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">context</span><span class="kw">:</span><span class="at"> .</span></span>
+<span id="annotated-cell-8-25"><a href="#annotated-cell-8-25" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">push</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span>
+<span id="annotated-cell-8-26"><a href="#annotated-cell-8-26" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">tags</span><span class="kw">:</span><span class="at"> ${{ secrets.DOCKER_HUB_USERNAME }}/my-image:latest</span></span>
+<span id="annotated-cell-8-27"><a href="#annotated-cell-8-27" aria-hidden="true" tabindex="-1"></a><span class="at">          </span><span class="fu">platforms</span><span class="kw">:</span><span class="at"> linux/amd64,linux/arm64</span></span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="4" data-code-annotation="1"><strong>Trigger</strong>: When to run the workflow</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="10" data-code-annotation="2"><strong>Checkout</strong>: Checks out the repository code</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="12" data-code-annotation="3"><strong>QEMU</strong>: Sets up QEMU for multi-architecture builds</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="4">4</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="14" data-code-annotation="4"><strong>Docker Buildx</strong>: Configures Docker Buildx for the build process</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="5">5</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="16" data-code-annotation="5"><strong>Authentication</strong>: Logs into Docker Hub using the stored credentials</span>
+</dd>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="6">6</dt>
+<dd>
+<span data-code-cell="annotated-cell-8" data-code-lines="21" data-code-annotation="6"><strong>Build &amp; Push</strong>: Builds the Docker image using the repository’s Dockerfile, creates images for both AMD64 and ARM64 architectures, and pushes the images to Docker Hub</span>
+</dd>
+</dl>
+</div>
+</figure>
+</div>
+<p>Let’s break down what this workflow does:</p>
+<ol type="1">
+<li><strong>Trigger</strong>: The workflow runs when changes are pushed to the <code>main</code> branch</li>
+<li><strong>Setup</strong>:
+<ul>
+<li>Checks out the repository code</li>
+<li>Sets up QEMU for multi-architecture builds (x86 and ARM, <em>i.e.</em> Apple Silicon)</li>
+<li>Configures Docker Buildx for the build process</li>
+</ul></li>
+<li><strong>Authentication</strong>: Logs into Docker Hub using the stored credentials</li>
+<li><strong>Build &amp; Push</strong>:
+<ul>
+<li>Builds the Docker image using the repository’s Dockerfile</li>
+<li>Creates images for both AMD64 and ARM64 architectures</li>
+<li>Pushes the images to Docker Hub</li>
+</ul></li>
+</ol>
+<p>Once this workflow is in place, every push to the main branch will:</p>
+<ol type="1">
+<li>Trigger an automated build</li>
+<li>Create Docker images for multiple architectures</li>
+<li>Push these images to Docker Hub</li>
+</ol>
+<p>You can monitor the progress of your builds in the “Actions” tab of your GitHub repository. Each workflow run will show detailed logs of the build process, making it easy to troubleshoot any issues that arise.</p>
+<p>This GitHub workflow requires that we have a GitHub repository with a Dockerfile in the root directory. There are bound to be files or directories inside our project that will will not want to add to the Docker image. For this case, we have the <code>.dockerignore</code> file, as seen in <a href="#lst-project-docker" class="quarto-xref">Snippet&nbsp;9</a>. This is much like the <code>.gitignore</code> file but instead of telling Git not to track certain files and directories, this file pertains to Docker image builds. In many cases, however, both files will contain the same files and directories to ignore.</p>
+<div id="lst-project-docker" class="listing quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-lst figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-lst quarto-uncaptioned" id="lst-project-docker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Snippet&nbsp;9
+</figcaption>
+<div aria-describedby="lst-project-docker-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode xml code-annotation-code code-with-copy code-annotated"><code class="sourceCode xml"><span id="annotated-cell-9-1"><a href="#annotated-cell-9-1" aria-hidden="true" tabindex="-1"></a>project/</span>
+<span id="annotated-cell-9-2"><a href="#annotated-cell-9-2" aria-hidden="true" tabindex="-1"></a>  ├── data/</span>
+<span id="annotated-cell-9-3"><a href="#annotated-cell-9-3" aria-hidden="true" tabindex="-1"></a>  ├── process/</span>
+<span id="annotated-cell-9-4"><a href="#annotated-cell-9-4" aria-hidden="true" tabindex="-1"></a>  ├── reports/</span>
+<span id="annotated-cell-9-5"><a href="#annotated-cell-9-5" aria-hidden="true" tabindex="-1"></a>  ├── renv/</span>
+<span id="annotated-cell-9-6"><a href="#annotated-cell-9-6" aria-hidden="true" tabindex="-1"></a>  ├── _quarto.yml</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="1">1</button><span id="annotated-cell-9-7" class="code-annotation-target"><a href="#annotated-cell-9-7" aria-hidden="true" tabindex="-1"></a>  ├── Dockerfile</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-9" data-target-annotation="2">2</button><span id="annotated-cell-9-8" class="code-annotation-target"><a href="#annotated-cell-9-8" aria-hidden="true" tabindex="-1"></a>  ├── .dockerignore</span>
+<span id="annotated-cell-9-9"><a href="#annotated-cell-9-9" aria-hidden="true" tabindex="-1"></a>  ├── .gitignore</span>
+<span id="annotated-cell-9-10"><a href="#annotated-cell-9-10" aria-hidden="true" tabindex="-1"></a>  ├── index.qmd</span>
+<span id="annotated-cell-9-11"><a href="#annotated-cell-9-11" aria-hidden="true" tabindex="-1"></a>  ├── README.md</span>
+<span id="annotated-cell-9-12"><a href="#annotated-cell-9-12" aria-hidden="true" tabindex="-1"></a>  └── renv.lock</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="7" data-code-annotation="1"><strong>Dockerfile</strong>: The Dockerfile for the project</span>
+</dd>
+<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-9" data-code-lines="8" data-code-annotation="2"><strong>.dockerignore</strong>: Files to ignore when building the Docker image</span>
+</dd>
+</dl>
+</div>
+</figure>
+</div>
+</section>
+<section id="round-trip" class="level4">
+<h4 class="anchored" data-anchor-id="round-trip">Round trip</h4>
+<p>Here’s an overview of the steps involved in preparing and restoring the computational environment for a research project:</p>
+<p><strong>Preparing the computational environment</strong></p>
+<ul>
+<li>Create/develop project with version control (Git/GitHub)
+<ul>
+<li>Organize files in a clear structure (data, process, reports)</li>
+<li>Track changes with meaningful commit messages</li>
+<li>Push to GitHub repository for sharing</li>
+</ul></li>
+<li>Set up reproducible environment
+<ul>
+<li>Initialize {renv} to track R package versions</li>
+<li>Create Dockerfile to capture system dependencies</li>
+<li>Add GitHub Actions workflow for automated builds</li>
+</ul></li>
+<li>Document and share
+<ul>
+<li>Write clear README with setup instructions</li>
+<li>Configure GitHub Pages for web publication</li>
+<li>Push Docker image to Docker Hub</li>
+</ul></li>
 </ul>
-<p>We will have more to say about these tools and strategies later in this recipe.</p>
+<p><strong>Restoring the computational environment</strong></p>
+<ol type="1">
+<li>Review README for setup requirements
+<ul>
+<li>Take note of steps for restoring and running the project</li>
+</ul></li>
+<li>Set up environment:
+<ul>
+<li>Pull Docker image from Docker Hub (or build locally)</li>
+<li>Start container from image</li>
+<li>Restore {renv} environment inside container</li>
+</ul></li>
+<li>Run the project:
+<ul>
+<li>Follow documented workflow</li>
+<li>Render reports/analysis</li>
+<li>Verify results match published findings</li>
+</ul></li>
+</ol>
 </section>
 </section>
 </section>
@@ -628,21 +977,59 @@ Figure&nbsp;4: Computational environment for reproducible research
 <li><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select> Using Quarto websites for sharing research findings is the only way to meet the requirements of a reproducible research project.</li>
 <li>Using <a href="#lst-quarto-config" class="quarto-xref">Snippet&nbsp;2</a>, what option specifies the order in which files are rendered? <select class="webex-select"><option value="blank"></option><option value="">execute-dir</option><option value="answer">render</option><option value="">sidebar</option><option value="">contents</option><option value="">freeze</option></select></li>
 <li>What is the name of the framework that Quarto uses to create presentations? <input class="webex-solveme nospaces ignorecase" size="9" data-answer="[&quot;reveal.js&quot;,&quot;Reveal.js&quot;,&quot;revealjs&quot;]"></li>
-<li>TBD</li>
-<li>TBD</li>
-<li>TBD</li>
+<li><select class="webex-select"><option value="blank"></option><option value="answer">TRUE</option><option value="">FALSE</option></select> Docker containers help ensure reproducibility by providing a consistent operating system and system dependencies across different machines.</li>
+<li><input class="webex-solveme nospaces" size="13" data-answer="[&quot;.dockerignore&quot;]"> What file should you create to prevent certain files and directories from being included in your Docker image during the build process?</li>
+<li><select class="webex-select"><option value="blank"></option><option value="">TRUE</option><option value="answer">FALSE</option></select> When using {renv} in a project, you should commit the entire renv/library/ directory to your Git repository.</li>
 </ol>
 </section>
 <section id="lab-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="lab-preparation">Lab preparation</h2>
-<p>TBD</p>
+<p>In lab <a href="https://github.com/qtalr/lab-11">Lab 11</a>, we will practice setting up a reproducible research environment that can be shared with others. In preparation, review the following:</p>
+<p><strong>Concepts and strategies</strong></p>
+<ul>
+<li>Git/GitHub version control using clone, add, commit, and push.</li>
+<li>{renv} package for R package version management.</li>
+<li>The basics of Docker containerization for system dependencies. In particular, the difference between a Dockerfile, a Docker image, and a Docker container.</li>
+<li>GitHub Actions for automating tasks in a GitHub repository.</li>
+<li>The use of Docker Hub for sharing Docker images.</li>
+</ul>
+<p><strong>Tools and setup</strong></p>
+<ul>
+<li>Git/GitHub setup</li>
+<li>Docker Desktop installed</li>
+<li>Docker Hub account</li>
+<li>RStudio/R environment</li>
+<li>{renv} package installed</li>
+<li>A research project with some R code/analysis</li>
+</ul>
+<p>In this lab, you will set up a research project with version control, {renv} for R package management, a Dockerfile for system dependencies, and a GitHub Actions workflow for automated Docker image builds. You will then test the automated build pipeline and run the analysis in the container.</p>
+<p>This is a more advanced lab, so be prepared to troubleshoot and ask questions as needed.</p>
 <!--
-Lab: Future-proofing research
 
-- Add `renv` to a research project
-- Create a Dockerfile for a research project
-- Build Docker image for a research project using GitHub Actions
 
+1. Initialize and configure {renv} to track R package versions
+2. Create a Dockerfile to capture system dependencies
+3. Set up GitHub Actions to automate Docker image builds
+
+### Tasks
+
+1. **Configure {renv}**
+   - Initialize {renv} in your project
+   - Install required packages
+   - Create/update the lockfile
+   - Test package restoration in a clean environment
+
+2. **Create Docker Environment**
+   - Write a Dockerfile based on rocker/r-ver
+   - Add system dependencies and R packages
+   - Test building the image locally
+   - Run analysis in the container
+
+3. **Setup Automated Builds**
+   - Create Docker Hub repository
+   - Add GitHub Actions workflow
+   - Configure repository secrets
+   - Test the automated build pipeline
 -->
 
 

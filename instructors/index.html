@@ -452,6 +452,7 @@ Furthermore, you may choose to allow students to use their preferred environment
 <h2 class="anchored" data-anchor-id="teaching-resources">Teaching resources</h2>
 <section id="templates" class="level3">
 <h3 class="anchored" data-anchor-id="templates">Templates</h3>
+<!-- TODO: add these templates to the qtalr repository -->
 <ul class="task-list">
 <li><label><input type="checkbox">Course site</label></li>
 <li><label><input type="checkbox">Slides</label></li>
@@ -468,12 +469,9 @@ Furthermore, you may choose to allow students to use their preferred environment
 <li><label><input type="checkbox"><a href="https://www.rstudio.com/products/rstudio/download-server/">RStudio Server</a>: An open-source platform for R programming.</label></li>
 <li><label><input type="checkbox"><a href="https://www.docker.com/">Docker</a>: A platform for developing, shipping, and running applications.</label>
 <ul class="task-list">
-<li><label><input type="checkbox"><a href="">R image</a></label></li>
-<li><label><input type="checkbox"><a href="">RStudio image</a></label></li>
-</ul></li>
-<li><label><input type="checkbox"><a href="https://code.visualstudio.com/">Visual Studio Code</a>: An open-source code editor.</label>
-<ul class="task-list">
-<li><label><input type="checkbox">Devcontainer (coming soon)</label></li>
+<li><label><input type="checkbox"><a href="https://github.com/qtalr/qtalr-r">R image</a> to use R in a containerized environment.</label></li>
+<li><label><input type="checkbox"><a href="https://github.com/qtalr/qtalr-rstudio">RStudio image</a> to use RStudio in a containerized environment.</label></li>
+<li><label><input type="checkbox"><a href="https://github.com/qtalr/r-devcontainer">Devcontainer</a> for Visual Studio Code in a containerized or codespace environment.</label></li>
 </ul></li>
 <li><label><input type="checkbox"><a href="https://nixos.org/">Nix</a>: A purely functional package manager. (coming soon)</label></li>
 </ul>
@@ -481,7 +479,16 @@ Furthermore, you may choose to allow students to use their preferred environment
 <ul class="task-list">
 <li><label><input type="checkbox"><a href="https://swirlstats.com/">{swirl}</a>: An interactive programming lessons for R.</label></li>
 <li><label><input type="checkbox"><a href="https://docs.r-wasm.org/webr/latest/">{webr}</a> and <a href="https://github.com/coatless/quarto-webr">webr quarto</a> Interactive code blocks in Quarto documents including reveal.js slides.</label></li>
-<li><label><input type="checkbox"><a href="">Qtalr extras</a>: A GitHub repository with additional resources to add to R computing environments: Git setup, R packages, RStudio preferences, etc. (coming soon).</label></li>
+<li><label><input type="checkbox"><a href="https://github.com/qtalr/qtalr-extras">Qtalr extras</a>: A GitHub repository with additional resources to add to R computing environments: Git setup, R packages, RStudio preferences, etc.</label></li>
+</ul>
+<p><strong>Scripts</strong></p>
+<ul class="task-list">
+<li><label><input type="checkbox">Shell scripts to manage GitHub repositories for student repository submissions.</label>
+<ul>
+<li><a href="https://gist.github.com/francojc/04a3b71e0eb47952822314f08c6d4646">fetch-student-remote</a>: A script to fetch a student repository for a given assignment. This is used once per student per assignment.</li>
+<li><a href="https://gist.github.com/francojc/3597c39c20def54120550b6c59fa5be3">push-pull-request</a>: A script to push changes to a student repository and create a pull request.</li>
+<li><a href="https://gist.github.com/francojc/b7d021402ce02f461146a7b5eeaa8d29">fetch-student-merge</a>: A script to fetch a student repository and merge changes into the main repository. This is used iteratively to merge subsequent changes from the student repository.</li>
+</ul></li>
 </ul>
 </section>
 <section id="further-reading" class="level3">
