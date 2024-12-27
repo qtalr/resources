@@ -1,15 +1,22 @@
 ---
 title: 07. Web scraping with R
 subtitle: ''
-description: >
+description: |
   This guide will provide you with an overview of web scraping and how you can use R to scrape data from the web using packages such as {rvest}. Web scraping is a technique used to extract data from websites. It is a powerful tool that can be used to collect data for research, analysis, and visualization. In this guide, you will learn how to use R to scrape data from websites and save it in a format that can be used for further analysis.
 categories:
   - guides
+image: images/html.png
 ---
 
-<!--
-Goal: The goal of the guide is to provide readers of the textbook "An Introduction to Quantitative Text Analysis for Linguistics: Reproducible Research Using R" an overview of web scraping as an approach to gathering (language) data from the web for use in linguistic research. The guide needs to be accessible to readers who are new to web scraping and R. The guide should provide a basic introduction to web scraping, explain HTML (the language of the web) enough to understand how packages like {rvest} can use the Document Object Structure to target and extract information. Finally, the guide should provide a simple example of how to scrape data from a website using R that is relevant to the field of linguistics.
+<!-- Goal: The goal of the guide is to provide readers of the textbook "An Introduction to Quantitative Text Analysis for Linguistics: Reproducible Research Using R" an overview of web scraping as an approach to gathering (language) data from the web for use in linguistic research. The guide needs to be accessible to readers who are new to web scraping and R. The guide should provide a basic introduction to web scraping, explain HTML (the language of the web) enough to understand how packages like {rvest} can use the Document Object Structure to target and extract information. Finally, the guide should provide a simple example of how to scrape data from a website using R that is relevant to the field of linguistics.
 -->
+
+```{r}
+#| label: setup
+#| include: false
+
+library(rvest)
+```
 
 ::: {.callout}
 **{{< fa regular list-alt >}} Outcomes**
@@ -17,6 +24,7 @@ Goal: The goal of the guide is to provide readers of the textbook "An Introducti
 - Understand the concept of web scraping and its applications.
 - Learn how to use R to scrape data from websites.
 - Save scraped data in a format that can be used for further analysis.
+
 :::
 
 ## HTML: the language of the web
@@ -61,7 +69,6 @@ The language of the web is HTML. A markup language, raw HTML contains a semi-str
 - `<table>`: Table tag.
 - `<div>`: Division tag, used to group elements.
 :::
-
 
 This structure is what makes it possible to target and extract content from websites, as we will soon see. However, in addition to tags we need to be aware of and understand the CSS selectors `ids` and `classes`. Ids and classes are used as attributes to tags that allow developers to specifiy how a tag element should behave.
 
@@ -127,7 +134,7 @@ Before scraping a website, it is important to check the website's terms of servi
 
 ### Download and parse
 
-In R, the {rvest} package is commonly used for web scraping. It provides the key function `read_html()` that downloads and parses HTML documents. Here's a simple example of how to download and parse a webpage using {rvest}, as seen in @lst-rvest-download.
+In R, the {rvest} package [@R-rvest] is commonly used for web scraping. It provides the key function `read_html()` that downloads and parses HTML documents. Here's a simple eample of how to download and parse a webpage using {rvest}, as seen in @lst-rvest-download.
 
 :::{#lst-rvest-download}
 ```{r}
@@ -148,6 +155,7 @@ class(page)                                             # <3>
 1. Replace the URL with the webpage you want to scrape.
 2. The `read_html()` function downloads the webpage content and parses it into an HTML document.
 3. The `class()` function is used to check the class of the `page` object, which should be `xml_document`.
+
 :::
 
 Note that the R object `page` is an `xml_document` object, which is a representation of the HTML document. This object can be used to extract specific elements from the webpage as we will see in the next section.
@@ -228,9 +236,10 @@ In {rvest} the `html_element()` and `html_elements()` function provide a way to 
 
 # Target the h1 element
 page |>
-  html_element("h1")
-
+  rvest::html_element("h1")           # <1>
 ```
+1. The `html_element()` function targets the first matching element in the HTML document.
+
 :::
 
 The `html_element()` function returns the first matching element, as an 'html_node', not the content contained within. If we want to extract the text content of the element, we can use `html_text()` as in @lst-rvest-extract-h1.
@@ -241,10 +250,12 @@ The `html_element()` function returns the first matching element, as an 'html_no
 
 # Extract the text content of the h1 element
 page |>
-  html_element("h1") |>
-  html_text()
-
+  html_element("h1") |>               # <1>
+  html_text()                         # <2>
 ```
+1. Target the `<h1>` element.
+2. Extract the text content of the `<h1>` element with `html_text()`.
+
 :::
 
 The result is a character vector of length 1 containing the text content of the `<h1>` element.
@@ -257,8 +268,10 @@ Now in @lst-rvest-extract-h1 we targeted and extracted a single element, `<h1>`.
 
 # Extract the text content of all h2 elements
 page |>
-  html_elements("h2")
+  html_elements("h2")                # <1>
 ```
+1. Target all `<h2>` elements in the HTML document.
+
 :::
 
 Note now the R object is an 'xml_nodeset' which is a list of 'xml_node' objects. To extract the text content of each element in the list, we can use `html_text()` as in @lst-rvest-extract-h2-text.
@@ -269,14 +282,17 @@ Note now the R object is an 'xml_nodeset' which is a list of 'xml_node' objects.
 
 # Extract the text content of all h2 elements
 page |>
-  html_elements("h2") |>
-  html_text()
+  html_elements("h2") |>             # <1>
+  html_text()                        # <2>
 ```
+1. Target all `<h2>` elements in the HTML document.
+2. Extract the text content of all `<h2>` elements with `html_text()`.
+
 :::
 
 The result is a character vector containing the text content of all `<h2>` elements in the HTML document.
 
-Now, let's consider targeting sections of the HTML within `<div>` elements. The `<div>` tag in HTML is a generic container for grouping elements. In the toy HTML document, we have three sets of content within `<div>` elements: two embedded within one. If we were to target just the `<div>` tags with `html_elements()` we would get all three, as in @lst-rvest-extract-div.
+Let's consider targeting sections of the HTML within `<div>` elements. The `<div>` tag in HTML is a generic container for grouping elements. In the toy HTML document, we have three sets of content within `<div>` elements: two embedded within one. If we were to target just the `<div>` tags with `html_elements()` we would get all three, as in @lst-rvest-extract-div.
 
 :::{#lst-rvest-extract-div}
 ```{r}
@@ -284,8 +300,10 @@ Now, let's consider targeting sections of the HTML within `<div>` elements. The 
 
 # Extract all div elements
 page |>
-  html_elements("div")
+  html_elements("div")                # <1>
 ```
+1. Target all `<div>` elements in the HTML document.
+
 :::
 
 This is were our CSS selectors come in handy. We can use the `class` attribute to target specific `<div>` elements. For example, to target the `<div>` elements with the class `excerpt`, we can use `html_elements("div.excerpt")` as in @lst-rvest-extract-excerpt.
@@ -296,8 +314,10 @@ This is were our CSS selectors come in handy. We can use the `class` attribute t
 
 # Extract div elements with class "excerpt"
 page |>
-  html_elements("div.excerpt")
+  html_elements("div.excerpt")         # <1>
 ```
+1. Target all `<div>` elements with the class `excerpt` in the HTML document.
+
 :::
 
 There are number of operators that are used to target elements in the HTML document with {rvest}. The `.` denotes a class, `#` denotes an id, and `>` denotes a child element. So for example, to target the `<div>` element with the id `excerpt1` we would use `html_element("div#excerpt1")`.
@@ -308,8 +328,10 @@ There are number of operators that are used to target elements in the HTML docum
 
 # Extract div element with id "excerpt1"
 page |>
-  html_element("div#excerpt1")
+  html_element("div#excerpt1")         # <1>
 ```
+1. Target the `<div>` element with the id `excerpt1` in the HTML document.
+
 :::
 
 A child element is one that is nested within another element. So for example, to target the `<p>` element within the `<div>` element with the id `excerpt1` we would use `html_element("div#excerpt1 > p")`.
@@ -330,69 +352,54 @@ Now, let's shoot to extract the content from this toy HTML document and organize
 
 :::{#tbl-extracted-text}
 | variety | description |
-|---------|-------------|
+|:--------|:------------|
 | American English | American English is the variety of English spoken in the United States. It has several distinctive features in pronunciation, vocabulary, and grammar. |
 | British English | British English refers to the English language as spoken and written in Great Britain. It differs from American English in spelling, vocabulary, and some grammatical constructions. |
 
 : Extracted text content from the toy HTML document.
 :::
 
-To achieve this, we can use the following code snippet:
+This can be achieved in a number of ways. Let's look a straightforward way of doing this by targeting the elements directly. First, let's extract the `<h2>` elements as a vector and then the `<p>` elements as a vector. We can then combine these vectors into a data frame using the `tibble()` function from the {tibble} package.
 
-:::{#lst-organize-extracted-text}
+:::{#lst-organize-extracted-text-elements}
 ```{r}
-#| label: organize-extracted-text
+#| label: organize-extracted-text-elements
 
-library(purrr)
 library(tibble)
-
 
 # Extract text content from the toy HTML document
 varieties <-
   page |>
-  html_elements("div.excerpt") |>
-  map_df(~tibble(
-    variety = .x |> html_element("h2") |> html_text(),
-    description = .x |> html_element("p") |> html_text()
-  ))
+  html_elements("div.excerpt > h2") |>                        # <1>
+  html_text()                                                 # <2>
 
-varieties
+descriptions <-
+  page |>
+  html_elements("div.excerpt > p") |>                         # <3>
+  html_text()                                                 # <4>
+
+df <- tibble(variety = varieties, description = descriptions) # <5>
+
+df
 ```
+1. Target all `<h2>` elements within `<div>` elements with the class `excerpt`.
+2. Extract the text content of all `<h2>` elements.
+3. Target all `<p>` elements within `<div>` elements with the class `excerpt`.
+4. Extract the text content of all `<p>` elements.
+5. Combine the extracted text content into a data frame using `tibble()`.
+
 :::
 
+From this point we have a data frame `df` that contains the extracted text content from the toy HTML document in a structured format. We can now save this data frame to a file and create the necessary documentation files for our analysis.
 
-
-
-This example shows how to:
-
-1. Download and parse it using {rvest}
-2. Extract specific elements using CSS selectors:
-3. Organize the extracted text into a structured format
-
-The CSS selectors we used (`.excerpt`, `h2`, `p`) demonstrate how we can target specific parts of an HTML document based on both tags and classes. This is the same principle we would use when scraping actual websites, just with more complex HTML structures.
-
-## Best Practices for Text Collection
-
-When scraping web text for linguistic research:
-
-1. Document your source URL and date of collection
-2. Save the raw scraped text before any processing
-3. Include error handling in your code
-4. Consider text encoding issues
-5. Verify the quality of extracted text
-6. Document any cleaning steps performed
-
-These practices ensure your text collection is reproducible and suitable for linguistic analysis.
+This is a simple example of how to extract text content from HTML. As websites get more complicated, the process of targeting and extracting content can become more complex. However, the principles remain the same: target specific elements using tags and CSS selectors, extract the text content, and organize it into a structured format.
 
 ## Next Steps
 
 To build on these basics:
 
-- Explore different text sources and their HTML structures
-- Learn to handle different text encodings
 - Practice extracting text from more complex webpage layouts
-- Consider using the {polite} package for ethical scraping
+- Consider using the {polite} package [@R-polite] for ethical scraping
 - Explore ways to collect metadata along with your text
-
-The textbook provides more detailed examples of text collection and processing in Chapter X, where we explore building and analyzing corpora from web sources.
+- Learn to handle different text encodings
 
