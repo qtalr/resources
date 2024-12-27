@@ -2,17 +2,16 @@
 project:
   type: website
   render:
-    - "*.qmd"
-    - "!R/"
+    - '*.qmd'
+    - '!R/'
   preview:
     port: 3210
-
 # Website ------------------------------
 website:
-  title: "{{< var site.title >}}"
-  repo-url: "{{< var site.repo-url >}}"
+  title: '{{< var site.title >}}'
+  repo-url: '{{< var site.repo-url >}}'
   repo-actions: [edit, issue]
-  repo-link-target: "_blank"
+  repo-link-target: '_blank'
   navbar:
     background: secondary
     foreground: light
@@ -24,11 +23,9 @@ website:
     right:
       - file: instructors/index.qmd
       - icon: github
-        href: "{{< var site.repo-url >}}"
-
+        href: '{{< var site.repo-url >}}'
   page-footer:
-    left: "Developed by Jerid Francom"
-
+    left: 'Developed by Jerid Francom'
 # Formats ------------------------------
 format:
   html:
@@ -44,34 +41,26 @@ format:
     include-after-body: include/webex.js
     comments:
       hypothesis: true
-
 # Reference and numbering ---------------
-
 crossref:
-  lst-title: "Snippet"
-  lst-prefix: "Snippet"
-  appendix-title: "App"
-  appendix-delim: ":"
-
+  lst-title: 'Snippet'
+  lst-prefix: 'Snippet'
+  appendix-title: 'App'
+  appendix-delim: ':'
 bibliography: [bibliography.bib, packages.bib, packages_add.bib]
 biblio-style: apalike
 link-citations: true
-
 code-annotations: select
 code-line-numbers: true
-
 number-depth: 2
-
 # Pandoc ------------------------------
 execute:
   freeze: auto
   warning: false
   message: false
-  cache: true
-
+  cache: refresh
 # Engine ------------------------------
 knitr:
   opts_chunk:
-    comment: ""
+    comment: ''
     out.width: NULL
-

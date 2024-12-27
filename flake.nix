@@ -49,6 +49,7 @@
           infer
           janitor
           kableExtra
+          polite
           PsychWordVec
           purrr
           quanteda
