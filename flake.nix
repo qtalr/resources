@@ -87,7 +87,7 @@
           buildInputs = allPackages;
           shellHook = ''
             # For installing non-nix R packages in the shell
-            export R_LIBS_USER=$PWD/R/Library;
+            export R_LIBS_USER="$PWD/R/Library";
             mkdir -p "$R_LIBS_USER";
             echo "R environment set up";
           '';
